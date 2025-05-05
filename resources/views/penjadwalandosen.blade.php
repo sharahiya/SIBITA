@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Mahasiswa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@extends('layouts.layoutdosen')
+@section('content')
     <style>
     .table-container {
     max-height: 400px;
@@ -35,14 +29,9 @@
     }
 </style>
 
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col">
-    
-    <!-- Navbar -->
-    @include('components/navbardosen')
 
     <div class="container mx-auto px-4 pt-4">
-        <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto mt-16">
+        <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto">
 
             <div class="text-center mb-8">
                 <h1 class="text-2xl font-semibold text-gray-800">Jadwal Seminar Mahasiswa</h1>
@@ -112,7 +101,4 @@
         </div>
     </div>
 
-    <!-- Navbar -->
-    @include('components/footer')
-</body>
-</html>
+@endsection

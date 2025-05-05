@@ -4,16 +4,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DaftarDosenController;
 use App\Http\Controllers\PengajuanController;
-use App\Http\Controllers\statusController;
 #status tu setelah pengajuan#
-use App\Http\Controllers\DetailMhsController;
 use App\Http\Controllers\ProfileDosenController;
 use App\Http\Controllers\ManajemenAkunAdminController;
-use App\Http\Controllers\PesanController;
 use App\Http\Controllers\UploadBerkasController;
 use App\Http\Controllers\WaitingPageController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\SuksesController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\RequestDosenController;
 use App\Http\Controllers\PenjadwalanDosenController;
@@ -24,6 +20,13 @@ use App\Http\Controllers\NotifikasiDosenController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\ManajemenAkunController;
 use App\Http\Controllers\PenjadwalanAdminController;
+use App\Http\Controllers\RequestAdminController;
+use App\Http\Controllers\Pengajuan2Controller;
+use App\Http\Controllers\DetailDospem1Controller;
+use App\Http\Controllers\PengujiAdminController;
+use App\Http\Controllers\EditManajemenAkunController;
+use App\Http\Controllers\ResetPassController;
+use App\Http\Controllers\NotifikasiAdminController;
 
 
 Route::get('/', function () {
@@ -38,16 +41,12 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/panduan', [PanduanController::class, 'index'])->name('panduan');
 Route::get('/pengaturanakun', [PengaturanakunController::class, 'index'])->name('pengaturanakun');
 Route::get('/logout', [LogoutController::class, 'index'])->name('logout');
-Route::get('/status', [StatusController::class, 'index'])->name('status');
 #status tu setelah pengajuan#
-Route::get('/detailmhs', [DetailMhsController::class, 'index'])->name('detailmhs');
 Route::get('/profiledosen', [ProfileDosenController::class, 'index'])->name('profiledosen');
 Route::get('/manajemenakunadmin', [ManajemenAkunAdminController::class, 'index'])->name('manajemenakunadmin');
-Route::get('/pesan', [PesanController::class, 'index'])->name('pesan');
 Route::get('/uploadberkas', [UploadBerkasController::class, 'index'])->name('uploadberkas');
 Route::get('/waitingpage', [WaitingPageController::class, 'index'])->name('waitingpage');
 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
-Route::get('/sukses', [SuksesController::class, 'index'])->name('sukses');
 Route::get('/dashboarddosen', [DashboardDosenController::class, 'index'])->name('dashboarddosen');
 Route::get('/requestdosen', [RequestDosenController::class, 'index'])->name('requestdosen');
 Route::get('/penjadwalandosen', [PenjadwalanDosenController::class, 'index'])->name('penjadwalandosen');
@@ -58,3 +57,10 @@ Route::get('/notifikasidosen', [NotifikasiDosenController::class, 'index'])->nam
 Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])->name('dashboardadmin');
 Route::get('/manajemenakun', [ManajemenAkunController::class, 'index'])->name('manajemenakun');
 Route::get('/penjadwalanadmin', [PenjadwalanAdminController::class, 'index'])->name('penjadwalanadmin');
+Route::get('/requestadmin', [RequestAdminController::class, 'index'])->name('requestadmin');
+Route::get('/pengajuan2', [Pengajuan2Controller::class, 'index'])->name('pengajuan2');
+Route::get('/detaildospem1', [DetailDospem1Controller::class, 'index'])->name('detaildospem1');
+Route::get('/pengujiadmin', [PengujiAdminController::class, 'index'])->name('pengujiadmin');
+Route::get('/editmanajemenakun', [EditManajemenAkunController::class, 'index'])->name('editmanajemenakun');
+Route::get('/resetpass', [ResetPassController::class, 'index'])->name('resetpass');
+Route::get('/notifikasiadmin', [NotifikasiAdminController::class, 'index'])->name('notifikasiadmin');

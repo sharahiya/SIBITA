@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Mahasiswa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@extends('layouts.layoutdosen')
+@section('content')
     <style>
         .table-container {
             max-height: 400px;
@@ -20,14 +14,10 @@
             white-space: nowrap;
         }
     </style>
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col">
-    
-    <!-- Navbar -->
-    @include('components/navbardosen')
+
 
     <div class="container mx-auto px-4 pt-4">
-        <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto mt-16">
+        <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto">
 
             <div class="text-center mb-8">
                 <h1 class="text-2xl font-semibold text-gray-800">Request Mahasiswa Bimbingan</h1>
@@ -90,24 +80,25 @@
     </div>
 
     <script>
-        function openModal(deskripsi) {
-            document.getElementById('modalText').innerText = deskripsi;
-            document.getElementById('modalDeskripsi').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('modalDeskripsi').classList.add('hidden');
-        }
-
         function acceptRequest(id) {
+        // Menampilkan konfirmasi sebelum menerima request
+        if (confirm('Apakah Anda yakin ingin menerima request mahasiswa ' + id + '?')) {
             alert('Request mahasiswa ' + id + ' diterima.');
+        } else {
+            alert('Request tidak diterima.');
         }
+    }
 
         function rejectRequest(id) {
-            document.getElementById('modalReject').classList.remove('hidden');
+            // Menampilkan konfirmasi sebelum menolak request
+            if (confirm('Apakah Anda yakin ingin menolak request mahasiswa ' + id + '?')) {
+                document.getElementById('modalReject').classList.remove('hidden');
+            } else {
+                alert('Request tidak ditolak.');
+            }
         }
 
-        function submitReject() {
+            function submitReject() {
             let reason = document.getElementById('rejectReason').value;
             if (reason.trim() === "") {
                 alert('Harap isi alasan penolakan!');
@@ -120,9 +111,15 @@
         function closeRejectModal() {
             document.getElementById('modalReject').classList.add('hidden');
         }
+
+        function openModal(deskripsi) {
+            document.getElementById('modalText').innerText = deskripsi;
+            document.getElementById('modalDeskripsi').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modalDeskripsi').classList.add('hidden');
+        }
     </script>
 
-     <!-- Navbar -->
-     @include('components/footer')
-</body>
-</html>
+@endsection

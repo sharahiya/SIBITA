@@ -27,7 +27,15 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIBITA</span>
     </a>
 
-    <div class="absolute left-1/2 transform -translate-x-1/2">
+    <!-- Mobile Menu Toggle Button -->
+    <button id="menu-toggle" class="lg:hidden text-gray-800 dark:text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex absolute left-1/2 transform -translate-x-1/2">
       <ul class="flex space-x-8 text-sm">
         <li><a href="{{ route('dashboarddosen') }}" class=" text-blue-700 dark:text-white">Dashboard</a></li>
         <li><a href="{{ route('profiledosen') }}" class=" text-blue-700 dark:text-white">Profile</a></li>
@@ -58,11 +66,24 @@
                     <span class="block text-sm text-gray-500 dark:text-gray-400">2108107010082</span>
                 </div>
                 <ul class="py-2">
-                    <li><a href="settingsmhs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
+                    <li><a href="{{ route('resetpass') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
                     <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Sign out</a></li>
                 </ul>
             </div>
         </div>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40">
+    <div class="w-64 bg-white dark:bg-gray-900 h-full shadow-lg">
+      <ul class="space-y-4 p-4 text-sm">
+        <li><a href="{{ route('dashboarddosen') }}" class="block text-blue-700 dark:text-white">Dashboard</a></li>
+        <li><a href="{{ route('profiledosen') }}" class="block text-blue-700 dark:text-white">Profile</a></li>
+        <li><a href="{{ route('requestdosen') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Request</a></li>
+        <li><a href="{{ route('penjadwalandosen') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
+        <li><a href="{{ route('riwayatdosen') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Riwayat</a></li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -71,6 +92,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const userMenuButton = document.getElementById("user-menu-button");
     const userDropdown = document.getElementById("user-dropdown");
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
 
     userMenuButton.addEventListener("click", function() {
         userDropdown.classList.toggle("hidden");
@@ -79,6 +102,16 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", function(event) {
         if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
             userDropdown.classList.add("hidden");
+        }
+    });
+
+    menuToggle.addEventListener("click", function() {
+        mobileMenu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", function(event) {
+        if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+            mobileMenu.classList.add("hidden");
         }
     });
 });

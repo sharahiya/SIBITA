@@ -1,27 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menunggu Persetujuan</title>
-    <script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script>
-    tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ["Poppins", "sans-serif"],
-                        inter: ["Inter", "sans-serif"],
-                    },
-                    colors: {
-                        primary: "#1E293B",
-                        secondary: "#64748B",
-                        accent: "#2563EB",
-                    },
-                },
-            },
-        };
-    </script>
+@extends('layouts.layoutmhs')
+@section('content')
+
     <style>
         .fade-in {
             animation: fadeIn 0.8s ease-in-out;
@@ -31,13 +10,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col items-center p-4">
 
-    <!-- Navbar -->
-    @include('components/navbar')
-
-    <div class="bg-white p-8 mt-16 rounded-lg shadow-lg text-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-2xl mx-auto">
         <h1 class="text-2xl font-semibold text-gray-700">Pengajuan Anda Sedang Diproses</h1>
         <p class="text-gray-600 mt-4">Harap menunggu, dosen akan segera meninjau pengajuan bimbingan Anda.</p>
         <div class="mt-6 flex justify-center">
@@ -46,7 +20,7 @@
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a8 8 0 00-8 8z"></path>
             </svg>
         </div>
-        <a href="/" class="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Kembali ke Dashboard</a>
+        <a href="/" class="mt-6 inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Kembali ke Dashboard</a>
     </div>
-</body>
-</html>
+
+@endsection

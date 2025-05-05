@@ -27,19 +27,28 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIBITA</span>
     </a>
 
-    <div class="absolute left-1/2 transform -translate-x-1/2">
-      <ul class="flex space-x-8 text-sm">
-        <li><a href="{{ route('dashboardadmin') }}" class=" text-blue-700 dark:text-white">Dashboard</a></li>
-        <li><a href="{{ route('profiledosen') }}" class=" text-blue-700 dark:text-white">Profile</a></li>
-        <li><a href="{{ route('manajemenakun') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Manajemen Akun</a></li>
-        <li><a href="{{ route('penjadwalanadmin') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
-        <li><a href="{{ route('riwayatdosen') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Riwayat</a></li>
-      </ul>
+    <!-- Mobile Menu Toggle Button -->
+    <button id="menu-toggle" class="lg:hidden text-gray-800 dark:text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-900 transform -translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-auto lg:flex lg:items-center">
+      <div class="flex flex-col lg:flex-row lg:space-x-8 p-4 lg:p-0">
+        <ul class="space-y-4 lg:space-y-0 lg:flex lg:space-x-8 text-sm">
+          <li><a href="{{ route('dashboardadmin') }}" class="text-blue-700 dark:text-white">Dashboard</a></li>
+          <li><a href="{{ route('manajemenakun') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Manajemen Akun</a></li>
+          <li><a href="{{ route('penjadwalanadmin') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
+          <li><a href="{{ route('requestadmin') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Penguji</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="flex items-center space-x-4">
+    <div class="hidden lg:flex items-center space-x-4">
         <!-- Notifikasi Icon -->
-        <a href="{{ route('notifikasidosen') }}" class="relative">
+        <a href="{{ route('notifikasiadmin') }}" class="relative">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 00-12 0v3c0 .386-.146.75-.405 1.045L4 17h5m6 0a3 3 0 11-6 0"></path>
             </svg>
@@ -58,7 +67,7 @@
                     <span class="block text-sm text-gray-500 dark:text-gray-400">2108107010082</span>
                 </div>
                 <ul class="py-2">
-                    <li><a href="settingsmhs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
+                    <li><a href="{{ route('resetpass') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
                     <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Sign out</a></li>
                 </ul>
             </div>
@@ -69,8 +78,14 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
     const userMenuButton = document.getElementById("user-menu-button");
     const userDropdown = document.getElementById("user-dropdown");
+
+    menuToggle.addEventListener("click", function() {
+        sidebar.classList.toggle("-translate-x-full");
+    });
 
     userMenuButton.addEventListener("click", function() {
         userDropdown.classList.toggle("hidden");

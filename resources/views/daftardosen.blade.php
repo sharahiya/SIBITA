@@ -1,33 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Dosen</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ["Poppins", "sans-serif"],
-                        inter: ["Inter", "sans-serif"],
-                    },
-                },
-            },
-        };
-    </script>
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col">
-<!-- Navbar -->
-@include('components/navbar')
-
-<div class="container mx-auto p-6 max-w-5xl">
+@extends('layouts.layoutmhs')
+@section('content')
+<div class="container mx-auto max-w-5xl">
 <h1 class="text-center text-2xl font-bold mb-6">Daftar Dosen</h1>
     
-    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-    <h2 class="text-center text-xl font-semibold mb-4">Daftar Dosen</h2>
+    <div class="bg-white p-6 rounded-lg shadow-md">
         <div class="text-center mb-4">
             <button class="tab-button px-4 py-2 mx-2 bg-blue-500 text-white rounded-lg" onclick="showCategory('rpl')">RPL</button>
             <button class="tab-button px-4 py-2 mx-2 bg-blue-500 text-white rounded-lg" onclick="showCategory('dm')">DM</button>
@@ -104,6 +80,5 @@
     document.addEventListener("DOMContentLoaded", () => showCategory('rpl'));
 </script>
 
-</body>
-</html>
+@endsection
 

@@ -1,96 +1,94 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Tugas Akhir</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script>
-    tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ["Poppins", "sans-serif"],
-                        inter: ["Inter", "sans-serif"],
-                    },
-                    colors: {
-                        primary: "#1E293B",
-                        secondary: "#64748B",
-                        accent: "#2563EB",
-                    },
-                },
-            },
-        };
-    </script>
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col items-center p-4">
+@extends('layouts.layoutmhs')
 
-    <!-- Navbar -->
-    @include('components/navbar')
+@section('content')
 
-    <div class="max-w-3xl w-full bg-white shadow-md rounded-lg p-6 mt-16 fade-in">
-        <h2 class="text-lg font-semibold text-primary border-b pb-2 flex items-center">
-            <i class="fas fa-user-graduate text-accent mr-2"></i> Informasi Mahasiswa
-        </h2>
-        <div class="mt-3 text-secondary space-y-2 text-sm">
-            <p><span class="font-medium text-primary">Nama:</span> Sharahiya</p>
-            <p><span class="font-medium text-primary">NPM:</span> 2108107010082</p>
-            <p><span class="font-medium text-primary">Semester Sajian:</span> Genap 2024/2025</p>
-            <p><span class="font-medium text-primary">Dosen Wali:</span> Dr. Muzailin, S.Si., M.Sc.</p>
-            <p><span class="font-medium text-primary">NIP Dosen Wali:</span> 197001011992031002</p>
-        </div>
+<div class="container mx-auto px-4 pt-4 max-w-5xl space-y-6">
 
-        <div id="ta-info" class="mt-4">
-            <h3 class="text-lg font-semibold text-primary border-b pb-2 flex items-center">
-                <i class="fas fa-book text-accent mr-2"></i> Informasi Tugas Akhir
-            </h3>
-            <div class="text-secondary space-y-2 mt-3 text-sm">
-                <p><span class="font-medium text-primary">Bidang Penelitian:</span> [Belum tersedia]</p>
-                <p><span class="font-medium text-primary">Judul TA:</span> [Belum tersedia]</p>
-                <p><span class="font-medium text-primary">Deskripsi TA:</span> [Belum tersedia]</p>
-                <p><span class="font-medium text-primary">Dospem 1:</span> [Belum tersedia]</p>
-                <p><span class="font-medium text-primary">Dospem 2:</span> [Belum tersedia]</p>
-            </div>
-        </div>
+    <!-- Header -->
+    <div class="bg-white p-6 shadow-md rounded-lg">
+        <h1 class="text-lg font-extrabold text-gray-800">Tugas Akhir Mahasiswa</h1> <!-- Judul lebih tegas -->
+        <p class="text-sm text-gray-600">Informasi lengkap mengenai tugas akhir mahasiswa</p>
+    </div>
 
-        <div class="mt-4">
-    <h3 class="text-lg font-semibold text-primary border-b pb-2 flex items-center">
-        <i class="fas fa-upload text-accent mr-2"></i> Upload Berkas
-    </h3>
-    <form class="mt-3 space-y-4" id="uploadForm">
-        <div class="space-y-2">
+    <!-- Data Mahasiswa -->
+    <div class="bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-sm font-extrabold text-gray-800 mb-4">Data Mahasiswa</h2> <!-- Judul lebih tegas -->
+        <div class="space-y-4 text-sm text-gray-700">
             <div>
-                <label for="sempro" class="block text-secondary text-xs font-medium">
-                    <span class="font-medium text-primary">Upload Berkas Seminar Proposal:</span>
-                </label>
-                <input type="file" id="sempro" class="w-full border p-2 rounded focus:ring-accent text-xs">
-                <button type="submit" class="mt-2 bg-accent text-white px-4 py-2 rounded hover:bg-blue-700 text-xs">
-                    Submit
-                </button>
+                <span class="font-bold text-gray-900">Nama:</span> <span class="text-gray-700">Fauzan Ramadhan</span> <!-- Nama lebih tegas -->
             </div>
             <div>
-                <label for="semhas" class="block text-secondary text-xs font-medium">
-                    <span class="font-medium text-primary">Upload Berkas Seminar Hasil:</span>
-                </label>
-                <input type="file" id="semhas" class="w-full border p-2 rounded focus:ring-accent text-xs">
-                <button type="submit" class="mt-2 bg-accent text-white px-4 py-2 rounded hover:bg-blue-700 text-xs">
-                    Submit
-                </button>
+                <span class="font-bold text-gray-900">NPM:</span> <span class="text-gray-700">2108107010011</span> <!-- NPM lebih tegas -->
             </div>
             <div>
-                <label for="sidang" class="block text-secondary text-xs font-medium">
-                    <span class="font-medium text-primary">Upload Berkas Sidang:</span>
-                </label>
-                <input type="file" id="sidang" class="w-full border p-2 rounded focus:ring-accent text-xs">
-                <button type="submit" class="mt-2 bg-accent text-white px-4 py-2 rounded hover:bg-blue-700 text-xs">
-                    Submit
-                </button>
+                <span class="font-bold text-gray-900">Semester Sajian:</span> <span class="text-gray-700">Genap 2024</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">Dosen Wali:</span> <span class="text-gray-700">Dr. Ahmad S.Pd., M.Kom</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">NIP Dosen Wali:</span> <span class="text-gray-700">198012312007011001</span>
             </div>
         </div>
-    </form>
+    </div>
+
+    <!-- Informasi Tugas Akhir -->
+    <div class="bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-sm font-extrabold text-gray-800 mb-4">Informasi Tugas Akhir</h2> <!-- Judul lebih tegas -->
+        <div class="space-y-4 text-sm text-gray-700">
+            <div>
+                <span class="font-bold text-gray-900">Bidang Penelitian:</span> <span class="text-gray-700">Kecerdasan Buatan</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">Judul TA:</span> <span class="text-gray-700">Penerapan Deep Learning dalam Deteksi Emosi Wajah</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">Deskripsi:</span>
+                <p class="text-gray-700 mt-1">Penelitian ini membangun model untuk mendeteksi emosi wajah menggunakan CNN dan dataset FER2013. Penelitian ini bertujuan untuk memahami berbagai ekspresi wajah yang dapat digunakan untuk deteksi emosi secara otomatis dalam berbagai aplikasi. Model yang dibangun diharapkan dapat meningkatkan akurasi sistem deteksi emosi.</p>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">Dosen Pembimbing 1:</span> <span class="text-gray-700">Dr. Budi Santoso</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-900">Dosen Pembimbing 2:</span> <span class="text-gray-700">Dr. Rina Kurniawati</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Berkas -->
+    <div class="bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-sm font-extrabold text-gray-800 mb-4">Upload Berkas</h2> <!-- Judul lebih tegas -->
+        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6 text-sm text-gray-700">
+            <!-- Berkas Sempro -->
+            <div>
+                <label class="font-bold block mb-1 text-blue-600">Bukti Seminar Proposal (JPG/PNG)</label>
+                <input type="file" accept=".jpg,.jpeg,.png" class="w-full file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <p class="text-xs text-gray-500 mt-1">Unggah bukti foto telah mengikuti Seminar Proposal.</p>
+            </div>
+
+            <!-- Berkas Semhas -->
+            <div>
+                <label class="font-bold block mb-1 text-blue-600">Bukti Seminar Hasil (JPG/PNG)</label>
+                <input type="file" accept=".jpg,.jpeg,.png" class="w-full file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <p class="text-xs text-gray-500 mt-1">Unggah bukti foto telah mengikuti Seminar Hasil.</p>
+            </div>
+
+            <!-- Berkas Sidang -->
+            <div>
+                <label class="font-bold block mb-1 text-green-600">File Final Sidang (PDF)</label>
+                <input type="file" accept=".pdf" class="w-full file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                <p class="text-xs text-gray-500 mt-1">Unggah file PDF final tugas akhir untuk sidang.</p>
+            </div>
+
+            <!-- Tombol -->
+            <div class="pt-2">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition text-sm">
+                    Simpan Berkas
+                </button>
+            </div>
+        </form>
+    </div>
+
 </div>
 
-
-</body>
-</html>
+@endsection

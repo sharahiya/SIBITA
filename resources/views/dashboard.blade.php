@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Mahasiswa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script>
-    tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ["Poppins", "sans-serif", "Montserrat"],
-                        helvetica: ["Helvetica", "Arial", "sans-serif"],
-                        inter: ["Inter", "sans-serif"],
-                        roboto: ["Roboto", "sans-serif"],
-                    },
-                },
-            },
-        };
-    </script>
-</head>
-<body class="bg-blue-100 font-poppins min-h-screen flex flex-col">
-
-
-<!-- Navbar -->
-@include('components/navbar')
-
-<!-- Informasi Mahasiswa -->
-<main class="flex-1">
-<div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-20">
+@extends('layouts.layoutmhs')
+@section('content')
+<div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-1">
     <div class="flex items-center space-x-4">
         <div class="flex-shrink-0">
             <img class="h-14 w-14 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Profil">
@@ -75,17 +46,17 @@
                 </div>
             </div>
             <div class="bg-gray-50 p-3 rounded-md flex items-center gap-2">
-                <i class="text-gray-600 fas fa-user-check"></i>
+            <i class="text-gray-600 fas fa-user-check"></i>
                 <div>
                     <h3 class="text-sm text-gray-700">Penguji 1</h3>
-                    <p class="text-xs text-gray-500">Belum ada data - <a href="#" class="text-blue-600">Ajukan</a></p>
+                    <p class="text-xs text-gray-500">Belum ada data - <a href="#" class="text-blue-600"></a></p>
                 </div>
             </div>
             <div class="bg-gray-50 p-3 rounded-md flex items-center gap-2">
                 <i class="text-gray-600 fas fa-user-check"></i>
                 <div>
                     <h3 class="text-sm text-gray-700">Penguji 2</h3>
-                    <p class="text-xs text-gray-500">Belum ada data - <a href="#" class="text-blue-600">Ajukan</a></p>
+                    <p class="text-xs text-gray-500">Belum ada data - <a href="#" class="text-blue-600"></a></p>
                 </div>
             </div>
         </div>
@@ -123,7 +94,7 @@
         </li>
     </ol> 
 </div>
-    </main>
+    
 
 
 <style>
@@ -150,6 +121,4 @@
     .delay-300 { animation-delay: 0.6s; }
 </style>
 
-@include('components/footer')
-</body>
-</html>
+@endsection

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class StatusController extends Controller
+class DetailDospem1Controller extends Controller
 {
     public function index()
     {
-        return view('status');
+        return view('detaildospem1');
     }
 }

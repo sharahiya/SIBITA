@@ -27,16 +27,25 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIBITA</span>
     </a>
 
-    <div class="absolute left-1/2 transform -translate-x-1/2">
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden text-gray-800 dark:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
       <ul class="flex space-x-8 text-sm">
         <li><a href="{{ route('dashboard') }}" class=" text-blue-700 dark:text-white">Dashboard</a></li>
         <li><a href="{{ route('pengajuan') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Pengajuan</a></li>
-        <li><a href="{{ route('daftardosen') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Daftar Dosen</a></li>
-        <li><a href="{{ route('uploadberkas') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Tugas Akhir</a></li>
+        <li><a href="{{ route('uploadberkas') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Berkas</a></li>
         <li><a href="{{ route('penjadwalanmhs') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
+        <li><a href="{{ route('daftardosen') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Daftar Dosen</a></li>
       </ul>
     </div>
 
+    <!-- User Profile and Notifications -->
     <div class="flex items-center space-x-4">
         <!-- Notifikasi Icon -->
         <a href="{{ route('notifikasi') }}" class="relative">
@@ -58,12 +67,30 @@
                     <span class="block text-sm text-gray-500 dark:text-gray-400">2108107010082</span>
                 </div>
                 <ul class="py-2">
-                    <li><a href="settingsmhs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
+                    <li><a href="{{ route('resetpass') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
                     <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Sign out</a></li>
                 </ul>
             </div>
         </div>
     </div>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  <div id="mobile-sidebar" class="fixed top-0 left-0 w-64 h-full bg-white dark:bg-gray-900 shadow-lg transform -translate-x-full transition-transform">
+    <div class="p-4">
+        <button id="close-sidebar" class="text-gray-800 dark:text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+    <ul class="space-y-4 p-4 text-sm">
+        <li><a href="{{ route('dashboard') }}" class="block text-blue-700 dark:text-white">Dashboard</a></li>
+        <li><a href="{{ route('pengajuan') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Pengajuan</a></li>
+        <li><a href="{{ route('daftardosen') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Daftar Dosen</a></li>
+        <li><a href="{{ route('uploadberkas') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Tugas Akhir</a></li>
+        <li><a href="{{ route('penjadwalanmhs') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -79,6 +106,24 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", function(event) {
         if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
             userDropdown.classList.add("hidden");
+        }
+    });
+
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileSidebar = document.getElementById("mobile-sidebar");
+    const closeSidebar = document.getElementById("close-sidebar");
+
+    mobileMenuButton.addEventListener("click", function() {
+        mobileSidebar.classList.remove("-translate-x-full");
+    });
+
+    closeSidebar.addEventListener("click", function() {
+        mobileSidebar.classList.add("-translate-x-full");
+    });
+
+    document.addEventListener("click", function(event) {
+        if (!mobileSidebar.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+            mobileSidebar.classList.add("-translate-x-full");
         }
     });
 });
