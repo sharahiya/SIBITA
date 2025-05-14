@@ -32,6 +32,8 @@ use App\Http\Controllers\NotifikasiAdminController;
 Route::get('/', function () {
     return view('app');
 });
+
+
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/login', [LoginController::class, 'showloginpage']);
@@ -42,6 +44,11 @@ Route::get('/panduan', [PanduanController::class, 'index'])->name('panduan');
 Route::get('/pengaturanakun', [PengaturanakunController::class, 'index'])->name('pengaturanakun');
 Route::get('/logout', [LogoutController::class, 'index'])->name('logout');
 #status tu setelah pengajuan#
+<<<<<<< Updated upstream
+=======
+
+Route::get('/detailmhs', [DetailMhsController::class, 'index'])->name('detailmhs');
+>>>>>>> Stashed changes
 Route::get('/profiledosen', [ProfileDosenController::class, 'index'])->name('profiledosen');
 Route::get('/manajemenakunadmin', [ManajemenAkunAdminController::class, 'index'])->name('manajemenakunadmin');
 Route::get('/uploadberkas', [UploadBerkasController::class, 'index'])->name('uploadberkas');
@@ -57,6 +64,7 @@ Route::get('/notifikasidosen', [NotifikasiDosenController::class, 'index'])->nam
 Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])->name('dashboardadmin');
 Route::get('/manajemenakun', [ManajemenAkunController::class, 'index'])->name('manajemenakun');
 Route::get('/penjadwalanadmin', [PenjadwalanAdminController::class, 'index'])->name('penjadwalanadmin');
+<<<<<<< Updated upstream
 Route::get('/requestadmin', [RequestAdminController::class, 'index'])->name('requestadmin');
 Route::get('/pengajuan2', [Pengajuan2Controller::class, 'index'])->name('pengajuan2');
 Route::get('/detaildospem1', [DetailDospem1Controller::class, 'index'])->name('detaildospem1');
@@ -64,3 +72,5 @@ Route::get('/pengujiadmin', [PengujiAdminController::class, 'index'])->name('pen
 Route::get('/editmanajemenakun', [EditManajemenAkunController::class, 'index'])->name('editmanajemenakun');
 Route::get('/resetpass', [ResetPassController::class, 'index'])->name('resetpass');
 Route::get('/notifikasiadmin', [NotifikasiAdminController::class, 'index'])->name('notifikasiadmin');
+=======
+>>>>>>> Stashed changes
