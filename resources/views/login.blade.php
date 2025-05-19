@@ -26,7 +26,7 @@
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-300 via-blue-400 to-blue-600 p-4">
 
     <div class="max-w-4xl w-full bg-white rounded-xl shadow-md flex flex-col md:flex-row overflow-hidden relative z-10">
-        
+
         <!-- Ilustrasi -->
 <div class="w-full md:w-1/2 order-1 md:order-none bg-blue-100">
     <img src="{{ asset('images/fmipaa.png') }}" alt="Ilustrasi Akademik"
@@ -40,7 +40,13 @@
                 <h1 class="text-xl font-semibold text-gray-900">SIBITA</h1>
                 <p class="text-xs text-gray-500 text-center">Sistem Informasi Bimbingan Tugas Akhir</p>
             </div>
+            @if ($errors->has('login'))
+                <div class="mb-4 text-red-600 text-sm text-center">
+                    {{ $errors->first('login') }}
+                </div>
+            @endif
             <form method="POST" action="/login" class="space-y-3">
+                @csrf
                 <!-- Role -->
                 <div>
                     <label for="role" class="block text-sm font-medium text-gray-700">Login Sebagai</label>

@@ -12,15 +12,15 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 max-w-5xl mx-auto">
         <div class="bg-blue-600 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
             <h2 class="text-lg font-semibold">Jumlah Mahasiswa</h2>
-            <p class="text-2xl font-bold">250</p>
+            <p class="text-2xl font-bold">{{ $jumlahMahasiswa }}</p>
         </div>
         <div class="bg-green-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
             <h2 class="text-lg font-semibold">Jumlah Dosen</h2>
-            <p class="text-2xl font-bold">30</p>
+            <p class="text-2xl font-bold">{{ $jumlahDosen }}</p>
         </div>
         <div class="bg-yellow-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
             <h2 class="text-lg font-semibold">Mahasiswa Aktif TA</h2>
-            <p id="jumlahAktifTA" class="text-2xl font-bold">120</p>
+            <p class="text-2xl font-bold" id="jumlahAktifTA">{{ $mahasiswaAktifTA }}</p>
         </div>
     </div>
 
@@ -32,9 +32,9 @@
         <!-- Dropdown -->
         <div class="flex space-x-4 mb-4">
             <select id="tahunAjaran" class="form-select block w-1/3 p-2 bg-gray-100 border border-gray-300 rounded-md text-xs">
-                <option value="2024/2025">2024/2025</option>
-                <option value="2023/2024">2023/2024</option>
-                <option value="2022/2023">2022/2023</option>
+                @foreach(array_keys($rekap) as $tahun)
+                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                @endforeach
             </select>
 
             <select id="semester" class="form-select block w-1/3 p-2 bg-gray-100 border border-gray-300 rounded-md text-xs">
@@ -47,15 +47,15 @@
         <div class="space-y-3">
             <div class="flex justify-between text-gray-700 text-xs hover:bg-gray-50 transition-all duration-200 rounded-lg p-2">
                 <span>Jumlah Mahasiswa Selesai Seminar Proposal</span>
-                <span id="jumlahSempro" class="font-semibold text-blue-600">45 Mahasiswa</span>
+                <span id="jumlahSempro" class="font-semibold text-blue-600">{{ $rekap['2024/2025']['Genap']['sempro'] }} Mahasiswa</span>
             </div>
             <div class="flex justify-between text-gray-700 text-xs hover:bg-gray-50 transition-all duration-200 rounded-lg p-2">
                 <span>Jumlah Mahasiswa Selesai Seminar Hasil</span>
-                <span id="jumlahSemhas" class="font-semibold text-green-600">38 Mahasiswa</span>
+                <span id="jumlahSemhas" class="font-semibold text-green-600">{{ $rekap['2024/2025']['Genap']['semhas'] }} Mahasiswa</span>
             </div>
             <div class="flex justify-between text-gray-700 text-xs hover:bg-gray-50 transition-all duration-200 rounded-lg p-2">
                 <span>Jumlah Mahasiswa Selesai Sidang Skripsi</span>
-                <span id="jumlahSidang" class="font-semibold text-yellow-600">25 Mahasiswa</span>
+                <span id="jumlahSidang" class="font-semibold text-yellow-600">{{ $rekap['2024/2025']['Genap']['sidang'] }} Mahasiswa</span>
             </div>
         </div>
     </div>
@@ -78,36 +78,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($penjadwalan as $jadwal)
                     <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-3 py-2">Sharahiya</td>
-                        <td class="px-3 py-2">2108107010082</td>
-                        <td class="px-3 py-2">Seminar Proposal</td>
-                        <td class="px-3 py-2">Analisis AI dalam Pendidikan</td>
-                        <td class="px-3 py-2">Dosen Pembimbing</td>
-                        <td class="px-3 py-2">12 Juli 2024</td>
-                        <td class="px-3 py-2">10.00 - Selesai</td>
-                        <td class="px-3 py-2">Ruang 101</td>
+                        <td class="px-3 py-2">{{ $jadwal['nama'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['npm'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['ujian'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['judul'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['peran'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['tanggal'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['waktu'] }}</td>
+                        <td class="px-3 py-2">{{ $jadwal['ruangan'] }}</td>
                     </tr>
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-3 py-2">Fatiya Quzza</td>
-                        <td class="px-3 py-2">2108107010030</td>
-                        <td class="px-3 py-2">Seminar Hasil</td>
-                        <td class="px-3 py-2">Blockchain untuk Keamanan Data</td>
-                        <td class="px-3 py-2">Penguji</td>
-                        <td class="px-3 py-2">15 Juli 2024</td>
-                        <td class="px-3 py-2">14.00 - Selesai</td>
-                        <td class="px-3 py-2">Ruang 102</td>
-                    </tr>
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-3 py-2">Tyara Rayna</td>
-                        <td class="px-3 py-2">2108107010082</td>
-                        <td class="px-3 py-2">Sidang Skripsi</td>
-                        <td class="px-3 py-2">Sistem IoT untuk Smart Home</td>
-                        <td class="px-3 py-2">Penguji</td>
-                        <td class="px-3 py-2">20 Juli 2024</td>
-                        <td class="px-3 py-2">08.00 - Selesai</td>
-                        <td class="px-3 py-2">Aula Besar</td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -116,28 +98,14 @@
 
 <!-- Script Dynamic Update Data -->
 <script>
+    const data = @json($rekap);
+
     document.getElementById('tahunAjaran').addEventListener('change', updateData);
     document.getElementById('semester').addEventListener('change', updateData);
 
     function updateData() {
         const tahun = document.getElementById('tahunAjaran').value;
         const semester = document.getElementById('semester').value;
-
-        // Dummy Data - ini simulasi, nanti kalau mau real bisa fetch dari API atau query DB
-        let data = {
-            '2024/2025': {
-                'Genap': { aktif: 120, sempro: 45, semhas: 38, sidang: 25 },
-                'Ganjil': { aktif: 100, sempro: 40, semhas: 32, sidang: 20 },
-            },
-            '2023/2024': {
-                'Genap': { aktif: 95, sempro: 35, semhas: 28, sidang: 18 },
-                'Ganjil': { aktif: 80, sempro: 30, semhas: 22, sidang: 15 },
-            },
-            '2022/2023': {
-                'Genap': { aktif: 70, sempro: 25, semhas: 20, sidang: 10 },
-                'Ganjil': { aktif: 60, sempro: 20, semhas: 15, sidang: 8 },
-            }
-        };
 
         let selected = data[tahun][semester];
         document.getElementById('jumlahAktifTA').innerText = selected.aktif;
@@ -146,5 +114,4 @@
         document.getElementById('jumlahSidang').innerText = `${selected.sidang} Mahasiswa`;
     }
 </script>
-
 @endsection

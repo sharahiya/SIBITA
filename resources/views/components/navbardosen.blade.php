@@ -53,7 +53,7 @@
             </svg>
             <span class="absolute top-0 right-0 inline-block w-4 h-4 text-xs text-white bg-red-600 rounded-full text-center">3</span>
         </a>
-        
+
         <!-- Profil User -->
         <div class="relative">
             <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
@@ -67,7 +67,12 @@
                 </div>
                 <ul class="py-2">
                     <li><a href="{{ route('resetpass') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Sign out</a></li>
+                   <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">
+        Sign out
+    </button>
+</form>
                 </ul>
             </div>
         </div>

@@ -16,62 +16,66 @@
         </ul>
     </div>
 
-    <!-- Mahasiswa Section -->
+ <!-- Mahasiswa Section -->
+<div id="tab-mahasiswa" class="mt-4">
+    <!-- Upload -->
     <div class="bg-white p-6 shadow-md rounded-lg">
-    <h2 class="text-sm font-semibold text-gray-800 mb-3">Upload CSV Mahasiswa</h2>
-    <div class="flex items-center space-x-2">
-        <input type="file" id="csvMahasiswa" accept=".csv" class="text-xs p-2 border rounded-lg w-full md:w-auto">
-        <button id="saveMahasiswa" class="text-white bg-blue-600 hover:bg-blue-700 text-xs px-4 py-2 rounded-lg">Save</button>
+        <h2 class="text-sm font-semibold text-gray-800 mb-3">Upload CSV Mahasiswa</h2>
+        <div class="flex items-center space-x-2">
+            <input type="file" id="csvMahasiswa" accept=".csv" class="text-xs p-2 border rounded-lg w-full md:w-auto">
+            <button id="saveMahasiswa" class="text-white bg-blue-600 hover:bg-blue-700 text-xs px-4 py-2 rounded-lg">Save</button>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Format: nama,npm,email,angkatan,nip_dosenwali</p>
     </div>
-    <p class="text-xs text-gray-500 mt-2">Format: nama,npm,email,angkatan,nip_dosenwali</p>
+
+    <!-- Tabel -->
+    <div class="bg-white p-6 shadow-md rounded-lg mt-4">
+        <input type="text" id="searchMahasiswa" placeholder="Cari mahasiswa..." class="w-full md:w-64 p-2 text-xs border rounded-lg mb-3">
+        <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-gray-500">
+                <thead class="text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2">Nama</th>
+                        <th class="px-4 py-2">NPM</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Angkatan</th>
+                        <th class="px-4 py-2">NIP Dosen Wali</th>
+                        <th class="px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="mahasiswaTable"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
-        <div class="bg-white p-6 shadow-md rounded-lg mt-4">
-            <input type="text" id="searchMahasiswa" placeholder="Cari mahasiswa..." class="w-full md:w-64 p-2 text-xs border rounded-lg mb-3">
-            <div class="overflow-x-auto">
-                <table class="w-full text-xs text-left text-gray-500">
-                    <thead class="text-gray-700 uppercase bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2">Nama</th>
-                            <th class="px-4 py-2">NPM</th>
-                            <th class="px-4 py-2">Email</th>
-                            <th class="px-4 py-2">Angkatan</th>
-                            <th class="px-4 py-2">NIP Dosen Wali</th>
-                            <th class="px-4 py-2">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="mahasiswaTable"></tbody>
-                </table>
-            </div>
-        </div>
+<!-- Dosen Section -->
+<div id="tab-dosen" class="mt-4 hidden">
+    <!-- Upload -->
+    <div class="bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-sm font-semibold text-gray-800 mb-3">Upload CSV Dosen</h2>
+        <input type="file" id="csvDosen" accept=".csv" class="text-xs p-2 border rounded-lg w-full md:w-auto">
+        <p class="text-xs text-gray-500 mt-2">Format: nama,nip,email,jabatan,bidang</p>
+        <button id="saveDosenBtn" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg text-xs">Save</button>
     </div>
 
-    <!-- Dosen Section -->
-    <div id="tab-dosen" class="mt-4 hidden">
-        <div class="bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-sm font-semibold text-gray-800 mb-3">Upload CSV Dosen</h2>
-            <input type="file" id="csvDosen" accept=".csv" class="text-xs p-2 border rounded-lg w-full md:w-auto">
-            <p class="text-xs text-gray-500 mt-2">Format: nama,nip,email,jabatan</p>
-            <button id="saveDosenBtn" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg text-xs">Save</button> <!-- Button Save -->
-        </div>
-
-        <div class="bg-white p-6 shadow-md rounded-lg mt-4">
-            <input type="text" id="searchDosen" placeholder="Cari dosen..." class="w-full md:w-64 p-2 text-xs border rounded-lg mb-3">
-            <div class="overflow-x-auto">
-                <table class="w-full text-xs text-left text-gray-500">
-                    <thead class="text-gray-700 uppercase bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2">Nama</th>
-                            <th class="px-4 py-2">NIP</th>
-                            <th class="px-4 py-2">Email</th>
-                            <th class="px-4 py-2">Jabatan</th>
-                            <th class="px-4 py-2">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dosenTable"></tbody>
-                </table>
-            </div>
+    <!-- Tabel -->
+    <div class="bg-white p-6 shadow-md rounded-lg mt-4">
+        <input type="text" id="searchDosen" placeholder="Cari dosen..." class="w-full md:w-64 p-2 text-xs border rounded-lg mb-3">
+        <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-gray-500">
+                <thead class="text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2">Nama</th>
+                        <th class="px-4 py-2">NIP</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Jabatan</th>
+                        <th class="px-4 py-2">Bidang Minat</th>
+                        <th class="px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="dosenTable"></tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -100,24 +104,45 @@
 
     // CSV upload for Mahasiswa
     document.getElementById('csvMahasiswa').addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const rows = event.target.result.trim().split('\n').map(row => row.split(','));
-            const mahasiswaData = rows.slice(1).map(row => ({
-                nama: row[0],
-                npm: row[1],
-                email: row[2],
-                angkatan: row[3],
-                nip_dosenwali: row[4]
-            }));
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const rows = event.target.result.trim().split('\n').map(row => row.split(','));
 
-            renderMahasiswaTable(mahasiswaData);
-        };
-        reader.readAsText(file);
-    });
+        // Validasi header
+        const header = rows[0].map(h => h.trim().toLowerCase());
+        const expectedHeader = ['nama', 'npm', 'email', 'angkatan', 'nip_dosenwali'];
+        const isValidHeader = expectedHeader.every((h, i) => h === header[i]);
+
+        if (!isValidHeader) {
+            alert("Format header CSV Mahasiswa tidak sesuai. Harus: " + expectedHeader.join(', '));
+            e.target.value = ''; // reset input
+            return;
+        }
+
+        // Validasi baris
+        for (let i = 1; i < rows.length; i++) {
+            if (rows[i].length !== 5) {
+                alert(`Baris ke-${i + 1} tidak valid. Harus memiliki 5 kolom.`);
+                e.target.value = ''; // reset input
+                return;
+            }
+        }
+
+        const mahasiswaData = rows.slice(1).map(row => ({
+            nama: row[0],
+            npm: row[1],
+            email: row[2],
+            angkatan: row[3],
+            nip_dosenwali: row[4]
+        }));
+
+        renderMahasiswaTable(mahasiswaData);
+    };
+    reader.readAsText(file);
+});
 
     function renderMahasiswaTable(data) {
         const keyword = document.getElementById('searchMahasiswa').value.toLowerCase();
@@ -148,23 +173,45 @@
 
     // CSV upload for Dosen
     document.getElementById('csvDosen').addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const rows = event.target.result.trim().split('\n').map(row => row.split(','));
-            const dosenData = rows.slice(1).map(row => ({
-                nama: row[0],
-                nip: row[1],
-                email: row[2],
-                jabatan: row[3]
-            }));
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const rows = event.target.result.trim().split('\n').map(row => row.split(','));
 
-            renderDosenTable(dosenData);
-        };
-        reader.readAsText(file);
-    });
+        // Validasi header
+        const header = rows[0].map(h => h.trim().toLowerCase());
+        const expectedHeader = ['nama', 'nip', 'email', 'jabatan', 'bidang'];
+        const isValidHeader = expectedHeader.every((h, i) => h === header[i]);
+
+        if (!isValidHeader) {
+            alert("Format header CSV Dosen tidak sesuai. Harus: " + expectedHeader.join(', '));
+            e.target.value = ''; // reset input
+            return;
+        }
+
+        // Validasi baris
+        for (let i = 1; i < rows.length; i++) {
+            if (rows[i].length !== 5) {
+                alert(`Baris ke-${i + 1} tidak valid. Harus memiliki 5 kolom.`);
+                e.target.value = ''; // reset input
+                return;
+            }
+        }
+
+        const dosenData = rows.slice(1).map(row => ({
+            nama: row[0],
+            nip: row[1],
+            email: row[2],
+            jabatan: row[3],
+            bidang: row[4]
+        }));
+
+        renderDosenTable(dosenData);
+    };
+    reader.readAsText(file);
+});
 
     function renderDosenTable(data) {
         const keyword = document.getElementById('searchDosen').value.toLowerCase();
@@ -178,6 +225,7 @@
                         <td class="px-4 py-2">${d.nip}</td>
                         <td class="px-4 py-2">${d.email}</td>
                         <td class="px-4 py-2">${d.jabatan}</td>
+                        <td class="px-4 py-2">${d.bidang}</td>
                         <td class="px-4 py-2">
                             <button class="text-yellow-500 hover:text-yellow-600 text-xs">Edit</button>
                             <button class="text-red-500 hover:text-red-600 text-xs">Hapus</button>
@@ -193,14 +241,45 @@
     });
 
     // Save button functionality for Mahasiswa (You can adapt this to save the data to a backend or elsewhere)
-    document.getElementById('saveMahasiswaBtn').addEventListener('click', function () {
-        alert('Data Mahasiswa telah disimpan');
-    });
+    // Mahasiswa
+document.getElementById('saveMahasiswa').addEventListener('click', function () {
+    const file = document.getElementById('csvMahasiswa').files[0];
+    if (!file) return alert("Pilih file terlebih dahulu.");
 
-    // Save button functionality for Dosen (You can adapt this to save the data to a backend or elsewhere)
-    document.getElementById('saveDosenBtn').addEventListener('click', function () {
-        alert('Data Dosen telah disimpan');
-    });
+    const formData = new FormData();
+    formData.append('csv', file);
+
+    fetch("{{ route('admin.upload.mahasiswa') }}", {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => console.error(err));
+});
+
+// Dosen
+document.getElementById('saveDosenBtn').addEventListener('click', function () {
+    const file = document.getElementById('csvDosen').files[0];
+    if (!file) return alert("Pilih file terlebih dahulu.");
+
+    const formData = new FormData();
+    formData.append('csv', file);
+
+    fetch("{{ route('admin.upload.dosen') }}", {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => console.error(err));
+});
 </script>
 
 @endsection
