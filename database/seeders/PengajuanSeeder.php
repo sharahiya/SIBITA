@@ -17,6 +17,7 @@ class PengajuanSeeder extends Seeder
                 'topik_ta' => 'Klasifikasi Citra',
                 'deskripsi_ta' => 'Pengembangan model CNN untuk klasifikasi daun.',
                 'status' => 'proses',
+                'bidang' => 'GIS',
                 'tanggal_pengajuan' => now()
             ],
             [
@@ -26,6 +27,7 @@ class PengajuanSeeder extends Seeder
                 'topik_ta' => 'Sistem Pakar Diagnosa Penyakit',
                 'deskripsi_ta' => 'Menggunakan forward chaining dan rule-based.',
                 'status' => 'diterima',
+                'bidang' => 'Data Mining',
                 'tanggal_pengajuan' => now()
             ],
             [
@@ -35,6 +37,7 @@ class PengajuanSeeder extends Seeder
                 'topik_ta' => 'Aplikasi Mobile Edukasi',
                 'deskripsi_ta' => 'Android app untuk edukasi anak SD.',
                 'status' => 'ditolak',
+                'bidang' => 'Rekayasa Perangkat Lunak',
                 'tanggal_pengajuan' => now()
             ]
         ]);

@@ -11,7 +11,7 @@ class Pengajuan extends Model
 
     protected $table = 'pengajuans';
     protected $primaryKey = 'id_pengajuan';
-    protected $fillable = ['id_mahasiswa', 'id_dosen_1', 'id_dosen_2', 'topik_ta', 'deskripsi_ta', 'status', 'tanggal_pengajuan'];
+    protected $fillable = ['id_mahasiswa', 'id_dosen_1', 'id_dosen_2', 'topik_ta', 'deskripsi_ta', 'status', 'tanggal_pengajuan', 'bidang'];
 
     public function mahasiswa()
     {

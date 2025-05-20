@@ -19,8 +19,13 @@ class Dosen extends Authenticatable
         return $this->hasMany(Mahasiswa::class, 'id_dosen_wali');
     }
 
-    public function pengajuan()
+    public function pengajuansSebagaiDosen1()
     {
-        return $this->hasMany(Pengajuan::class, 'id_dosen');
+        return $this->hasMany(Pengajuan::class, 'id_dosen_1');
+    }
+
+    public function pengajuansSebagaiDosen2()
+    {
+        return $this->hasMany(Pengajuan::class, 'id_dosen_2');
     }
 }

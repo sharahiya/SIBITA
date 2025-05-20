@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_dosen_2');
             $table->string('topik_ta');
             $table->text('deskripsi_ta');
+            $table->text('bidang');
             $table->enum('status', ['proses', 'diterima', 'ditolak','pending'])->default('proses');
             $table->date('tanggal_pengajuan');
             $table->timestamps();

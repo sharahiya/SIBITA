@@ -61,6 +61,11 @@ Route::middleware('dosen')->group(function () {
     Route::get('/penjadwalandosen', [PenjadwalanDosenController::class, 'index'])->name('penjadwalandosen');
     Route::get('/riwayatdosen', [RiwayatDosenController::class, 'index'])->name('riwayatdosen');
     Route::get('/notifikasidosen', [NotifikasiDosenController::class, 'index'])->name('notifikasidosen');
+
+    Route::post('/dosen/update-kuota', [ProfileDosenController::class, 'updateKuota'])->name('dosen.updateKuota');
+    Route::post('/dosen/update-whatsapp', [ProfileDosenController::class, 'updateWhatsapp'])->name('dosen.updateWhatsapp');
+
+    Route::post('/pengajuan/update-status', [RequestDosenController::class, 'updateStatus'])->name('pengajuan.updateStatus');
 });
 
 // === Admin ===

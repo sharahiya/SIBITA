@@ -11,7 +11,7 @@ class Seminar extends Model
 
     protected $table = 'seminars';
     protected $primaryKey = 'id_seminar';
-    protected $fillable = ['id_pengajuan', 'tanggal_seminar', 'status', 'file_proposal'];
+    protected $fillable = ['id_pengajuan', 'tanggal_seminar', 'status', 'file_proposal', 'jenis'];
 
     public function pengajuan()
     {

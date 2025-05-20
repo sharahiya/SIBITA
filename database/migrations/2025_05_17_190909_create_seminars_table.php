@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id('id_seminar');
             $table->unsignedBigInteger('id_pengajuan');
             $table->date('tanggal_seminar');
-            $table->enum('status', ['terjadwal', 'belum'])->default('belum');
+            $table->string('status');
             $table->string('file_proposal');
+            $table->string('jenis');
             $table->timestamps();
 
             $table->foreign('id_pengajuan')->references('id_pengajuan')->on('pengajuans')->onDelete('cascade');

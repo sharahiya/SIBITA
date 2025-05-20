@@ -39,31 +39,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <script>
-                            let requests = "";
-                            let jenisAjuanList = ["Bimbingan", "Sempro", "Semhas", "Sidang"];
-                            for (let i = 1; i <= 12; i++) {
-                                let jenisAjuan = jenisAjuanList[i % 4];
-                                requests += `
-                                    <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
-                                        <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>${i}</td>
-                                        <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>Mahasiswa ${i}</td>
-                                        <td class='px-4 py-2 border border-gray-300 fixed-cell'>21081070100${i}</td>
-                                        <td class='px-4 py-2 border border-gray-300 fixed-cell'>AI</td>
-                                        <td class='px-4 py-2 border border-gray-300 word-wrap'>Sistem Cerdas dengan Analisis Data Besar untuk Pengambilan Keputusan Optimal dalam Lingkungan Bisnis ${i}</td>
-                                        <td class='px-4 py-2 border border-gray-300 fixed-cell'>
-                                            <a href='#' class='text-blue-600 hover:underline' onclick='openModal("Deskripsi Tugas Akhir ${i}")'>Lihat</a>
-                                        </td>
-                                        <td class='px-4 py-2 border border-gray-300 fixed-cell'>${jenisAjuan}</td>
-                                        <td class='px-4 py-2 border border-gray-300 fixed-cell'>Dospem 1</td>
-                                        <td class='px-4 py-2 border border-gray-300 flex gap-2 justify-center fixed-cell'>
-                                            <button class='text-white bg-green-500 px-3 py-1 rounded hover:bg-green-600 transition hover:scale-105' onclick='acceptRequest(${i})'>Terima</button>
-                                            <button class='text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition hover:scale-105' onclick='rejectRequest(${i})'>Tolak</button>
-                                        </td>
-                                    </tr>`;
-                            }
-                            document.write(requests);
-                        </script>
+                        @foreach ($pengajuans as $index => $item)
+                            <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
+                                <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $index + 1 }}</td>
+                                <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $item->mahasiswa->nama }}</td>
+                                <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->mahasiswa->npm }}</td>
+                                <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->mahasiswa->dosenWali->bidang_keahlian ?? '-' }}</td>
+                                <td class='px-4 py-2 border border-gray-300 word-wrap'>{{ $item->topik_ta }}</td>
+                                <td class='px-4 py-2 border border-gray-300 fixed-cell'>
+                                    <a href='#' class='text-blue-600 hover:underline' onclick='openModal(@json($item->deskripsi_ta))'>Lihat</a>
+                                </td>
+                                <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ ucfirst($item->jenis_ajuan ?? 'Bimbingan') }}</td>
+                                <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->role ?? 'Dospem 1' }}</td>
+                                <td class='px-4 py-2 border border-gray-300 flex gap-2 justify-center fixed-cell'>
+                                    <td class='px-4 py-2 border border-gray-300 flex gap-2 justify-center fixed-cell'>
+                                        <button onclick="acceptRequest({{ $item->id_pengajuan }})"
+                                                class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                                            Terima
+                                        </button>
+
+                                        <button onclick="rejectRequest({{ $item->id_pengajuan }})"
+                                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                            Tolak
+                                        </button>
+                                    </td>
+
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -79,47 +82,70 @@
         </div>
     </div>
 
+    <!-- Modal Alasan Penolakan -->
+    <div id="modalReject" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-lg font-semibold mb-2">Alasan Penolakan</h2>
+            <textarea id="rejectReason" class="w-full p-2 border rounded mb-4" placeholder="Tulis alasan..."></textarea>
+            <div class="flex justify-end gap-2">
+                <button onclick="closeRejectModal()" class="bg-gray-400 text-white px-3 py-1 rounded">Batal</button>
+                <button onclick="submitReject()" class="bg-red-600 text-white px-3 py-1 rounded">Kirim</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function acceptRequest(id) {
-        // Menampilkan konfirmasi sebelum menerima request
-        if (confirm('Apakah Anda yakin ingin menerima request mahasiswa ' + id + '?')) {
-            alert('Request mahasiswa ' + id + ' diterima.');
-        } else {
-            alert('Request tidak diterima.');
-        }
+       let rejectTargetId = null;
+
+function acceptRequest(id) {
+    if (confirm('Yakin ingin menerima pengajuan ini?')) {
+        updateStatus(id, 'diterima');
     }
+}
 
-        function rejectRequest(id) {
-            // Menampilkan konfirmasi sebelum menolak request
-            if (confirm('Apakah Anda yakin ingin menolak request mahasiswa ' + id + '?')) {
-                document.getElementById('modalReject').classList.remove('hidden');
-            } else {
-                alert('Request tidak ditolak.');
-            }
-        }
+function rejectRequest(id) {
+    rejectTargetId = id;
+    document.getElementById('rejectReason').value = "";
+    document.getElementById('modalReject').classList.remove('hidden');
+}
 
-            function submitReject() {
-            let reason = document.getElementById('rejectReason').value;
-            if (reason.trim() === "") {
-                alert('Harap isi alasan penolakan!');
-                return;
-            }
-            alert('Request ditolak dengan alasan: ' + reason);
-            closeRejectModal();
-        }
+function closeRejectModal() {
+    document.getElementById('modalReject').classList.add('hidden');
+}
 
-        function closeRejectModal() {
-            document.getElementById('modalReject').classList.add('hidden');
-        }
+function submitReject() {
+    let reason = document.getElementById('rejectReason').value.trim();
+    if (!reason) {
+        alert('Silakan isi alasan penolakan!');
+        return;
+    }
+    updateStatus(rejectTargetId, 'ditolak', reason);
+    closeRejectModal();
+}
 
-        function openModal(deskripsi) {
-            document.getElementById('modalText').innerText = deskripsi;
-            document.getElementById('modalDeskripsi').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('modalDeskripsi').classList.add('hidden');
-        }
+function updateStatus(id, status, alasan = '') {
+    fetch("{{ route('pengajuan.updateStatus') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({
+            id_pengajuan: id,
+            status: status,
+            alasan: alasan
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        location.reload();
+    })
+    .catch(error => {
+        console.error(error);
+        alert('Terjadi kesalahan saat memproses permintaan.');
+    });
+}
     </script>
 
 @endsection

@@ -8,14 +8,14 @@
             </div>
 
             <h2 class="text-lg font-semibold text-gray-900 mb-2">
-                Prof. Dr. Taufik Fuadi Abidin, S.Si, M.Tech
+                {{ $dosen->nama }}
             </h2>
-            <p class="text-gray-700 text-sm">Bidang: Data Mining</p>
+            <p class="text-gray-700 text-sm">Bidang: {{ $dosen->bidang }}</p>
 
             <!-- Menampilkan Jumlah Bimbingan terlebih dahulu -->
             <div class="mt-6">
-                <p class="text-gray-700 text-sm">Jumlah Mahasiswa yang Dibimbing: 
-                    <span id="jumlahMahasiswa" class="font-semibold text-blue-600">10</span>
+                <p class="text-gray-700 text-sm">Jumlah Mahasiswa yang Dibimbing:
+                    <span id="jumlahMahasiswa" class="font-semibold text-blue-600">{{ $jumlahMahasiswa }}</span>
                 </p>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="mt-6">
                 <label for="kuotaBimbingan" class="text-xs text-gray-600">Kuota Bimbingan:</label>
                 <div class="flex items-center space-x-2 mt-1">
-                    <input type="number" id="kuotaBimbingan" value="25" min="1" 
+                    <input type="number" id="kuotaBimbingan" value="{{ $dosen->kuota_bimbingan }}" min="1"
                         class="border border-gray-300 text-gray-700 text-xs rounded-lg p-2 w-24 focus:ring-blue-500 focus:border-blue-500" disabled>
                     <button id="editKuotaButton" class="px-3 py-2 bg-blue-800 text-white text-xs rounded-lg hover:bg-blue-600 transition">
                         Edit
@@ -42,8 +42,8 @@
             <div class="mt-6">
                 <label for="whatsappGroup" class="text-xs text-gray-600">Link WhatsApp Grup:</label>
                 <div class="flex items-center space-x-2 mt-1">
-                    <input type="text" id="whatsappGroup" 
-                        value="{{ auth()->user()->whatsapp_link ?? 'https://chat.whatsapp.com/xxxxx' }}"
+                    <input type="text" id="whatsappGroup"
+                        value="{{ $dosen->link_wa_group  ?? 'https://chat.whatsapp.com/xxxxx' }}"
                         class="border border-gray-300 text-gray-700 text-xs rounded-lg p-2 w-80 focus:ring-blue-500 focus:border-blue-500"
                         disabled>
                     <button id="editWhatsapp" class="px-3 py-2 bg-blue-800 text-white text-xs rounded-lg hover:bg-blue-600 transition">
@@ -56,7 +56,7 @@
             <h2 class="text-lg font-semibold text-gray-800 mt-6">Daftar Mahasiswa Bimbingan</h2>
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4" style="max-height: 300px; overflow-y: auto;">
-                <table class="w-full text-xs text-left text-gray-500 border border-gray-300">
+                <table class="w-full text-xs text-left text-gray-500 border b   order-gray-300">
                     <thead class="text-[10px] text-white uppercase bg-blue-900">
                         <tr>
                             <th class="px-4 py-2 border border-gray-300">No</th>
@@ -72,21 +72,26 @@
                     </thead>
                     <tbody>
                         <!-- Baris Mahasiswa -->
+                        {{-- @php
+                            dd($ajuanBimbingan);
+                        @endphp --}}
+                        @foreach($ajuanBimbingan as $index => $ajuan)
                         <tr class="bg-white even:bg-gray-50 border-b hover:bg-blue-50">
-                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">1</td>
-                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">Sharahiya</td>
-                            <td class="px-4 py-2 border border-gray-300">2108107010082</td>
-                            <td class="px-4 py-2 border border-gray-300">RPL</td>
-                            <td class="px-4 py-2 border border-gray-300">Rancang Bangun Sistem Rekomendasi Berbasis website menggunakan framework laravel</td>
+                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $index+1 }}</td>
+                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $ajuan->mahasiswa->nama }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->npm }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->bidang }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->topik_ta }}</td>
                             <td class="px-4 py-2 border border-gray-300">
-                                <a href="#" class="text-blue-600 hover:underline" onclick="openModal('Deskripsi tentang sistem rekomendasi berbasis AI')">Lihat</a>
+                                <a href="#" class="text-blue-600 hover:underline" onclick="openModal('{{ $ajuan->deskripsi_ta }}')">Lihat</a>
                             </td>
-                            <td class="px-4 py-2 border border-gray-300">Dospem1</td>
-                            <td class="px-4 py-2 border border-gray-300">Sempro</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id ? 'Dospem 1' : 'Dospem 2' }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->status ?? '-' }}</td>
                             <td class="px-4 py-2 border border-gray-300">
                                 <button class="text-red-600 hover:underline" onclick="confirmRemove(this)">Remove</button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -148,11 +153,11 @@
     <!-- Script JavaScript -->
     <script>
         // Fungsi untuk menyimpan kuota
-        document.getElementById('saveKuotaButton').addEventListener('click', function () {
-            let kuota = document.getElementById('kuotaBimbingan').value;
-            alert(`Kuota Bimbingan berhasil disimpan! Kuota Baru: ${kuota}`);
-            toggleEditKuota(false);
-        });
+            // document.getElementById('saveKuotaButton').addEventListener('click', function () {
+            //     let kuota = document.getElementById('kuotaBimbingan').value;
+            //     alert(`Kuota Bimbingan berhasil disimpan! Kuota Baru: ${kuota}`);
+            //     toggleEditKuota(false);
+            // });
 
         // Fungsi untuk mengaktifkan mode edit kuota
         document.getElementById('editKuotaButton').addEventListener('click', function () {
@@ -172,12 +177,12 @@
             document.getElementById('editWhatsappInput').value = document.getElementById('whatsappGroup').value;
         });
 
-        function saveWhatsappEdit() {
-            let newWhatsappLink = document.getElementById('editWhatsappInput').value;
-            document.getElementById('whatsappGroup').value = newWhatsappLink;
-            document.getElementById('modalWhatsapp').classList.add('hidden');
-            alert('Link WhatsApp berhasil diubah!');
-        }
+        // function saveWhatsappEdit() {
+        //     let newWhatsappLink = document.getElementById('editWhatsappInput').value;
+        //     document.getElementById('whatsappGroup').value = newWhatsappLink;
+        //     document.getElementById('modalWhatsapp').classList.add('hidden');
+        //     alert('Link WhatsApp berhasil diubah!');
+        // }
 
         function closeModalWhatsapp() {
             document.getElementById('modalWhatsapp').classList.add('hidden');
@@ -187,7 +192,7 @@
             document.getElementById('modalText').textContent = deskripsi;
 document.getElementById('modalDeskripsi').classList.remove('hidden');
 }
-           
+
 function closeModal() {
         document.getElementById('modalDeskripsi').classList.add('hidden');
     }
@@ -205,6 +210,43 @@ function closeModal() {
         alert('Mahasiswa berhasil dihapus!');
         closeRemoveModal();
     }
+
+    document.getElementById('saveKuotaButton').addEventListener('click', function () {
+    let kuota = document.getElementById('kuotaBimbingan').value;
+
+    fetch("{{ route('dosen.updateKuota') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({ kuota: kuota })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        toggleEditKuota(false);
+    });
+});
+
+function saveWhatsappEdit() {
+    let newWhatsappLink = document.getElementById('editWhatsappInput').value;
+
+    fetch("{{ route('dosen.updateWhatsapp') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({ link: newWhatsappLink })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('whatsappGroup').value = newWhatsappLink;
+        alert(data.message);
+        closeModalWhatsapp();
+    });
+}
 </script>
 
 @endsection
