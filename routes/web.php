@@ -27,6 +27,7 @@ use App\Http\Controllers\PengujiAdminController;
 use App\Http\Controllers\EditManajemenAkunController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\NotifikasiAdminController;
+use App\Http\Controllers\DaftarAkunAdminController;
 
 
 Route::get('/', function () {
@@ -64,3 +65,4 @@ Route::get('/pengujiadmin', [PengujiAdminController::class, 'index'])->name('pen
 Route::get('/editmanajemenakun', [EditManajemenAkunController::class, 'index'])->name('editmanajemenakun');
 Route::get('/resetpass', [ResetPassController::class, 'index'])->name('resetpass');
 Route::get('/notifikasiadmin', [NotifikasiAdminController::class, 'index'])->name('notifikasiadmin');
+Route::get('/daftarakunadmin', [DaftarAkunAdminController::class, 'index'])->name('daftarakunadmin');

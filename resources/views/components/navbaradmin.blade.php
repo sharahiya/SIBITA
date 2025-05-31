@@ -39,7 +39,21 @@
       <div class="flex flex-col lg:flex-row lg:space-x-8 p-4 lg:p-0">
         <ul class="space-y-4 lg:space-y-0 lg:flex lg:space-x-8 text-sm">
           <li><a href="{{ route('dashboardadmin') }}" class="text-blue-700 dark:text-white">Dashboard</a></li>
-          <li><a href="{{ route('manajemenakun') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Manajemen Akun</a></li>
+          <li class="relative">
+  <button id="akun-toggle" type="button" class="flex items-center text-gray-900 dark:text-white hover:text-blue-700 focus:outline-none">
+    Manajemen Akun
+    <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.193l3.71-3.963a.75.75 0 111.08 1.04l-4.24 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+    </svg>
+  </button>
+  <ul id="akun-dropdown" class="absolute z-50 hidden bg-white dark:bg-gray-800 shadow-lg mt-2 py-2 rounded-md w-56">
+    <li><a href="{{ route('manajemenakun') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Kelola Akun</a></li>
+    <li><a href="{{ route('daftarakunadmin') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Daftar Mahasiswa & Dosen</a></li>
+  </ul>
+</li>
+
+
+
           <li><a href="{{ route('penjadwalanadmin') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
           <li><a href="{{ route('requestadmin') }}" class="text-gray-900 dark:text-white hover:text-blue-700">Penguji</a></li>
         </ul>
@@ -97,6 +111,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+const akunToggle = document.getElementById("akun-toggle");
+const akunDropdown = document.getElementById("akun-dropdown");
+
+akunToggle.addEventListener("click", function (event) {
+  event.stopPropagation();
+  akunDropdown.classList.toggle("hidden");
+});
+
+document.addEventListener("click", function (event) {
+  if (!akunDropdown.contains(event.target) && !akunToggle.contains(event.target)) {
+    akunDropdown.classList.add("hidden");
+  }
+});
+
 </script>
 
 </body>
