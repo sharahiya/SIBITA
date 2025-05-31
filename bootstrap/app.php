@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CheckHasPembimbing;
 use App\Http\Middleware\DosenMiddleware;
 use App\Http\Middleware\MahasiswaMiddleware;
 use Illuminate\Foundation\Application;
@@ -22,6 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 DosenMiddleware::class,
             'mahasiswa' =>
                 MahasiswaMiddleware::class,
+            'cekPembimbing' =>
+                CheckHasPembimbing::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

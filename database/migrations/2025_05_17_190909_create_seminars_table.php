@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('seminars', function (Blueprint $table) {
             $table->id('id_seminar');
-            $table->unsignedBigInteger('id_pengajuan');
+            $table->unsignedBigInteger('id_mahasiswa');
             $table->date('tanggal_seminar');
             $table->string('status');
-            $table->string('file_proposal');
+            $table->string('lampiran');
             $table->string('jenis');
             $table->timestamps();
 
-            $table->foreign('id_pengajuan')->references('id_pengajuan')->on('pengajuans')->onDelete('cascade');
+            $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas')->onDelete('cascade');
         });
     }
 

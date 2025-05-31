@@ -1,6 +1,6 @@
-@extends('layouts.layoutdosen')
+    @extends('layouts.layoutdosen')
 
-@section('content')
+    @section('content')
     <div class="container mx-auto px-4 pt-4">
         <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto">
             <div class="text-center mb-8">
@@ -86,9 +86,11 @@
                                 <a href="#" class="text-blue-600 hover:underline" onclick="openModal('{{ $ajuan->deskripsi_ta }}')">Lihat</a>
                             </td>
                             <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id ? 'Dospem 1' : 'Dospem 2' }}</td>
-                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->status ?? '-' }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->seminar_status ?? '-' }}</td>
                             <td class="px-4 py-2 border border-gray-300">
-                                <button class="text-red-600 hover:underline" onclick="confirmRemove(this)">Remove</button>
+                                <button class="text-red-600 hover:underline" onclick="confirmRemove(this)" data-id="{{ $ajuan->id_pengajuan }}">
+                                    Remove
+                                </button>
                             </td>
                         </tr>
                         @endforeach
@@ -152,6 +154,7 @@
 
     <!-- Script JavaScript -->
     <script>
+         let pengajuanToRemoveId = null;
         // Fungsi untuk menyimpan kuota
             // document.getElementById('saveKuotaButton').addEventListener('click', function () {
             //     let kuota = document.getElementById('kuotaBimbingan').value;
@@ -190,15 +193,16 @@
 
         function openModal(deskripsi) {
             document.getElementById('modalText').textContent = deskripsi;
-document.getElementById('modalDeskripsi').classList.remove('hidden');
-}
+    document.getElementById('modalDeskripsi').classList.remove('hidden');
+    }
 
-function closeModal() {
+    function closeModal() {
         document.getElementById('modalDeskripsi').classList.add('hidden');
     }
 
     // Konfirmasi remove mahasiswa
     function confirmRemove(button) {
+        pengajuanToRemoveId = button.getAttribute('data-id');
         document.getElementById('modalRemove').classList.remove('hidden');
     }
 
@@ -207,7 +211,28 @@ function closeModal() {
     }
 
     function removeStudent() {
-        alert('Mahasiswa berhasil dihapus!');
+        if (!pengajuanToRemoveId) return;
+
+        fetch(`/bimbingan/remove/${pengajuanToRemoveId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Gagal menghapus');
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+            location.reload(); // Atau hapus baris <tr> secara dinamis
+        })
+        .catch(error => {
+            alert('Terjadi kesalahan saat menghapus.');
+            console.error(error);
+        });
+
         closeRemoveModal();
     }
 
@@ -227,9 +252,9 @@ function closeModal() {
         alert(data.message);
         toggleEditKuota(false);
     });
-});
+    });
 
-function saveWhatsappEdit() {
+    function saveWhatsappEdit() {
     let newWhatsappLink = document.getElementById('editWhatsappInput').value;
 
     fetch("{{ route('dosen.updateWhatsapp') }}", {
@@ -246,7 +271,7 @@ function saveWhatsappEdit() {
         alert(data.message);
         closeModalWhatsapp();
     });
-}
-</script>
+    }
+    </script>
 
-@endsection
+    @endsection

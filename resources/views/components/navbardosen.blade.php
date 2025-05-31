@@ -51,19 +51,30 @@
             <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 00-12 0v3c0 .386-.146.75-.405 1.045L4 17h5m6 0a3 3 0 11-6 0"></path>
             </svg>
-            <span class="absolute top-0 right-0 inline-block w-4 h-4 text-xs text-white bg-red-600 rounded-full text-center">3</span>
+            @if(isset($unreadNotifCount) && $unreadNotifCount > 0)
+            <span class="absolute top-0 right-0 inline-block min-w-[1rem] h-4 text-xs text-white bg-red-600 rounded-full text-center px-1">
+                {{ $unreadNotifCount }}
+            </span>
+        @endif
         </a>
 
         <!-- Profil User -->
         <div class="relative">
             <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
-                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="user photo">
+                @php
+                $user = Auth::guard('dosen')->user();
+                $firstName = explode(' ', $user->nama)[0];
+            @endphp
+
+                <span class="w-8 h-8 flex items-center justify-center text-white bg-blue-400 rounded-full">
+                    {{ strtoupper(substr($firstName, 0, 1)) }}
+                </span>
             </button>
 
             <div class="absolute right-0 top-full mt-2 z-50 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                 <div class="px-4 py-3">
-                    <span class="block text-sm text-gray-900 dark:text-white">Sharahiya</span>
-                    <span class="block text-sm text-gray-500 dark:text-gray-400">2108107010082</span>
+                    <span class="block text-sm text-gray-900 dark:text-white">{{ $user->nama }}</span>
+                    <span class="block text-sm text-gray-500 dark:text-gray-400">{{ $user->nip }}</span>
                 </div>
                 <ul class="py-2">
                     <li><a href="{{ route('resetpass') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600">Reset Password</a></li>

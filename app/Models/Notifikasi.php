@@ -11,10 +11,13 @@ class Notifikasi extends Model
 
     protected $table = 'notifikasis';
     protected $primaryKey = 'id_notifikasi';
-    protected $fillable = ['id_mahasiswa', 'pesan', 'tanggal_kirim', 'status_baca'];
+    protected $fillable = ['id_user', 'role', 'pesan', 'tanggal_kirim', 'status_baca', 'tipe_notifikasi'];
+    protected $casts = [
+        'tanggal_kirim' => 'datetime',
+    ];
 
-    public function mahasiswa()
+    public function user()
     {
-        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

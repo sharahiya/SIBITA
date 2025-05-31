@@ -11,22 +11,44 @@ class Pengajuan extends Model
 
     protected $table = 'pengajuans';
     protected $primaryKey = 'id_pengajuan';
-    protected $fillable = ['id_mahasiswa', 'id_dosen_1', 'id_dosen_2', 'topik_ta', 'deskripsi_ta', 'status', 'tanggal_pengajuan', 'bidang'];
+    protected $fillable = [
+        'id_mahasiswa',
+        'id_dosen',
+        'dosen_ke',
+        'topik_ta',
+        'deskripsi_ta',
+        'bidang',
+        'status',
+        'tanggal_pengajuan'
+    ];
 
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
     }
 
-    public function dosen1()
+    public function dosen()
     {
-        return $this->belongsTo(Dosen::class, 'id_dosen_1');
+        return $this->belongsTo(Dosen::class, 'id_dosen');
     }
 
-    public function dosen2()
+    public function dosenPembimbing1()
     {
-        return $this->belongsTo(Dosen::class, 'id_dosen_2');
+        return $this->belongsTo(Dosen::class, 'id_dosen')
+            ->whereHas('pengajuan', function($query) {
+                $query->where('dosen_ke', 1);
+            });
     }
+
+    public function dosenPembimbing2()
+    {
+        return $this->belongsTo(Dosen::class, 'id_dosen')
+            ->whereHas('pengajuan', function($query) {
+                $query->where('dosen_ke', 2);
+            });
+    }
+
+
 
     public function bimbingan()
     {

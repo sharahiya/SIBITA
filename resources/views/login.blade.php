@@ -51,7 +51,7 @@
                 <div>
                     <label for="role" class="block text-sm font-medium text-gray-700">Login Sebagai</label>
                     <select id="role" name="role" class="w-full text-sm p-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400 text-sm" disabled selected>Pilih Login Sebagai</option>
                         <option value="mahasiswa">Mahasiswa</option>
                         <option value="dosen">Dosen</option>
                         <option value="admin">Admin</option>

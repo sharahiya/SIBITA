@@ -28,4 +28,26 @@ class Mahasiswa extends Authenticatable
     {
         return $this->hasMany(Notifikasi::class, 'id_mahasiswa');
     }
+
+    public function pembimbing()
+    {
+        return $this->hasOne(Pembimbing::class, 'id_mahasiswa', 'id_mahasiswa');
+    }
+
+    // Model Mahasiswa
+    public function getDosenPembimbing1Attribute()
+    {
+        return $this->pembimbing?->dosen1; // Mengembalikan null jika tidak ada pembimbing
+    }
+
+    public function getDosenPembimbing2Attribute()
+    {
+        return $this->pembimbing?->dosen2; // Mengembalikan null jika tidak ada pembimbing
+    }
+
+    public function seminars()
+    {
+        return $this->hasMany(Seminar::class, 'id_mahasiswa');
+    }
+
 }

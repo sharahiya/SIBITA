@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('kuota_bimbingan')->default(0);
             $table->string('password');
             $table->string('link_wa_group')->nullable();
+            $table->foreignId('id_jurusan')->constrained('jurusans')->onDelete('cascade');
+            $table->foreignId('id_fakultas')->constrained('fakultas')->onDelete('cascade');
             $table->timestamps();
         });
     }

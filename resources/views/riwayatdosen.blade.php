@@ -1,5 +1,5 @@
 @extends('layouts.layoutdosen')
-@section('content') 
+@section('content')
     <style>
         .table-container {
             max-height: 500px;
@@ -42,7 +42,7 @@
 
     <div class="container mx-auto px-4 pt-4">
         <div class="bg-white p-6 shadow-lg rounded-lg w-full max-w-6xl mx-auto">
-            
+
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold text-gray-800">Riwayat Mahasiswa Bimbingan</h1>
                 <div class="search-wrapper">
@@ -66,38 +66,32 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
-                            <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900'>1</td>
-                            <td class='px-4 py-2 border border-gray-300'>Ahmad Fauzan</td>
-                            <td class='px-4 py-2 border border-gray-300'>210810701001</td>
-                            <td class='px-4 py-2 border border-gray-300 bidang-minat'>RPL</td>
-                            <td class='px-4 py-2 border border-gray-300 judul-ta'>
-                                Rancang Bangun Sistem Manajemen Pengajuan Tugas Akhir Berbasis Website Menggunakan Metode RAD
-                            </td>
-                            <td class='px-4 py-2 border border-gray-300 role'>Dospem 1</td>
-                            <td class='px-4 py-2 border border-gray-300 text-center'>
-                                <a href="path/to/file1.pdf" class="text-blue-600 hover:underline" download>
-                                    <i class="fa fa-file-pdf text-red-600"></i> Download
-                                </a>
-                            </td>
-                            <td class='px-4 py-2 border border-gray-300 text-green-600 font-semibold'>Selesai</td>
-                        </tr>
-                        <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
-                            <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900'>2</td>
-                            <td class='px-4 py-2 border border-gray-300'>Siti Rahmawati</td>
-                            <td class='px-4 py-2 border border-gray-300'>210810701002</td>
-                            <td class='px-4 py-2 border border-gray-300 bidang-minat'>DM</td>
-                            <td class='px-4 py-2 border border-gray-300 judul-ta'>
-                                Implementasi Algoritma Apriori dalam Menganalisis Pola Pembelian Konsumen
-                            </td>
-                            <td class='px-4 py-2 border border-gray-300 role'>Dospem 2</td>
-                            <td class='px-4 py-2 border border-gray-300 text-center'>
-                                <a href="path/to/file2.pdf" class="text-blue-600 hover:underline" download>
-                                    <i class="fa fa-file-pdf text-red-600"></i> Download
-                                </a>
-                            </td>
-                            <td class='px-4 py-2 border border-gray-300 text-green-600 font-semibold'>Selesai</td>
-                        </tr>
+                        @foreach ($riwayat as $index => $item)
+                            <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
+                                <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900'>{{ $index + 1 }}</td>
+                                <td class='px-4 py-2 border border-gray-300'>{{ $item['mahasiswa']->nama }}</td>
+                                <td class='px-4 py-2 border border-gray-300'>{{ $item['mahasiswa']->npm }}</td>
+                                <td class='px-4 py-2 border border-gray-300 bidang-minat'>
+                                    {{ $item['pengajuan']->bidang ?? '-' }}
+                                </td>
+                                <td class='px-4 py-2 border border-gray-300 judul-ta'>
+                                    {{ $item['pengajuan']->topik_ta }}
+                                </td>
+                                <td class='px-4 py-2 border border-gray-300 role'>
+                                    {{ $item['pengajuan']->dosen_ke == 1 ? 'Dospem 1' : 'Dospem 2' }}
+                                </td>
+                                <td class='px-4 py-2 border border-gray-300 text-center'>
+                                    @if ($item['seminar'][0]['lampiran'])
+                                        <a href="{{ asset('storage/' . $item['seminar'][0]['lampiran']) }}" class="text-blue-600 hover:underline" download>
+                                            <i class="fa fa-file-pdf text-red-600"></i> Download
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">-</span>
+                                    @endif
+                                </td>
+                                <td class='px-4 py-2 border border-gray-300 text-green-600 font-semibold'>Selesai</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

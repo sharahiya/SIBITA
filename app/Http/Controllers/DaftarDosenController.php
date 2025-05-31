@@ -16,17 +16,29 @@ class DaftarDosenController extends Controller
     public function getByBidang($bidang)
     {
         $dosens = Dosen::where('bidang', $bidang)->get();
+        foreach($dosens as $dosen) {
+            $jumlahPengajuan = $dosen->pengajuan()->where('status', 'diterima')->count();
+            $dosen->jumlah_pengajuan = $jumlahPengajuan;
+
+        }
+
 
         return response()->json($dosens);
     }
     public function search(Request $request)
-{
-    $query = $request->get('q');
+    {
+        $query = $request->get('q');
 
-    $dosen = Dosen::where('nama', 'LIKE', "%$query%")
-        ->orWhere('nip', 'LIKE', "%$query%")
-        ->get();
+        $dosen = Dosen::where('nama', 'LIKE', "%$query%")
+            ->orWhere('nip', 'LIKE', "%$query%")
+            ->get();
 
-    return response()->json($dosen);
-}
+            foreach($dosen as $satuan) {
+                $jumlahPengajuan = $satuan->pengajuan()->where('status', '!=', 'selesai')->count();
+                $satuan->jumlah_pengajuan = $jumlahPengajuan;
+
+            }
+
+        return response()->json($dosen);
+    }
 }

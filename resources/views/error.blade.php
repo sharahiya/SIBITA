@@ -1,68 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" class="auto">
     <!--
-Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unknown column &#039;id_user&#039; in &#039;where clause&#039; (Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1) in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php on line 825
+Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(779): Illuminate\Database\Connection-&gt;runQueryCallback(&#039;select * from `...&#039;, Array, Object(Closure))
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(398): Illuminate\Database\Connection-&gt;run(&#039;select * from `...&#039;, Array, Object(Closure))
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3133): Illuminate\Database\Connection-&gt;select(&#039;select * from `...&#039;, Array, true)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3118): Illuminate\Database\Query\Builder-&gt;runSelect()
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3706): Illuminate\Database\Query\Builder-&gt;Illuminate\Database\Query\{closure}()
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3117): Illuminate\Database\Query\Builder-&gt;onceWithColumns(Array, Object(Closure))
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(760): Illuminate\Database\Query\Builder-&gt;get(Array)
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(742): Illuminate\Database\Eloquent\Builder-&gt;getModels(Array)
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Concerns\BuildsQueries.php(344): Illuminate\Database\Eloquent\Builder-&gt;get(Array)
-#9 D:\Projects\SIBITA\app\Http\Controllers\ProfileDosenController.php(34): Illuminate\Database\Eloquent\Builder-&gt;first()
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\ProfileDosenController-&gt;updateKuota(Object(Illuminate\Http\Request))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProfileDosenController), &#039;updateKuota&#039;)
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#15 D:\Projects\SIBITA\app\Http\Middleware\DosenMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\DosenMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#52 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#54 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#55 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#56 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#57 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#58 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#59 {main}
+#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
+#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#51 {main}
 -->
     <head>
         <!-- Hide dumps asap -->
@@ -75,7 +67,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="robots" content="noindex, nofollow">
-        <title>SQLSTATE[42S22]: Column not found: 1054 Unknown column &#039;id_user &#039;in &#039;where clause &#039;(Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1)</title>
+        <title>Target class [SeminarController] does not exist.</title>
         <script>
             // Livewire modals remove CSS classes on the `html` element so we re-add
             // the theme class again using JavaScript.
@@ -3009,234 +3001,150 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     "language": "PHP",
                     "framework_version": "11.35.1",
                     "language_version": "8.2.12",
-                    "exception_class": "Illuminate\\Database\\QueryException",
-                    "seen_at": 1747671603,
-                    "message": "SQLSTATE[42S22]: Column not found: 1054 Unknown column \u0027id_user\u0027 in \u0027where clause\u0027 (Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1)",
+                    "exception_class": "Illuminate\\Contracts\\Container\\BindingResolutionException",
+                    "seen_at": 1748661881,
+                    "message": "Target class [SeminarController] does not exist.",
                     "glows": [],
-                    "solutions": [{
-                        "class": "Spatie\\ErrorSolutions\\Solutions\\Laravel\\RunMigrationsSolution",
-                        "title": "A column was not found",
-                        "description": "You might have forgotten to run your database migrations.",
-                        "links": {
-                            "Database: Running Migrations docs": "https:\/\/laravel.com\/docs\/master\/migrations#running-migrations"
-                        },
-                        "action_description": "You can try to run your migrations using `php artisan migrate`.",
-                        "is_runnable": true,
-                        "ai_generated": false
-                    }],
-                    "documentation_links": ["https:\/\/laravel.com\/docs\/11.x\/eloquent"],
+                    "solutions": [],
+                    "documentation_links": [],
                     "stacktrace": [{
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 825,
-                        "method": "runQueryCallback",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 946,
+                        "method": "build",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "810": "        \/\/ took to execute and log the query SQL, bindings and time in our memory.",
-                            "811": "        try {",
-                            "812": "            return $callback($query, $bindings);",
-                            "813": "        }",
-                            "814": "",
-                            "815": "        \/\/ If an exception occurs when attempting to run a query, we\u0027ll format the error",
-                            "816": "        \/\/ message to include the bindings with SQL, which will make this exception a",
-                            "817": "        \/\/ lot more helpful to the developer instead of just the database\u0027s errors.",
-                            "818": "        catch (Exception $e) {",
-                            "819": "            if ($this-\u003EisUniqueConstraintError($e)) {",
-                            "820": "                throw new UniqueConstraintViolationException(",
-                            "821": "                    $this-\u003EgetName(), $query, $this-\u003EprepareBindings($bindings), $e",
-                            "822": "                );",
-                            "823": "            }",
-                            "824": "",
-                            "825": "            throw new QueryException(",
-                            "826": "                $this-\u003EgetName(), $query, $this-\u003EprepareBindings($bindings), $e",
-                            "827": "            );",
-                            "828": "        }",
-                            "829": "    }",
-                            "830": "",
-                            "831": "    \/**",
-                            "832": "     * Determine if the given database exception was caused by a unique constraint violation.",
-                            "833": "     *",
-                            "834": "     * @param  \\Exception  $exception",
-                            "835": "     * @return bool",
-                            "836": "     *\/",
-                            "837": "    protected function isUniqueConstraintError(Exception $exception)",
-                            "838": "    {",
-                            "839": "        return false;"
+                            "931": "        \/\/ hand back the results of the functions, which allows functions to be",
+                            "932": "        \/\/ used as resolvers for more fine-tuned resolution of these objects.",
+                            "933": "        if ($concrete instanceof Closure) {",
+                            "934": "            $this-\u003EbuildStack[] = spl_object_hash($concrete);",
+                            "935": "",
+                            "936": "            try {",
+                            "937": "                return $concrete($this, $this-\u003EgetLastParameterOverride());",
+                            "938": "            } finally {",
+                            "939": "                array_pop($this-\u003EbuildStack);",
+                            "940": "            }",
+                            "941": "        }",
+                            "942": "",
+                            "943": "        try {",
+                            "944": "            $reflector = new ReflectionClass($concrete);",
+                            "945": "        } catch (ReflectionException $e) {",
+                            "946": "            throw new BindingResolutionException(\u0022Target class [$concrete] does not exist.\u0022, 0, $e);",
+                            "947": "        }",
+                            "948": "",
+                            "949": "        \/\/ If the type is not instantiable, the developer is attempting to resolve",
+                            "950": "        \/\/ an abstract type such as an Interface or Abstract Class and there is",
+                            "951": "        \/\/ no binding registered for the abstractions so we need to bail out.",
+                            "952": "        if (! $reflector-\u003EisInstantiable()) {",
+                            "953": "            return $this-\u003EnotInstantiable($concrete);",
+                            "954": "        }",
+                            "955": "",
+                            "956": "        $this-\u003EbuildStack[] = $concrete;",
+                            "957": "",
+                            "958": "        $constructor = $reflector-\u003EgetConstructor();",
+                            "959": "",
+                            "960": "        \/\/ If there are no constructors, that means there are no dependencies then"
                         },
                         "arguments": [],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 779,
-                        "method": "run",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 819,
+                        "method": "resolve",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "764": "     *\/",
-                            "765": "    protected function run($query, $bindings, Closure $callback)",
-                            "766": "    {",
-                            "767": "        foreach ($this-\u003EbeforeExecutingCallbacks as $beforeExecutingCallback) {",
-                            "768": "            $beforeExecutingCallback($query, $bindings, $this);",
-                            "769": "        }",
-                            "770": "",
-                            "771": "        $this-\u003EreconnectIfMissingConnection();",
-                            "772": "",
-                            "773": "        $start = microtime(true);",
-                            "774": "",
-                            "775": "        \/\/ Here we will run this query. If an exception occurs we\u0027ll determine if it was",
-                            "776": "        \/\/ caused by a connection that has been lost. If that is the cause, we\u0027ll try",
-                            "777": "        \/\/ to re-establish connection and re-run the query with a fresh connection.",
-                            "778": "        try {",
-                            "779": "            $result = $this-\u003ErunQueryCallback($query, $bindings, $callback);",
-                            "780": "        } catch (QueryException $e) {",
-                            "781": "            $result = $this-\u003EhandleQueryException(",
-                            "782": "                $e, $query, $bindings, $callback",
-                            "783": "            );",
-                            "784": "        }",
-                            "785": "",
-                            "786": "        \/\/ Once we have run the query we will calculate the time that it took to run and",
-                            "787": "        \/\/ then log the query, bindings, and execution time so we will report them on",
-                            "788": "        \/\/ the event that the developer needs them. We\u0027ll log time in milliseconds.",
-                            "789": "        $this-\u003ElogQuery(",
-                            "790": "            $query, $bindings, $this-\u003EgetElapsedTime($start)",
-                            "791": "        );",
-                            "792": "",
-                            "793": "        return $result;"
+                            "804": "        \/\/ so the developer can keep using the same objects instance every time.",
+                            "805": "        if (isset($this-\u003Einstances[$abstract]) \u0026\u0026 ! $needsContextualBuild) {",
+                            "806": "            return $this-\u003Einstances[$abstract];",
+                            "807": "        }",
+                            "808": "",
+                            "809": "        $this-\u003Ewith[] = $parameters;",
+                            "810": "",
+                            "811": "        if (is_null($concrete)) {",
+                            "812": "            $concrete = $this-\u003EgetConcrete($abstract);",
+                            "813": "        }",
+                            "814": "",
+                            "815": "        \/\/ We\u0027re ready to instantiate an instance of the concrete type registered for",
+                            "816": "        \/\/ the binding. This will instantiate the types, as well as resolve any of",
+                            "817": "        \/\/ its \u0022nested\u0022 dependencies recursively until all have gotten resolved.",
+                            "818": "        $object = $this-\u003EisBuildable($concrete, $abstract)",
+                            "819": "            ? $this-\u003Ebuild($concrete)",
+                            "820": "            : $this-\u003Emake($concrete);",
+                            "821": "",
+                            "822": "        \/\/ If we defined any extenders for this type, we\u0027ll need to spin through them",
+                            "823": "        \/\/ and apply them to the object being built. This allows for the extension",
+                            "824": "        \/\/ of services, such as changing configuration or decorating the object.",
+                            "825": "        foreach ($this-\u003EgetExtenders($abstract) as $extender) {",
+                            "826": "            $object = $extender($object, $this);",
+                            "827": "        }",
+                            "828": "",
+                            "829": "        \/\/ If the requested type is registered as a singleton we\u0027ll want to cache off",
+                            "830": "        \/\/ the instances in \u0022memory\u0022 so we can return it later without creating an",
+                            "831": "        \/\/ entirely new instance of an object on each subsequent request for it.",
+                            "832": "        if ($this-\u003EisShared($abstract) \u0026\u0026 ! $needsContextualBuild) {",
+                            "833": "            $this-\u003Einstances[$abstract] = $object;"
                         },
                         "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
+                            "name": "concrete",
+                            "value": "SeminarController",
                             "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "bindings",
-                            "value": [2],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:398-415",
-                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 398,
-                        "method": "select",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+                        "line_number": 1048,
+                        "method": "resolve",
+                        "class": "Illuminate\\Foundation\\Application",
                         "code_snippet": {
-                            "383": "    public function selectFromWriteConnection($query, $bindings = [])",
-                            "384": "    {",
-                            "385": "        return $this-\u003Eselect($query, $bindings, false);",
-                            "386": "    }",
-                            "387": "",
-                            "388": "    \/**",
-                            "389": "     * Run a select statement against the database.",
-                            "390": "     *",
-                            "391": "     * @param  string  $query",
-                            "392": "     * @param  array  $bindings",
-                            "393": "     * @param  bool  $useReadPdo",
-                            "394": "     * @return array",
-                            "395": "     *\/",
-                            "396": "    public function select($query, $bindings = [], $useReadPdo = true)",
-                            "397": "    {",
-                            "398": "        return $this-\u003Erun($query, $bindings, function ($query, $bindings) use ($useReadPdo) {",
-                            "399": "            if ($this-\u003Epretending()) {",
-                            "400": "                return [];",
-                            "401": "            }",
-                            "402": "",
-                            "403": "            \/\/ For select statements, we\u0027ll simply execute the query and return an array",
-                            "404": "            \/\/ of the database result set. Each element in the array will be a single",
-                            "405": "            \/\/ row from the database table, and will either be an array or objects.",
-                            "406": "            $statement = $this-\u003Eprepared(",
-                            "407": "                $this-\u003EgetPdoForSelect($useReadPdo)-\u003Eprepare($query)",
-                            "408": "            );",
-                            "409": "",
-                            "410": "            $this-\u003EbindValues($statement, $this-\u003EprepareBindings($bindings));",
-                            "411": "",
-                            "412": "            $statement-\u003Eexecute();"
+                            "1033": "    \/**",
+                            "1034": "     * Resolve the given type from the container.",
+                            "1035": "     *",
+                            "1036": "     * @param  string  $abstract",
+                            "1037": "     * @param  array  $parameters",
+                            "1038": "     * @param  bool  $raiseEvents",
+                            "1039": "     * @return mixed",
+                            "1040": "     *",
+                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
+                            "1043": "     *\/",
+                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)",
+                            "1045": "    {",
+                            "1046": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
+                            "1047": "",
+                            "1048": "        return parent::resolve($abstract, $parameters, $raiseEvents);",
+                            "1049": "    }",
+                            "1050": "",
+                            "1051": "    \/**",
+                            "1052": "     * Load the deferred provider if the given type is a deferred service and the instance has not been loaded.",
+                            "1053": "     *",
+                            "1054": "     * @param  string  $abstract",
+                            "1055": "     * @return void",
+                            "1056": "     *\/",
+                            "1057": "    protected function loadDeferredProviderIfNeeded($abstract)",
+                            "1058": "    {",
+                            "1059": "        if ($this-\u003EisDeferredService($abstract) \u0026\u0026 ! isset($this-\u003Einstances[$abstract])) {",
+                            "1060": "            $this-\u003EloadDeferredProvider($abstract);",
+                            "1061": "        }",
+                            "1062": "    }"
                         },
                         "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
+                            "name": "abstract",
+                            "value": "SeminarController",
                             "original_type": "string",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "bindings",
-                            "value": [2],
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:398-415",
-                            "original_type": "Closure",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3133,
-                        "method": "runSelect",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()",
-                            "3132": "    {",
-                            "3133": "        return $this-\u003Econnection-\u003Eselect(",
-                            "3134": "            $this-\u003EtoSql(), $this-\u003EgetBindings(), ! $this-\u003EuseWritePdo",
-                            "3135": "        );",
-                            "3136": "    }",
-                            "3137": "",
-                            "3138": "    \/**",
-                            "3139": "     * Remove the group limit keys from the results in the collection.",
-                            "3140": "     *",
-                            "3141": "     * @param  \\Illuminate\\Support\\Collection  $items",
-                            "3142": "     * @return \\Illuminate\\Support\\Collection",
-                            "3143": "     *\/",
-                            "3144": "    protected function withoutGroupLimitKeys($items)",
-                            "3145": "    {",
-                            "3146": "        $keysToRemove = [\u0027laravel_row\u0027];",
-                            "3147": ""
-                        },
-                        "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "bindings",
-                            "value": [2],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "useReadPdo",
+                            "name": "raiseEvents",
                             "value": true,
                             "original_type": "bool",
                             "passed_by_reference": false,
@@ -3245,361 +3153,113 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3118,
-                        "method": "Illuminate\\Database\\Query\\{closure}",
-                        "class": "Illuminate\\Database\\Query\\Builder",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 755,
+                        "method": "make",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "3103": "    {",
-                            "3104": "        $result = (array) $this-\u003Esole([$column]);",
-                            "3105": "",
-                            "3106": "        return reset($result);",
-                            "3107": "    }",
-                            "3108": "",
-                            "3109": "    \/**",
-                            "3110": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "3111": "     *",
-                            "3112": "     * @param  array|string  $columns",
-                            "3113": "     * @return \\Illuminate\\Support\\Collection\u003Cint, \\stdClass\u003E",
-                            "3114": "     *\/",
-                            "3115": "    public function get($columns = [\u0027*\u0027])",
-                            "3116": "    {",
-                            "3117": "        $items = new Collection($this-\u003EonceWithColumns(Arr::wrap($columns), function () {",
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()",
-                            "3132": "    {"
-                        },
-                        "arguments": [],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3706,
-                        "method": "onceWithColumns",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3691": "     *",
-                            "3692": "     * After running the callback, the columns are reset to the original value.",
-                            "3693": "     *",
-                            "3694": "     * @param  array  $columns",
-                            "3695": "     * @param  callable  $callback",
-                            "3696": "     * @return mixed",
-                            "3697": "     *\/",
-                            "3698": "    protected function onceWithColumns($columns, $callback)",
-                            "3699": "    {",
-                            "3700": "        $original = $this-\u003Ecolumns;",
-                            "3701": "",
-                            "3702": "        if (is_null($original)) {",
-                            "3703": "            $this-\u003Ecolumns = $columns;",
-                            "3704": "        }",
-                            "3705": "",
-                            "3706": "        $result = $callback();",
-                            "3707": "",
-                            "3708": "        $this-\u003Ecolumns = $original;",
-                            "3709": "",
-                            "3710": "        return $result;",
-                            "3711": "    }",
-                            "3712": "",
-                            "3713": "    \/**",
-                            "3714": "     * Insert new records into the database.",
-                            "3715": "     *",
-                            "3716": "     * @param  array  $values",
-                            "3717": "     * @return bool",
-                            "3718": "     *\/",
-                            "3719": "    public function insert(array $values)",
-                            "3720": "    {"
-                        },
-                        "arguments": [],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3117,
-                        "method": "get",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3102": "    public function soleValue($column)",
-                            "3103": "    {",
-                            "3104": "        $result = (array) $this-\u003Esole([$column]);",
-                            "3105": "",
-                            "3106": "        return reset($result);",
-                            "3107": "    }",
-                            "3108": "",
-                            "3109": "    \/**",
-                            "3110": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "3111": "     *",
-                            "3112": "     * @param  array|string  $columns",
-                            "3113": "     * @return \\Illuminate\\Support\\Collection\u003Cint, \\stdClass\u003E",
-                            "3114": "     *\/",
-                            "3115": "    public function get($columns = [\u0027*\u0027])",
-                            "3116": "    {",
-                            "3117": "        $items = new Collection($this-\u003EonceWithColumns(Arr::wrap($columns), function () {",
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()"
+                            "740": "    {",
+                            "741": "        return $this-\u003Emake($abstract, $parameters);",
+                            "742": "    }",
+                            "743": "",
+                            "744": "    \/**",
+                            "745": "     * Resolve the given type from the container.",
+                            "746": "     *",
+                            "747": "     * @param  string  $abstract",
+                            "748": "     * @param  array  $parameters",
+                            "749": "     * @return mixed",
+                            "750": "     *",
+                            "751": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "752": "     *\/",
+                            "753": "    public function make($abstract, array $parameters = [])",
+                            "754": "    {",
+                            "755": "        return $this-\u003Eresolve($abstract, $parameters);",
+                            "756": "    }",
+                            "757": "",
+                            "758": "    \/**",
+                            "759": "     * {@inheritdoc}",
+                            "760": "     *",
+                            "761": "     * @return mixed",
+                            "762": "     *\/",
+                            "763": "    public function get(string $id)",
+                            "764": "    {",
+                            "765": "        try {",
+                            "766": "            return $this-\u003Eresolve($id);",
+                            "767": "        } catch (Exception $e) {",
+                            "768": "            if ($this-\u003Ehas($id) || $e instanceof CircularDependencyException) {",
+                            "769": "                throw $e;"
                         },
                         "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php:3117-3119",
-                            "original_type": "Closure",
+                            "name": "raiseEvents",
+                            "value": true,
+                            "original_type": "bool",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
-                        "line_number": 760,
-                        "method": "getModels",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+                        "line_number": 1030,
+                        "method": "make",
+                        "class": "Illuminate\\Foundation\\Application",
                         "code_snippet": {
-                            "745": "",
-                            "746": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "747": "            $builder-\u003EgetModel()-\u003EnewCollection($models)",
-                            "748": "        );",
-                            "749": "    }",
-                            "750": "",
-                            "751": "    \/**",
-                            "752": "     * Get the hydrated models without eager loading.",
-                            "753": "     *",
-                            "754": "     * @param  array|string  $columns",
-                            "755": "     * @return array\u003Cint, TModel\u003E",
-                            "756": "     *\/",
-                            "757": "    public function getModels($columns = [\u0027*\u0027])",
-                            "758": "    {",
-                            "759": "        return $this-\u003Emodel-\u003Ehydrate(",
-                            "760": "            $this-\u003Equery-\u003Eget($columns)-\u003Eall()",
-                            "761": "        )-\u003Eall();",
-                            "762": "    }",
-                            "763": "",
-                            "764": "    \/**",
-                            "765": "     * Eager load the relationships for the models.",
-                            "766": "     *",
-                            "767": "     * @param  array\u003Cint, TModel\u003E  $models",
-                            "768": "     * @return array\u003Cint, TModel\u003E",
-                            "769": "     *\/",
-                            "770": "    public function eagerLoadRelations(array $models)",
-                            "771": "    {",
-                            "772": "        foreach ($this-\u003EeagerLoad as $name =\u003E $constraints) {",
-                            "773": "            \/\/ For nested eager loads we\u0027ll skip loading them here and they will be set as an",
-                            "774": "            \/\/ eager load on the query to retrieve the relation so that they will be eager"
+                            "1015": "    }",
+                            "1016": "",
+                            "1017": "    \/**",
+                            "1018": "     * Resolve the given type from the container.",
+                            "1019": "     *",
+                            "1020": "     * @param  string  $abstract",
+                            "1021": "     * @param  array  $parameters",
+                            "1022": "     * @return mixed",
+                            "1023": "     *",
+                            "1024": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1025": "     *\/",
+                            "1026": "    public function make($abstract, array $parameters = [])",
+                            "1027": "    {",
+                            "1028": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
+                            "1029": "",
+                            "1030": "        return parent::make($abstract, $parameters);",
+                            "1031": "    }",
+                            "1032": "",
+                            "1033": "    \/**",
+                            "1034": "     * Resolve the given type from the container.",
+                            "1035": "     *",
+                            "1036": "     * @param  string  $abstract",
+                            "1037": "     * @param  array  $parameters",
+                            "1038": "     * @param  bool  $raiseEvents",
+                            "1039": "     * @return mixed",
+                            "1040": "     *",
+                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
+                            "1043": "     *\/",
+                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)"
                         },
                         "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
-                        "line_number": 742,
-                        "method": "get",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
-                        "code_snippet": {
-                            "727": "    }",
-                            "728": "",
-                            "729": "    \/**",
-                            "730": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "731": "     *",
-                            "732": "     * @param  array|string  $columns",
-                            "733": "     * @return \\Illuminate\\Database\\Eloquent\\Collection\u003Cint, TModel\u003E",
-                            "734": "     *\/",
-                            "735": "    public function get($columns = [\u0027*\u0027])",
-                            "736": "    {",
-                            "737": "        $builder = $this-\u003EapplyScopes();",
-                            "738": "",
-                            "739": "        \/\/ If we actually found models we will also eager load any relationships that",
-                            "740": "        \/\/ have been specified as needing to be eager loaded, which will solve the",
-                            "741": "        \/\/ n+1 query issue for the developers to avoid running a lot of queries.",
-                            "742": "        if (count($models = $builder-\u003EgetModels($columns)) \u003E 0) {",
-                            "743": "            $models = $builder-\u003EeagerLoadRelations($models);",
-                            "744": "        }",
-                            "745": "",
-                            "746": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "747": "            $builder-\u003EgetModel()-\u003EnewCollection($models)",
-                            "748": "        );",
-                            "749": "    }",
-                            "750": "",
-                            "751": "    \/**",
-                            "752": "     * Get the hydrated models without eager loading.",
-                            "753": "     *",
-                            "754": "     * @param  array|string  $columns",
-                            "755": "     * @return array\u003Cint, TModel\u003E",
-                            "756": "     *\/"
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
+                        }, {
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\BuildsQueries.php",
-                        "line_number": 344,
-                        "method": "first",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
-                        "code_snippet": {
-                            "329": "                if ($lastId === null) {",
-                            "330": "                    throw new RuntimeException(\u0022The lazyById operation was aborted because the [{$alias}] column is not present in the query result.\u0022);",
-                            "331": "                }",
-                            "332": "            }",
-                            "333": "        });",
-                            "334": "    }",
-                            "335": "",
-                            "336": "    \/**",
-                            "337": "     * Execute the query and get the first result.",
-                            "338": "     *",
-                            "339": "     * @param  array|string  $columns",
-                            "340": "     * @return TValue|null",
-                            "341": "     *\/",
-                            "342": "    public function first($columns = [\u0027*\u0027])",
-                            "343": "    {",
-                            "344": "        return $this-\u003Etake(1)-\u003Eget($columns)-\u003Efirst();",
-                            "345": "    }",
-                            "346": "",
-                            "347": "    \/**",
-                            "348": "     * Execute the query and get the first result or throw an exception.",
-                            "349": "     *",
-                            "350": "     * @param  array|string  $columns",
-                            "351": "     * @param  string|null  $message",
-                            "352": "     * @return TValue",
-                            "353": "     *",
-                            "354": "     * @throws \\Illuminate\\Database\\RecordNotFoundException",
-                            "355": "     *\/",
-                            "356": "    public function firstOrFail($columns = [\u0027*\u0027], $message = null)",
-                            "357": "    {",
-                            "358": "        if (! is_null($result = $this-\u003Efirst($columns))) {"
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\ProfileDosenController.php",
-                        "line_number": 34,
-                        "method": "updateKuota",
-                        "class": "App\\Http\\Controllers\\ProfileDosenController",
-                        "code_snippet": {
-                            "19": "        $ajuanBimbingan = Pengajuan::where(\u0027id_dosen_1\u0027, $dosen-\u003Eid_dosen)",
-                            "20": "            -\u003EorWhere(\u0027id_dosen_2\u0027, $dosen-\u003Eid_dosen)",
-                            "21": "            -\u003Ewith([\u0027mahasiswa\u0027]) \/\/ Eager load",
-                            "22": "            -\u003Eget();",
-                            "23": "",
-                            "24": "        $jumlahMahasiswa = $ajuanBimbingan-\u003Ecount();",
-                            "25": "",
-                            "26": "        return view(\u0027profileDosen\u0027, compact(\u0027dosen\u0027, \u0027ajuanBimbingan\u0027, \u0027jumlahMahasiswa\u0027));",
-                            "27": "    }",
-                            "28": "",
-                            "29": "",
-                            "30": "    public function updateKuota(Request $request)",
-                            "31": "    {",
-                            "32": "        $user = Auth::guard(\u0027dosen\u0027)-\u003Euser();",
-                            "33": "        $request-\u003Evalidate([\u0027kuota\u0027 =\u003E \u0027required|integer|min:1\u0027]);",
-                            "34": "        $dosen = Dosen::where(\u0027id_user\u0027, $user-\u003Eid_dosen)-\u003Efirst();",
-                            "35": "        $dosen-\u003Ekuota_bimbingan = $request-\u003Ekuota;",
-                            "36": "        $dosen-\u003Esave();",
-                            "37": "",
-                            "38": "        return response()-\u003Ejson([\u0027message\u0027 =\u003E \u0027Kuota berhasil diperbarui\u0027]);",
-                            "39": "    }",
-                            "40": "",
-                            "41": "    public function updateWhatsapp(Request $request)",
-                            "42": "    {",
-                            "43": "        $user = Auth::guard(\u0027dosen\u0027)-\u003Euser();",
-                            "44": "        $request-\u003Evalidate([\u0027link\u0027 =\u003E \u0027required|string\u0027]);",
-                            "45": "        $dosen = Dosen::where(\u0027id_user\u0027, $user-\u003Eid_dosen)-\u003Efirst();",
-                            "46": "        $dosen-\u003Elink_wa_group = $request-\u003Elink;",
-                            "47": "        $dosen-\u003Esave();",
-                            "48": ""
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": true
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
-                        "line_number": 47,
-                        "method": "dispatch",
-                        "class": "Illuminate\\Routing\\ControllerDispatcher",
-                        "code_snippet": {
-                            "32": "     * Dispatch a request to a given controller and method.",
-                            "33": "     *",
-                            "34": "     * @param  \\Illuminate\\Routing\\Route  $route",
-                            "35": "     * @param  mixed  $controller",
-                            "36": "     * @param  string  $method",
-                            "37": "     * @return mixed",
-                            "38": "     *\/",
-                            "39": "    public function dispatch(Route $route, $controller, $method)",
-                            "40": "    {",
-                            "41": "        $parameters = $this-\u003EresolveParameters($route, $controller, $method);",
-                            "42": "",
-                            "43": "        if (method_exists($controller, \u0027callAction\u0027)) {",
-                            "44": "            return $controller-\u003EcallAction($method, $parameters);",
-                            "45": "        }",
-                            "46": "",
-                            "47": "        return $controller-\u003E{$method}(...array_values($parameters));",
-                            "48": "    }",
-                            "49": "",
-                            "50": "    \/**",
-                            "51": "     * Resolve the parameters for the controller.",
-                            "52": "     *",
-                            "53": "     * @param  \\Illuminate\\Routing\\Route  $route",
-                            "54": "     * @param  mixed  $controller",
-                            "55": "     * @param  string  $method",
-                            "56": "     * @return array",
-                            "57": "     *\/",
-                            "58": "    protected function resolveParameters(Route $route, $controller, $method)",
-                            "59": "    {",
-                            "60": "        return $this-\u003EresolveClassMethodDependencies(",
-                            "61": "            $route-\u003EparametersWithoutNulls(), $controller, $method"
-                        },
-                        "arguments": [{
-                            "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -3607,11 +3267,63 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 266,
+                        "line_number": 285,
+                        "method": "getController",
+                        "class": "Illuminate\\Routing\\Route",
+                        "code_snippet": {
+                            "270": "",
+                            "271": "    \/**",
+                            "272": "     * Get the controller instance for the route.",
+                            "273": "     *",
+                            "274": "     * @return mixed",
+                            "275": "     *\/",
+                            "276": "    public function getController()",
+                            "277": "    {",
+                            "278": "        if (! $this-\u003EisControllerAction()) {",
+                            "279": "            return null;",
+                            "280": "        }",
+                            "281": "",
+                            "282": "        if (! $this-\u003Econtroller) {",
+                            "283": "            $class = $this-\u003EgetControllerClass();",
+                            "284": "",
+                            "285": "            $this-\u003Econtroller = $this-\u003Econtainer-\u003Emake(ltrim($class, \u0027\\\\\u0027));",
+                            "286": "        }",
+                            "287": "",
+                            "288": "        return $this-\u003Econtroller;",
+                            "289": "    }",
+                            "290": "",
+                            "291": "    \/**",
+                            "292": "     * Get the controller class used for the route.",
+                            "293": "     *",
+                            "294": "     * @return string|null",
+                            "295": "     *\/",
+                            "296": "    public function getControllerClass()",
+                            "297": "    {",
+                            "298": "        return $this-\u003EisControllerAction() ? $this-\u003EparseControllerCallback()[0] : null;",
+                            "299": "    }"
+                        },
+                        "arguments": [{
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "parameters",
+                            "value": [],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+                        "line_number": 267,
                         "method": "runController",
                         "class": "Illuminate\\Routing\\Route",
                         "code_snippet": {
-                            "251": "     *\/",
                             "252": "    protected function isSerializedClosure()",
                             "253": "    {",
                             "254": "        return RouteAction::containsSerializedClosure($this-\u003Eaction);",
@@ -3640,30 +3352,10 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "277": "    {",
                             "278": "        if (! $this-\u003EisControllerAction()) {",
                             "279": "            return null;",
-                            "280": "        }"
+                            "280": "        }",
+                            "281": ""
                         },
-                        "arguments": [{
-                            "name": "route",
-                            "value": "object",
-                            "original_type": "Illuminate\\Routing\\Route",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "controller",
-                            "value": "object",
-                            "original_type": "App\\Http\\Controllers\\ProfileDosenController",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "method",
-                            "value": "updateKuota",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
+                        "arguments": [],
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
@@ -3782,103 +3474,8 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Middleware\\DosenMiddleware.php",
-                        "line_number": 20,
-                        "method": "handle",
-                        "class": "App\\Http\\Middleware\\DosenMiddleware",
-                        "code_snippet": {
-                            "1": "\u003C?php",
-                            "2": "",
-                            "3": "namespace App\\Http\\Middleware;",
-                            "4": "",
-                            "5": "use Closure;",
-                            "6": "use Illuminate\\Http\\Request;",
-                            "7": "use Illuminate\\Support\\Facades\\Auth;",
-                            "8": "use Symfony\\Component\\HttpFoundation\\Response;",
-                            "9": "",
-                            "10": "class DosenMiddleware",
-                            "11": "{",
-                            "12": "    \/**",
-                            "13": "     * Handle an incoming request.",
-                            "14": "     *",
-                            "15": "     * @param  \\Closure(\\Illuminate\\Http\\Request): (\\Symfony\\Component\\HttpFoundation\\Response)  $next",
-                            "16": "     *\/",
-                            "17": "    public function handle(Request $request, Closure $next): Response",
-                            "18": "    {",
-                            "19": "        if (Auth::guard(\u0027dosen\u0027)-\u003Echeck()) {",
-                            "20": "            return $next($request);",
-                            "21": "        }",
-                            "22": "",
-                            "23": "        return redirect(\u0027\/login\u0027)-\u003EwithErrors([\u0027Akses ditolak\u0027]);",
-                            "24": "    }",
-                            "25": "}",
-                            "26": ""
-                        },
-                        "arguments": [{
-                            "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": true
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                        "line_number": 183,
-                        "method": "Illuminate\\Pipeline\\{closure}",
-                        "class": "Illuminate\\Pipeline\\Pipeline",
-                        "code_snippet": {
-                            "168": "",
-                            "169": "                        \/\/ If the pipe is a string we will parse the string and resolve the class out",
-                            "170": "                        \/\/ of the dependency injection container. We can then build a callable and",
-                            "171": "                        \/\/ execute the pipe function giving in the parameters that are required.",
-                            "172": "                        $pipe = $this-\u003EgetContainer()-\u003Emake($name);",
-                            "173": "",
-                            "174": "                        $parameters = array_merge([$passable, $stack], $parameters);",
-                            "175": "                    } else {",
-                            "176": "                        \/\/ If the pipe is already an object we\u0027ll just make a callable and pass it to",
-                            "177": "                        \/\/ the pipe as-is. There is no need to do any extra parsing and formatting",
-                            "178": "                        \/\/ since the object we\u0027re given was already a fully instantiated object.",
-                            "179": "                        $parameters = [$passable, $stack];",
-                            "180": "                    }",
-                            "181": "",
-                            "182": "                    $carry = method_exists($pipe, $this-\u003Emethod)",
-                            "183": "                                    ? $pipe-\u003E{$this-\u003Emethod}(...$parameters)",
-                            "184": "                                    : $pipe(...$parameters);",
-                            "185": "",
-                            "186": "                    return $this-\u003EhandleCarry($carry);",
-                            "187": "                } catch (Throwable $e) {",
-                            "188": "                    return $this-\u003EhandleException($passable, $e);",
-                            "189": "                }",
-                            "190": "            };",
-                            "191": "        };",
-                            "192": "    }",
-                            "193": "",
-                            "194": "    \/**",
-                            "195": "     * Parse full pipe string to get name and parameters.",
-                            "196": "     *",
-                            "197": "     * @param  string  $pipe"
-                        },
-                        "arguments": [{
-                            "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
-                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -3923,7 +3520,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3969,14 +3566,14 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
                             "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:159-190",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
                             "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4022,7 +3619,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4068,7 +3665,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4121,7 +3718,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4167,7 +3764,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4220,7 +3817,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4266,7 +3863,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4326,7 +3923,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4379,7 +3976,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4425,7 +4022,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4478,7 +4075,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4524,7 +4121,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4577,7 +4174,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4676,7 +4273,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "truncated": false
                         }, {
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4722,7 +4319,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4775,7 +4372,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4821,7 +4418,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4867,7 +4464,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4913,7 +4510,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4959,7 +4556,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5012,7 +4609,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5065,7 +4662,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5111,7 +4708,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5164,7 +4761,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5217,7 +4814,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5263,7 +4860,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5316,7 +4913,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5362,7 +4959,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5415,7 +5012,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5461,7 +5058,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5514,7 +5111,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5560,7 +5157,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5613,7 +5210,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5659,7 +5256,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5712,7 +5309,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5804,7 +5401,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5850,7 +5447,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5884,7 +5481,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5927,60 +5524,60 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     }],
                     "context": {
                         "request": {
-                            "url": "http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "url": "http:\/\/localhost:8000\/seminar\/update-status",
                             "ip": null,
                             "method": "POST",
-                            "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/136.0.0.0 Safari\/537.36"
+                            "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36"
                         },
                         "request_data": {
                             "queryString": [],
                             "body": {
-                                "kuota": "5"
+                                "id": 1,
+                                "status": "diterima",
+                                "alasan": ""
                             },
                             "files": []
                         },
                         "headers": {
-                            "host": "127.0.0.1:8000",
+                            "host": "localhost:8000",
                             "connection": "keep-alive",
-                            "content-length": "13",
+                            "content-length": "40",
                             "sec-ch-ua-platform": "\u0022Windows\u0022",
                             "x-csrf-token": "\u003CCENSORED\u003E",
-                            "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/136.0.0.0 Safari\/537.36",
-                            "sec-ch-ua": "\u0022Chromium\u0022;v=\u0022136\u0022, \u0022Google Chrome\u0022;v=\u0022136\u0022, \u0022Not.A\/Brand\u0022;v=\u002299\u0022",
+                            "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
+                            "sec-ch-ua": "\u0022Google Chrome\u0022;v=\u0022137\u0022, \u0022Chromium\u0022;v=\u0022137\u0022, \u0022Not\/A)Brand\u0022;v=\u002224\u0022",
                             "content-type": "application\/json",
                             "sec-ch-ua-mobile": "?0",
                             "accept": "*\/*",
-                            "origin": "http:\/\/127.0.0.1:8000",
+                            "origin": "http:\/\/localhost:8000",
                             "sec-fetch-site": "same-origin",
                             "sec-fetch-mode": "cors",
                             "sec-fetch-dest": "empty",
-                            "referer": "http:\/\/127.0.0.1:8000\/profiledosen",
+                            "referer": "http:\/\/localhost:8000\/requestdosen",
                             "accept-encoding": "gzip, deflate, br, zstd",
-                            "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
+                            "accept-language": "id-ID,id;q=0.9",
                             "cookie": "\u003CCENSORED\u003E"
                         },
                         "cookies": {
-                            "csrftoken": null,
-                            "sessionid": null,
-                            "XSRF-TOKEN": "ijjMkPwd2sQBi0cguQrBytPyIgSLREVP4xjlHwWo",
-                            "laravel_session": "vH5umWHn1wskM6MCpiisfW1eaBIAIlPRDHFsSNlA"
+                            "XSRF-TOKEN": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
+                            "laravel_session": "q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"
                         },
                         "session": {
-                            "_token": "ijjMkPwd2sQBi0cguQrBytPyIgSLREVP4xjlHwWo",
-                            "_previous": {
-                                "url": "http:\/\/127.0.0.1:8000\/profiledosen"
-                            },
+                            "_token": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
                             "_flash": {
                                 "old": [],
                                 "new": []
                             },
+                            "_previous": {
+                                "url": "http:\/\/localhost:8000\/requestdosen"
+                            },
                             "login_dosen_59ba36addc2b2f9401580f014c7f58ea4e30989d": 2
                         },
                         "route": {
-                            "route": "dosen.updateKuota",
+                            "route": "seminar.updateStatus",
                             "routeParameters": [],
-                            "controllerAction": "App\\Http\\Controllers\\ProfileDosenController@updateKuota",
-                            "middleware": ["web", "dosen"]
+                            "controllerAction": "SeminarController@updateStatus",
+                            "middleware": ["web"]
                         },
                         "env": {
                             "php_version": "8.2.12",
@@ -5990,23 +5587,14 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "app_debug": true,
                             "app_env": "local"
                         },
-                        "exception": {
-                            "raw_sql": "select * from `dosens` where `id_user` = ? limit 1"
-                        },
                         "dumps": [],
                         "logs": [],
                         "queries": [{
                             "sql": "select * from `sessions` where `id` = ? limit 1",
-                            "time": 21.86,
+                            "time": 11.39,
                             "connection_name": "mysql",
-                            "bindings": ["vH5umWHn1wskM6MCpiisfW1eaBIAIlPRDHFsSNlA"],
-                            "microtime": 1747671603.453126
-                        }, {
-                            "sql": "select * from `dosens` where `id_dosen` = ? limit 1",
-                            "time": 1.15,
-                            "connection_name": "mysql",
-                            "bindings": [2],
-                            "microtime": 1747671603.472223
+                            "bindings": ["q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"],
+                            "microtime": 1748661881.243109
                         }]
                     },
                     "stage": "local",
@@ -6014,7 +5602,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     "open_frame_index": null,
                     "application_path": "D:\\Projects\\SIBITA",
                     "application_version": null,
-                    "tracking_uuid": "9b08018b-a991-4490-a048-00460a967497",
+                    "tracking_uuid": "c4fa7ddd-b4f2-4c85-8ff9-3103d8bc48c4",
                     "handled": null,
                     "overridden_grouping": null
                 },
@@ -6023,234 +5611,150 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     "language": "PHP",
                     "framework_version": "11.35.1",
                     "language_version": "8.2.12",
-                    "exception_class": "Illuminate\\Database\\QueryException",
-                    "seen_at": 1747671603,
-                    "message": "SQLSTATE[42S22]: Column not found: 1054 Unknown column \u0027id_user\u0027 in \u0027where clause\u0027 (Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1)",
+                    "exception_class": "Illuminate\\Contracts\\Container\\BindingResolutionException",
+                    "seen_at": 1748661881,
+                    "message": "Target class [SeminarController] does not exist.",
                     "glows": [],
-                    "solutions": [{
-                        "class": "Spatie\\ErrorSolutions\\Solutions\\Laravel\\RunMigrationsSolution",
-                        "title": "A column was not found",
-                        "description": "You might have forgotten to run your database migrations.",
-                        "links": {
-                            "Database: Running Migrations docs": "https:\/\/laravel.com\/docs\/master\/migrations#running-migrations"
-                        },
-                        "action_description": "You can try to run your migrations using `php artisan migrate`.",
-                        "is_runnable": true,
-                        "ai_generated": false
-                    }],
-                    "documentation_links": ["https:\/\/laravel.com\/docs\/11.x\/eloquent"],
+                    "solutions": [],
+                    "documentation_links": [],
                     "stacktrace": [{
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 825,
-                        "method": "runQueryCallback",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 946,
+                        "method": "build",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "810": "        \/\/ took to execute and log the query SQL, bindings and time in our memory.",
-                            "811": "        try {",
-                            "812": "            return $callback($query, $bindings);",
-                            "813": "        }",
-                            "814": "",
-                            "815": "        \/\/ If an exception occurs when attempting to run a query, we\u0027ll format the error",
-                            "816": "        \/\/ message to include the bindings with SQL, which will make this exception a",
-                            "817": "        \/\/ lot more helpful to the developer instead of just the database\u0027s errors.",
-                            "818": "        catch (Exception $e) {",
-                            "819": "            if ($this-\u003EisUniqueConstraintError($e)) {",
-                            "820": "                throw new UniqueConstraintViolationException(",
-                            "821": "                    $this-\u003EgetName(), $query, $this-\u003EprepareBindings($bindings), $e",
-                            "822": "                );",
-                            "823": "            }",
-                            "824": "",
-                            "825": "            throw new QueryException(",
-                            "826": "                $this-\u003EgetName(), $query, $this-\u003EprepareBindings($bindings), $e",
-                            "827": "            );",
-                            "828": "        }",
-                            "829": "    }",
-                            "830": "",
-                            "831": "    \/**",
-                            "832": "     * Determine if the given database exception was caused by a unique constraint violation.",
-                            "833": "     *",
-                            "834": "     * @param  \\Exception  $exception",
-                            "835": "     * @return bool",
-                            "836": "     *\/",
-                            "837": "    protected function isUniqueConstraintError(Exception $exception)",
-                            "838": "    {",
-                            "839": "        return false;"
+                            "931": "        \/\/ hand back the results of the functions, which allows functions to be",
+                            "932": "        \/\/ used as resolvers for more fine-tuned resolution of these objects.",
+                            "933": "        if ($concrete instanceof Closure) {",
+                            "934": "            $this-\u003EbuildStack[] = spl_object_hash($concrete);",
+                            "935": "",
+                            "936": "            try {",
+                            "937": "                return $concrete($this, $this-\u003EgetLastParameterOverride());",
+                            "938": "            } finally {",
+                            "939": "                array_pop($this-\u003EbuildStack);",
+                            "940": "            }",
+                            "941": "        }",
+                            "942": "",
+                            "943": "        try {",
+                            "944": "            $reflector = new ReflectionClass($concrete);",
+                            "945": "        } catch (ReflectionException $e) {",
+                            "946": "            throw new BindingResolutionException(\u0022Target class [$concrete] does not exist.\u0022, 0, $e);",
+                            "947": "        }",
+                            "948": "",
+                            "949": "        \/\/ If the type is not instantiable, the developer is attempting to resolve",
+                            "950": "        \/\/ an abstract type such as an Interface or Abstract Class and there is",
+                            "951": "        \/\/ no binding registered for the abstractions so we need to bail out.",
+                            "952": "        if (! $reflector-\u003EisInstantiable()) {",
+                            "953": "            return $this-\u003EnotInstantiable($concrete);",
+                            "954": "        }",
+                            "955": "",
+                            "956": "        $this-\u003EbuildStack[] = $concrete;",
+                            "957": "",
+                            "958": "        $constructor = $reflector-\u003EgetConstructor();",
+                            "959": "",
+                            "960": "        \/\/ If there are no constructors, that means there are no dependencies then"
                         },
                         "arguments": [],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 779,
-                        "method": "run",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 819,
+                        "method": "resolve",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "764": "     *\/",
-                            "765": "    protected function run($query, $bindings, Closure $callback)",
-                            "766": "    {",
-                            "767": "        foreach ($this-\u003EbeforeExecutingCallbacks as $beforeExecutingCallback) {",
-                            "768": "            $beforeExecutingCallback($query, $bindings, $this);",
-                            "769": "        }",
-                            "770": "",
-                            "771": "        $this-\u003EreconnectIfMissingConnection();",
-                            "772": "",
-                            "773": "        $start = microtime(true);",
-                            "774": "",
-                            "775": "        \/\/ Here we will run this query. If an exception occurs we\u0027ll determine if it was",
-                            "776": "        \/\/ caused by a connection that has been lost. If that is the cause, we\u0027ll try",
-                            "777": "        \/\/ to re-establish connection and re-run the query with a fresh connection.",
-                            "778": "        try {",
-                            "779": "            $result = $this-\u003ErunQueryCallback($query, $bindings, $callback);",
-                            "780": "        } catch (QueryException $e) {",
-                            "781": "            $result = $this-\u003EhandleQueryException(",
-                            "782": "                $e, $query, $bindings, $callback",
-                            "783": "            );",
-                            "784": "        }",
-                            "785": "",
-                            "786": "        \/\/ Once we have run the query we will calculate the time that it took to run and",
-                            "787": "        \/\/ then log the query, bindings, and execution time so we will report them on",
-                            "788": "        \/\/ the event that the developer needs them. We\u0027ll log time in milliseconds.",
-                            "789": "        $this-\u003ElogQuery(",
-                            "790": "            $query, $bindings, $this-\u003EgetElapsedTime($start)",
-                            "791": "        );",
-                            "792": "",
-                            "793": "        return $result;"
+                            "804": "        \/\/ so the developer can keep using the same objects instance every time.",
+                            "805": "        if (isset($this-\u003Einstances[$abstract]) \u0026\u0026 ! $needsContextualBuild) {",
+                            "806": "            return $this-\u003Einstances[$abstract];",
+                            "807": "        }",
+                            "808": "",
+                            "809": "        $this-\u003Ewith[] = $parameters;",
+                            "810": "",
+                            "811": "        if (is_null($concrete)) {",
+                            "812": "            $concrete = $this-\u003EgetConcrete($abstract);",
+                            "813": "        }",
+                            "814": "",
+                            "815": "        \/\/ We\u0027re ready to instantiate an instance of the concrete type registered for",
+                            "816": "        \/\/ the binding. This will instantiate the types, as well as resolve any of",
+                            "817": "        \/\/ its \u0022nested\u0022 dependencies recursively until all have gotten resolved.",
+                            "818": "        $object = $this-\u003EisBuildable($concrete, $abstract)",
+                            "819": "            ? $this-\u003Ebuild($concrete)",
+                            "820": "            : $this-\u003Emake($concrete);",
+                            "821": "",
+                            "822": "        \/\/ If we defined any extenders for this type, we\u0027ll need to spin through them",
+                            "823": "        \/\/ and apply them to the object being built. This allows for the extension",
+                            "824": "        \/\/ of services, such as changing configuration or decorating the object.",
+                            "825": "        foreach ($this-\u003EgetExtenders($abstract) as $extender) {",
+                            "826": "            $object = $extender($object, $this);",
+                            "827": "        }",
+                            "828": "",
+                            "829": "        \/\/ If the requested type is registered as a singleton we\u0027ll want to cache off",
+                            "830": "        \/\/ the instances in \u0022memory\u0022 so we can return it later without creating an",
+                            "831": "        \/\/ entirely new instance of an object on each subsequent request for it.",
+                            "832": "        if ($this-\u003EisShared($abstract) \u0026\u0026 ! $needsContextualBuild) {",
+                            "833": "            $this-\u003Einstances[$abstract] = $object;"
                         },
                         "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
+                            "name": "concrete",
+                            "value": "SeminarController",
                             "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "bindings",
-                            "value": [2],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:398-415",
-                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
-                        "line_number": 398,
-                        "method": "select",
-                        "class": "Illuminate\\Database\\Connection",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+                        "line_number": 1048,
+                        "method": "resolve",
+                        "class": "Illuminate\\Foundation\\Application",
                         "code_snippet": {
-                            "383": "    public function selectFromWriteConnection($query, $bindings = [])",
-                            "384": "    {",
-                            "385": "        return $this-\u003Eselect($query, $bindings, false);",
-                            "386": "    }",
-                            "387": "",
-                            "388": "    \/**",
-                            "389": "     * Run a select statement against the database.",
-                            "390": "     *",
-                            "391": "     * @param  string  $query",
-                            "392": "     * @param  array  $bindings",
-                            "393": "     * @param  bool  $useReadPdo",
-                            "394": "     * @return array",
-                            "395": "     *\/",
-                            "396": "    public function select($query, $bindings = [], $useReadPdo = true)",
-                            "397": "    {",
-                            "398": "        return $this-\u003Erun($query, $bindings, function ($query, $bindings) use ($useReadPdo) {",
-                            "399": "            if ($this-\u003Epretending()) {",
-                            "400": "                return [];",
-                            "401": "            }",
-                            "402": "",
-                            "403": "            \/\/ For select statements, we\u0027ll simply execute the query and return an array",
-                            "404": "            \/\/ of the database result set. Each element in the array will be a single",
-                            "405": "            \/\/ row from the database table, and will either be an array or objects.",
-                            "406": "            $statement = $this-\u003Eprepared(",
-                            "407": "                $this-\u003EgetPdoForSelect($useReadPdo)-\u003Eprepare($query)",
-                            "408": "            );",
-                            "409": "",
-                            "410": "            $this-\u003EbindValues($statement, $this-\u003EprepareBindings($bindings));",
-                            "411": "",
-                            "412": "            $statement-\u003Eexecute();"
+                            "1033": "    \/**",
+                            "1034": "     * Resolve the given type from the container.",
+                            "1035": "     *",
+                            "1036": "     * @param  string  $abstract",
+                            "1037": "     * @param  array  $parameters",
+                            "1038": "     * @param  bool  $raiseEvents",
+                            "1039": "     * @return mixed",
+                            "1040": "     *",
+                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
+                            "1043": "     *\/",
+                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)",
+                            "1045": "    {",
+                            "1046": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
+                            "1047": "",
+                            "1048": "        return parent::resolve($abstract, $parameters, $raiseEvents);",
+                            "1049": "    }",
+                            "1050": "",
+                            "1051": "    \/**",
+                            "1052": "     * Load the deferred provider if the given type is a deferred service and the instance has not been loaded.",
+                            "1053": "     *",
+                            "1054": "     * @param  string  $abstract",
+                            "1055": "     * @return void",
+                            "1056": "     *\/",
+                            "1057": "    protected function loadDeferredProviderIfNeeded($abstract)",
+                            "1058": "    {",
+                            "1059": "        if ($this-\u003EisDeferredService($abstract) \u0026\u0026 ! isset($this-\u003Einstances[$abstract])) {",
+                            "1060": "            $this-\u003EloadDeferredProvider($abstract);",
+                            "1061": "        }",
+                            "1062": "    }"
                         },
                         "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
+                            "name": "abstract",
+                            "value": "SeminarController",
                             "original_type": "string",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "bindings",
-                            "value": [2],
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:398-415",
-                            "original_type": "Closure",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3133,
-                        "method": "runSelect",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()",
-                            "3132": "    {",
-                            "3133": "        return $this-\u003Econnection-\u003Eselect(",
-                            "3134": "            $this-\u003EtoSql(), $this-\u003EgetBindings(), ! $this-\u003EuseWritePdo",
-                            "3135": "        );",
-                            "3136": "    }",
-                            "3137": "",
-                            "3138": "    \/**",
-                            "3139": "     * Remove the group limit keys from the results in the collection.",
-                            "3140": "     *",
-                            "3141": "     * @param  \\Illuminate\\Support\\Collection  $items",
-                            "3142": "     * @return \\Illuminate\\Support\\Collection",
-                            "3143": "     *\/",
-                            "3144": "    protected function withoutGroupLimitKeys($items)",
-                            "3145": "    {",
-                            "3146": "        $keysToRemove = [\u0027laravel_row\u0027];",
-                            "3147": ""
-                        },
-                        "arguments": [{
-                            "name": "query",
-                            "value": "select * from `dosens` where `id_user` = ? limit 1",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "bindings",
-                            "value": [2],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "useReadPdo",
+                            "name": "raiseEvents",
                             "value": true,
                             "original_type": "bool",
                             "passed_by_reference": false,
@@ -6259,361 +5763,113 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3118,
-                        "method": "Illuminate\\Database\\Query\\{closure}",
-                        "class": "Illuminate\\Database\\Query\\Builder",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+                        "line_number": 755,
+                        "method": "make",
+                        "class": "Illuminate\\Container\\Container",
                         "code_snippet": {
-                            "3103": "    {",
-                            "3104": "        $result = (array) $this-\u003Esole([$column]);",
-                            "3105": "",
-                            "3106": "        return reset($result);",
-                            "3107": "    }",
-                            "3108": "",
-                            "3109": "    \/**",
-                            "3110": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "3111": "     *",
-                            "3112": "     * @param  array|string  $columns",
-                            "3113": "     * @return \\Illuminate\\Support\\Collection\u003Cint, \\stdClass\u003E",
-                            "3114": "     *\/",
-                            "3115": "    public function get($columns = [\u0027*\u0027])",
-                            "3116": "    {",
-                            "3117": "        $items = new Collection($this-\u003EonceWithColumns(Arr::wrap($columns), function () {",
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()",
-                            "3132": "    {"
-                        },
-                        "arguments": [],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3706,
-                        "method": "onceWithColumns",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3691": "     *",
-                            "3692": "     * After running the callback, the columns are reset to the original value.",
-                            "3693": "     *",
-                            "3694": "     * @param  array  $columns",
-                            "3695": "     * @param  callable  $callback",
-                            "3696": "     * @return mixed",
-                            "3697": "     *\/",
-                            "3698": "    protected function onceWithColumns($columns, $callback)",
-                            "3699": "    {",
-                            "3700": "        $original = $this-\u003Ecolumns;",
-                            "3701": "",
-                            "3702": "        if (is_null($original)) {",
-                            "3703": "            $this-\u003Ecolumns = $columns;",
-                            "3704": "        }",
-                            "3705": "",
-                            "3706": "        $result = $callback();",
-                            "3707": "",
-                            "3708": "        $this-\u003Ecolumns = $original;",
-                            "3709": "",
-                            "3710": "        return $result;",
-                            "3711": "    }",
-                            "3712": "",
-                            "3713": "    \/**",
-                            "3714": "     * Insert new records into the database.",
-                            "3715": "     *",
-                            "3716": "     * @param  array  $values",
-                            "3717": "     * @return bool",
-                            "3718": "     *\/",
-                            "3719": "    public function insert(array $values)",
-                            "3720": "    {"
-                        },
-                        "arguments": [],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
-                        "line_number": 3117,
-                        "method": "get",
-                        "class": "Illuminate\\Database\\Query\\Builder",
-                        "code_snippet": {
-                            "3102": "    public function soleValue($column)",
-                            "3103": "    {",
-                            "3104": "        $result = (array) $this-\u003Esole([$column]);",
-                            "3105": "",
-                            "3106": "        return reset($result);",
-                            "3107": "    }",
-                            "3108": "",
-                            "3109": "    \/**",
-                            "3110": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "3111": "     *",
-                            "3112": "     * @param  array|string  $columns",
-                            "3113": "     * @return \\Illuminate\\Support\\Collection\u003Cint, \\stdClass\u003E",
-                            "3114": "     *\/",
-                            "3115": "    public function get($columns = [\u0027*\u0027])",
-                            "3116": "    {",
-                            "3117": "        $items = new Collection($this-\u003EonceWithColumns(Arr::wrap($columns), function () {",
-                            "3118": "            return $this-\u003Eprocessor-\u003EprocessSelect($this, $this-\u003ErunSelect());",
-                            "3119": "        }));",
-                            "3120": "",
-                            "3121": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "3122": "            isset($this-\u003EgroupLimit) ? $this-\u003EwithoutGroupLimitKeys($items) : $items",
-                            "3123": "        );",
-                            "3124": "    }",
-                            "3125": "",
-                            "3126": "    \/**",
-                            "3127": "     * Run the query as a \u0022select\u0022 statement against the connection.",
-                            "3128": "     *",
-                            "3129": "     * @return array",
-                            "3130": "     *\/",
-                            "3131": "    protected function runSelect()"
+                            "740": "    {",
+                            "741": "        return $this-\u003Emake($abstract, $parameters);",
+                            "742": "    }",
+                            "743": "",
+                            "744": "    \/**",
+                            "745": "     * Resolve the given type from the container.",
+                            "746": "     *",
+                            "747": "     * @param  string  $abstract",
+                            "748": "     * @param  array  $parameters",
+                            "749": "     * @return mixed",
+                            "750": "     *",
+                            "751": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "752": "     *\/",
+                            "753": "    public function make($abstract, array $parameters = [])",
+                            "754": "    {",
+                            "755": "        return $this-\u003Eresolve($abstract, $parameters);",
+                            "756": "    }",
+                            "757": "",
+                            "758": "    \/**",
+                            "759": "     * {@inheritdoc}",
+                            "760": "     *",
+                            "761": "     * @return mixed",
+                            "762": "     *\/",
+                            "763": "    public function get(string $id)",
+                            "764": "    {",
+                            "765": "        try {",
+                            "766": "            return $this-\u003Eresolve($id);",
+                            "767": "        } catch (Exception $e) {",
+                            "768": "            if ($this-\u003Ehas($id) || $e instanceof CircularDependencyException) {",
+                            "769": "                throw $e;"
                         },
                         "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
-                            "name": "callback",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php:3117-3119",
-                            "original_type": "Closure",
+                            "name": "raiseEvents",
+                            "value": true,
+                            "original_type": "bool",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
-                        "line_number": 760,
-                        "method": "getModels",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+                        "line_number": 1030,
+                        "method": "make",
+                        "class": "Illuminate\\Foundation\\Application",
                         "code_snippet": {
-                            "745": "",
-                            "746": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "747": "            $builder-\u003EgetModel()-\u003EnewCollection($models)",
-                            "748": "        );",
-                            "749": "    }",
-                            "750": "",
-                            "751": "    \/**",
-                            "752": "     * Get the hydrated models without eager loading.",
-                            "753": "     *",
-                            "754": "     * @param  array|string  $columns",
-                            "755": "     * @return array\u003Cint, TModel\u003E",
-                            "756": "     *\/",
-                            "757": "    public function getModels($columns = [\u0027*\u0027])",
-                            "758": "    {",
-                            "759": "        return $this-\u003Emodel-\u003Ehydrate(",
-                            "760": "            $this-\u003Equery-\u003Eget($columns)-\u003Eall()",
-                            "761": "        )-\u003Eall();",
-                            "762": "    }",
-                            "763": "",
-                            "764": "    \/**",
-                            "765": "     * Eager load the relationships for the models.",
-                            "766": "     *",
-                            "767": "     * @param  array\u003Cint, TModel\u003E  $models",
-                            "768": "     * @return array\u003Cint, TModel\u003E",
-                            "769": "     *\/",
-                            "770": "    public function eagerLoadRelations(array $models)",
-                            "771": "    {",
-                            "772": "        foreach ($this-\u003EeagerLoad as $name =\u003E $constraints) {",
-                            "773": "            \/\/ For nested eager loads we\u0027ll skip loading them here and they will be set as an",
-                            "774": "            \/\/ eager load on the query to retrieve the relation so that they will be eager"
+                            "1015": "    }",
+                            "1016": "",
+                            "1017": "    \/**",
+                            "1018": "     * Resolve the given type from the container.",
+                            "1019": "     *",
+                            "1020": "     * @param  string  $abstract",
+                            "1021": "     * @param  array  $parameters",
+                            "1022": "     * @return mixed",
+                            "1023": "     *",
+                            "1024": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1025": "     *\/",
+                            "1026": "    public function make($abstract, array $parameters = [])",
+                            "1027": "    {",
+                            "1028": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
+                            "1029": "",
+                            "1030": "        return parent::make($abstract, $parameters);",
+                            "1031": "    }",
+                            "1032": "",
+                            "1033": "    \/**",
+                            "1034": "     * Resolve the given type from the container.",
+                            "1035": "     *",
+                            "1036": "     * @param  string  $abstract",
+                            "1037": "     * @param  array  $parameters",
+                            "1038": "     * @param  bool  $raiseEvents",
+                            "1039": "     * @return mixed",
+                            "1040": "     *",
+                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
+                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
+                            "1043": "     *\/",
+                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)"
                         },
                         "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
-                        "line_number": 742,
-                        "method": "get",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
-                        "code_snippet": {
-                            "727": "    }",
-                            "728": "",
-                            "729": "    \/**",
-                            "730": "     * Execute the query as a \u0022select\u0022 statement.",
-                            "731": "     *",
-                            "732": "     * @param  array|string  $columns",
-                            "733": "     * @return \\Illuminate\\Database\\Eloquent\\Collection\u003Cint, TModel\u003E",
-                            "734": "     *\/",
-                            "735": "    public function get($columns = [\u0027*\u0027])",
-                            "736": "    {",
-                            "737": "        $builder = $this-\u003EapplyScopes();",
-                            "738": "",
-                            "739": "        \/\/ If we actually found models we will also eager load any relationships that",
-                            "740": "        \/\/ have been specified as needing to be eager loaded, which will solve the",
-                            "741": "        \/\/ n+1 query issue for the developers to avoid running a lot of queries.",
-                            "742": "        if (count($models = $builder-\u003EgetModels($columns)) \u003E 0) {",
-                            "743": "            $models = $builder-\u003EeagerLoadRelations($models);",
-                            "744": "        }",
-                            "745": "",
-                            "746": "        return $this-\u003EapplyAfterQueryCallbacks(",
-                            "747": "            $builder-\u003EgetModel()-\u003EnewCollection($models)",
-                            "748": "        );",
-                            "749": "    }",
-                            "750": "",
-                            "751": "    \/**",
-                            "752": "     * Get the hydrated models without eager loading.",
-                            "753": "     *",
-                            "754": "     * @param  array|string  $columns",
-                            "755": "     * @return array\u003Cint, TModel\u003E",
-                            "756": "     *\/"
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
+                        }, {
+                            "name": "parameters",
+                            "value": [],
                             "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\BuildsQueries.php",
-                        "line_number": 344,
-                        "method": "first",
-                        "class": "Illuminate\\Database\\Eloquent\\Builder",
-                        "code_snippet": {
-                            "329": "                if ($lastId === null) {",
-                            "330": "                    throw new RuntimeException(\u0022The lazyById operation was aborted because the [{$alias}] column is not present in the query result.\u0022);",
-                            "331": "                }",
-                            "332": "            }",
-                            "333": "        });",
-                            "334": "    }",
-                            "335": "",
-                            "336": "    \/**",
-                            "337": "     * Execute the query and get the first result.",
-                            "338": "     *",
-                            "339": "     * @param  array|string  $columns",
-                            "340": "     * @return TValue|null",
-                            "341": "     *\/",
-                            "342": "    public function first($columns = [\u0027*\u0027])",
-                            "343": "    {",
-                            "344": "        return $this-\u003Etake(1)-\u003Eget($columns)-\u003Efirst();",
-                            "345": "    }",
-                            "346": "",
-                            "347": "    \/**",
-                            "348": "     * Execute the query and get the first result or throw an exception.",
-                            "349": "     *",
-                            "350": "     * @param  array|string  $columns",
-                            "351": "     * @param  string|null  $message",
-                            "352": "     * @return TValue",
-                            "353": "     *",
-                            "354": "     * @throws \\Illuminate\\Database\\RecordNotFoundException",
-                            "355": "     *\/",
-                            "356": "    public function firstOrFail($columns = [\u0027*\u0027], $message = null)",
-                            "357": "    {",
-                            "358": "        if (! is_null($result = $this-\u003Efirst($columns))) {"
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\ProfileDosenController.php",
-                        "line_number": 34,
-                        "method": "updateKuota",
-                        "class": "App\\Http\\Controllers\\ProfileDosenController",
-                        "code_snippet": {
-                            "19": "        $ajuanBimbingan = Pengajuan::where(\u0027id_dosen_1\u0027, $dosen-\u003Eid_dosen)",
-                            "20": "            -\u003EorWhere(\u0027id_dosen_2\u0027, $dosen-\u003Eid_dosen)",
-                            "21": "            -\u003Ewith([\u0027mahasiswa\u0027]) \/\/ Eager load",
-                            "22": "            -\u003Eget();",
-                            "23": "",
-                            "24": "        $jumlahMahasiswa = $ajuanBimbingan-\u003Ecount();",
-                            "25": "",
-                            "26": "        return view(\u0027profileDosen\u0027, compact(\u0027dosen\u0027, \u0027ajuanBimbingan\u0027, \u0027jumlahMahasiswa\u0027));",
-                            "27": "    }",
-                            "28": "",
-                            "29": "",
-                            "30": "    public function updateKuota(Request $request)",
-                            "31": "    {",
-                            "32": "        $user = Auth::guard(\u0027dosen\u0027)-\u003Euser();",
-                            "33": "        $request-\u003Evalidate([\u0027kuota\u0027 =\u003E \u0027required|integer|min:1\u0027]);",
-                            "34": "        $dosen = Dosen::where(\u0027id_user\u0027, $user-\u003Eid_dosen)-\u003Efirst();",
-                            "35": "        $dosen-\u003Ekuota_bimbingan = $request-\u003Ekuota;",
-                            "36": "        $dosen-\u003Esave();",
-                            "37": "",
-                            "38": "        return response()-\u003Ejson([\u0027message\u0027 =\u003E \u0027Kuota berhasil diperbarui\u0027]);",
-                            "39": "    }",
-                            "40": "",
-                            "41": "    public function updateWhatsapp(Request $request)",
-                            "42": "    {",
-                            "43": "        $user = Auth::guard(\u0027dosen\u0027)-\u003Euser();",
-                            "44": "        $request-\u003Evalidate([\u0027link\u0027 =\u003E \u0027required|string\u0027]);",
-                            "45": "        $dosen = Dosen::where(\u0027id_user\u0027, $user-\u003Eid_dosen)-\u003Efirst();",
-                            "46": "        $dosen-\u003Elink_wa_group = $request-\u003Elink;",
-                            "47": "        $dosen-\u003Esave();",
-                            "48": ""
-                        },
-                        "arguments": [{
-                            "name": "columns",
-                            "value": ["*"],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": true
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
-                        "line_number": 47,
-                        "method": "dispatch",
-                        "class": "Illuminate\\Routing\\ControllerDispatcher",
-                        "code_snippet": {
-                            "32": "     * Dispatch a request to a given controller and method.",
-                            "33": "     *",
-                            "34": "     * @param  \\Illuminate\\Routing\\Route  $route",
-                            "35": "     * @param  mixed  $controller",
-                            "36": "     * @param  string  $method",
-                            "37": "     * @return mixed",
-                            "38": "     *\/",
-                            "39": "    public function dispatch(Route $route, $controller, $method)",
-                            "40": "    {",
-                            "41": "        $parameters = $this-\u003EresolveParameters($route, $controller, $method);",
-                            "42": "",
-                            "43": "        if (method_exists($controller, \u0027callAction\u0027)) {",
-                            "44": "            return $controller-\u003EcallAction($method, $parameters);",
-                            "45": "        }",
-                            "46": "",
-                            "47": "        return $controller-\u003E{$method}(...array_values($parameters));",
-                            "48": "    }",
-                            "49": "",
-                            "50": "    \/**",
-                            "51": "     * Resolve the parameters for the controller.",
-                            "52": "     *",
-                            "53": "     * @param  \\Illuminate\\Routing\\Route  $route",
-                            "54": "     * @param  mixed  $controller",
-                            "55": "     * @param  string  $method",
-                            "56": "     * @return array",
-                            "57": "     *\/",
-                            "58": "    protected function resolveParameters(Route $route, $controller, $method)",
-                            "59": "    {",
-                            "60": "        return $this-\u003EresolveClassMethodDependencies(",
-                            "61": "            $route-\u003EparametersWithoutNulls(), $controller, $method"
-                        },
-                        "arguments": [{
-                            "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -6621,11 +5877,63 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 266,
+                        "line_number": 285,
+                        "method": "getController",
+                        "class": "Illuminate\\Routing\\Route",
+                        "code_snippet": {
+                            "270": "",
+                            "271": "    \/**",
+                            "272": "     * Get the controller instance for the route.",
+                            "273": "     *",
+                            "274": "     * @return mixed",
+                            "275": "     *\/",
+                            "276": "    public function getController()",
+                            "277": "    {",
+                            "278": "        if (! $this-\u003EisControllerAction()) {",
+                            "279": "            return null;",
+                            "280": "        }",
+                            "281": "",
+                            "282": "        if (! $this-\u003Econtroller) {",
+                            "283": "            $class = $this-\u003EgetControllerClass();",
+                            "284": "",
+                            "285": "            $this-\u003Econtroller = $this-\u003Econtainer-\u003Emake(ltrim($class, \u0027\\\\\u0027));",
+                            "286": "        }",
+                            "287": "",
+                            "288": "        return $this-\u003Econtroller;",
+                            "289": "    }",
+                            "290": "",
+                            "291": "    \/**",
+                            "292": "     * Get the controller class used for the route.",
+                            "293": "     *",
+                            "294": "     * @return string|null",
+                            "295": "     *\/",
+                            "296": "    public function getControllerClass()",
+                            "297": "    {",
+                            "298": "        return $this-\u003EisControllerAction() ? $this-\u003EparseControllerCallback()[0] : null;",
+                            "299": "    }"
+                        },
+                        "arguments": [{
+                            "name": "abstract",
+                            "value": "SeminarController",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "parameters",
+                            "value": [],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+                        "line_number": 267,
                         "method": "runController",
                         "class": "Illuminate\\Routing\\Route",
                         "code_snippet": {
-                            "251": "     *\/",
                             "252": "    protected function isSerializedClosure()",
                             "253": "    {",
                             "254": "        return RouteAction::containsSerializedClosure($this-\u003Eaction);",
@@ -6654,30 +5962,10 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "277": "    {",
                             "278": "        if (! $this-\u003EisControllerAction()) {",
                             "279": "            return null;",
-                            "280": "        }"
+                            "280": "        }",
+                            "281": ""
                         },
-                        "arguments": [{
-                            "name": "route",
-                            "value": "object",
-                            "original_type": "Illuminate\\Routing\\Route",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "controller",
-                            "value": "object",
-                            "original_type": "App\\Http\\Controllers\\ProfileDosenController",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "method",
-                            "value": "updateKuota",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
+                        "arguments": [],
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
@@ -6796,103 +6084,8 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Middleware\\DosenMiddleware.php",
-                        "line_number": 20,
-                        "method": "handle",
-                        "class": "App\\Http\\Middleware\\DosenMiddleware",
-                        "code_snippet": {
-                            "1": "\u003C?php",
-                            "2": "",
-                            "3": "namespace App\\Http\\Middleware;",
-                            "4": "",
-                            "5": "use Closure;",
-                            "6": "use Illuminate\\Http\\Request;",
-                            "7": "use Illuminate\\Support\\Facades\\Auth;",
-                            "8": "use Symfony\\Component\\HttpFoundation\\Response;",
-                            "9": "",
-                            "10": "class DosenMiddleware",
-                            "11": "{",
-                            "12": "    \/**",
-                            "13": "     * Handle an incoming request.",
-                            "14": "     *",
-                            "15": "     * @param  \\Closure(\\Illuminate\\Http\\Request): (\\Symfony\\Component\\HttpFoundation\\Response)  $next",
-                            "16": "     *\/",
-                            "17": "    public function handle(Request $request, Closure $next): Response",
-                            "18": "    {",
-                            "19": "        if (Auth::guard(\u0027dosen\u0027)-\u003Echeck()) {",
-                            "20": "            return $next($request);",
-                            "21": "        }",
-                            "22": "",
-                            "23": "        return redirect(\u0027\/login\u0027)-\u003EwithErrors([\u0027Akses ditolak\u0027]);",
-                            "24": "    }",
-                            "25": "}",
-                            "26": ""
-                        },
-                        "arguments": [{
-                            "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": true
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                        "line_number": 183,
-                        "method": "Illuminate\\Pipeline\\{closure}",
-                        "class": "Illuminate\\Pipeline\\Pipeline",
-                        "code_snippet": {
-                            "168": "",
-                            "169": "                        \/\/ If the pipe is a string we will parse the string and resolve the class out",
-                            "170": "                        \/\/ of the dependency injection container. We can then build a callable and",
-                            "171": "                        \/\/ execute the pipe function giving in the parameters that are required.",
-                            "172": "                        $pipe = $this-\u003EgetContainer()-\u003Emake($name);",
-                            "173": "",
-                            "174": "                        $parameters = array_merge([$passable, $stack], $parameters);",
-                            "175": "                    } else {",
-                            "176": "                        \/\/ If the pipe is already an object we\u0027ll just make a callable and pass it to",
-                            "177": "                        \/\/ the pipe as-is. There is no need to do any extra parsing and formatting",
-                            "178": "                        \/\/ since the object we\u0027re given was already a fully instantiated object.",
-                            "179": "                        $parameters = [$passable, $stack];",
-                            "180": "                    }",
-                            "181": "",
-                            "182": "                    $carry = method_exists($pipe, $this-\u003Emethod)",
-                            "183": "                                    ? $pipe-\u003E{$this-\u003Emethod}(...$parameters)",
-                            "184": "                                    : $pipe(...$parameters);",
-                            "185": "",
-                            "186": "                    return $this-\u003EhandleCarry($carry);",
-                            "187": "                } catch (Throwable $e) {",
-                            "188": "                    return $this-\u003EhandleException($passable, $e);",
-                            "189": "                }",
-                            "190": "            };",
-                            "191": "        };",
-                            "192": "    }",
-                            "193": "",
-                            "194": "    \/**",
-                            "195": "     * Parse full pipe string to get name and parameters.",
-                            "196": "     *",
-                            "197": "     * @param  string  $pipe"
-                        },
-                        "arguments": [{
-                            "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
-                            "original_type": "Illuminate\\Http\\Request",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
-                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -6937,7 +6130,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6983,14 +6176,14 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
                             "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:159-190",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
                             "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7036,7 +6229,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7082,7 +6275,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7135,7 +6328,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7181,7 +6374,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7234,7 +6427,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7280,7 +6473,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7340,7 +6533,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7393,7 +6586,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7439,7 +6632,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7492,7 +6685,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7538,7 +6731,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7591,7 +6784,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7690,7 +6883,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "truncated": false
                         }, {
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7736,7 +6929,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7789,7 +6982,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7835,7 +7028,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7881,7 +7074,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7927,7 +7120,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7973,7 +7166,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8026,7 +7219,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8079,7 +7272,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8125,7 +7318,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8178,7 +7371,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8231,7 +7424,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8277,7 +7470,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8330,7 +7523,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8376,7 +7569,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8429,7 +7622,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8475,7 +7668,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8528,7 +7721,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8574,7 +7767,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8627,7 +7820,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8673,7 +7866,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8726,7 +7919,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8818,7 +8011,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8864,7 +8057,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8898,7 +8091,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8941,60 +8134,60 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     }],
                     "context": {
                         "request": {
-                            "url": "http:\/\/127.0.0.1:8000\/dosen\/update-kuota",
+                            "url": "http:\/\/localhost:8000\/seminar\/update-status",
                             "ip": null,
                             "method": "POST",
-                            "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/136.0.0.0 Safari\/537.36"
+                            "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36"
                         },
                         "request_data": {
                             "queryString": [],
                             "body": {
-                                "kuota": "5"
+                                "id": 1,
+                                "status": "diterima",
+                                "alasan": ""
                             },
                             "files": []
                         },
                         "headers": {
-                            "host": "127.0.0.1:8000",
+                            "host": "localhost:8000",
                             "connection": "keep-alive",
-                            "content-length": "13",
+                            "content-length": "40",
                             "sec-ch-ua-platform": "\u0022Windows\u0022",
                             "x-csrf-token": "\u003CCENSORED\u003E",
-                            "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/136.0.0.0 Safari\/537.36",
-                            "sec-ch-ua": "\u0022Chromium\u0022;v=\u0022136\u0022, \u0022Google Chrome\u0022;v=\u0022136\u0022, \u0022Not.A\/Brand\u0022;v=\u002299\u0022",
+                            "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
+                            "sec-ch-ua": "\u0022Google Chrome\u0022;v=\u0022137\u0022, \u0022Chromium\u0022;v=\u0022137\u0022, \u0022Not\/A)Brand\u0022;v=\u002224\u0022",
                             "content-type": "application\/json",
                             "sec-ch-ua-mobile": "?0",
                             "accept": "*\/*",
-                            "origin": "http:\/\/127.0.0.1:8000",
+                            "origin": "http:\/\/localhost:8000",
                             "sec-fetch-site": "same-origin",
                             "sec-fetch-mode": "cors",
                             "sec-fetch-dest": "empty",
-                            "referer": "http:\/\/127.0.0.1:8000\/profiledosen",
+                            "referer": "http:\/\/localhost:8000\/requestdosen",
                             "accept-encoding": "gzip, deflate, br, zstd",
-                            "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
+                            "accept-language": "id-ID,id;q=0.9",
                             "cookie": "\u003CCENSORED\u003E"
                         },
                         "cookies": {
-                            "csrftoken": null,
-                            "sessionid": null,
-                            "XSRF-TOKEN": "ijjMkPwd2sQBi0cguQrBytPyIgSLREVP4xjlHwWo",
-                            "laravel_session": "vH5umWHn1wskM6MCpiisfW1eaBIAIlPRDHFsSNlA"
+                            "XSRF-TOKEN": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
+                            "laravel_session": "q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"
                         },
                         "session": {
-                            "_token": "ijjMkPwd2sQBi0cguQrBytPyIgSLREVP4xjlHwWo",
-                            "_previous": {
-                                "url": "http:\/\/127.0.0.1:8000\/profiledosen"
-                            },
+                            "_token": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
                             "_flash": {
                                 "old": [],
                                 "new": []
                             },
+                            "_previous": {
+                                "url": "http:\/\/localhost:8000\/requestdosen"
+                            },
                             "login_dosen_59ba36addc2b2f9401580f014c7f58ea4e30989d": 2
                         },
                         "route": {
-                            "route": "dosen.updateKuota",
+                            "route": "seminar.updateStatus",
                             "routeParameters": [],
-                            "controllerAction": "App\\Http\\Controllers\\ProfileDosenController@updateKuota",
-                            "middleware": ["web", "dosen"]
+                            "controllerAction": "SeminarController@updateStatus",
+                            "middleware": ["web"]
                         },
                         "env": {
                             "php_version": "8.2.12",
@@ -9004,23 +8197,14 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                             "app_debug": true,
                             "app_env": "local"
                         },
-                        "exception": {
-                            "raw_sql": "select * from `dosens` where `id_user` = ? limit 1"
-                        },
                         "dumps": [],
                         "logs": [],
                         "queries": [{
                             "sql": "select * from `sessions` where `id` = ? limit 1",
-                            "time": 21.86,
+                            "time": 11.39,
                             "connection_name": "mysql",
-                            "bindings": ["vH5umWHn1wskM6MCpiisfW1eaBIAIlPRDHFsSNlA"],
-                            "microtime": 1747671603.453126
-                        }, {
-                            "sql": "select * from `dosens` where `id_dosen` = ? limit 1",
-                            "time": 1.15,
-                            "connection_name": "mysql",
-                            "bindings": [2],
-                            "microtime": 1747671603.472223
+                            "bindings": ["q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"],
+                            "microtime": 1748661881.243109
                         }]
                     },
                     "stage": "local",
@@ -9028,7 +8212,7 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     "open_frame_index": null,
                     "application_path": "D:\\Projects\\SIBITA",
                     "application_version": null,
-                    "tracking_uuid": "9b08018b-a991-4490-a048-00460a967497",
+                    "tracking_uuid": "c4fa7ddd-b4f2-4c85-8ff9-3103d8bc48c4",
                     "handled": null,
                     "overridden_grouping": null
                 },
@@ -9118,87 +8302,66 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
                     },
                     "shareEndpoint": "https:\/\/flareapp.io\/api\/public-reports"
                 },
-                "solutions": [{
-                    "class": "Spatie\\ErrorSolutions\\Solutions\\Laravel\\RunMigrationsSolution",
-                    "title": "A column was not found",
-                    "links": {
-                        "Database: Running Migrations docs": "https:\/\/laravel.com\/docs\/master\/migrations#running-migrations"
-                    },
-                    "description": "You might have forgotten to run your database migrations.",
-                    "is_runnable": true,
-                    "ai_generated": false,
-                    "action_description": "You can try to run your migrations using `php artisan migrate`.",
-                    "run_button_text": "Run migrations",
-                    "execute_endpoint": "http:\/\/127.0.0.1:8000\/_ignition\/execute-solution",
-                    "run_parameters": []
-                }],
+                "solutions": [],
                 "updateConfigEndpoint": "\/_ignition\/update-config"
             };
         </script>
         <!-- The noscript representation is for HTTP client like Postman that have JS disabled. -->
         <noscript>
-            <pre>Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unknown column &#039;id_user &#039;in &#039;where clause &#039;(Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1) in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php on line 825
+            <pre>Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(779): Illuminate\Database\Connection-&gt;runQueryCallback(&#039;select * from `...&#039;, Array, Object(Closure))
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(398): Illuminate\Database\Connection-&gt;run(&#039;select * from `...&#039;, Array, Object(Closure))
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3133): Illuminate\Database\Connection-&gt;select(&#039;select * from `...&#039;, Array, true)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3118): Illuminate\Database\Query\Builder-&gt;runSelect()
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3706): Illuminate\Database\Query\Builder-&gt;Illuminate\Database\Query\{closure}()
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3117): Illuminate\Database\Query\Builder-&gt;onceWithColumns(Array, Object(Closure))
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(760): Illuminate\Database\Query\Builder-&gt;get(Array)
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(742): Illuminate\Database\Eloquent\Builder-&gt;getModels(Array)
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Concerns\BuildsQueries.php(344): Illuminate\Database\Eloquent\Builder-&gt;get(Array)
-#9 D:\Projects\SIBITA\app\Http\Controllers\ProfileDosenController.php(34): Illuminate\Database\Eloquent\Builder-&gt;first()
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\ProfileDosenController-&gt;updateKuota(Object(Illuminate\Http\Request))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProfileDosenController), &#039;updateKuota &#039;)
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#15 D:\Projects\SIBITA\app\Http\Middleware\DosenMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\DosenMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#52 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#54 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#55 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#56 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#57 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#58 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#59 {main}
+#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
+#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#51 {main}
 </pre>
         </noscript>
         <div id="app"></div>
@@ -47342,68 +46505,60 @@ Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unkn
             window.ignite(window.data);
         </script>
         <!--
-Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Unknown column &#039;id_user&#039; in &#039;where clause&#039; (Connection: mysql, SQL: select * from `dosens` where `id_user` = 2 limit 1) in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php on line 825
+Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(779): Illuminate\Database\Connection-&gt;runQueryCallback(&#039;select * from `...&#039;, Array, Object(Closure))
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Connection.php(398): Illuminate\Database\Connection-&gt;run(&#039;select * from `...&#039;, Array, Object(Closure))
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3133): Illuminate\Database\Connection-&gt;select(&#039;select * from `...&#039;, Array, true)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3118): Illuminate\Database\Query\Builder-&gt;runSelect()
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3706): Illuminate\Database\Query\Builder-&gt;Illuminate\Database\Query\{closure}()
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3117): Illuminate\Database\Query\Builder-&gt;onceWithColumns(Array, Object(Closure))
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(760): Illuminate\Database\Query\Builder-&gt;get(Array)
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(742): Illuminate\Database\Eloquent\Builder-&gt;getModels(Array)
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Concerns\BuildsQueries.php(344): Illuminate\Database\Eloquent\Builder-&gt;get(Array)
-#9 D:\Projects\SIBITA\app\Http\Controllers\ProfileDosenController.php(34): Illuminate\Database\Eloquent\Builder-&gt;first()
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\ProfileDosenController-&gt;updateKuota(Object(Illuminate\Http\Request))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProfileDosenController), &#039;updateKuota&#039;)
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#15 D:\Projects\SIBITA\app\Http\Middleware\DosenMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\DosenMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#52 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#54 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#55 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#56 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#57 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#58 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#59 {main}
+#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
+#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#51 {main}
 -->
     </body>
 </html>

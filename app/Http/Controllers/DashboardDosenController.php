@@ -16,31 +16,27 @@ class DashboardDosenController extends Controller
 
 
     // Mahasiswa bimbingan dari pengajuan
-    $bimbinganCount = Pengajuan::where('id_dosen_1', $dosen->id_dosen)
-                        ->orWhere('id_dosen_2', $dosen->id_dosen)
-                        ->count();
+    $bimbingan = Pengajuan::where('id_dosen', $dosenId)->get();
+    $bimbinganCount = $bimbingan->count();
+
+    // Ambil ID mahasiswa bimbingan
+    $mahasiswaIds = $bimbingan->pluck('id_mahasiswa');
 
     $mahasiswaBimbingan = Pengajuan::where(function($q) use ($dosenId) {
-        $q->where('id_dosen_1', $dosenId)
-            ->orWhere('id_dosen_2', $dosenId);
+        $q->where('id_dosen', $dosenId);
     })->get();
 
     $pengajuanIds = $mahasiswaBimbingan->pluck('id_pengajuan');
 
-    $selesaiSempro = Seminar::whereIn('id_pengajuan', $pengajuanIds)
-        ->where('jenis', 'proposal')
+    $seminars = Seminar::with(['mahasiswa'])
+        ->whereIn('id_mahasiswa', $mahasiswaIds)
         ->where('status', 'selesai')
-        ->count();
+        ->get();
 
-    $selesaiSemhas = Seminar::whereIn('id_pengajuan', $pengajuanIds)
-        ->where('jenis', 'hasil')
-        ->where('status', 'selesai')
-        ->count();
-
-    $selesaiSidang = Seminar::whereIn('id_pengajuan', $pengajuanIds)
-        ->where('jenis', 'sidang')
-        ->where('status', 'selesai')
-        ->count();
+        $selesaiSempro = $seminars->where('jenis', 'proposal')->count();
+        $selesaiSemhas = $seminars->where('jenis', 'hasil')->count();
+        $selesaiSidang = $seminars->where('jenis', 'sidang')->count();
+        
     // Dummy jadwal
     $jadwalSaya = collect([
         (object)[

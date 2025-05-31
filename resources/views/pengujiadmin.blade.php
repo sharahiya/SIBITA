@@ -11,36 +11,35 @@
     <!-- Form Penetapan Penguji dan Ruangan -->
     <div class="bg-white p-6 shadow-md rounded-lg mt-4 mx-auto">
         <h2 class="text-sm font-semibold text-gray-800 mb-3">Tentukan Penguji dan Ruangan</h2>
-
         <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Informasi Mahasiswa -->
             <div class="col-span-1 md:col-span-3">
-                <p class="text-sm font-semibold text-gray-800">Nama Mahasiswa:</p>
-                <input type="text" value="Fauzan Ramadhan" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Nama Mahasiswa -->
+            <p class="text-sm font-semibold text-gray-800">Nama Mahasiswa:</p>
+            <input type="text" value="{{ $mahasiswa->nama }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Nama Mahasiswa -->
 
-                <p class="text-sm font-semibold text-gray-800 mt-2">NPM Mahasiswa:</p>
-                <input type="text" value="2108107010021" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- NPM Mahasiswa -->
+            <p class="text-sm font-semibold text-gray-800 mt-2">NPM Mahasiswa:</p>
+            <input type="text" value="{{ $mahasiswa->npm }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- NPM Mahasiswa -->
             </div>
 
             <!-- Bidang Minat dan Judul TA -->
             <div class="col-span-1 md:col-span-3">
-                <p class="text-sm font-semibold text-gray-800">Bidang Minat:</p>
-                <input type="text" value="Kecerdasan Buatan" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Bidang Minat -->
+            <p class="text-sm font-semibold text-gray-800">Bidang Minat:</p>
+            <input type="text" value="{{ $mahasiswa->bidang_minat }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Bidang Minat -->
 
-                <p class="text-sm font-semibold text-gray-800 mt-2">Judul TA:</p>
-                <div class="flex items-center space-x-2">
-                    <input type="text" id="judulTAField" value="Pengembangan AI untuk Cerdas Buatan" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Judul TA -->
-                    <button type="button" onclick="openModal()" class="text-white bg-blue-500 hover:bg-blue-600 p-2 text-xs rounded-lg">Edit</button>
-                </div>
+            <p class="text-sm font-semibold text-gray-800 mt-2">Judul TA:</p>
+            <div class="flex items-center space-x-2">
+                <input type="text" id="judulTAField" value="{{ $mahasiswa->judul_ta }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Judul TA -->
+                <button type="button" onclick="openModal()" class="text-white bg-blue-500 hover:bg-blue-600 p-2 text-xs rounded-lg">Edit</button>
+            </div>
             </div>
 
             <!-- Dospem -->
             <div class="col-span-1 md:col-span-3">
-                <p class="text-sm font-semibold text-gray-800">Dosen Pembimbing 1:</p>
-                <input type="text" value="Dosen A" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Dospem 1 -->
+            <p class="text-sm font-semibold text-gray-800">Dosen Pembimbing 1:</p>
+            <input type="text" value="{{ $mahasiswa->dospem1->nama ?? '-' }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Dospem 1 -->
 
-                <p class="text-sm font-semibold text-gray-800 mt-2">Dosen Pembimbing 2:</p>
-                <input type="text" value="Dosen B" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Dospem 2 -->
+            <p class="text-sm font-semibold text-gray-800 mt-2">Dosen Pembimbing 2:</p>
+            <input type="text" value="{{ $mahasiswa->dospem2->nama ?? '-' }}" class="p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 w-full max-w-md" disabled> <!-- Dospem 2 -->
             </div>
 
           <!-- Pilihan Penguji 1 -->

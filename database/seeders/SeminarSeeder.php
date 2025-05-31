@@ -11,22 +11,25 @@ class SeminarSeeder extends Seeder
     {
         DB::table('seminars')->insert([
             [
-                'id_pengajuan' => 1,
-                'tanggal_seminar' => now()->addDays(10),
-                'status' => 'terjadwal',
-                'file_proposal' => 'proposal1.pdf'
+            'id_mahasiswa' => 1,
+            'tanggal_seminar' => now()->addDays(10),
+            'status' => 'diajukan',
+            'lampiran' => 'proposal1.pdf',
+            'jenis' => 'proposal'
             ],
             [
-                'id_pengajuan' => 2,
-                'tanggal_seminar' => now()->addDays(20),
-                'status' => 'belum',
-                'file_proposal' => 'proposal2.pdf'
+            'id_mahasiswa' => 2,
+            'tanggal_seminar' => now()->addDays(20),
+            'status' => 'diterima',
+            'lampiran' => 'proposal2.pdf',
+            'jenis' => 'hasil'
             ],
             [
-                'id_pengajuan' => 3,
-                'tanggal_seminar' => now()->addDays(5),
-                'status' => 'terjadwal',
-                'file_proposal' => 'proposal3.pdf'
+            'id_mahasiswa' => 1,
+            'tanggal_seminar' => now()->addDays(5),
+            'status' => 'ditolak',
+            'lampiran' => 'proposal3.pdf',
+            'jenis' => 'hasil'
             ]
         ]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\Pembimbing;
 use App\Models\Pengajuan;
 use App\Models\Seminar;
 use Carbon\Carbon;
@@ -16,7 +17,7 @@ class DashboardAdminController extends Controller
         // Statistik dasar
         $jumlahMahasiswa = Mahasiswa::count();
         $jumlahDosen = Dosen::count();
-        $mahasiswaAktifTA = Pengajuan::where('status', 'aktif')->count();
+        $mahasiswaAktifTA = Pembimbing::all()->count();
 
         // Inisialisasi tahun & semester (bisa disesuaikan logika real)
         $listTahun = ['2023/2024', '2024/2025', '2025/2026'];
@@ -27,31 +28,31 @@ class DashboardAdminController extends Controller
         foreach ($listTahun as $tahun) {
             foreach ($listSemester as $semester) {
                 $rekap[$tahun][$semester] = [
-                    'sempro' => Seminar::where('status', 'sempro_selesai')->count(),
-                    'semhas' => Seminar::where('status', 'semhas_selesai')->count(),
-                    'sidang' => Seminar::where('status', 'sidang_selesai')->count(),
-                    'aktif'  => Pengajuan::where('status', 'aktif')->count(),
+                    'sempro' => Seminar::where('jenis', 'proposal')->where('status', 'diterima')->count(),
+                    'semhas' => Seminar::where('jenis', 'hasil')->where('status', 'diterima')->count(),
+                    'sidang' => Seminar::where('jenis', 'sidang')->where('status', 'diterima')->count(),
+                    'aktif'  => Pembimbing::all()->count(),
                 ];
             }
         }
 
         // Data Penjadwalan Terdekat (simulasi)
-        $penjadwalan = Seminar::with(['pengajuan.mahasiswa'])
-            ->orderBy('tanggal_seminar', 'asc')
-            ->take(5)
-            ->get()
-            ->map(function ($s) {
-                return [
-                    'nama'    => $s->pengajuan->mahasiswa->nama ?? '-',
-                    'npm'     => $s->pengajuan->mahasiswa->npm ?? '-',
-                    'ujian'   => strtoupper(str_replace('_selesai', '', $s->status)),
-                    'judul'   => $s->pengajuan->topik_ta ?? '-',
-                    'peran'   => 'Peserta', // Bisa diperluas jika ada field peran
-                    'tanggal' => Carbon::parse($s->tanggal_seminar)->format('d M Y'),
-                    'waktu'   => Carbon::parse($s->tanggal_seminar)->format('H:i'),
-                    'ruangan' => 'Ruang 1', // Dummy, ganti jika ada field ruangan
-                ];
-            });
+        $penjadwalan = Seminar::with(['mahasiswa'])
+    ->orderBy('tanggal_seminar', 'asc')
+    ->take(5)
+    ->get()
+    ->map(function ($s) {
+        return [
+            'nama'    => $s->mahasiswa->nama ?? '-',
+            'npm'     => $s->mahasiswa->npm ?? '-',
+            'ujian'   => strtoupper(str_replace('_selesai', '', $s->status)),
+            'judul'   => $s->judul ?? '-', // Langsung dari Seminar jika ada
+            'peran'   => 'Peserta',
+            'tanggal' => Carbon::parse($s->tanggal_seminar)->format('d M Y'),
+            'waktu'   => Carbon::parse($s->tanggal_seminar)->format('H:i'),
+            'ruangan' => $s->ruangan ?? 'Ruang 1',
+        ];
+    });
 
         // Ambil default nilai tahun & semester untuk ditampilkan pertama kali
         $tahunDefault = '2024/2025';

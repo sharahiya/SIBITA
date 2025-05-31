@@ -1,186 +1,159 @@
 @extends('layouts.layoutmhs')
+
 @section('content')
-    <style>
-        .notification-container {
-            max-height: 490px; /* Menampilkan 9 notifikasi sebelum scroll */
-            overflow-y: auto;
-        }
-        .notification-item {
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .accepted {
-            background: #E3F2FD;
-        }
-        .rejected {
-            background: #FDECEC;
-        }
-        /* Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .modal.show {
-            display: flex;
-            opacity: 1;
-            transform: scale(1);
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .modal-header {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-        }
-        .modal-body {
-            color: #555;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        .modal-footer {
-            margin-top: 16px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .btn-close {
-            background: #ccc;
-            color: #333;
-        }
-        .btn-close:hover {
-            background: #b3b3b3;
-        }
-        .btn-submit {
-            background: #007BFF;
-            color: white;
-        }
-        .btn-submit:hover {
-            background: #0056b3;
-        }
-    </style>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal.show {
+        display: flex;
+    }
+</style>
 
-
-    <div class="container mx-auto">
-        <div class="bg-white p-4 shadow-lg rounded-lg w-full max-w-3xl mx-auto">
-            <div class="text-center mb-4">
-                <h1 class="text-lg font-semibold text-gray-800">Notifikasi</h1>
-            </div>
-            
-            <div class="space-y-3 notification-container" id="notifContainer"></div>
+<div class="container mx-auto px-4 py-6">
+    <div class="bg-white p-6 shadow-xl rounded-xl w-full max-w-3xl mx-auto space-y-4">
+        <div class="text-center">
+            <h1 class="text-2xl font-bold text-gray-800">Notifikasi</h1>
         </div>
-    </div>
 
-    <!-- Modal -->
-    <div id="modalReject" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">Pengajuan Ditolak</div>
-            <div id="modalMessage" class="modal-body"></div>
-            <div class="modal-footer">
-                <button onclick="closeModal()" class="btn btn-close">Tutup</button>
-                <a href="pengajuan" class="btn btn-submit">Ajukan Dospem Baru</a>
+        @if(session('success'))
+            <div class="bg-green-100 text-green-800 px-4 py-2 rounded text-sm text-center">
+                {{ session('success') }}
             </div>
-        </div>
-    </div>
+        @endif
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let notifContainer = document.getElementById("notifContainer");
+        @if($notifikasi->isNotEmpty())
+            <div class="flex justify-end gap-2 mb-4">
+                <form action="{{ route('notifikasi.baca.semua') }}" method="POST" onsubmit="return confirm('Tandai semua notifikasi sebagai sudah dibaca?')">
+                    @csrf
+                    <input type="hidden" name="id_user" value="{{ $mahasiswaId }}">
+                    <button type="submit" class="bg-green-600 text-white text-sm px-3 py-1 rounded hover:bg-green-700 transition">
+                        Tandai Sudah Dibaca
+                    </button>
+                </form>
 
-        let notifikasi = [
-            { jenis: "Dospem", status: "Diterima", pesan: "Dosen A menerima permohonan dospem Anda.", tanggal: new Date(2024, 2, 24) },
-            { jenis: "Dospem", status: "Ditolak", pesan: "Dosen B menolak permohonan dospem Anda.", alasan: "Kuota sudah penuh.", tanggal: new Date(2024, 2, 23) },
-            { jenis: "Sempro", status: "Diterima", pesan: "Seminar Proposal Anda telah diterima oleh dosen.", tanggal: new Date(2024, 2, 22) },
-            { jenis: "Semhas", status: "Diterima", pesan: "Seminar Hasil Anda telah diterima oleh dosen.", tanggal: new Date(2024, 2, 21) },
-            { jenis: "Sidang", status: "Diterima", pesan: "Sidang Skripsi Anda telah diterima oleh dosen.", tanggal: new Date(2024, 2, 20) },
-            { jenis: "Dospem", status: "Ditolak", pesan: "Dosen C menolak permohonan dospem Anda.", alasan: "Tidak sesuai bidang keahlian.", tanggal: new Date(2024, 2, 19) },
-            { jenis: "Dospem", status: "Diterima", pesan: "Dosen D menerima permohonan dospem Anda.", tanggal: new Date(2024, 2, 18) },
-            { jenis: "Sidang", status: "Diterima", pesan: "Sidang Skripsi Anda telah diterima oleh dosen.", tanggal: new Date(2024, 2, 17) },
-            { jenis: "Sempro", status: "Diterima", pesan: "Seminar Proposal Anda telah diterima oleh dosen.", tanggal: new Date(2024, 2, 16) },
-            { jenis: "Dospem", status: "Ditolak", pesan: "Dosen E menolak permohonan dospem Anda.", alasan: "Sudah memiliki banyak bimbingan.", tanggal: new Date(2024, 2, 15) }
-        ];
+                <form action="{{ route('notifikasi.hapus.semua') }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus semua notifikasi?')">
+                    @csrf
+                    <input type="hidden" name="id_user" value="{{ $mahasiswaId }}">
+                    <button type="submit" class="bg-red-600 text-white text-sm px-3 py-1 rounded hover:bg-red-700 transition">
+                        Hapus Semua
+                    </button>
+                </form>
+            </div>
+        @endif
 
-        let notifications = "";
-        notifikasi.forEach((notif, index) => {
-            let statusClass = notif.status === "Ditolak" ? "rejected" : "accepted";
-            let tanggalFormat = notif.tanggal.toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' });
+        <div class="space-y-3 max-h-[500px] overflow-y-auto" id="notifContainer">
+            @forelse($notifikasi as $index => $notif)
+                @php
+                    $pesan = $notif->pesan ?? '';
+                    $isRejected = Str::contains(strtolower($pesan), 'ditolak');
+                    $isUnread = $notif->status_baca === 'belum';
+                    $tanggal = \Carbon\Carbon::parse($notif->tanggal_kirim)->translatedFormat('d F Y');
+                    $tipe = $notif->tipe_notifikasi ?? 'Umum';
+                    $notifId = $notif->id_notifikasi;
 
-            notifications += `
-                <div class='notification-item ${statusClass} flex justify-between items-center'>
-                    <div>
-                        <p class='text-gray-800 text-sm font-medium'>${notif.pesan}</p>
-                        <p class='text-gray-600 text-xs'>${tanggalFormat}</p>
+                    $bgClass = $isUnread
+                        ? ($isRejected ? 'bg-red-100 border-l-4 border-red-500' : 'bg-yellow-100 border-l-4 border-yellow-500')
+                        : ($isRejected ? 'bg-red-50' : 'bg-gray-50');
+                @endphp
+
+                <div class="p-4 rounded-lg shadow-sm {{ $bgClass }} flex justify-between items-start gap-4">
+                    <div class="flex-1">
+                        <p class="text-gray-800 text-sm font-medium">{{ $pesan }}</p>
+                        <p class="text-gray-500 text-xs italic mt-1">{{ $tipe }} • {{ $tanggal }}</p>
                     </div>
-                    <button onclick="handleClick(${index})" class='text-white bg-blue-500 px-2 py-1 text-xs rounded hover:bg-blue-600 transition'>Lihat</button>
-                </div>`;
-        });
-
-        notifContainer.innerHTML = notifications;
-
-        // Tambahkan scroll jika lebih dari 9 notifikasi
-        if (notifikasi.length > 9) {
-            notifContainer.style.overflowY = "auto";
-        }
-
-        // Event handler untuk klik tombol "Lihat"
-        window.handleClick = function(index) {
-            let notif = notifikasi[index];
-
-            if (notif.status === "Ditolak") {
-                document.getElementById("modalMessage").innerText = `Alasan: ${notif.alasan}`;
-                document.getElementById("modalReject").classList.add("show");
-            } else {
-                window.location.href = "dashboard"; // Jika diterima, arahkan ke dashboard
-            }
-        };
-
-        // Fungsi menutup modal
-        window.closeModal = function() {
-            document.getElementById("modalReject").classList.remove("show");
-        };
-
-        // Event listener untuk tombol "Ajukan Dospem Baru"
-        document.getElementById("btnAjukanDospem").addEventListener("click", function() {
-            window.location.href = "pengajuan"; // Arahkan ke halaman pengajuan dospem
-        });
-
-    });
-</script>
-
-<!-- Modal Pop-Up -->
-<div id="modalReject" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">Pengajuan Ditolak</div>
-        <div id="modalMessage" class="modal-body"></div>
-        <div class="modal-footer">
-            <button onclick="closeModal()" class="btn btn-close">Tutup</button>
-            <button id="btnAjukanDospem" class="btn btn-submit">Ajukan Dospem Baru</button>
+                    <div class="flex flex-col items-end gap-2">
+                        <button onclick="handleClick({{ $index }})"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-xs rounded transition">
+                            🔍 Lihat
+                        </button>
+                        @if($isUnread)
+                            <form action="{{ route('notifikasi.baca.satu', $notifId) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="text-green-600 text-xs hover:underline">Tandai Dibaca</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            @empty
+                <p class="text-gray-500 text-sm text-center py-4">🚫 Tidak ada notifikasi.</p>
+            @endforelse
         </div>
     </div>
 </div>
 
-    </script>
+<!-- Modal -->
+<div id="modalReject" class="modal">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+        <div class="text-lg font-semibold text-red-600 mb-2">❌ Pengajuan Ditolak</div>
+        <div id="modalMessage" class="text-gray-700 text-sm mb-4"></div>
+        <div class="flex justify-center gap-4">
+            <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded transition">Tutup</button>
+            <button id="btnAjukanDospem" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">Ajukan Dospem Baru</button>
+        </div>
+    </div>
+</div>
 
+<script>
+    let notifikasi = @json($notifikasi);
+    notifikasi = notifikasi.map(n => ({
+        ...n,
+        isRejected: n.pesan?.toLowerCase().includes('penolakan') || n.pesan?.toLowerCase().includes('ditolak'),
+    }));
+
+    function getRedirectUrl(tipe) {
+        const routes = {
+            "Penolakan Bimbingan": "/pengajuan",
+            "Penerimaan Bimbingan": "/pengajuan",
+            "Penolakan Seminar Proposal": "/sempro",
+            "Penerimaan Seminar Proposal": "/sempro",
+            "Penolakan Seminar Hasil": "/semhas",
+            "Penerimaan Seminar Hasil": "/semhas",
+            "Penolakan Sidang": "/sidang",
+            "Penerimaan Sidang": "/sidang"
+        };
+        return routes[tipe] || "/dashboard";
+    }
+
+    function handleClick(index) {
+        const notif = notifikasi[index];
+        if (notif.isRejected) {
+            let alasan = "Tidak ada alasan spesifik.";
+            if (notif.pesan && notif.pesan.includes(":")) {
+                alasan = notif.pesan.split(":")[1]?.trim() || alasan;
+            }
+            document.getElementById("modalMessage").innerText = `Alasan: ${alasan}`;
+            document.getElementById("modalReject").classList.add("show");
+        } else {
+            const redirectUrl = getRedirectUrl(notif.tipe_notifikasi);
+            const notifId = notif.id_notifikasi;
+
+            fetch(`/notifikasi/baca/${notifId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                }
+            }).then(() => {
+                window.location.href = redirectUrl;
+            }).catch(error => {
+                console.error('Error marking notification as read:', error);
+            });
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("modalReject").classList.remove("show");
+    }
+
+    document.getElementById("btnAjukanDospem").addEventListener("click", function () {
+        window.location.href = "/pengajuan";
+    });
+</script>
 @endsection
