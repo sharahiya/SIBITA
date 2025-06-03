@@ -22,48 +22,48 @@ class ProfileDosenController extends Controller
             ->with(['mahasiswa', 'mahasiswa.seminars']) // Eager load seminar data
             ->get();
 
+        // Filter out mahasiswa with seminar type 'sidang' and status 'diterima'
+        $ajuanBimbingan = $ajuanBimbingan->filter(function ($pengajuan) {
+            $seminars = $pengajuan->mahasiswa->seminars;
+            return !$seminars->contains(function ($seminar) {
+                return $seminar->jenis === 'sidang' && $seminar->status === 'diterima';
+            });
+        });
+
         $jumlahMahasiswa = $ajuanBimbingan->count();
 
         // Check seminar status for each mahasiswa
         $ajuanBimbingan->each(function ($pengajuan) {
             $seminars = $pengajuan->mahasiswa->seminars;
             if ($seminars->isNotEmpty()) {
-            $seminarStatuses = $seminars->map(function ($seminar) {
-                switch ($seminar->jenis) {
-                case 'sidang':
-                    if ($seminar->status === 'diterima') {
-                        return 'Sidang';
+                $seminarStatuses = $seminars->map(function ($seminar) {
+                    switch ($seminar->jenis) {
+                        case 'hasil':
+                            if ($seminar->status === 'diterima') {
+                                return 'Semhas';
+                            }
+                            break;
+                        case 'proposal':
+                            if ($seminar->status === 'diterima') {
+                                return 'Sempro';
+                            }
+                            break;
+                        default:
+                            return 'Bimbingan';
                     }
-                    break; // Continue to the next case if not accepted
-                case 'hasil':
-                    if ($seminar->status === 'diterima') {
-                        return 'Semhas';
-                    }
-                    break; // Continue to the next case if not accepted
-                case 'proposal':
-                    if ($seminar->status === 'diterima') {
-                        return 'Sempro';
-                    }
-                    break; // Continue to the next case if not accepted
-                default:
-                    return 'Belum Seminar';
+                })->unique(); // Ensure unique statuses
+
+                if ($seminarStatuses->contains('Semhas')) {
+                    $pengajuan->mahasiswa->seminar_status = 'Semhas';
+                } elseif ($seminarStatuses->contains('Sempro')) {
+                    $pengajuan->mahasiswa->seminar_status = 'Sempro';
+                } else {
+                    $pengajuan->mahasiswa->seminar_status = 'Bimbingan';
                 }
-            })->unique(); // Ensure unique statuses
-
-            if ($seminarStatuses->contains('Sidang')) {
-                $pengajuan->mahasiswa->seminar_status = 'Sidang';
-            } elseif ($seminarStatuses->contains('Semhas')) {
-                $pengajuan->mahasiswa->seminar_status = 'Semhas';
-            } elseif ($seminarStatuses->contains('Sempro')) {
-                $pengajuan->mahasiswa->seminar_status = 'Sempro';
             } else {
-                $pengajuan->mahasiswa->seminar_status = 'Belum Seminar';
+                $pengajuan->mahasiswa->seminar_status = 'Bimbingan';
             }
-        }else {
-                        $pengajuan->mahasiswa->seminar_status = 'Belum Seminar';
-
-                }}
-            );
+        });
 
         return view('profileDosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }

@@ -45,6 +45,7 @@ Route::middleware('mahasiswa')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/daftardosen', [DaftarDosenController::class, 'index'])->name('daftardosen');
     Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
+    Route::get('/pengajuan/status', [Pengajuan2Controller::class, 'index'])->name('pengajuan2');
     Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store');
     Route::get('/pengajuan/pending', [PengajuanController::class, 'pending'])->name('pengajuan.pending');
 
@@ -55,6 +56,8 @@ Route::middleware('mahasiswa')->group(function () {
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
     Route::get('/penjadwalanmhs', [PenjadwalanMhsController::class, 'index'])->name('penjadwalanmhs');
     Route::get('/settingsmhs', [SettingsMhsController::class, 'index'])->name('settingsmhs');
+
+    Route::get('/detail/dosen/{id}', [DaftarDosenController::class, 'show'])->name('detail.dosen');
 });
 
 // === Dosen ===
@@ -82,7 +85,6 @@ Route::middleware('admin')->group(function () {
     Route::get('/manajemenakun', [ManajemenAkunController::class, 'index'])->name('manajemenakun');
     Route::get('/penjadwalanadmin', [PenjadwalanAdminController::class, 'index'])->name('penjadwalanadmin');
     Route::get('/requestadmin', [RequestAdminController::class, 'index'])->name('requestadmin');
-    Route::get('/pengajuan2', [Pengajuan2Controller::class, 'index'])->name('pengajuan2');
     Route::get('/detaildospem1', [DetailDospem1Controller::class, 'index'])->name('detaildospem1');
     Route::get('/pengujiadmin', [PengujiAdminController::class, 'index'])->name('pengujiadmin');
     Route::get('/pengujiadmin/{id}', [PengujiAdminController::class, 'show'])->name('pengujiadmin.show');
@@ -92,6 +94,10 @@ Route::middleware('admin')->group(function () {
 
     Route::post('/admin/upload-mahasiswa', [ManajemenAkunController::class, 'uploadMahasiswa'])->name('admin.upload.mahasiswa');
     Route::post('/admin/upload-dosen', [ManajemenAkunController::class, 'uploadDosen'])->name('admin.upload.dosen');
+    Route::post('/penetapan-penguji/{mahasiswa}', [PengujiAdminController::class, 'store'])->name('penetapan-penguji.store');
+    Route::delete('/penguji-reset/{mahasiswa}', [PengujiAdminController::class, 'reset'])->name('penguji.reset');
+
+
 });
 
 // fitur pengajuan

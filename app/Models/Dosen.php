@@ -48,4 +48,35 @@ class Dosen extends Authenticatable
     {
         return $this->belongsTo(Fakultas::class, 'id_fakultas');
     }
+
+
+    // Method untuk menghitung jumlah mahasiswa bimbingan dari pengajuan dengan status disetujui
+    public function jumlahMahasiswaBimbingan()
+    {
+        $dataAwal = $this->pengajuan()->where('status', 'diterima')->distinct()->pluck('id_mahasiswa');
+        $jumlahMahasiswa = $dataAwal->count();
+
+        foreach ($dataAwal as $idMahasiswa) {
+            $seminarSidang = Seminar::where('id_mahasiswa', $idMahasiswa)
+            ->where('tipe', 'sidang')
+            ->where('status', 'diterima')
+            ->exists();
+
+            if ($seminarSidang) {
+            $jumlahMahasiswa--;
+            }
+        }
+
+        return $jumlahMahasiswa;
+    }
+
+    public function jumlahMahasiswaPerwalian()
+    {
+        return $this->mahasiswaWali()->count();
+    }
+
+    public function jumlahMenjadiPenguji()
+    {
+        return Penguji::where('id_dosen', $this->id_dosen)->count();
+    }
 }

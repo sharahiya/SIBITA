@@ -67,6 +67,7 @@
                     </thead>
                     <tbody id="tableBody">
                         @foreach ($riwayat as $index => $item)
+                        @if($item['seminar'] && $item['seminar'][0] && $item['seminar'][0]['status'] == 'selesai')
                             <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
                                 <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900'>{{ $index + 1 }}</td>
                                 <td class='px-4 py-2 border border-gray-300'>{{ $item['mahasiswa']->nama }}</td>
@@ -81,7 +82,7 @@
                                     {{ $item['pengajuan']->dosen_ke == 1 ? 'Dospem 1' : 'Dospem 2' }}
                                 </td>
                                 <td class='px-4 py-2 border border-gray-300 text-center'>
-                                    @if ($item['seminar'][0]['lampiran'])
+                                    @if ($item['seminar'] && $item['seminar'][0] && $item['seminar'][0]['lampiran'])
                                         <a href="{{ asset('storage/' . $item['seminar'][0]['lampiran']) }}" class="text-blue-600 hover:underline" download>
                                             <i class="fa fa-file-pdf text-red-600"></i> Download
                                         </a>
@@ -91,6 +92,7 @@
                                 </td>
                                 <td class='px-4 py-2 border border-gray-300 text-green-600 font-semibold'>Selesai</td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

@@ -1,7 +1,7 @@
 @extends('layouts.layoutmhs')
 @section('content')
 <div class="flex-grow max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-md text-sm">
-    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Form Pengajuan Tugas Akhir</h2>
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Form Pengajuan Pembimbing & Tugas Akhir</h2>
 
     @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -207,7 +207,7 @@
     }
 
     function buatBarisDosen(dosen, container, nameInput, dosenAktifKey) {
-        const isDisabled = dosen.jumlah_pengajuan >= dosen.kuota_bimbingan || dosen[dosenAktifKey];
+        const isDisabled = dosen.jumlahMahasiswaBimbingan >= dosen.kuota_bimbingan || dosen[dosenAktifKey];
 
         const tr = document.createElement("tr");
 

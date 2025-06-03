@@ -39,7 +39,11 @@
       <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
         <ul class="flex space-x-8 text-sm">
           <li><a href="{{ route('dashboard') }}" class=" text-blue-700 dark:text-white">Dashboard</a></li>
-          <li><a href="{{ route('pengajuan') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Pengajuan</a></li>
+          <li>
+            <a href="{{ $hasPembimbing ? route('pengajuan2') : route('pengajuan') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">
+              Pembimbing
+            </a>
+          </li>
           <li><a href="{{ route('upload.index') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Berkas</a></li>
           <li><a href="{{ route('penjadwalanmhs') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
           <li><a href="{{ route('daftardosen') }}" class=" text-gray-900 dark:text-white hover:text-blue-700">Daftar Dosen</a></li>

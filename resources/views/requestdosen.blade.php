@@ -47,7 +47,7 @@
             <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $index + 1 }}</td>
             <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $item->mahasiswa->nama }}</td>
             <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->mahasiswa->npm }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->mahasiswa->dosenWali->bidang_keahlian ?? '-' }}</td>
+            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->bidang ?? '-' }}</td>
             <td class='px-4 py-2 border border-gray-300 word-wrap'>{{ $item->topik_ta }}</td>
             <td class='px-4 py-2 border border-gray-300 fixed-cell'>
               @if ($item->lampiran)
@@ -82,28 +82,30 @@
 </div>
 
 <!-- Updated Modal -->
-<div id="modalDeskripsi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
-    <!-- Text Content -->
-    <div id="textContent" class="hidden">
-      <p id="modalText" class="text-gray-800"></p>
-    </div>
+<div id="modalDeskripsi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-6xl max-h-[90vh] overflow-auto">
+      <!-- Text Content -->
+      <div id="textContent" class="hidden">
+        <p id="modalText" class="text-gray-800 text-sm whitespace-pre-line"></p>
+      </div>
 
-    <!-- Image Content -->
-    <div id="imageContent" class="hidden">
-      <img id="modalImage" src="" alt="Lampiran" class="max-w-full h-auto mx-auto">
-    </div>
+      <!-- Image Content -->
+      <div id="imageContent" class="hidden flex justify-center">
+        <img id="modalImage" src="" alt="Lampiran" class="max-w-full max-h-[70vh] rounded shadow">
+      </div>
 
-    <!-- PDF Content -->
-    <div id="pdfContent" class="hidden">
-      <iframe id="pdfViewer" src="" class="w-full h-[600px]"></iframe>
-    </div>
+      <!-- PDF Content -->
+      <div id="pdfContent" class="hidden">
+        {{-- <iframe id="pdfViewer" src="" type="application/pdf" class="w-full h-[75vh] rounded border" allowfullscreen></iframe> --}}
+        <iframe id="pdfViewer" src="" type="application/pdf" class="w-full h-[80vh] rounded border"
+            frameborder="0"></iframe>
+      </div>
 
-    <div class="mt-4 flex justify-end">
-      <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600" onclick="closeModal()">Tutup</button>
+      <div class="mt-6 flex justify-end">
+        <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600" onclick="closeModal()">Tutup</button>
+      </div>
     </div>
   </div>
-</div>
 
 <!-- Modal Alasan Penolakan -->
 <div id="modalReject" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
@@ -199,19 +201,20 @@
           , "X-CSRF-TOKEN": "{{ csrf_token() }}"
         }
         , body: JSON.stringify({
-          id: id
+          id_pengajuan: id
           , status: status
           , alasan: alasan
         })
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         alert(data.message);
         location.reload();
       })
       .catch(error => {
-        console.error(error);
-        alert('Terjadi kesalahan saat memproses permintaan.', error.message);
+        console.error('Error:', error.message);
+        alert(error.message);
       });
   }
 

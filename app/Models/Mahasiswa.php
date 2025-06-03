@@ -50,4 +50,12 @@ class Mahasiswa extends Authenticatable
         return $this->hasMany(Seminar::class, 'id_mahasiswa');
     }
 
+    public function cekAdaDosenPembimbing()
+    {
+        $res = Pengajuan::where('id_mahasiswa', $this->id_mahasiswa)
+            ->exists();
+        return $res;
+
+    }
+
 }

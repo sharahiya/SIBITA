@@ -10,7 +10,7 @@
         <!-- Statistik Kartu -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 max-w-5xl mx-auto">
             <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
-                <h2 class="text-base font-semibold">Mahasiswa Bimbingan</h2>
+                <h2 class="text-base fpeont-semibold">Mahasiswa Bimbingan</h2>
                 <p class="text-xl font-bold">{{ $bimbinganCount }}</p>
             </div>
             <div class="bg-emerald-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">

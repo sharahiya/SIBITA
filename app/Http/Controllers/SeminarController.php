@@ -15,12 +15,12 @@ class SeminarController extends Controller
 public function updateStatus(Request $request)
 {
     $request->validate([
-        'id' => 'required|integer',
+        'id_pengajuan' => 'required|integer',
         'status' => 'required|in:diterima,ditolak',
         'alasan' => 'nullable|string|max:255',
     ]);
 
-    $seminar = Seminar::findOrFail($request->id);
+    $seminar = Seminar::findOrFail($request->id_pengajuan);
     $seminar->status = $request->status;
     $seminar->save();
 

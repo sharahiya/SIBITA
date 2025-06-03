@@ -2,6 +2,9 @@ Akun Dosen
 NIP         : 19751123
 password    : dosen2
 
+NIP         : 19800101
+password    : dosen1
+
 Akun Mahasiswa
 NPM         : 200001
 password    : password

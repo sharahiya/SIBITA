@@ -16,7 +16,7 @@ class DashboardDosenController extends Controller
 
 
     // Mahasiswa bimbingan dari pengajuan
-    $bimbingan = Pengajuan::where('id_dosen', $dosenId)->get();
+    $bimbingan = Pengajuan::where('id_dosen', $dosenId)->where('status', 'diterima')->get();
     $bimbinganCount = $bimbingan->count();
 
     // Ambil ID mahasiswa bimbingan
@@ -36,7 +36,7 @@ class DashboardDosenController extends Controller
         $selesaiSempro = $seminars->where('jenis', 'proposal')->count();
         $selesaiSemhas = $seminars->where('jenis', 'hasil')->count();
         $selesaiSidang = $seminars->where('jenis', 'sidang')->count();
-        
+
     // Dummy jadwal
     $jadwalSaya = collect([
         (object)[

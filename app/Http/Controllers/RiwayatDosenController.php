@@ -47,7 +47,6 @@ class RiwayatDosenController extends Controller
         });
         // dd($seminarStatus);
 
-        // dd($riwayat[0]['mahasiswa']);
         return view('riwayatdosen', compact('riwayat'));
     }
 }

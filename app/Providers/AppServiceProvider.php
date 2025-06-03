@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Mahasiswa;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Notifikasi;
+use App\Models\Pengajuan;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,12 +26,18 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             if (Auth::guard('mahasiswa')->check()) {
-                $unreadCount = Notifikasi::where('id_user', Auth::guard('mahasiswa')->user()->id_mahasiswa)
-                    ->where('status_baca', 'belum')
-                    ->where('role', 'mahasiswa')
-                    ->count();
+            $idMahasiswa = Auth::guard('mahasiswa')->user()->id_mahasiswa;
+            $unreadCount = Notifikasi::where('id_user', $idMahasiswa)
+                ->where('status_baca', 'belum')
+                ->where('role', 'mahasiswa')
+                ->count();
 
-                    $view->with('unreadNotifCount', $unreadCount);
+            $hasPembimbing = Pengajuan::where('id_mahasiswa', $idMahasiswa)->exists();
+
+            $view->with([
+                'unreadNotifCount' => $unreadCount,
+                'hasPembimbing' => $hasPembimbing
+            ]);
                 }
                 elseif (Auth::guard('dosen')->check()) {
                     $unreadCount = Notifikasi::where('id_user', Auth::guard('dosen')->user()->id_dosen)
@@ -42,3 +50,6 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 }
+
+
+

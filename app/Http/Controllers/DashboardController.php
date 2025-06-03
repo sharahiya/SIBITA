@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\Penguji;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,12 @@ class DashboardController extends Controller
         $pengajuan2 = $pengajuan->where('dosen_ke', 2)->first();
         $dospem1 = $pengajuan1?->dosenPembimbing1 ?? null;
         $dospem2 = $pengajuan2?->dosenPembimbing2 ?? null;
-        $penguji1 = $pengajuan[0]?->penguji1 ?? null;
-        $penguji2 = $pengajuan[0]?->penguji2 ?? null;
+        $penguji1 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('urutan', 1)
+            ->first() ?? null;
+        $penguji2 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('urutan', 2)
+            ->first() ?? null;
 
         // dd($pengajuan->where('dosen_ke',1)->first()?);
         $seminars = [];

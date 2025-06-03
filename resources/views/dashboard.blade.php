@@ -83,7 +83,7 @@
                 @if (!$penguji1)
                     <p class="text-xs text-gray-500">Belum ada data</p>
                 @else
-                    <p class="text-xs text-green-600 font-medium">{{ $penguji1->nama }}</p>
+                    <p class="text-xs text-green-600 font-medium">{{ $penguji1->dosen->nama }}</p>
                 @endif
             </div>
         </div>
@@ -96,7 +96,7 @@
                 @if (!$penguji2)
                     <p class="text-xs text-gray-500">Belum ada data</p>
                 @else
-                    <p class="text-xs text-green-600 font-medium">{{ $penguji2->nama }}</p>
+                    <p class="text-xs text-green-600 font-medium">{{ $penguji2->dosen->nama }}</p>
                 @endif
             </div>
         </div>

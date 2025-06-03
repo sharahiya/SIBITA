@@ -54,6 +54,15 @@
 
             <!-- Daftar Mahasiswa -->
             <h2 class="text-lg font-semibold text-gray-800 mt-6">Daftar Mahasiswa Bimbingan</h2>
+            <div class="mt-6 mb-4">
+                <div class="flex items-center space-x-2">
+                    <input type="text"
+                        id="searchInput"
+                        placeholder="Cari mahasiswa berdasarkan nama, NPM, bidang, atau judul TA"
+                        class="border border-gray-300 text-gray-700 text-xs rounded-lg p-2 w-64 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </div>
+
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4" style="max-height: 300px; overflow-y: auto;">
                 <table class="w-full text-xs text-left text-gray-500 border b   order-gray-300">
@@ -70,7 +79,7 @@
                             <th class="px-4 py-2 border border-gray-300">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="mahasiswaTableBody">
                         <!-- Baris Mahasiswa -->
                         {{-- @php
                             dd($ajuanBimbingan);
@@ -187,6 +196,28 @@
         //     alert('Link WhatsApp berhasil diubah!');
         // }
 
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+    const searchValue = this.value.toLowerCase();
+    const tbody = document.getElementById('mahasiswaTableBody');
+    const rows = tbody.getElementsByTagName('tr');
+
+    for (let row of rows) {
+        const nama = row.getElementsByTagName('td')[1].textContent.toLowerCase();
+        const npm = row.getElementsByTagName('td')[2].textContent.toLowerCase();
+        const bidang = row.getElementsByTagName('td')[3].textContent.toLowerCase();
+        const topik = row.getElementsByTagName('td')[4].textContent.toLowerCase();
+
+        if (nama.includes(searchValue) ||
+            npm.includes(searchValue) ||
+            bidang.includes(searchValue) ||
+            topik.includes(searchValue)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+});
+
         function closeModalWhatsapp() {
             document.getElementById('modalWhatsapp').classList.add('hidden');
         }
@@ -209,6 +240,8 @@
     function closeRemoveModal() {
         document.getElementById('modalRemove').classList.add('hidden');
     }
+
+
 
     function removeStudent() {
         if (!pengajuanToRemoveId) return;
