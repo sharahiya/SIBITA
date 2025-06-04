@@ -58,4 +58,9 @@ class Mahasiswa extends Authenticatable
 
     }
 
+    public function PengajuanSeminar()
+    {
+        return $this->hasMany(PengajuanSeminar::class, 'id_mahasiswa', 'id_mahasiswa');
+    }
+
 }

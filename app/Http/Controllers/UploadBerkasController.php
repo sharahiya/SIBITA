@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
+use App\Models\PengajuanSeminar;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,91 +12,155 @@ use Illuminate\Support\Facades\Auth;
 class UploadBerkasController extends Controller
 {
     public function index()
-    {
-        $mahasiswa = Auth::guard('mahasiswa')->user();
+{
+    $mahasiswa = Auth::guard('mahasiswa')->user();
 
-        // Ambil semua seminar berdasarkan jenis
-        $sempro = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('jenis', 'proposal')->first();
-        $semhas = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('jenis', 'hasil')->first();
-        $sidang = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('jenis', 'sidang')->first();
+    // Ambil semua seminar berdasarkan jenis dengan pengajuan seminarnya
+    $sempro = Seminar::with(['pengajuanSeminar' => function($query) {
+        $query->with('dosen');
+    }])
+    ->where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+    ->where('jenis', 'proposal')
+    ->first();
 
-        $pengajuan = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->latest()->first();
+    $semhas = Seminar::with(['pengajuanSeminar' => function($query) {
+        $query->with('dosen');
+    }])
+    ->where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+    ->where('jenis', 'hasil')
+    ->first();
 
-        // dd($mahasiswa->pembimbing);
+    $sidang = Seminar::with(['pengajuanSeminar' => function($query) {
+        $query->with('dosen');
+    }])
+    ->where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+    ->where('jenis', 'sidang')
+    ->first();
 
-        $dospem1 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-            ->where('dosen_ke', 1)
-            ->first()?->dosenPembimbing1;
-        $dospem2 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-            ->where('dosen_ke', 2)
-            ->first()?->dosenPembimbing2;
+    $pengajuan = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->latest()
+        ->first();
 
-        return view('uploadberkas', compact('mahasiswa', 'sempro', 'semhas', 'sidang', 'dospem1', 'dospem2', 'pengajuan'));
-    }
+    $dospem1 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->where('dosen_ke', 1)
+        ->first()?->dosenPembimbing1;
 
-    public function upload(Request $request)
-    {
-        $mahasiswa = Auth::guard('mahasiswa')->user();
+    $dospem2 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->where('dosen_ke', 2)
+        ->first()?->dosenPembimbing2;
 
-        $jenis = $request->jenis;
+    $pengajuanSeminar = PengajuanSeminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->get();
 
-        // Cek apakah sudah pernah upload
-        $seminar = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-                    ->where('jenis', $jenis)
-                    ->first();
 
-        if ($seminar && $seminar->lampiran && $seminar->status !== 'ditolak') {
-            return back()->with('error', 'Berkas sudah diunggah sebelumnya.');
+
+    return view('uploadberkas', compact('mahasiswa', 'sempro', 'semhas', 'sidang', 'dospem1', 'dospem2', 'pengajuan', 'pengajuanSeminar'));
+}
+public function upload(Request $request)
+{
+    $mahasiswa = Auth::guard('mahasiswa')->user();
+    $jenis = $request->jenis;
+
+    // Validate sequential upload
+    if ($jenis === 'semhas') {
+        $sempro = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('jenis', 'proposal')
+            ->where('status', 'diterima')
+            ->first();
+
+        if (!$sempro) {
+            return back()->with('error', 'Anda harus menyelesaikan seminar proposal terlebih dahulu.');
         }
-
-        $request->validate([
-            'berkas' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-        ]);
-
-        $path = $request->file('berkas')->store('uploads/berkas', 'public');
-
-        // Simpan ke DB
-
-        $jenis = match ($jenis) {
-            'sempro' => 'proposal',
-            'semhas' => 'hasil',
-            'sidang' => 'sidang',
-            default => throw new \Exception('Jenis seminar tidak valid'),
-        };
-
-        // notifikasi berkas berhasil diajukan ke  dosen pembimbing 1 dan dosen pembimbing 2
-        $dosenPembimbing1 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-            ->where('dosen_ke', 1)
-            ->first()?->dosenPembimbing1;
-        $dosenPembimbing2 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-            ->where('dosen_ke', 2)
-            ->first()?->dosenPembimbing2;
-
-
-        Notifikasi::create([
-            'id_user' => $dosenPembimbing1->id_dosen,
-            'role' => 'dosen',
-            'pesan' => "Mahasiswa {$mahasiswa->nama} telah mengajukan berkas seminar {$jenis}.",
-            'tanggal_kirim' => now(),
-            'status_baca' => 'belum',
-            'tipe_notifikasi' => 'Pengajuan'. $jenis,
-        ]);
-        Notifikasi::create([
-            'id_user' => $dosenPembimbing2->id_dosen,
-            'role' => 'dosen',
-            'pesan' => "Mahasiswa {$mahasiswa->nama} telah mengajukan berkas seminar {$jenis}.",
-            'tanggal_kirim' => now(),
-            'status_baca' => 'belum',
-            'tipe_notifikasi' => 'Pengajuan'. $jenis,
-        ]);
-
-
-        Seminar::updateOrCreate(
-            ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'jenis' => $jenis],
-            ['lampiran' => $path, 'status' => 'pending', 'tanggal_seminar' => now()]
-        );
-
-        return back()->with('success', 'Berkas berhasil diunggah.');
     }
+
+    if ($jenis === 'sidang') {
+        $semhas = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('jenis', 'hasil')
+            ->where('status', 'diterima')
+            ->first();
+
+        if (!$semhas) {
+            return back()->with('error', 'Anda harus menyelesaikan seminar hasil terlebih dahulu.');
+        }
+    }
+
+    // Validate the request
+    $request->validate([
+        'berkas' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+    ]);
+
+    // Get both supervisors
+    $dospem1 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->where('dosen_ke', 1)
+        ->first()?->dosen;
+    $dospem2 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+        ->where('dosen_ke', 2)
+        ->first()?->dosen;
+
+    if (!$dospem1 || !$dospem2) {
+        return back()->with('error', 'Data dosen pembimbing tidak lengkap.');
+    }
+
+    // Store the file
+    $path = $request->file('berkas')->store('uploads/berkas', 'public');
+
+    // Map seminar type
+    $jenis = match ($jenis) {
+        'sempro' => 'proposal',
+        'semhas' => 'hasil',
+        'sidang' => 'sidang',
+        default => throw new \Exception('Jenis seminar tidak valid'),
+    };
+
+    // Create or update seminar record
+    $seminar = Seminar::updateOrCreate(
+        ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'jenis' => $jenis],
+        [
+            'lampiran' => $path,
+            'status' => 'pending',
+            'tanggal_seminar' => now()
+        ]
+    );
+
+    // Create or update pengajuan seminar for both supervisors
+    foreach ([$dospem1, $dospem2] as $index => $dosen) {
+        $pengajuanSeminar = PengajuanSeminar::where('id_dosen', $dosen->id_dosen)
+            ->where('id_seminar', $seminar->id_seminar)
+            ->first();
+
+        if ($pengajuanSeminar) {
+            // Update only if status is pending or rejected
+            if (in_array($pengajuanSeminar->status, ['pending', 'ditolak'])) {
+                $pengajuanSeminar->update([
+                    'status' => 'pending',
+                    'tanggal_pengajuan' => now(),
+                ]);
+            }
+        } else {
+            // Create new pengajuan seminar
+            PengajuanSeminar::create([
+                'id_seminar' => $seminar->id_seminar,
+                'id_mahasiswa' => $mahasiswa->id_mahasiswa,
+                'id_dosen' => $dosen->id_dosen,
+                'status' => 'pending',
+                'tanggal_pengajuan' => now(),
+            ]);
+        }
+    }
+
+    // Create notifications for both supervisors
+    foreach ([$dospem1, $dospem2] as $index => $dosen) {
+        Notifikasi::create([
+            'id_user' => $dosen->id_dosen,
+            'role' => 'dosen',
+            'pesan' => "Mahasiswa {$mahasiswa->nama} telah mengajukan berkas seminar {$jenis}.",
+            'tanggal_kirim' => now(),
+            'status_baca' => 'belum',
+            'tipe_notifikasi' => 'Pengajuan ' . ucfirst($jenis)
+        ]);
+    }
+
+    return back()->with('success', 'Berkas berhasil diunggah dan menunggu persetujuan kedua dosen pembimbing.');
+}
 
 }

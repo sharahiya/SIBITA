@@ -21,4 +21,44 @@ use Illuminate\Database\Eloquent\Model;
         {
             return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
         }
+        public function pengajuanSeminar()
+        {
+            return $this->hasMany(PengajuanSeminar::class, 'id_seminar', 'id_seminar');
+        }
+
+        public function getPengajuanDosen1()
+        {
+            return $this->pengajuanSeminar()
+                ->where('dosen_ke', 1)
+                ->first();
+        }
+
+        public function getPengajuanDosen2()
+        {
+            return $this->pengajuanSeminar()
+                ->where('dosen_ke', 2)
+                ->first();
+        }
+
+        public function getPengajuanByDosen($dosenId)
+        {
+            return $this->pengajuanSeminar()
+                ->where('id_dosen', $dosenId)
+                ->first();
+        }
+
+        public function getStatusDosen1()
+        {
+            return $this->getPengajuanDosen1()?->status ?? 'pending';
+        }
+
+        public function getStatusDosen2()
+        {
+            return $this->getPengajuanDosen2()?->status ?? 'pending';
+        }
+
+        public function getStatusByDosen($dosenId)
+        {
+            return $this->getPengajuanByDosen($dosenId)?->status ?? 'pending';
+        }
     }

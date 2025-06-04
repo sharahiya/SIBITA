@@ -58,7 +58,7 @@ class Dosen extends Authenticatable
 
         foreach ($dataAwal as $idMahasiswa) {
             $seminarSidang = Seminar::where('id_mahasiswa', $idMahasiswa)
-            ->where('tipe', 'sidang')
+            ->where('jenis', 'sidang')
             ->where('status', 'diterima')
             ->exists();
 

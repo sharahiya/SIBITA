@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
-{   
+{
     /**
      * Run the migrations.
      */
@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('pengajuan_seminars', function (Blueprint $table) {
             $table->id();
-            $table->string('id_seminar');
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');
-            $table->foreignId('id_dosen')->constrained('dosens')->onDelete('cascade');
+            $table->unsignedBigInteger('id_seminar');
+            $table->text('catatan')->nullable();
+            $table->unsignedBigInteger('id_mahasiswa');
+            $table->unsignedBigInteger('id_dosen');
             $table->enum('dosen_ke', ['1', '2']);
             $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
             $table->timestamps();
+
+            $table->foreign('id_seminar')->references('id_seminar')->on('seminars')->onDelete('cascade');
+            $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas')->onDelete('cascade');
+            $table->foreign('id_dosen')->references('id_dosen')->on('dosens')->onDelete('cascade');
         });
     }
 

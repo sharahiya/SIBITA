@@ -10,21 +10,27 @@ use Illuminate\Http\Request;
 class PengujiAdminController extends Controller
 {
     public function index(Request $request)
-    {
-        $id = $request->id;
-        $mahasiswa = Mahasiswa::where('id_mahasiswa', $id)->first();
+{
+    $id = $request->id;
+    $mahasiswa = Mahasiswa::where('id_mahasiswa', $id)->first();
 
-    // Ambil semua dosen untuk ditampilkan sebagai calon penguji
+    // Ambil ID dosen pembimbing
+    $dosenPembimbing1Id = $mahasiswa->dosenPembimbing1->id_dosen ?? null;
+    $dosenPembimbing2Id = $mahasiswa->dosenPembimbing2->id_dosen ?? null;
+
+    // Ambil dosen yang bukan pembimbing
     $dosenList = Dosen::whereHas('jurusan', function ($query) {
         $query->where('nama_jurusan', 'informatika');
-    })->get();
-        $pengajuan = $mahasiswa->pengajuan()->first();
+    })
+    ->whereNotIn('id_dosen', array_filter([$dosenPembimbing1Id, $dosenPembimbing2Id]))
+    ->get();
 
-        // cek apakah ada penguji urutan 1 dan 2
-        $penguji1 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('urutan', 1)->first();
-        $penguji2 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('urutan', 2)->first();
-    return view('pengujiadmin', compact('mahasiswa', 'dosenList','pengajuan', 'penguji1', 'penguji2'));
-    }
+    $pengajuan = $mahasiswa->pengajuan()->first();
+    $penguji1 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('urutan', 1)->first();
+    $penguji2 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('urutan', 2)->first();
+
+    return view('pengujiadmin', compact('mahasiswa', 'dosenList', 'pengajuan', 'penguji1', 'penguji2'));
+}
 
     public function show(Request $request, $id){
         // Ambil satu mahasiswa (misalnya berdasarkan ID atau status)

@@ -84,9 +84,23 @@
         'sidang' => 'Sidang (PDF)'
       ] as $jenis => $label)
 
-      @php $data = $$jenis; @endphp
+      @php
+        $data = $$jenis;
+        $canUpload = false;
 
-
+        // Proposal can always be uploaded
+        if ($jenis === 'sempro') {
+          $canUpload = true;
+        }
+        // Semhas requires approved sempro
+        else if ($jenis === 'semhas') {
+          $canUpload = $sempro && $sempro->status === 'diterima';
+        }
+        // Sidang requires approved semhas
+        else if ($jenis === 'sidang') {
+          $canUpload = $semhas && $semhas->status === 'diterima';
+        }
+      @endphp
 
       <section x-data="{ modal: false }" class="border rounded-lg p-6 bg-gray-50">
         <h3 class="font-semibold text-blue-700 text-sm mb-2">{{ $label }}</h3>
@@ -144,16 +158,128 @@
           @endswitch
         </p>
 
+        <!-- Status Section -->
+        {{-- @if ($data && $data->lampiran) --}}
+        <!-- Status Approvals -->
+        <div class="mt-4 space-y-3 bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-medium text-gray-700">Status Persetujuan:</h4>
+
+            <!-- Dosen Pembimbing 1 -->
+            <div>
+                <p class="text-sm text-gray-600">
+                    {{ $data->pengajuanSeminar->where('dosen_ke', 1)->first()?->dosen->nama ?? 'Dosen Pembimbing 1' }}:
+                </p>
+                @php
+                    $pengajuan1 = $data->pengajuanSeminar->where('dosen_ke', 1)->first();
+                @endphp
+                @if($pengajuan1)
+                    <div class="mt-1">
+                        @switch($pengajuan1->status)
+                            @case('pending')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    Menunggu Verifikasi
+                                </span>
+                                @break
+                            @case('diterima')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Disetujui
+                                </span>
+                                @break
+                            @case('ditolak')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    Ditolak
+                                </span>
+                                @if($pengajuan1->catatan)
+                                    <p class="mt-1 text-sm text-red-600">Catatan: {{ $pengajuan1->catatan }}</p>
+                                @endif
+                                @break
+                        @endswitch
+                    </div>
+                @endif
+            </div>
+
+            <!-- Dosen Pembimbing 2 -->
+            <div>
+                <p class="text-sm text-gray-600">
+                    {{ $data->pengajuanSeminar->where('dosen_ke', 2)->first()?->dosen->nama ?? 'Dosen Pembimbing 2' }}:
+                </p>
+                @php
+                    $pengajuan2 = $data->pengajuanSeminar->where('dosen_ke', 2)->first();
+                @endphp
+                @if($pengajuan2)
+                    <div class="mt-1">
+                        @switch($pengajuan2->status)
+                            @case('pending')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    Menunggu Verifikasi
+                                </span>
+                                @break
+                            @case('diterima')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Disetujui
+                                </span>
+                                @break
+                            @case('ditolak')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    Ditolak
+                                </span>
+                                @if($pengajuan2->catatan)
+                                    <p class="mt-1 text-sm text-red-600">Catatan: {{ $pengajuan2->catatan }}</p>
+                                @endif
+                                @break
+                        @endswitch
+                    </div>
+                @endif
+            </div>
+        </div>
+    {{-- @endif --}}
+
         @else
         <!-- Upload Baru -->
-        <form action="{{ route('upload.berkas') }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap items-center gap-3 mt-3">
+        <form action="{{ route('upload.berkas') }}" method="POST" enctype="multipart/form-data"
+          class="flex flex-wrap items-center gap-3 mt-3">
           @csrf
           <input type="hidden" name="jenis" value="{{ $jenis }}">
-          <input type="file" name="berkas" accept=".jpg,.jpeg,.png,.pdf"
-            class="file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+
+          @if(!$canUpload)
+            <div class="text-sm text-gray-500 italic">
+              @if($jenis === 'semhas')
+                Seminar proposal harus disetujui terlebih dahulu
+              @elseif($jenis === 'sidang')
+                Seminar hasil harus disetujui terlebih dahulu
+              @endif
+            </div>
+          @endif
+
+          <input type="file"
+            name="berkas"
+            accept="{{ $jenis === 'sidang' ? '.pdf' : '.jpg,.jpeg,.png' }}"
+            class="file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm
+              {{ $canUpload
+                ? 'file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
+                : 'file:bg-gray-50 file:text-gray-400 cursor-not-allowed' }}"
+            {{ !$canUpload ? 'disabled' : '' }}
+            required>
+
           <button type="submit"
-            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Upload</button>
+            class="bg-blue-500 text-white px-4 py-1 rounded
+              {{ $canUpload
+                ? 'hover:bg-blue-600'
+                : 'opacity-50 cursor-not-allowed' }}"
+            {{ !$canUpload ? 'disabled' : '' }}>
+            Upload
+          </button>
         </form>
+
+        @if(!$canUpload)
+          <p class="mt-2 text-xs text-red-500">
+            @if($jenis === 'semhas')
+              * Anda harus menyelesaikan dan mendapat persetujuan seminar proposal terlebih dahulu
+            @elseif($jenis === 'sidang')
+              * Anda harus menyelesaikan dan mendapat persetujuan seminar hasil terlebih dahulu
+            @endif
+          </p>
+        @endif
         @endif
       </section>
       @endforeach

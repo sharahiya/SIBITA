@@ -84,9 +84,11 @@
     function getRedirectUrl(tipe) {
         const routes = {
             "Pengajuan Bimbingan": "/requestdosen",
-            "Pengajuan Seminar Proposal": "/dosen/sempro",
-            "Pengajuan Seminar Hasil": "/dosen/semhas",
-            "Pengajuan Sidang": "/dosen/sidang",
+            "Pengajuan Seminar Proposal": "/requestdosen",
+            "Pengajuan Seminar Hasil": "/requestdosen",
+            "Pengajuan Proposal": "/requestdosen",
+            "Pengajuan Hasil": "/requestdosen",
+            "Pengajuan Sidang": "/requestdosen",
         };
 
         return routes[tipe] || "/dosen/dashboard";

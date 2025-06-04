@@ -163,35 +163,70 @@
 <script>
 function selectPenguji(inputId, dosenName) {
     const input = document.getElementById(inputId);
+    const otherInputId = inputId === 'searchPenguji1' ? 'searchPenguji2' : 'searchPenguji1';
+    const otherInput = document.getElementById(otherInputId);
 
     // Jangan lakukan apapun jika input disabled
     if (input.disabled) return;
+
+    // Cek apakah dosen sudah dipilih di input lainnya
+    if (otherInput.value === dosenName) {
+        alert('Dosen ini sudah dipilih sebagai penguji lain');
+        return;
+    }
 
     input.value = dosenName;
 
     if (inputId === 'searchPenguji1') {
         document.getElementById('hiddenPenguji1').value = dosenName;
+        // Update tampilan tabel penguji 2
+        updatePengujiTable('penguji2Table', dosenName);
     } else if (inputId === 'searchPenguji2') {
         document.getElementById('hiddenPenguji2').value = dosenName;
+        // Update tampilan tabel penguji 1
+        updatePengujiTable('penguji1Table', dosenName);
     }
+}
+function updatePengujiTable(tableId, selectedDosen) {
+    const rows = document.querySelectorAll(`#${tableId} tr`);
+    rows.forEach(row => {
+        const namaDosen = row.querySelector('td')?.textContent;
+        if (namaDosen === selectedDosen) {
+            row.style.display = 'none';
+        } else {
+            row.style.display = '';
+        }
+    });
 }
 </script>
 
     <!-- Script Pencarian untuk Penguji -->
     <script>
-        document.getElementById('searchPenguji1').addEventListener('input', function () {
-            const keyword = this.value.toLowerCase();
-            const items = document.querySelectorAll('#penguji1Table tr');
-            items.forEach(item => {
-                item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
-            });
-        });
-
-        document.getElementById('searchPenguji2').addEventListener('input', function () {
+    document.getElementById('searchPenguji1').addEventListener('input', function() {
     const keyword = this.value.toLowerCase();
+    const otherValue = document.getElementById('searchPenguji2').value;
+    const items = document.querySelectorAll('#penguji1Table tr');
+    items.forEach(item => {
+        const namaDosen = item.querySelector('td')?.textContent;
+        if (namaDosen === otherValue) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+        }
+    });
+});
+
+document.getElementById('searchPenguji2').addEventListener('input', function() {
+    const keyword = this.value.toLowerCase();
+    const otherValue = document.getElementById('searchPenguji1').value;
     const items = document.querySelectorAll('#penguji2Table tr');
     items.forEach(item => {
-        item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+        const namaDosen = item.querySelector('td')?.textContent;
+        if (namaDosen === otherValue) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+        }
     });
 });
 

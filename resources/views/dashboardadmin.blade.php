@@ -71,20 +71,18 @@
                         <th class="px-3 py-2">NPM</th>
                         <th class="px-3 py-2">Jenis Ujian</th>
                         <th class="px-3 py-2">Judul TA</th>
-                        <th class="px-3 py-2">Peran</th>
                         <th class="px-3 py-2">Tanggal</th>
                         <th class="px-3 py-2">Waktu</th>
                         <th class="px-3 py-2">Ruangan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($penjadwalan as $jadwal)
+                    @foreach($dummyDataPenjadwalan as $jadwal)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-3 py-2">{{ $jadwal['nama'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['npm'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['ujian'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['judul'] }}</td>
-                        <td class="px-3 py-2">{{ $jadwal['peran'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['tanggal'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['waktu'] }}</td>
                         <td class="px-3 py-2">{{ $jadwal['ruangan'] }}</td>

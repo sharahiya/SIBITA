@@ -62,7 +62,7 @@
               @endif
             </td>
             <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->role ?? 'Dospem 1' }}</td>
+            <td class='px-4 py-2 border border-gray-300 fixed-cell'>Dospem {{ $item->role ?? '1' }}</td>
             <td class='px-4 py-2 border border-gray-300 flex gap-2 justify-center fixed-cell'>
               <button onclick="acceptRequest({{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
                 Terima
@@ -190,33 +190,29 @@
   }
 
   function updateStatus(id, status, alasan = '', tipe = 'bimbingan') {
-    const url = tipe === 'bimbingan' ?
-      "{{ route('pengajuan.updateStatus') }}" :
-      "{{ route('seminar.updateStatus') }}"; // pastikan route ini ada
-
-    fetch(url, {
-        method: "POST"
-        , headers: {
-          "Content-Type": "application/json"
-          , "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        }
-        , body: JSON.stringify({
-          id_pengajuan: id
-          , status: status
-          , alasan: alasan
+    fetch("{{ route('pengajuan.updateStatus') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({
+            id_pengajuan: id,
+            status: status,
+            alasan: alasan,
+            tipe: tipe
         })
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
+    })
+    .then(res => res.json())
+    .then(data => {
         alert(data.message);
         location.reload();
-      })
-      .catch(error => {
-        console.error('Error:', error.message);
-        alert(error.message);
-      });
-  }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat memperbarui status');
+    });
+}
 
 </script>
 
