@@ -75,6 +75,7 @@ public function upload(Request $request)
 
     if ($jenis === 'sidang') {
         // commit baru
+        // commir baru lagi
         $semhas = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
             ->where('jenis', 'hasil')
             ->where('status', 'diterima')
