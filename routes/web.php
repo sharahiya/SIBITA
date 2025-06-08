@@ -28,7 +28,8 @@ use App\Http\Controllers\EditManajemenAkunController;
 use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\NotifikasiAdminController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SeminarController;
+use App\Http\Controllers\SeminarController;use App\Http\Controllers\DaftarAkunAdminController;
+
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -83,6 +84,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])->name('dashboardadmin');
     Route::get('/manajemenakunadmin', [ManajemenAkunAdminController::class, 'index'])->name('manajemenakunadmin');
     Route::get('/manajemenakun', [ManajemenAkunController::class, 'index'])->name('manajemenakun');
+    Route::get('/daftarakunadmin', [DaftarAkunAdminController::class, 'index'])->name('daftarakunadmin');
     Route::get('/penjadwalanadmin', [PenjadwalanAdminController::class, 'index'])->name('penjadwalanadmin');
     Route::get('/requestadmin', [RequestAdminController::class, 'index'])->name('requestadmin');
     Route::get('/detaildospem1', [DetailDospem1Controller::class, 'index'])->name('detaildospem1');

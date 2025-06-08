@@ -107,7 +107,7 @@
       </div>
       <ul class="space-y-4 p-4 text-sm">
         <li><a href="{{ route('dashboard') }}" class="block text-blue-700 dark:text-white">Dashboard</a></li>
-        <li><a href="{{ route('pengajuan') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Pengajuan</a></li>
+        <li><a href="{{ route('pengajuan') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Pembimbing</a></li>
         <li><a href="{{ route('daftardosen') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Daftar Dosen</a></li>
         <li><a href="{{ route('upload.index') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Tugas Akhir</a></li>
         <li><a href="{{ route('penjadwalanmhs') }}" class="block text-gray-900 dark:text-white hover:text-blue-700">Penjadwalan</a></li>
