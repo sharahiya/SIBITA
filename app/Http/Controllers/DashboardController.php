@@ -83,6 +83,22 @@ class DashboardController extends Controller
         ];
     }
 
+    if(isset($penguji1)){
+        $status[] = [
+            'tanggal' => optional($penguji1->created_at)->format('d F y'),
+            'judul' => 'Penetapan Penguji 1',
+            'deskripsi' => 'Penguji 1 telah ditetapkan oleh koordinator TA'
+        ];
+    }
+
+    if(isset($penguji2)){
+        $status[] = [
+            'tanggal' => optional($penguji2->created_at)->format('d F y'),
+            'judul' => 'Penetapan Penguji 2',
+            'deskripsi' => 'Penguji 2 telah ditetapkan oleh koordinator TA'
+        ];
+    }
+
 
         return view('dashboard', [
             'mahasiswa' => $mahasiswa,
