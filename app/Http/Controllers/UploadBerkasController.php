@@ -88,8 +88,29 @@ public function upload(Request $request)
 
     // Validate the request
     $request->validate([
-        'berkas' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        'berkas' => 'required|file',
+        'jenis' => 'required|string',
     ]);
+
+    // Apply different size validation based on file type
+    $file = $request->file('berkas');
+    $extension = $file->getClientOriginalExtension();
+
+    if (strtolower($extension) === 'pdf') {
+        // For PDF files: max 20MB
+        if ($file->getSize() > 20 * 1024 * 1024) {
+            return back()->with('error', 'File PDF tidak boleh lebih dari 20MB.');
+        }
+    } else {
+        // For image files: max 2MB and only specific types
+        if (!in_array(strtolower($extension), ['jpg', 'jpeg', 'png'])) {
+            return back()->with('error', 'Format file harus jpg, jpeg, png, atau pdf.');
+        }
+
+        if ($file->getSize() > 2 * 1024 * 1024) {
+            return back()->with('error', 'File gambar tidak boleh lebih dari 2MB.');
+        }
+    }
 
     // Get both supervisors
     $dospem1 = Pengajuan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
@@ -145,6 +166,7 @@ public function upload(Request $request)
                 'id_mahasiswa' => $mahasiswa->id_mahasiswa,
                 'id_dosen' => $dosen->id_dosen,
                 'status' => 'pending',
+                'dosen_ke' => $index + 1, 
                 'tanggal_pengajuan' => now(),
             ]);
         }

@@ -30,58 +30,40 @@ class DashboardController extends Controller
             ->first() ?? null;
 
         // dd($pengajuan->where('dosen_ke',1)->first()?);
-        $seminars = [];
-
         $seminars = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->get();
-        // dd($seminars['proposal']);
+
+        $status = [];
+
+        // Loop through seminars and add to status
 
 
-    $status = [];
+        if (isset($pengajuan1) && $pengajuan1?->status == "diterima") {
+            $latestPengajuanDospem1 = $pengajuan->where('dosen_ke', 1)->first();
 
-
-    if (isset($pengajuan1) && $pengajuan1?->status == "diterima") {
-        $latestPengajuanDospem1 = $pengajuan->where('dosen_ke', 1)->first();
-
-        $status[] = [
+            $status[] = [
             'tanggal' => optional($latestPengajuanDospem1?->created_at)->format('d F Y'),
             'judul' => 'Pengajuan Bimbingan Dosen 1',
             'deskripsi' => 'Dosen pembimbing 1 telah disetujui.'
-        ];
-    }
+            ];
+        }
 
-    if (isset($pengajuan2) && $pengajuan2?->status == "diterima") {
-        $latestPengajuanDospem2 = $pengajuan->where('dosen_ke', 2)->first();
+        if (isset($pengajuan2) && $pengajuan2?->status == "diterima") {
+            $latestPengajuanDospem2 = $pengajuan->where('dosen_ke', 2)->first();
 
-        $status[] = [
+            $status[] = [
             'tanggal' => optional($latestPengajuanDospem2?->created_at)->format('d F Y'),
             'judul' => 'Pengajuan Bimbingan Dosen 2',
             'deskripsi' => 'Dosen pembimbing 2 telah disetujui.'
-        ];
-    }
+            ];
+        }
 
-    if (isset($seminars['proposal'])) {
-        $status[] = [
-            'tanggal' => optional($seminars['proposal']->first()->tanggal_seminar)->format('d F Y'),
-            'judul' => 'Seminar Proposal',
-            'deskripsi' => 'Proposal telah diseminarkan.'
-        ];
-    }
-
-    if (isset($seminars['hasil'])) {
-        $status[] = [
-            'tanggal' => optional($seminars['hasil']->first()->tanggal_seminar)->format('d F Y'),
-            'judul' => 'Seminar Hasil',
-            'deskripsi' => 'Hasil penelitian telah diseminarkan.'
-        ];
-    }
-
-    if (isset($seminars['sidang'])) {
-        $status[] = [
-            'tanggal' => optional($seminars['sidang']->first()->tanggal_seminar)->format('d F Y'),
-            'judul' => 'Sidang',
-            'deskripsi' => 'Sidang akhir telah dilaksanakan.'
-        ];
-    }
+        foreach ($seminars as $seminar) {
+            $status[] = [
+            'tanggal' => optional($seminar->tanggal_seminar)->format('d F Y'),
+            'judul' => 'Seminar ' . ucfirst($seminar->jenis),
+            'deskripsi' => 'Seminar ' . ucfirst($seminar->jenis) . ' telah dilaksanakan'
+            ];
+        }
 
     if(isset($penguji1)){
         $status[] = [
@@ -98,6 +80,21 @@ class DashboardController extends Controller
             'deskripsi' => 'Penguji 2 telah ditetapkan oleh koordinator TA'
         ];
     }
+
+    // Sort status array by tanggal (date)
+    usort($status, function($a, $b) {
+        $dateA = \DateTime::createFromFormat('d F Y', $a['tanggal'] ?? '') ?:
+                 \DateTime::createFromFormat('d F y', $a['tanggal'] ?? '');
+        $dateB = \DateTime::createFromFormat('d F Y', $b['tanggal'] ?? '') ?:
+                 \DateTime::createFromFormat('d F y', $b['tanggal'] ?? '');
+
+        // Handle cases where dates might be null
+        if (!$dateA && !$dateB) return 0;
+        if (!$dateA) return 1;
+        if (!$dateB) return -1;
+
+        return $dateA <=> $dateB;
+    });
 
 
         return view('dashboard', [
