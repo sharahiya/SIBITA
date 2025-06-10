@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class Dosen extends Authenticatable
 {
@@ -47,6 +48,12 @@ class Dosen extends Authenticatable
     public function fakultas()
     {
         return $this->belongsTo(Fakultas::class, 'id_fakultas');
+    }
+
+    // Method untuk mengecek apakah password masih default (sama dengan NIP)
+    public function isUsingDefaultPassword()
+    {
+        return Hash::check($this->nip, $this->password);
     }
 
 

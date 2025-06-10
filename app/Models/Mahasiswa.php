@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class Mahasiswa extends Authenticatable
 {
@@ -61,6 +62,12 @@ class Mahasiswa extends Authenticatable
     public function PengajuanSeminar()
     {
         return $this->hasMany(PengajuanSeminar::class, 'id_mahasiswa', 'id_mahasiswa');
+    }
+
+    // Method untuk mengecek apakah password masih default (sama dengan NPM)
+    public function isUsingDefaultPassword()
+    {
+        return Hash::check($this->npm, $this->password);
     }
 
 }

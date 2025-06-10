@@ -42,9 +42,15 @@
                         <td class="px-4 py-2">{{ $student['dosen_2'] }}</td>
                         <td class="px-4 py-2">
                             <a href="{{ route('pengujiadmin', ['id' => $student['id_mahasiswa']]) }}">
+                                @if($student['penguji_1'] != null && $student['penguji_2'] != null)
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition text-xs">
+                                    Ganti
+                                </button>
+                                @else
                                 <button class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition text-xs">
                                     Tetapkan
                                 </button>
+                                @endif
                             </a>
                         </td>
                     </tr>

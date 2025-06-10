@@ -1,5 +1,5 @@
-nama,nip,email,jabatan,bidang
-Dr. Budi Santoso,19870001,budi.santoso@example.com,Lektor,Data Mining
-Dr. Siti Nurhaliza,19870002,siti.nurhaliza@example.com,Kaprodi,Jaringan
-Dr. Agus Wirawan,19870003,agus.wirawan@example.com,Asisten Ahli,Rekayasa Perangkat Lunak
-Dr. Tika Rahmawati,19870004,tika.rahmawati@example.com,Sekretaris Jurusan,GIS
+nama,nip,email,jabatan,bidang,jurusan
+Dr. Budi Santoso,19870001,budi.santoso@example.com,Lektor,Data Mining,Informatika
+Dr. Siti Nurhaliza,19870002,siti.nurhaliza@example.com,Kaprodi,Jaringan,Informatika
+Dr. Agus Wirawan,19870003,agus.wirawan@example.com,Asisten Ahli,Rekayasa Perangkat Lunak,Informatika
+Dr. Tika Rahmawati,19870004,tika.rahmawati@example.com,Sekretaris Jurusan,GIS,Statistika

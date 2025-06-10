@@ -112,7 +112,10 @@ Route::post('/notifikasi/baca-semua', [NotifikasiController::class, 'tandaiSemua
 Route::post('/notifikasi/hapus-semua', [NotifikasiController::class, 'hapusSemua'])->name('notifikasi.hapus.semua');
 Route::post('/seminar/update-status', [SeminarController::class, 'updateStatus'])->name('seminar.updateStatus');
 
+Route::get('/api/existing-data', [ManajemenAkunController::class, 'getExistingData']);
+Route::post('/dosen/change-password', [DashboardDosenController::class, 'changePassword'])->name('dosen.change-password');
 
+Route::post('/mahasiswa/change-password', [DashboardController::class, 'changePassword'])->name('mahasiswa.change-password');
 
 Route::get('/pengajuan-diperlukan', function () {
     return view('perlupengajuan');

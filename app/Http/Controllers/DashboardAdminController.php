@@ -23,36 +23,99 @@ class DashboardAdminController extends Controller
         $listTahun = ['2023/2024', '2024/2025', '2025/2026'];
         $listSemester = ['Genap', 'Ganjil'];
 
-        // Simulasi data rekap, harusnya dari data nyata (misal: berdasarkan tanggal seminar atau status)
+        // Hitung rekap dengan logika yang diperbaiki
         $rekap = [];
         foreach ($listTahun as $tahun) {
             foreach ($listSemester as $semester) {
+                // Ambil semua mahasiswa yang punya seminar
+                $mahasiswaWithSeminar = Mahasiswa::whereHas('seminars', function($query) {
+                    $query->where('status', 'diterima');
+                })->with(['seminars' => function($query) {
+                    $query->where('status', 'diterima')->orderBy('created_at', 'desc');
+                }])->get();
+
+                $sempro = 0;
+                $semhas = 0;
+                $sidang = 0;
+
+                foreach ($mahasiswaWithSeminar as $mahasiswa) {
+                    $latestSeminar = $mahasiswa->seminars->first();
+                    
+                    if ($latestSeminar) {
+                        switch ($latestSeminar->jenis) {
+                            case 'proposal':
+                                $sempro++;
+                                break;
+                            case 'hasil':
+                                $semhas++;
+                                break;
+                            case 'sidang':
+                                $sidang++;
+                                break;
+                        }
+                    }
+                }
+
                 $rekap[$tahun][$semester] = [
-                    'sempro' => Seminar::where('jenis', 'proposal')->where('status', 'diterima')->count(),
-                    'semhas' => Seminar::where('jenis', 'hasil')->where('status', 'diterima')->count(),
-                    'sidang' => Seminar::where('jenis', 'sidang')->where('status', 'diterima')->count(),
+                    'sempro' => $sempro,
+                    'semhas' => $semhas,
+                    'sidang' => $sidang,
                     'aktif'  => Pembimbing::all()->count(),
                 ];
             }
         }
 
-        // Data Penjadwalan Terdekat (simulasi)
+        // Data Penjadwalan Terdekat dengan logika yang diperbaiki
         $penjadwalan = Seminar::with(['mahasiswa'])
-    ->orderBy('tanggal_seminar', 'asc')
-    ->take(5)
-    ->get()
-    ->map(function ($s) {
-        return [
-            'nama'    => $s->mahasiswa->nama ?? '-',
-            'npm'     => $s->mahasiswa->npm ?? '-',
-            'ujian'   => strtoupper(str_replace('_selesai', '', $s->status)),
-            'judul'   => $s->judul ?? '-', // Langsung dari Seminar jika ada
-            'peran'   => 'Peserta',
-            'tanggal' => Carbon::parse($s->tanggal_seminar)->format('d M Y'),
-            'waktu'   => Carbon::parse($s->tanggal_seminar)->format('H:i'),
-            'ruangan' => $s->ruangan ?? 'Ruang 1',
-        ];
-    });
+            ->where('tanggal_seminar', '>=', Carbon::now())
+            ->orderBy('tanggal_seminar', 'asc')
+            ->get()
+            ->filter(function ($seminar) {
+                $mahasiswa = $seminar->mahasiswa;
+                
+                // Ambil seminar terakhir yang diterima untuk mahasiswa ini
+                $latestSeminar = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+                    ->where('status', 'diterima')
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                
+                // Jika tidak ada seminar yang diterima sebelumnya, tampilkan
+                if (!$latestSeminar) {
+                    return true;
+                }
+                
+                // Logika filter berdasarkan tahap terakhir
+                switch ($latestSeminar->jenis) {
+                    case 'sidang':
+                        // Jika sudah sidang, jangan tampilkan seminar apapun lagi
+                        return false;
+                    case 'hasil':
+                        // Jika sudah semhas, hanya tampilkan sidang
+                        return $seminar->jenis === 'sidang';
+                    case 'proposal':
+                        // Jika sudah sempro, tampilkan semhas atau sidang
+                        return in_array($seminar->jenis, ['hasil', 'sidang']);
+                    default:
+                        return true;
+                }
+            })
+            ->take(5)
+            ->map(function ($s) {
+                $pengajuanBimbingan = Pengajuan::where('id_mahasiswa', $s->id_mahasiswa)
+                    ->where('status', 'diterima')
+                    ->first();
+                
+                return [
+                    'nama'    => $s->mahasiswa->nama ?? '-',
+                    'npm'     => $s->mahasiswa->npm ?? '-',
+                    'ujian'   => $this->getUjianType($s->jenis),
+                    'judul'   => $pengajuanBimbingan->topik_ta ?? '-',
+                    'peran'   => 'Peserta',
+                    'tanggal' => Carbon::parse($s->tanggal_seminar)->format('d M Y'),
+                    'waktu'   => Carbon::parse($s->tanggal_seminar)->format('H:i'),
+                    'ruangan' => $s->ruangan ?? 'Ruang 1',
+                ];
+            });
 
         // Ambil default nilai tahun & semester untuk ditampilkan pertama kali
         $tahunDefault = '2024/2025';
@@ -99,5 +162,19 @@ class DashboardAdminController extends Controller
             'semesterDefault',
             'dummyDataPenjadwalan',
         ));
+    }
+
+    private function getUjianType($jenis)
+    {
+        switch ($jenis) {
+            case 'proposal':
+                return 'Seminar Proposal';
+            case 'hasil':
+                return 'Seminar Hasil';
+            case 'sidang':
+                return 'Sidang';
+            default:
+                return ucfirst($jenis);
+        }
     }
 }

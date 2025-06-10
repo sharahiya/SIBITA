@@ -10,7 +10,7 @@
         <!-- Statistik Kartu -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 max-w-5xl mx-auto">
             <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
-                <h2 class="text-base fpeont-semibold">Mahasiswa Bimbingan</h2>
+                <h2 class="text-base font-semibold">Mahasiswa Bimbingan</h2>
                 <p class="text-xl font-bold">{{ $bimbinganCount }}</p>
             </div>
             <div class="bg-emerald-500 text-white p-4 rounded-lg shadow-md hover:scale-105 transition">
@@ -41,7 +41,7 @@
                             <th class="px-5 py-3">Peran</th>
                             <th class="px-5 py-3">Tanggal</th>
                             <th class="px-5 py-3">Waktu</th>
-                            <th class="px-5 py-3">Ruangan</th> <!-- Kolom Ruangan -->
+                            <th class="px-5 py-3">Ruangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,12 +57,76 @@
                             <td class="px-5 py-3">{{ $jadwal->ruangan }}</td>
                         </tr>
                         @endforeach
-                        <!-- Tambahkan data jadwal lainnya sesuai kebutuhan -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <!-- Modal Ganti Password (Wajib) -->
+    @if($mustChangePassword)
+    <div id="changePasswordModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
+            <div class="flex items-center justify-center mb-4">
+                <div class="bg-yellow-100 rounded-full p-3">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.924-.833-2.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Ganti Password</h2>
+                <p class="text-gray-600 text-sm">Untuk keamanan akun, Anda harus mengganti password default terlebih dahulu sebelum melanjutkan.</p>
+            </div>
+
+            <form id="changePasswordForm">
+                @csrf
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password Lama</label>
+                        <input type="password" name="current_password" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="Masukkan password lama (NIP Anda)">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password Baru</label>
+                        <input type="password" name="new_password" required minlength="6"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="Masukkan password baru (min. 6 karakter)">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password Baru</label>
+                        <input type="password" name="new_password_confirmation" required minlength="6"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="Ulangi password baru">
+                    </div>
+                </div>
+
+                <!-- Error Messages -->
+                <div id="errorMessages" class="hidden mt-4 p-3 bg-red-100 border border-red-300 rounded-md">
+                    <ul class="text-sm text-red-600 list-disc list-inside"></ul>
+                </div>
+
+                <!-- Loading -->
+                <div id="loading" class="hidden mt-4 text-center">
+                    <div class="inline-flex items-center">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+                        <span class="text-sm text-gray-600">Mengubah password...</span>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                        Ganti Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
 
     <style>
         @keyframes fadeIn {
@@ -73,5 +137,65 @@
             animation: fadeIn 0.5s ease-out;
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if($mustChangePassword)
+            const form = document.getElementById('changePasswordForm');
+            const errorDiv = document.getElementById('errorMessages');
+            const loading = document.getElementById('loading');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Hide previous errors
+                errorDiv.classList.add('hidden');
+                loading.classList.remove('hidden');
+
+                const formData = new FormData(form);
+
+                fetch('{{ route("dosen.change-password") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    loading.classList.add('hidden');
+
+                    if (data.success) {
+                        // Success - reload page
+                        alert('Password berhasil diubah! Halaman akan dimuat ulang.');
+                        window.location.reload();
+                    } else {
+                        // Show errors
+                        showErrors(data.message || 'Terjadi kesalahan');
+                    }
+                })
+                .catch(error => {
+                    loading.classList.add('hidden');
+                    console.error('Error:', error);
+                    showErrors('Terjadi kesalahan sistem');
+                });
+            });
+
+            function showErrors(message) {
+                const errorList = errorDiv.querySelector('ul');
+                errorList.innerHTML = `<li>${message}</li>`;
+                errorDiv.classList.remove('hidden');
+            }
+
+            // Prevent closing modal by clicking outside or ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                }
+            });
+            @endif
+        });
+    </script>
 
 @endsection
