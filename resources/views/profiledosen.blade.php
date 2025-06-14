@@ -81,12 +81,12 @@
                     </thead>
                     <tbody id="mahasiswaTableBody">
                         <!-- Baris Mahasiswa -->
-                        {{-- @php
-                            dd($ajuanBimbingan);
-                        @endphp --}}
+                        @php
+                            $no = 1;
+                        @endphp 
                         @foreach($ajuanBimbingan as $index => $ajuan)
                         <tr class="bg-white even:bg-gray-50 border-b hover:bg-blue-50">
-                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $index+1 }}</td>
+                            <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $no++ }}</td>
                             <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $ajuan->mahasiswa->nama }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->npm }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ $ajuan->bidang }}</td>

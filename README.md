@@ -14,3 +14,7 @@ username    : admin
 password    : admin123
 
 Note: Harus melakukan seed terlebih dahulu, akun lain bisa lihat dibagian seeder
+
+CSV baru
+NIP dan PASS sama
+misal mhs/ dosen gabisa login krn pass nya salah tu krn dh update pass nya jadi 123456

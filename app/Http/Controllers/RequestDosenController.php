@@ -59,8 +59,10 @@ class RequestDosenController extends Controller
             $seminar->bidang = $pengajuan->bidang;
             $seminar->topik_ta = $pengajuan->topik_ta;
             $pengajuans->push($seminar);
-            }
+            // dd($seminar->lampiran);
         }
+        }
+
 
         // Urutkan pengajuans berdasarkan waktu
         $pengajuans = $pengajuans->sortByDesc(function ($item) {

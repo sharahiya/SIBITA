@@ -20,6 +20,13 @@ class DashboardDosenController extends Controller
 
         // Mahasiswa bimbingan dari pengajuan
         $bimbingan = Pengajuan::where('id_dosen', $dosenId)->where('status', 'diterima')->get();
+        // dd($bimbingan);
+        // hapus yang sudah sidang
+        $bimbingan = $bimbingan->filter(function ($pengajuan) {
+            return !$pengajuan->mahasiswa->seminars->contains(function ($seminar) {
+                return $seminar->jenis === 'sidang' && $seminar->status === 'diterima';
+            });
+        });
         $bimbinganCount = $bimbingan->count();
 
         // Ambil ID mahasiswa bimbingan

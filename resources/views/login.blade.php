@@ -60,7 +60,7 @@
 
                 <!-- NPM/NIDN -->
                 <div>
-                    <label for="npm" class="block text-sm font-medium text-gray-700">NPM / NIDN</label>
+                    <label for="npm" class="block text-sm font-medium text-gray-700">NPM / NIP</label>
                     <input type="text" id="npm" name="npm" class="w-full text-sm p-2 border rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan NPM atau NIDN" required>
                 </div>
 

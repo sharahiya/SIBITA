@@ -26,47 +26,35 @@ class ProfileDosenController extends Controller
             ])
             ->get();
 
-        // Filter berdasarkan logika yang diperbaiki
+        // Filter: hanya mahasiswa yang belum sidang (seminar sidang belum diterima & pengajuan_seminar sidang belum diterima dosen ini)
         $ajuanBimbingan = $ajuanBimbingan->filter(function ($pengajuan) use ($dosen) {
             $mahasiswa = $pengajuan->mahasiswa;
 
-            // Jika tidak ada seminar, tampilkan (masih bimbingan)
+            // Jika tidak ada seminar sama sekali, tampilkan
             if ($mahasiswa->seminars->isEmpty()) {
                 return true;
             }
 
-            // Filter out mahasiswa yang sudah sidang dan diterima
+            // Cek apakah ada seminar sidang yang statusnya diterima
             $hasSidangDiterima = $mahasiswa->seminars->contains(function ($seminar) {
                 return $seminar->jenis === 'sidang' && $seminar->status === 'diterima';
             });
 
-            // Filter out mahasiswa yang pengajuan sidangnya sudah diterima oleh dosen ini
-            $hasSidangApprovedByDosen = $mahasiswa->seminars->some(function ($seminar) use ($dosen) {
-                if ($seminar->jenis === 'sidang') {
-                    return $seminar->pengajuanSeminar->some(function ($pengajuanSeminar) use ($dosen) {
+            // Cek apakah ada pengajuan_seminar sidang yang sudah diterima oleh dosen ini
+            $hasSidangApprovedByDosen = $mahasiswa->seminars->contains(function ($seminar) use ($dosen) {
+                if ($seminar->jenis === 'sidang' && $seminar->pengajuanSeminar) {
+                    return $seminar->pengajuanSeminar->contains(function ($pengajuanSeminar) use ($dosen) {
                         return $pengajuanSeminar->id_dosen == $dosen->id_dosen &&
-                               $pengajuanSeminar->status == 'diterima';
+                            $pengajuanSeminar->status == 'diterima';
                     });
                 }
                 return false;
             });
 
-            // Jika sudah sidang dan diterima ATAU pengajuan sidang sudah diapprove dosen ini, jangan tampilkan
-            if ($hasSidangDiterima || $hasSidangApprovedByDosen) {
-                return false;
-            }
-
-            // Cek apakah ada pengajuan seminar yang diterima oleh dosen ini
-            $hasApprovedSeminar = $mahasiswa->seminars->some(function ($seminar) use ($dosen) {
-                return $seminar->pengajuanSeminar->some(function ($pengajuanSeminar) use ($dosen) {
-                    return $pengajuanSeminar->id_dosen == $dosen->id_dosen &&
-                           $pengajuanSeminar->status == 'diterima';
-                });
-            });
-
-            // Tampilkan jika: belum ada seminar ATAU ada pengajuan seminar yang diterima
-            return $hasApprovedSeminar || $mahasiswa->seminars->isEmpty();
+            // Tampilkan hanya jika belum sidang dan belum ada pengajuan_seminar sidang yang diterima dosen ini
+            return !$hasSidangDiterima && !$hasSidangApprovedByDosen;
         });
+            // dd($ajuanBimbingan);
 
         $jumlahMahasiswa = $ajuanBimbingan->count();
 
@@ -118,16 +106,17 @@ class ProfileDosenController extends Controller
                 if ($completedSidang || $approvedSidang) {
                     $pengajuan->mahasiswa->seminar_status = 'Sidang';
                 } elseif ($completedHasil) {
-                    $pengajuan->mahasiswa->seminar_status = 'Semhas Selesai';
+                    $pengajuan->mahasiswa->seminar_status = 'Semhas';
                 } elseif ($approvedHasil) {
                     $pengajuan->mahasiswa->seminar_status = 'Semhas';
                 } elseif ($completedProposal) {
-                    $pengajuan->mahasiswa->seminar_status = 'Sempro Selesai';
+                    $pengajuan->mahasiswa->seminar_status = 'Sempro';
                 } elseif ($approvedProposal) {
                     $pengajuan->mahasiswa->seminar_status = 'Sempro';
                 }
             }
         });
+
 
         return view('profileDosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }

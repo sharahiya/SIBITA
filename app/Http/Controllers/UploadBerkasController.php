@@ -98,7 +98,7 @@ public function upload(Request $request)
 
     if (strtolower($extension) === 'pdf') {
         // For PDF files: max 20MB
-        if ($file->getSize() > 20 * 1024 * 1024) {
+        if ($file->getSize() > 100 * 1024 * 1024) {
             return back()->with('error', 'File PDF tidak boleh lebih dari 20MB.');
         }
     } else {
