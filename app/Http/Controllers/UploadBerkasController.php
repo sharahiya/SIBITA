@@ -92,7 +92,7 @@ class UploadBerkasController extends Controller
         $file = $request->file('berkas');
 
         // Additional validation for PDF files
-        if ($file->getSize() > 20 * 1024 * 1024) {
+        if ($file->getSize() > 100 * 1024 * 1024) {
             return back()->with('error', 'File PDF tidak boleh lebih dari 20MB.');
         }
 
