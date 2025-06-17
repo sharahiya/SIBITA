@@ -39,25 +39,15 @@ class DashboardDosenController extends Controller
 
         $pengajuanIds = $mahasiswaBimbingan->pluck('id_pengajuan');
 
-        $seminars = PengajuanSeminar::with(['mahasiswa', 'seminar'])
-            ->whereIn('id_pengajuan', $pengajuanIds)
-            ->whereHas('seminar', function($query) {
-            $query->whereIn('jenis', ['proposal', 'hasil', 'sidang']);
-            })
+        $seminars = PengajuanSeminar::with(['mahasiswa'])
+            ->whereIn('id_mahasiswa', $mahasiswaIds)
+            ->where('id_dosen', $dosenId)
             ->where('status', 'selesai')
             ->get();
 
-        $selesaiSempro = $seminars->filter(function($item) {
-            return $item->seminar->jenis === 'proposal';
-        })->count();
-        
-        $selesaiSemhas = $seminars->filter(function($item) {
-            return $item->seminar->jenis === 'hasil';
-        })->count();
-        
-        $selesaiSidang = $seminars->filter(function($item) {
-            return $item->seminar->jenis === 'sidang';
-        })->count();
+        $selesaiSempro = $seminars->where('jenis', 'proposal')->count();
+        $selesaiSemhas = $seminars->where('jenis', 'hasil')->count();
+        $selesaiSidang = $seminars->where('jenis', 'sidang')->count();
 
         // Dummy jadwal
         $jadwalSaya = collect([
