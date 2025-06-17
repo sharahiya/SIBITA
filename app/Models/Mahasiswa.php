@@ -13,43 +13,26 @@ class Mahasiswa extends Authenticatable
 
     protected $table = 'mahasiswas';
     protected $primaryKey = 'id_mahasiswa';
-    protected $fillable = [
-        'nama', 'npm', 'email', 'password', 'angkatan', 'id_dosen_wali'
-    ];
+    protected $fillable = ['npm', 'email', 'nama', 'password', 'angkatan', 'id_dosen_wali'];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    // Relationships
     public function dosenWali()
     {
-        return $this->belongsTo(Dosen::class, 'id_dosen_wali', 'id_dosen');
+        return $this->belongsTo(Dosen::class, 'id_dosen_wali');
     }
 
-    public function pengajuans()
+    public function pengajuan()
     {
         return $this->hasMany(Pengajuan::class, 'id_mahasiswa');
     }
 
-    public function pengajuanSeminars()
+    public function notifikasi()
     {
-        return $this->hasMany(PengajuanSeminar::class, 'id_mahasiswa');
+        return $this->hasMany(Notifikasi::class, 'id_mahasiswa');
     }
 
-    public function seminars()
+    public function pembimbing()
     {
-        return $this->hasMany(Seminar::class, 'id_mahasiswa');
-    }
-
-    public function bimbingan()
-    {
-        return $this->hasOne(Bimbingan::class, 'id_mahasiswa');
-    }
-
-    public function notifikasis()
-    {
-        return $this->hasMany(Notifikasi::class, 'id_user')->where('role', 'mahasiswa');
+        return $this->hasOne(Pembimbing::class, 'id_mahasiswa', 'id_mahasiswa');
     }
 
     // Model Mahasiswa
@@ -63,11 +46,21 @@ class Mahasiswa extends Authenticatable
         return $this->pembimbing?->dosen2; // Mengembalikan null jika tidak ada pembimbing
     }
 
+    public function seminars()
+    {
+        return $this->hasMany(Seminar::class, 'id_mahasiswa');
+    }
+
     public function cekAdaDosenPembimbing()
     {
         $res = Pengajuan::where('id_mahasiswa', $this->id_mahasiswa)
             ->exists();
         return $res;
+    }
+
+    public function PengajuanSeminar()
+    {
+        return $this->hasMany(PengajuanSeminar::class, 'id_mahasiswa', 'id_mahasiswa');
     }
 
     // Method untuk mengecek apakah password masih default (sama dengan NPM)
@@ -76,52 +69,54 @@ class Mahasiswa extends Authenticatable
         return Hash::check($this->npm, $this->password);
     }
 
-    /**
-     * Get seminar status based on highest level achieved across all supervisors
-     */
     public function getSeminarStatusAttribute()
     {
-        // Get all approved PengajuanSeminar for this student
-        $approvedPengajuans = $this->pengajuanSeminars()
-            ->where('status', 'diterima')
-            ->with('seminar')
-            ->get();
+        // Get the latest seminar for each type
+        $seminars = $this->seminars()->get();
 
-        // Default status
-        $status = 'Bimbingan';
-
-        // Check which seminars have been approved
-        $hasApprovedSidang = false;
-        $hasApprovedSemhas = false;
-        $hasApprovedSempro = false;
-
-        foreach ($approvedPengajuans as $pengajuan) {
-            if ($pengajuan->seminar) {
-                switch ($pengajuan->seminar->jenis) {
-                    case 'sidang':
-                        $hasApprovedSidang = true;
-                        break;
-                    case 'hasil':
-                        $hasApprovedSemhas = true;
-                        break;
-                    case 'proposal':
-                        $hasApprovedSempro = true;
-                        break;
-                }
-            }
+        if ($seminars->isEmpty()) {
+            return 'Bimbingan'; // Default status if no seminars
         }
 
-        // Determine status based on highest level approved
-        if ($hasApprovedSidang) {
-            $status = 'Sidang';
-        } elseif ($hasApprovedSemhas) {
-            $status = 'Semhas';
-        } elseif ($hasApprovedSempro) {
-            $status = 'Sempro';
+        // Check for completed seminars (status = 'diterima' or lulus = 1)
+        $completedSidang = $seminars->where('jenis', 'sidang')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+
+        $completedHasil = $seminars->where('jenis', 'hasil')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+
+        $completedProposal = $seminars->where('jenis', 'proposal')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+
+        // Check for pending seminars
+        $pendingSidang = $seminars->where('jenis', 'sidang')
+            ->where('status', 'pending')->first();
+
+        $pendingHasil = $seminars->where('jenis', 'hasil')
+            ->where('status', 'pending')->first();
+
+        $pendingProposal = $seminars->where('jenis', 'proposal')
+            ->where('status', 'pending')->first();
+
+        // Determine status based on priority (completed first, then pending)
+        if ($completedSidang || $pendingSidang) {
+            return 'Sidang';
+        } elseif ($completedHasil || $pendingHasil) {
+            return 'Semhas';
+        } elseif ($completedProposal || $pendingProposal) {
+            return 'Sempro';
         }
 
-        return $status;
+        return 'Bimbingan'; // Default status
     }
+
+
 
     /**
      * Get seminar status for a specific supervisor

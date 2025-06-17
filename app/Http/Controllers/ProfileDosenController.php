@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
+use App\Models\PengajuanSeminar;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -158,15 +159,17 @@ class ProfileDosenController extends Controller
                 // Check if student has completed sidang through PengajuanSeminar
                 $completedSidang = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
                     ->where('id_dosen', $dosenId)
+                    ->where('status', 'diterima')
                     ->whereHas('seminar', function($query) {
                         $query->where('jenis', 'sidang');
                     })
-                    ->where('status', 'diterima')
                     ->exists();
 
                 return !$completedSidang;
             });
         }
+
+
 
         return [
             'ajuanBimbingan' => $ajuanBimbingan,
@@ -296,12 +299,13 @@ class ProfileDosenController extends Controller
             ->where('status', 'diterima')
             ->with([
                 'mahasiswa',
-                'mahasiswa.pengajuanSeminars' => function($query) use ($dosenId) {
+                'mahasiswa.pengajuanSeminar' => function($query) use ($dosenId) {
                     $query->where('id_dosen', $dosenId)->with('seminar');
                 }
             ])
             ->get();
 
+            // dd($ajuanBimbingan);
         if ($excludeGraduated) {
             // Filter out students who have completed sidang based on PengajuanSeminar
             $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) use ($dosenId) {
@@ -372,9 +376,10 @@ class ProfileDosenController extends Controller
         $dosen = Dosen::where('id_dosen', $user->id_dosen)->first();
 
         // Use the reusable function
-        $result = self::getDaftarMahasiswaBimbingan($dosen->id_dosen);
+        $result = self::getDaftarMahasiswaBimbingan($dosen->id_dosen, true);
         $ajuanBimbingan = $result['ajuanBimbingan'];
         $jumlahMahasiswa = $result['jumlahMahasiswa'];
+
 
         return view('profileDosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }
