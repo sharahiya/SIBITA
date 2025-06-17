@@ -58,17 +58,7 @@
 
     <!-- Right: Icons -->
     <div class="hidden lg:flex items-center space-x-4">
-      <!-- Notifikasi Icon -->
-      <a href="{{ route('notifikasiadmin') }}" class="relative">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 00-12 0v3c0 .386-.146.75-.405 1.045L4 17h5m6 0a3 3 0 11-6 0"></path>
-        </svg>
-        @if(isset($unreadNotifCount) && $unreadNotifCount > 0)
-          <span class="absolute top-0 right-0 inline-block min-w-[1rem] h-4 text-xs text-white bg-red-600 rounded-full text-center px-1">
-            {{ $unreadNotifCount }}
-          </span>
-        @endif
-      </a>
+
 
       <!-- Profil User -->
       <div class="relative">
