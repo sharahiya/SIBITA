@@ -66,7 +66,8 @@ class DaftarAkunAdminController extends Controller
                         'nama' => $mahasiswa->nama,
                         'npm' => $mahasiswa->npm,
                         'angkatan' => $mahasiswa->angkatan,
-                        'seminar_status' => $seminarStatus
+                        'seminar_status' => $seminarStatus,
+                        'status' => $seminarStatus
                     ];
                 });
 
