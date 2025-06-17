@@ -60,7 +60,14 @@
 
             <!-- Pilihan Penguji 1 -->
             <div class="col-span-1 md:col-span-3">
-                <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 1 <span class="text-red-500">*</span></h3>
+                <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">
+                    Pilih Penguji 1 <span class="text-red-500">*</span>
+                    @if(!$penguji1)
+                    <button type="button" onclick="clearPenguji('searchPenguji1')" id="clearPenguji1Btn" class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors" style="display: none;">
+                        ✕ Batal
+                    </button>
+                    @endif
+                </h3>
                 <div class="relative">
                     <input id="searchPenguji1"
                            type="text"
@@ -101,7 +108,14 @@
 
             <!-- Pilihan Penguji 2 -->
             <div class="col-span-1 md:col-span-3">
-                <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 2 <span class="text-red-500">*</span></h3>
+                <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">
+                    Pilih Penguji 2 <span class="text-red-500">*</span>
+                    @if(!$penguji2)
+                    <button type="button" onclick="clearPenguji('searchPenguji2')" id="clearPenguji2Btn" class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors" style="display: none;">
+                        ✕ Batal
+                    </button>
+                    @endif
+                </h3>
                 <div class="relative">
                     <input id="searchPenguji2"
                            type="text"
@@ -148,6 +162,11 @@
                     @if(!$penguji3 && ($penguji1 || $penguji2))
                     <button type="button" onclick="removePenguji3()" class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
                         Hapus
+                    </button>
+                    @endif
+                    @if(!$penguji3)
+                    <button type="button" onclick="clearPenguji('searchPenguji3')" id="clearPenguji3Btn" class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors" style="display: none;">
+                        ✕ Batal
                     </button>
                     @endif
                 </h3>
@@ -495,7 +514,7 @@
 // Variables for managing delete operation
 let currentDeleteData = null;
 
-// Helper function to get jenis text - ADD THIS FUNCTION
+// Helper function to get jenis text
 function getJenisText(jenis) {
     switch(jenis) {
         case 'proposal': return 'Seminar Proposal';
@@ -505,7 +524,7 @@ function getJenisText(jenis) {
     }
 }
 
-// Function to edit nilai - Updated to properly set hidden field
+// Function to edit nilai
 function editNilai(jenis, nilai, lulus) {
     // Fill form with existing data
     document.getElementById('jenisSeminar').value = jenis;
@@ -542,7 +561,7 @@ function closeModalHapus() {
     currentDeleteData = null;
 }
 
-// Function to confirm delete - Fixed route
+// Function to confirm delete
 function confirmHapusNilai() {
     if (!currentDeleteData) return;
 
@@ -551,7 +570,7 @@ function confirmHapusNilai() {
     // Show loading
     showSimpleNotification('Menghapus nilai...', 'info');
 
-    // Send delete request - Fixed route
+    // Send delete request
     fetch(`{{ route('hapus.nilai', $mahasiswa->id_mahasiswa) }}`, {
         method: 'DELETE',
         headers: {
@@ -583,7 +602,7 @@ function confirmHapusNilai() {
     });
 }
 
-// Function to reset form to upload mode - Updated to clear hidden field
+// Function to reset form to upload mode
 function resetForm() {
     document.getElementById('formNilai').reset();
     document.getElementById('methodField').value = 'POST';
@@ -591,7 +610,7 @@ function resetForm() {
     document.getElementById('btnCancel').style.display = 'none';
     document.getElementById('jenisSeminar').disabled = false;
     document.getElementById('seminarId').value = '';
-    document.getElementById('hiddenJenisSeminar').value = ''; // Clear hidden field
+    document.getElementById('hiddenJenisSeminar').value = '';
 
     showSimpleNotification('Form direset ke mode upload', 'info');
 }
@@ -627,14 +646,6 @@ document.getElementById('formNilai').addEventListener('submit', function(e) {
     const originalText = btnSubmit.innerHTML;
     btnSubmit.innerHTML = method === 'PUT' ? '🔄 Updating...' : '💾 Uploading...';
     btnSubmit.disabled = true;
-
-    // Debug: Log form data before submission
-    console.log('Form data being submitted:', {
-        method: method,
-        jenis_seminar: jenis,
-        nilai: document.getElementById('inputNilai').value,
-        status: document.getElementById('inputStatus').value
-    });
 });
 
 // Enhanced notification function with more types
@@ -791,15 +802,16 @@ function getIconHTML(type) {
     }
 }
 
-// All the existing penguji selection functions...
+// FIXED: Penguji selection functions with table updating
 function selectPenguji(inputId, dosenName) {
     const input = document.getElementById(inputId);
-    const otherInputs = ['searchPenguji1', 'searchPenguji2', 'searchPenguji3'].filter(id => id !== inputId);
 
-    // Jangan lakukan apapun jika input disabled
+    // Don't do anything if input is disabled
     if (input.disabled) return;
 
-    // Cek apakah dosen sudah dipilih di input lainnya
+    // Check if this lecturer is already selected in OTHER examiner positions
+    const otherInputs = ['searchPenguji1', 'searchPenguji2', 'searchPenguji3'].filter(id => id !== inputId);
+
     for (let otherInputId of otherInputs) {
         const otherInput = document.getElementById(otherInputId);
         if (otherInput && otherInput.value === dosenName) {
@@ -813,8 +825,14 @@ function selectPenguji(inputId, dosenName) {
     // Update hidden input
     if (inputId === 'searchPenguji1') {
         document.getElementById('hiddenPenguji1').value = dosenName;
+        // Show cancel button
+        const clearBtn = document.getElementById('clearPenguji1Btn');
+        if (clearBtn) clearBtn.style.display = 'inline-block';
     } else if (inputId === 'searchPenguji2') {
         document.getElementById('hiddenPenguji2').value = dosenName;
+        // Show cancel button
+        const clearBtn = document.getElementById('clearPenguji2Btn');
+        if (clearBtn) clearBtn.style.display = 'inline-block';
     } else if (inputId === 'searchPenguji3') {
         document.getElementById('hiddenPenguji3').value = dosenName;
         // Also update the save form hidden input
@@ -822,15 +840,60 @@ function selectPenguji(inputId, dosenName) {
         if (hiddenPenguji3Save) {
             hiddenPenguji3Save.value = dosenName;
         }
+        // Show cancel button
+        const clearBtn = document.getElementById('clearPenguji3Btn');
+        if (clearBtn) clearBtn.style.display = 'inline-block';
         // Enable save button and show save container
         enablePenguji3Save();
     }
 
-    // Refresh all tables to hide selected lecturers
-    refreshAllTables();
+    // Update all tables to hide selected lecturers from other tables
+    updateAllTables();
 
-    // Add visual feedback without modal
+    // Add visual feedback
     showSimpleNotification(`${dosenName} berhasil dipilih sebagai penguji`, 'success');
+}
+
+// NEW: Function to clear penguji selection
+function clearPenguji(inputId) {
+    const input = document.getElementById(inputId);
+
+    // Clear the input
+    input.value = '';
+
+    // Clear hidden inputs and hide cancel buttons
+    if (inputId === 'searchPenguji1') {
+        document.getElementById('hiddenPenguji1').value = '';
+        const clearBtn = document.getElementById('clearPenguji1Btn');
+        if (clearBtn) clearBtn.style.display = 'none';
+        showSimpleNotification('Penguji 1 dibatalkan', 'info');
+    } else if (inputId === 'searchPenguji2') {
+        document.getElementById('hiddenPenguji2').value = '';
+        const clearBtn = document.getElementById('clearPenguji2Btn');
+        if (clearBtn) clearBtn.style.display = 'none';
+        showSimpleNotification('Penguji 2 dibatalkan', 'info');
+    } else if (inputId === 'searchPenguji3') {
+        document.getElementById('hiddenPenguji3').value = '';
+        const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+        if (hiddenPenguji3Save) hiddenPenguji3Save.value = '';
+
+        const clearBtn = document.getElementById('clearPenguji3Btn');
+        if (clearBtn) clearBtn.style.display = 'none';
+
+        // Hide save container for penguji 3
+        const saveContainer = document.getElementById('savePenguji3Container');
+        const saveBtn = document.getElementById('savePenguji3Btn');
+        if (saveContainer) saveContainer.style.display = 'none';
+        if (saveBtn) {
+            saveBtn.disabled = true;
+            saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        showSimpleNotification('Penguji 3 dibatalkan', 'info');
+    }
+
+    // Update all tables to show all lecturers again
+    updateAllTables();
 }
 
 function enablePenguji3Save() {
@@ -848,10 +911,9 @@ function showPenguji3() {
     document.getElementById('penguji3Section').style.display = 'block';
     document.getElementById('addPenguji3Button').style.display = 'none';
 
-    // Refresh tables to ensure proper exclusions
-    refreshAllTables();
+    // Update tables when penguji 3 section is shown
+    updateAllTables();
 
-    // Simple notification instead of modal
     showSimpleNotification('Penguji 3 telah ditambahkan (opsional)', 'success');
 }
 
@@ -865,6 +927,7 @@ function removePenguji3() {
     const saveContainer = document.getElementById('savePenguji3Container');
     const saveBtn = document.getElementById('savePenguji3Btn');
     const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+    const clearBtn = document.getElementById('clearPenguji3Btn');
 
     if (saveContainer) saveContainer.style.display = 'none';
     if (saveBtn) {
@@ -872,11 +935,11 @@ function removePenguji3() {
         saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
     }
     if (hiddenPenguji3Save) hiddenPenguji3Save.value = '';
+    if (clearBtn) clearBtn.style.display = 'none';
 
-    // Refresh tables after removing penguji 3
-    refreshAllTables();
+    // Update tables after removing penguji 3
+    updateAllTables();
 
-    // Simple notification instead of modal
     showSimpleNotification('Penguji 3 telah dihapus', 'success');
 }
 
@@ -885,10 +948,11 @@ function cancelPenguji3() {
     document.getElementById('searchPenguji3').value = '';
     document.getElementById('hiddenPenguji3').value = '';
 
-    // Hide save container
+    // Hide save container and cancel button
     const saveContainer = document.getElementById('savePenguji3Container');
     const saveBtn = document.getElementById('savePenguji3Btn');
     const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+    const clearBtn = document.getElementById('clearPenguji3Btn');
 
     if (saveContainer) saveContainer.style.display = 'none';
     if (saveBtn) {
@@ -896,9 +960,10 @@ function cancelPenguji3() {
         saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
     }
     if (hiddenPenguji3Save) hiddenPenguji3Save.value = '';
+    if (clearBtn) clearBtn.style.display = 'none';
 
-    // Refresh tables
-    refreshAllTables();
+    // Update tables
+    updateAllTables();
 
     showSimpleNotification('Pemilihan penguji 3 dibatalkan', 'warning');
 }
@@ -921,98 +986,76 @@ document.getElementById('formPenguji3')?.addEventListener('submit', function(e) 
     }
 });
 
-// New function to refresh all tables based on current selections
-function refreshAllTables() {
-    const selectedPenguji = [
-        document.getElementById('searchPenguji1').value,
-        document.getElementById('searchPenguji2').value,
-        document.getElementById('searchPenguji3').value
-    ].filter(value => value.trim() !== '');
+// ENHANCED: Function to update all tables based on current selections
+function updateAllTables() {
+    const selectedPenguji1 = document.getElementById('searchPenguji1').value.trim();
+    const selectedPenguji2 = document.getElementById('searchPenguji2').value.trim();
+    const selectedPenguji3 = document.getElementById('searchPenguji3').value.trim();
 
-    // Update Penguji 1 table
-    updateTableExclusions('penguji1Table', selectedPenguji, document.getElementById('searchPenguji1').value);
+    // Update Penguji 1 table (hide lecturers selected in Penguji 2 and 3)
+    updateTableRows('penguji1Table', 'searchPenguji1', [selectedPenguji2, selectedPenguji3]);
 
-    // Update Penguji 2 table
-    updateTableExclusions('penguji2Table', selectedPenguji, document.getElementById('searchPenguji2').value);
+    // Update Penguji 2 table (hide lecturers selected in Penguji 1 and 3)
+    updateTableRows('penguji2Table', 'searchPenguji2', [selectedPenguji1, selectedPenguji3]);
 
-    // Update Penguji 3 table
-    updateTableExclusions('penguji3Table', selectedPenguji, document.getElementById('searchPenguji3').value);
+    // Update Penguji 3 table (hide lecturers selected in Penguji 1 and 2)
+    updateTableRows('penguji3Table', 'searchPenguji3', [selectedPenguji1, selectedPenguji2]);
 }
 
-// New function to update table with exclusions
-function updateTableExclusions(tableId, selectedPenguji, currentValue) {
+// ENHANCED: Function to update specific table rows
+function updateTableRows(tableId, searchInputId, excludeNames) {
+    const searchInput = document.getElementById(searchInputId);
+    const searchKeyword = searchInput ? searchInput.value.toLowerCase() : '';
     const rows = document.querySelectorAll(`#${tableId} tr`);
+
     rows.forEach(row => {
-        const namaDosen = row.querySelector('td')?.textContent;
-        if (namaDosen && selectedPenguji.includes(namaDosen) && namaDosen !== currentValue) {
+        const nameCell = row.querySelector('td:first-child');
+        if (!nameCell) return; // Skip header row
+
+        const dosenName = nameCell.textContent.trim();
+
+        // Check if this lecturer should be hidden (selected in other positions)
+        const shouldHideForSelection = excludeNames.some(excludeName =>
+            excludeName !== '' && excludeName === dosenName
+        );
+
+        // Check if this lecturer should be hidden for search
+        const shouldHideForSearch = searchKeyword !== '' && !row.innerText.toLowerCase().includes(searchKeyword);
+
+        // Hide row if either condition is true
+        if (shouldHideForSelection || shouldHideForSearch) {
             row.style.display = 'none';
         } else {
-            // Only show if it matches current search keyword
-            const searchInput = document.getElementById(tableId.replace('Table', '').replace('penguji', 'searchPenguji'));
-            const keyword = searchInput ? searchInput.value.toLowerCase() : '';
-
-            if (keyword === '' || row.innerText.toLowerCase().includes(keyword)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+            row.style.display = '';
         }
     });
 }
 
-// Script Pencarian untuk Penguji - Updated to handle exclusions
+// ENHANCED: Search event listeners with proper table updating
 document.getElementById('searchPenguji1').addEventListener('input', function() {
-    const keyword = this.value.toLowerCase();
-    const otherValues = [
-        document.getElementById('searchPenguji2').value,
-        document.getElementById('searchPenguji3').value
-    ];
-    const items = document.querySelectorAll('#penguji1Table tr');
-    items.forEach(item => {
-        const namaDosen = item.querySelector('td')?.textContent;
-        if (otherValues.includes(namaDosen)) {
-            item.style.display = 'none';
-        } else {
-            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
-        }
-    });
+    const selectedPenguji2 = document.getElementById('searchPenguji2').value.trim();
+    const selectedPenguji3 = document.getElementById('searchPenguji3').value.trim();
+    updateTableRows('penguji1Table', 'searchPenguji1', [selectedPenguji2, selectedPenguji3]);
 });
 
 document.getElementById('searchPenguji2').addEventListener('input', function() {
-    const keyword = this.value.toLowerCase();
-    const otherValues = [
-        document.getElementById('searchPenguji1').value,
-        document.getElementById('searchPenguji3').value
-    ];
-    const items = document.querySelectorAll('#penguji2Table tr');
-    items.forEach(item => {
-        const namaDosen = item.querySelector('td')?.textContent;
-        if (otherValues.includes(namaDosen)) {
-            item.style.display = 'none';
-        } else {
-            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
-        }
-    });
+    const selectedPenguji1 = document.getElementById('searchPenguji1').value.trim();
+    const selectedPenguji3 = document.getElementById('searchPenguji3').value.trim();
+    updateTableRows('penguji2Table', 'searchPenguji2', [selectedPenguji1, selectedPenguji3]);
 });
 
 document.getElementById('searchPenguji3').addEventListener('input', function() {
-    const keyword = this.value.toLowerCase();
-    const otherValues = [
-        document.getElementById('searchPenguji1').value,
-        document.getElementById('searchPenguji2').value
-    ];
-    const items = document.querySelectorAll('#penguji3Table tr');
-    items.forEach(item => {
-        const namaDosen = item.querySelector('td')?.textContent;
-        if (otherValues.includes(namaDosen) && namaDosen) {
-            item.style.display = 'none';
-        } else {
-            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
-        }
-    });
+    const selectedPenguji1 = document.getElementById('searchPenguji1').value.trim();
+    const selectedPenguji2 = document.getElementById('searchPenguji2').value.trim();
+    updateTableRows('penguji3Table', 'searchPenguji3', [selectedPenguji1, selectedPenguji2]);
 });
 
-// Modal open & close
+// Initialize table filtering on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateAllTables();
+});
+
+// Modal open & close functions
 function openModal() {
     document.getElementById('editModal').classList.remove('hidden');
 }
