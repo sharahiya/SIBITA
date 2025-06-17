@@ -151,17 +151,17 @@ class ProfileDosenController extends Controller
             ->get();
 
         if ($excludeGraduated) {
-            // Filter out students who have completed sidang
-            $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) {
+            // Filter out students who have completed sidang based on PengajuanSeminar
+            $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) use ($dosenId) {
                 $mahasiswaId = $pengajuan->id_mahasiswa;
 
-                // Check if student has completed sidang
-                $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
-                    ->where('jenis', 'sidang')
-                    ->where(function($query) {
-                        $query->where('status', 'diterima')
-                              ->orWhere('lulus', 1);
+                // Check if student has completed sidang through PengajuanSeminar
+                $completedSidang = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
+                    ->where('id_dosen', $dosenId)
+                    ->whereHas('seminar', function($query) {
+                        $query->where('jenis', 'sidang');
                     })
+                    ->where('status', 'diterima')
                     ->exists();
 
                 return !$completedSidang;
@@ -193,13 +193,13 @@ class ProfileDosenController extends Controller
             $mahasiswa = Mahasiswa::find($mahasiswaId);
 
             if ($mahasiswa) {
-                // Check if student has completed sidang (graduated)
-                $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
-                    ->where('jenis', 'sidang')
-                    ->where(function($query) {
-                        $query->where('status', 'diterima')
-                              ->orWhere('lulus', 1);
+                // Check if student has completed sidang through PengajuanSeminar
+                $completedSidang = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
+                    ->where('id_dosen', $dosenId)
+                    ->whereHas('seminar', function($query) {
+                        $query->where('jenis', 'sidang');
                     })
+                    ->where('status', 'diterima')
                     ->exists();
 
                 // Skip graduated students
@@ -207,8 +207,8 @@ class ProfileDosenController extends Controller
                     continue;
                 }
 
-                // Get seminar status using the accessor
-                $status = $mahasiswa->seminar_status;
+                // Get seminar status based on PengajuanSeminar for this specific dosen
+                $status = self::getSeminarStatusByDosen($mahasiswaId, $dosenId);
 
                 switch ($status) {
                     case 'Bimbingan':
@@ -228,6 +228,142 @@ class ProfileDosenController extends Controller
         }
 
         return $breakdown;
+    }
+
+    /**
+     * Get seminar status for a student based on their PengajuanSeminar for specific dosen
+     *
+     * @param int $mahasiswaId
+     * @param int $dosenId
+     * @return string
+     */
+    public static function getSeminarStatusByDosen($mahasiswaId, $dosenId)
+    {
+        // Get all PengajuanSeminar for this student and dosen
+        $pengajuanSeminars = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
+            ->where('id_dosen', $dosenId)
+            ->where('status', 'diterima')
+            ->with('seminar')
+            ->get();
+
+        // Default status
+        $status = 'Bimbingan';
+
+        // Check which seminars have been approved by this dosen
+        $hasApprovedSidang = false;
+        $hasApprovedSemhas = false;
+        $hasApprovedSempro = false;
+
+        foreach ($pengajuanSeminars as $pengajuan) {
+            if ($pengajuan->seminar) {
+                switch ($pengajuan->seminar->jenis) {
+                    case 'sidang':
+                        $hasApprovedSidang = true;
+                        break;
+                    case 'hasil':
+                        $hasApprovedSemhas = true;
+                        break;
+                    case 'proposal':
+                        $hasApprovedSempro = true;
+                        break;
+                }
+            }
+        }
+
+        // Determine status based on highest level approved
+        if ($hasApprovedSidang) {
+            $status = 'Sidang';
+        } elseif ($hasApprovedSemhas) {
+            $status = 'Semhas';
+        } elseif ($hasApprovedSempro) {
+            $status = 'Sempro';
+        }
+
+        return $status;
+    }
+
+    /**
+     * Enhanced method to get supervised students with detailed seminar information
+     *
+     * @param int $dosenId
+     * @param bool $excludeGraduated
+     * @return array
+     */
+    public static function getDaftarMahasiswaBimbinganDetailed($dosenId, $excludeGraduated = false)
+    {
+        // Get all pengajuan that are accepted for this dosen
+        $ajuanBimbingan = Pengajuan::where('id_dosen', $dosenId)
+            ->where('status', 'diterima')
+            ->with([
+                'mahasiswa',
+                'mahasiswa.pengajuanSeminars' => function($query) use ($dosenId) {
+                    $query->where('id_dosen', $dosenId)->with('seminar');
+                }
+            ])
+            ->get();
+
+        if ($excludeGraduated) {
+            // Filter out students who have completed sidang based on PengajuanSeminar
+            $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) use ($dosenId) {
+                $mahasiswaId = $pengajuan->id_mahasiswa;
+
+                // Check if student has completed sidang through PengajuanSeminar
+                $completedSidang = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
+                    ->where('id_dosen', $dosenId)
+                    ->whereHas('seminar', function($query) {
+                        $query->where('jenis', 'sidang');
+                    })
+                    ->where('status', 'diterima')
+                    ->exists();
+
+                return !$completedSidang;
+            });
+        }
+
+        // Add seminar status for each student
+        $ajuanBimbingan->each(function($pengajuan) use ($dosenId) {
+            $pengajuan->seminar_status = self::getSeminarStatusByDosen($pengajuan->id_mahasiswa, $dosenId);
+
+            // Add detailed seminar information
+            $pengajuan->seminar_details = [
+                'sempro_approved' => false,
+                'semhas_approved' => false,
+                'sidang_approved' => false,
+                'sempro_date' => null,
+                'semhas_date' => null,
+                'sidang_date' => null,
+            ];
+
+            $pengajuanSeminars = PengajuanSeminar::where('id_mahasiswa', $pengajuan->id_mahasiswa)
+                ->where('id_dosen', $dosenId)
+                ->where('status', 'diterima')
+                ->with('seminar')
+                ->get();
+
+            foreach ($pengajuanSeminars as $ps) {
+                if ($ps->seminar) {
+                    switch ($ps->seminar->jenis) {
+                        case 'proposal':
+                            $pengajuan->seminar_details['sempro_approved'] = true;
+                            $pengajuan->seminar_details['sempro_date'] = $ps->seminar->tanggal_seminar;
+                            break;
+                        case 'hasil':
+                            $pengajuan->seminar_details['semhas_approved'] = true;
+                            $pengajuan->seminar_details['semhas_date'] = $ps->seminar->tanggal_seminar;
+                            break;
+                        case 'sidang':
+                            $pengajuan->seminar_details['sidang_approved'] = true;
+                            $pengajuan->seminar_details['sidang_date'] = $ps->seminar->tanggal_seminar;
+                            break;
+                    }
+                }
+            }
+        });
+
+        return [
+            'ajuanBimbingan' => $ajuanBimbingan,
+            'jumlahMahasiswa' => $ajuanBimbingan->count()
+        ];
     }
 
     public function index()
