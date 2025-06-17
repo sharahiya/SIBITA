@@ -194,7 +194,7 @@
             <!-- Informasi Dosen -->
             <div class="bg-gray-50 p-4 rounded-lg mb-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-3">Informasi Dosen</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                     <div>
                         <span class="text-gray-600">Nama:</span>
                         <p class="font-medium" id="detailNamaDosen">-</p>
@@ -204,12 +204,27 @@
                         <p class="font-medium" id="detailNipDosen">-</p>
                     </div>
                     <div>
+                        <span class="text-gray-600">Jabatan:</span>
+                        <p class="font-medium" id="detailJabatanDosen">-</p>
+                    </div>
+                    <div>
                         <span class="text-gray-600">Bidang:</span>
                         <p class="font-medium" id="detailBidangDosen">-</p>
                     </div>
                     <div>
+                        <span class="text-gray-600">Jurusan:</span>
+                        <p class="font-medium" id="detailJurusanDosen">-</p>
+                    </div>
+                    <div>
+                        <span class="text-gray-600">Fakultas:</span>
+                        <p class="font-medium" id="detailFakultasDosen">-</p>
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-1">
                         <span class="text-gray-600">Kuota Bimbingan:</span>
-                        <p class="font-medium" id="detailKuotaDosen">-</p>
+                        <div class="flex items-center mt-1">
+                            <span class="font-medium mr-2" id="detailKuotaDosen">-</span>
+                            <span class="text-xs text-gray-500">mahasiswa</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -856,7 +871,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Populate dosen info
         document.getElementById('detailNamaDosen').textContent = data.dosen.nama;
         document.getElementById('detailNipDosen').textContent = data.dosen.nip;
+        document.getElementById('detailJabatanDosen').textContent = data.dosen.jabatan || '-';
         document.getElementById('detailBidangDosen').textContent = data.dosen.bidang || '-';
+        document.getElementById('detailJurusanDosen').textContent = data.dosen.jurusan || '-';
+        document.getElementById('detailFakultasDosen').textContent = data.dosen.fakultas || '-';
         document.getElementById('detailKuotaDosen').textContent = data.dosen.kuota_bimbingan;
 
         // Populate statistics
@@ -894,7 +912,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const tableWaliBody = document.getElementById('tableWaliBody');
             tableWaliBody.innerHTML = `
                 <tr>
-                    <td colspan="4" class="px-3 py-8 text-center text-gray-500">
+                    <td colspan="5" class="px-3 py-8 text-center text-gray-500">
                         Belum ada mahasiswa wali
                     </td>
                 </tr>

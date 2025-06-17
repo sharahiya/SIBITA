@@ -189,7 +189,7 @@ class PengujiAdminController extends Controller
         $seminarData = [
             'nilai' => $request->nilai,
             'lulus' => $request->status === 'lulus' ? 1 : 0,
-            'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak', // Uncommented this line
+            // 'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak', // Uncommented this line
         ];
 
         if ($existingSeminar) {
