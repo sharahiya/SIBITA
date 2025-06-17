@@ -194,7 +194,7 @@ class ManajemenAkunController extends Controller
                             'password' => Hash::make($nip), // Default password = NIP
                             'id_jurusan' => $jurusanData->id,
                             'jabatan' => $jabatan, // Dihapus karena tidak ada di fillable
-                            'id_fakultas' => $jurusanData->fakultas->id,x
+                            'id_fakultas' => $jurusanData->fakultas->id,
                             // email dan jabatan tidak disimpan karena tidak ada di fillable
                         ]
                     );

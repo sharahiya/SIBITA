@@ -128,6 +128,54 @@
     </div>
     @endif
 
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="successModalContent">
+            <div class="flex items-center justify-center mb-4">
+                <div class="bg-green-100 rounded-full p-3 animate-pulse">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Berhasil!</h2>
+                <p id="successMessage" class="text-gray-600">Password berhasil diubah! Halaman akan dimuat ulang dalam beberapa detik.</p>
+            </div>
+            
+            <div class="flex justify-center">
+                <button onclick="closeSuccessModal()" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="errorModalContent">
+            <div class="flex items-center justify-center mb-4">
+                <div class="bg-red-100 rounded-full p-3">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Terjadi Kesalahan</h2>
+                <p id="errorMessage" class="text-gray-600"></p>
+            </div>
+            
+            <div class="flex justify-center">
+                <button onclick="closeErrorModal()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -136,9 +184,72 @@
         .animate-fadeIn {
             animation: fadeIn 0.5s ease-out;
         }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(-20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        .animate-slideIn {
+            animation: slideIn 0.3s ease-out;
+        }
     </style>
 
     <script>
+        // Modal utility functions
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalContent = modal.querySelector('div > div');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100', 'animate-slideIn');
+            }, 10);
+        }
+
+        function hideModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalContent = modal.querySelector('div > div');
+            
+            modalContent.classList.add('scale-95');
+            modalContent.classList.remove('scale-100');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function showSuccessModal(message) {
+            document.getElementById('successMessage').textContent = message;
+            showModal('successModal');
+            
+            // Auto reload after 3 seconds
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }
+
+        function closeSuccessModal() {
+            hideModal('successModal');
+            window.location.reload();
+        }
+
+        function showErrorModal(message) {
+            document.getElementById('errorMessage').textContent = message;
+            showModal('errorModal');
+        }
+
+        function closeErrorModal() {
+            hideModal('errorModal');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             @if($mustChangePassword)
             const form = document.getElementById('changePasswordForm');
@@ -167,18 +278,17 @@
                     loading.classList.add('hidden');
 
                     if (data.success) {
-                        // Success - reload page
-                        alert('Password berhasil diubah! Halaman akan dimuat ulang.');
-                        window.location.reload();
+                        // Success - show success modal
+                        showSuccessModal('Password berhasil diubah! Halaman akan dimuat ulang.');
                     } else {
-                        // Show errors
-                        showErrors(data.message || 'Terjadi kesalahan');
+                        // Show errors in error modal
+                        showErrorModal(data.message || 'Terjadi kesalahan saat mengubah password.');
                     }
                 })
                 .catch(error => {
                     loading.classList.add('hidden');
                     console.error('Error:', error);
-                    showErrors('Terjadi kesalahan sistem');
+                    showErrorModal('Terjadi kesalahan sistem. Silakan coba lagi.');
                 });
             });
 
@@ -195,6 +305,31 @@
                 }
             });
             @endif
+
+            // Close modals when clicking outside (except for mandatory password change)
+            document.addEventListener('click', function(e) {
+                const modals = ['successModal', 'errorModal'];
+                
+                modals.forEach(modalId => {
+                    const modal = document.getElementById(modalId);
+                    if (e.target === modal) {
+                        hideModal(modalId);
+                    }
+                });
+            });
+
+            // Close modals with Escape key (except for mandatory password change)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const modals = ['successModal', 'errorModal'];
+                    modals.forEach(modalId => {
+                        const modal = document.getElementById(modalId);
+                        if (!modal.classList.contains('hidden')) {
+                            hideModal(modalId);
+                        }
+                    });
+                }
+            });
         });
     </script>
 
