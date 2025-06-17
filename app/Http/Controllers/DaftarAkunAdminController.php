@@ -12,11 +12,16 @@ class DaftarAkunAdminController extends Controller
     public function index()
     {
         // Ambil data mahasiswa dengan relasi dosen wali
-
         $mahasiswas = Mahasiswa::with('dosenWali')->get();
 
-        // Ambil data dosen
+        // Ambil data dosen dengan jumlah bimbingan aktif
         $dosens = Dosen::all();
+
+        // Add active guidance count for each dosen
+        foreach($dosens as $dosen) {
+            $result = ProfileDosenController::getDaftarMahasiswaBimbingan($dosen->id_dosen, true);
+            $dosen->jumlah_bimbingan_aktif = $result['jumlahMahasiswa'];
+        }
 
         return view('daftarakunadmin', compact('mahasiswas', 'dosens'));
     }
@@ -30,55 +35,31 @@ class DaftarAkunAdminController extends Controller
             $result = ProfileDosenController::getDaftarMahasiswaBimbingan($id, true);
             $ajuanBimbingan = $result['ajuanBimbingan'];
 
-            // Transform the data for response
+            // Transform the data for response with proper seminar status
             $mahasiswaBimbingan = $ajuanBimbingan->map(function($pengajuan) {
+                $mahasiswa = $pengajuan->mahasiswa;
+
+                // Get seminar status using the accessor
+                $seminarStatus = $mahasiswa->seminar_status;
+
                 return [
-                    'nama' => $pengajuan->mahasiswa->nama,
-                    'npm' => $pengajuan->mahasiswa->npm,
-                    'angkatan' => $pengajuan->mahasiswa->angkatan,
+                    'nama' => $mahasiswa->nama,
+                    'npm' => $mahasiswa->npm,
+                    'angkatan' => $mahasiswa->angkatan,
                     'dosen_ke' => $pengajuan->dosen_ke,
                     'topik_ta' => $pengajuan->topik_ta,
                     'bidang' => $pengajuan->bidang,
                     'tanggal_pengajuan' => $pengajuan->created_at,
-                    'seminar_status' => $pengajuan->mahasiswa->seminar_status ?? 'Bimbingan'
+                    'seminar_status' => $seminarStatus
                 ];
             });
 
             // Get students under supervision (dosen wali) with their seminar status
             $mahasiswaWali = Mahasiswa::where('id_dosen_wali', $id)
-                ->with(['seminars' => function($query) {
-                    $query->whereIn('jenis', ['proposal', 'hasil', 'sidang'])
-                          ->whereIn('status', ['diterima', 'pending']);
-                }])
                 ->get()
                 ->map(function($mahasiswa) {
-                    // Determine seminar status for wali students
-                    $seminarStatus = 'Bimbingan'; // Default status
-
-                    if ($mahasiswa->seminars->isNotEmpty()) {
-                        $hasCompletedSidang = $mahasiswa->seminars->where('jenis', 'sidang')
-                            ->where('status', 'diterima')->first();
-                        $hasCompletedHasil = $mahasiswa->seminars->where('jenis', 'hasil')
-                            ->where('status', 'diterima')->first();
-                        $hasCompletedProposal = $mahasiswa->seminars->where('jenis', 'proposal')
-                            ->where('status', 'diterima')->first();
-
-                        $hasPendingSidang = $mahasiswa->seminars->where('jenis', 'sidang')
-                            ->where('status', 'pending')->first();
-                        $hasPendingHasil = $mahasiswa->seminars->where('jenis', 'hasil')
-                            ->where('status', 'pending')->first();
-                        $hasPendingProposal = $mahasiswa->seminars->where('jenis', 'proposal')
-                            ->where('status', 'pending')->first();
-
-                        // Determine status based on priority
-                        if ($hasCompletedSidang || $hasPendingSidang) {
-                            $seminarStatus = 'Sidang';
-                        } elseif ($hasCompletedHasil || $hasPendingHasil) {
-                            $seminarStatus = 'Semhas';
-                        } elseif ($hasCompletedProposal || $hasPendingProposal) {
-                            $seminarStatus = 'Sempro';
-                        }
-                    }
+                    // Use the seminar status accessor
+                    $seminarStatus = $mahasiswa->seminar_status;
 
                     return [
                         'nama' => $mahasiswa->nama,

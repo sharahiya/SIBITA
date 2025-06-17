@@ -56,7 +56,6 @@ class Mahasiswa extends Authenticatable
         $res = Pengajuan::where('id_mahasiswa', $this->id_mahasiswa)
             ->exists();
         return $res;
-
     }
 
     public function PengajuanSeminar()
@@ -70,4 +69,50 @@ class Mahasiswa extends Authenticatable
         return Hash::check($this->npm, $this->password);
     }
 
+    public function getSeminarStatusAttribute()
+    {
+        // Get the latest seminar for each type
+        $seminars = $this->seminars()->get();
+        
+        if ($seminars->isEmpty()) {
+            return 'Bimbingan'; // Default status if no seminars
+        }
+
+        // Check for completed seminars (status = 'diterima' or lulus = 1)
+        $completedSidang = $seminars->where('jenis', 'sidang')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+            
+        $completedHasil = $seminars->where('jenis', 'hasil')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+            
+        $completedProposal = $seminars->where('jenis', 'proposal')
+            ->where(function($seminar) {
+                return $seminar->status === 'diterima' || $seminar->lulus == 1;
+            })->first();
+
+        // Check for pending seminars
+        $pendingSidang = $seminars->where('jenis', 'sidang')
+            ->where('status', 'pending')->first();
+            
+        $pendingHasil = $seminars->where('jenis', 'hasil')
+            ->where('status', 'pending')->first();
+            
+        $pendingProposal = $seminars->where('jenis', 'proposal')
+            ->where('status', 'pending')->first();
+
+        // Determine status based on priority (completed first, then pending)
+        if ($completedSidang || $pendingSidang) {
+            return 'Sidang';
+        } elseif ($completedHasil || $pendingHasil) {
+            return 'Semhas';
+        } elseif ($completedProposal || $pendingProposal) {
+            return 'Sempro';
+        }
+
+        return 'Bimbingan'; // Default status
+    }
 }
