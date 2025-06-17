@@ -17,8 +17,8 @@ class DosenSeeder extends Seeder
         $fakultasId = $fakultasId ? $fakultasId->id : null;
         DB::table('dosens')->insert([
             [
-                'nip' => '19800101',
-                'nama' => 'Dr. Andi Wijaya',
+                'nip' => '197202061997021001',
+                'nama' => 'Nazaruddin',
                 'bidang' => 'Rekayasa Perangkat Lunak',
                 'kuota_bimbingan' => 5,
                 'password' => Hash::make('dosen1'),
@@ -27,8 +27,8 @@ class DosenSeeder extends Seeder
                 'link_wa_group' => 'https://chat.whatsapp.com/group1'
             ],
             [
-                'nip' => '19751123',
-                'nama' => 'Prof. Sulastri',
+                'nip' => '198806032019031011',
+                'nama' => 'Alim Misbullah',
                 'bidang' => 'Data Mining',
                 'kuota_bimbingan' => 3,
                 'id_jurusan' => $jurusanId, // Assuming this is the ID for 'Teknik Informatika'
@@ -37,8 +37,8 @@ class DosenSeeder extends Seeder
                 'link_wa_group' => 'https://chat.whatsapp.com/group2'
             ],
             [
-                'nip' => '19901212',
-                'nama' => 'Ir. Rudi Santoso',
+                'nip' => '198806242022031006',
+                'nama' => 'Husaini,',
                 'bidang' => 'Jaringan',
                 'id_jurusan' => 1, // Assuming this is the ID for 'Teknik Informatika'
                 'id_fakultas' => 1, // Assuming this is the ID for 'Fakultas Teknik'
@@ -47,8 +47,8 @@ class DosenSeeder extends Seeder
                 'link_wa_group' => 'https://chat.whatsapp.com/group3'
             ],
             [
-                'nip' => '19850715',
-                'nama' => 'Dr. Siti Nurhaliza',
+                'nip' => '198806242022031006',
+                'nama' => 'Sri Azizah Nazhifah',
                 'bidang' => 'GIS',
                 'id_jurusan' => 1, // Assuming this is the ID for 'Teknik Informatika'
                 'id_fakultas' => 1, // Assuming this is the ID for 'Fakultas Teknik'

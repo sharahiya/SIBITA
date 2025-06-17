@@ -12,25 +12,25 @@ class MahasiswaSeeder extends Seeder
     {
         DB::table('mahasiswas')->insert([
             [
-                'npm' => '200001',
-                'email' => 'mahasiswa1@example.com',
-                'nama' => 'Ahmad Ramadhan',
+                'npm' => '2008107010082',
+                'email' => 'Shyva.Hazainu@example.com',
+                'nama' => 'Shyva Hazainu',
                 'password' => Hash::make('password'),
                 'angkatan' => 2020,
                 'id_dosen_wali' => 1
             ],
             [
-                'npm' => '200002',
-                'email' => 'mahasiswa2@example.com',
-                'nama' => 'Siti Aminah',
+                'npm' => '2108107010040',
+                'email' => 'Tyara.Rayna@example.com',
+                'nama' => 'Tyara Rayna',
                 'password' => Hash::make('password'),
                 'angkatan' => 2021,
                 'id_dosen_wali' => 1
             ],
             [
-                'npm' => '200003',
-                'email' => 'mahasiswa3@example.com',
-                'nama' => 'Budi Pratama',
+                'npm' => '2208107010050',
+                'email' => 'Azzariyat.Azra@example.com',
+                'nama' => 'Azzariyat Azra',
                 'password' => Hash::make('password'),
                 'angkatan' => 2022,
                 'id_dosen_wali' => 2
