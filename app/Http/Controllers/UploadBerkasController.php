@@ -119,15 +119,39 @@ class UploadBerkasController extends Controller
             default => throw new \Exception('Jenis seminar tidak valid'),
         };
 
-        // Create or update seminar record
-        $seminar = Seminar::updateOrCreate(
-            ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'jenis' => $jenis],
-            [
+        // Check if seminar record already exists (maybe created by admin for grade input)
+        $existingSeminar = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('jenis', $jenis)
+            ->first();
+
+        if ($existingSeminar) {
+            // Update existing seminar record with file data
+            $seminar = $existingSeminar;
+
+            // Preserve existing grade and status if already set by admin
+            $updateData = [
+                'lampiran' => $path,
+                // 'status' => 'pending',
+                'tanggal_seminar' => now()
+            ];
+
+            // Only update status to pending if no grade has been set yet
+            if (is_null($existingSeminar->status)) {
+                $updateData['status'] = 'pending';
+            }
+
+            $seminar->update($updateData);
+        } else {
+            // Create new seminar record
+            $seminar = Seminar::create([
+                'id_mahasiswa' => $mahasiswa->id_mahasiswa,
+                'jenis' => $jenis,
                 'lampiran' => $path,
                 'status' => 'pending',
-                'tanggal_seminar' => now()
-            ]
-        );
+                'tanggal_seminar' => now(),
+                'nilai' => null, // Will be filled when admin inputs grade
+            ]);
+        }
 
         // Create or update pengajuan seminar for both supervisors
         foreach ([$dospem1, $dospem2] as $index => $dosen) {

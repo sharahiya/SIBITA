@@ -180,24 +180,41 @@ class PengujiAdminController extends Controller
             }
         }
 
-        $seminar = Seminar::updateOrCreate(
-            [
+        // Check if seminar record exists
+        $existingSeminar = Seminar::where('id_mahasiswa', $mahasiswaId)
+            ->where('jenis', $request->jenis_seminar)
+            ->first();
+
+        // Prepare data for create or update
+        $seminarData = [
+            'nilai' => $request->nilai,
+            'lulus' => $request->status === 'lulus' ? 1 : 0,
+            // 'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak',
+        ];
+
+        if ($existingSeminar) {
+            // Update existing seminar record
+            $existingSeminar->update($seminarData);
+            $action = 'diperbarui';
+        } else {
+            // Create new seminar record with grade only (no file yet)
+            $seminarData = array_merge($seminarData, [
                 'id_mahasiswa' => $mahasiswaId,
-                'jenis' => $request->jenis_seminar
-            ],
-            [
-                'nilai' => $request->nilai,
-                'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak',
-            ]
-        );
+                'jenis' => $request->jenis_seminar,
+                'lampiran' => null, // Will be filled when student uploads file
+                'tanggal_seminar' => null, // Will be filled when student uploads file
+                'lulus' => $request->status === 'lulus' ? 1 : 0,
+            ]);
+
+            Seminar::create($seminarData);
+            $action = 'disimpan';
+        }
 
         $jenisText = match($request->jenis_seminar) {
             'proposal' => 'Seminar Proposal',
             'hasil' => 'Seminar Hasil',
             'sidang' => 'Sidang'
         };
-
-        $action = $seminar->wasRecentlyCreated ? 'disimpan' : 'diperbarui';
 
         return redirect()->back()->with('success', "Nilai {$jenisText} berhasil {$action}.");
     }
@@ -222,8 +239,6 @@ class PengujiAdminController extends Controller
         }
 
         // Check if this seminar is a prerequisite for other seminars
-        $mahasiswa = Mahasiswa::find($mahasiswaId);
-
         if ($request->jenis_seminar === 'proposal') {
             $semhas = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'hasil')
@@ -258,7 +273,16 @@ class PengujiAdminController extends Controller
             'sidang' => 'Sidang'
         };
 
-        $seminar->delete();
+        // If seminar has only grade data (no file), delete it completely
+        // If it has file data, only remove grade data
+        if (is_null($seminar->lampiran) && is_null($seminar->tanggal_seminar)) {
+            $seminar->delete();
+        } else {
+            $seminar->update([
+                'nilai' => null,
+                'status' => 'pending', // Reset to pending when grade is removed
+            ]);
+        }
 
         return response()->json([
             'success' => true,

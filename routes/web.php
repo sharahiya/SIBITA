@@ -102,6 +102,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/admin/update-kuota', [DaftarAkunAdminController::class, 'updateKuota'])->name('admin.update-kuota');
     // Route::post('/admin/seminar/{mahasiswaId}/grades', [PengujiAdminController::class, 'updateSeminarGrades'])->name('seminar.grades.update');
     Route::post('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
+    Route::put('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
     Route::get('/admin/dosen/{id}/detail', [DaftarAkunAdminController::class, 'getDosenDetail'])->name('admin.dosen.detail');
     Route::delete('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'hapusNilai'])->name('hapus.nilai');
 
@@ -110,7 +111,8 @@ Route::middleware('admin')->group(function () {
     Route::put('/penetapan-penguji/{mahasiswa}/update-penguji3', [PenetapanPengujiController::class, 'updatePenguji3'])->name('penetapan-penguji.update-penguji3');
     Route::get('/penetapan-penguji/{mahasiswa}/available-lecturers', [PenetapanPengujiController::class, 'getAvailableLecturers'])->name('penetapan-penguji.available-lecturers');
 
-    // Route::post('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
+    Route::match(['POST', 'PUT'], '/admin/upload-nilai/{mahasiswa}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
+    Route::delete('/admin/upload-nilai/{mahasiswa}', [PengujiAdminController::class, 'hapusNilai'])->name('hapus.nilai');
 
 });
 
