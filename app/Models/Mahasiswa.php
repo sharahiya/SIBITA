@@ -73,7 +73,7 @@ class Mahasiswa extends Authenticatable
     {
         // Get the latest seminar for each type
         $seminars = $this->seminars()->get();
-        
+
         if ($seminars->isEmpty()) {
             return 'Bimbingan'; // Default status if no seminars
         }
@@ -83,12 +83,12 @@ class Mahasiswa extends Authenticatable
             ->where(function($seminar) {
                 return $seminar->status === 'diterima' || $seminar->lulus == 1;
             })->first();
-            
+
         $completedHasil = $seminars->where('jenis', 'hasil')
             ->where(function($seminar) {
                 return $seminar->status === 'diterima' || $seminar->lulus == 1;
             })->first();
-            
+
         $completedProposal = $seminars->where('jenis', 'proposal')
             ->where(function($seminar) {
                 return $seminar->status === 'diterima' || $seminar->lulus == 1;
@@ -97,10 +97,10 @@ class Mahasiswa extends Authenticatable
         // Check for pending seminars
         $pendingSidang = $seminars->where('jenis', 'sidang')
             ->where('status', 'pending')->first();
-            
+
         $pendingHasil = $seminars->where('jenis', 'hasil')
             ->where('status', 'pending')->first();
-            
+
         $pendingProposal = $seminars->where('jenis', 'proposal')
             ->where('status', 'pending')->first();
 
