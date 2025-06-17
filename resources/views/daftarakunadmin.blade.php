@@ -266,6 +266,14 @@
                         <option value="2">Dospem 2</option>
                     </select>
 
+                    <select id="filterStatusBimbingan" class="p-2 text-xs border rounded-lg">
+                        <option value="">Semua Status</option>
+                        <option value="Bimbingan">Bimbingan</option>
+                        <option value="Sempro">Sempro</option>
+                        <option value="Semhas">Semhas</option>
+                        <option value="Sidang">Sidang</option>
+                    </select>
+
                     <button id="resetFilterBimbingan" class="bg-gray-500 text-white px-3 py-2 text-xs rounded-lg hover:bg-gray-600 transition-colors">
                         Reset Filter
                     </button>
@@ -280,6 +288,7 @@
                                 <th class="px-3 py-2">NPM</th>
                                 <th class="px-3 py-2">Angkatan</th>
                                 <th class="px-3 py-2">Role</th>
+                                <th class="px-3 py-2">Status</th>
                                 <th class="px-3 py-2">Bidang</th>
                                 <th class="px-3 py-2">Topik TA</th>
                             </tr>
@@ -316,6 +325,14 @@
                         <!-- Options will be populated by JavaScript -->
                     </select>
 
+                    <select id="filterStatusWali" class="p-2 text-xs border rounded-lg">
+                        <option value="">Semua Status</option>
+                        <option value="Bimbingan">Bimbingan</option>
+                        <option value="Sempro">Sempro</option>
+                        <option value="Semhas">Semhas</option>
+                        <option value="Sidang">Sidang</option>
+                    </select>
+
                     <button id="resetFilterWali" class="bg-gray-500 text-white px-3 py-2 text-xs rounded-lg hover:bg-gray-600 transition-colors">
                         Reset Filter
                     </button>
@@ -329,6 +346,7 @@
                                 <th class="px-3 py-2">Nama</th>
                                 <th class="px-3 py-2">NPM</th>
                                 <th class="px-3 py-2">Angkatan</th>
+                                <th class="px-3 py-2">Status</th>
                             </tr>
                         </thead>
                         <tbody id="tableWaliBody">
@@ -592,6 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchTerm = document.getElementById('searchBimbingan').value.toLowerCase();
         const selectedAngkatan = document.getElementById('filterAngkatanBimbingan').value;
         const selectedDospen = document.getElementById('filterDospenKe').value;
+        const selectedStatus = document.getElementById('filterStatusBimbingan').value;
 
         const filteredData = originalBimbinganData.filter(mahasiswa => {
             const matchesSearch = mahasiswa.nama.toLowerCase().includes(searchTerm) ||
@@ -599,8 +618,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 (mahasiswa.topik_ta && mahasiswa.topik_ta.toLowerCase().includes(searchTerm));
             const matchesAngkatan = !selectedAngkatan || mahasiswa.angkatan === selectedAngkatan;
             const matchesDospen = !selectedDospen || mahasiswa.dosen_ke.toString() === selectedDospen;
+            const matchesStatus = !selectedStatus || mahasiswa.seminar_status === selectedStatus;
 
-            return matchesSearch && matchesAngkatan && matchesDospen;
+            return matchesSearch && matchesAngkatan && matchesDospen && matchesStatus;
         });
 
         renderBimbinganTable(filteredData);
@@ -618,13 +638,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterWali() {
         const searchTerm = document.getElementById('searchWali').value.toLowerCase();
         const selectedAngkatan = document.getElementById('filterAngkatanWali').value;
+        const selectedStatus = document.getElementById('filterStatusWali').value;
 
         const filteredData = originalWaliData.filter(mahasiswa => {
             const matchesSearch = mahasiswa.nama.toLowerCase().includes(searchTerm) ||
                                 mahasiswa.npm.toLowerCase().includes(searchTerm);
             const matchesAngkatan = !selectedAngkatan || mahasiswa.angkatan === selectedAngkatan;
+            const matchesStatus = !selectedStatus || mahasiswa.seminar_status === selectedStatus;
 
-            return matchesSearch && matchesAngkatan;
+            return matchesSearch && matchesAngkatan && matchesStatus;
         });
 
         renderWaliTable(filteredData);
@@ -657,6 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td class="px-3 py-2">${mahasiswa.npm}</td>
                         <td class="px-3 py-2">${mahasiswa.angkatan}</td>
                         <td class="px-3 py-2">Dospem ${mahasiswa.dosen_ke}</td>
+                        <td class="px-3 py-2">${mahasiswa.status}</td>
                         <td class="px-3 py-2">${mahasiswa.bidang}</td>
                         <td class="px-3 py-2 relative">
                             <div class="topik-ta-container max-w-xs">
@@ -685,6 +708,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td class="px-3 py-2">${mahasiswa.nama}</td>
                         <td class="px-3 py-2">${mahasiswa.npm}</td>
                         <td class="px-3 py-2">${mahasiswa.angkatan}</td>
+                        <td class="px-3 py-2">${mahasiswa.status}</td>
                     </tr>
                 `;
                 tableWaliBody.insertAdjacentHTML('beforeend', row);
@@ -703,9 +727,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchBimbingan').addEventListener('keyup', filterBimbingan);
     document.getElementById('filterAngkatanBimbingan').addEventListener('change', filterBimbingan);
     document.getElementById('filterDospenKe').addEventListener('change', filterBimbingan);
+    document.getElementById('filterStatusBimbingan').addEventListener('change', filterBimbingan);
 
     document.getElementById('searchWali').addEventListener('keyup', filterWali);
     document.getElementById('filterAngkatanWali').addEventListener('change', filterWali);
+    document.getElementById('filterStatusWali').addEventListener('change', filterWali);
 
     // Reset filter buttons
     document.getElementById('resetFilterMahasiswa').addEventListener('click', function() {
@@ -724,12 +750,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('searchBimbingan').value = '';
         document.getElementById('filterAngkatanBimbingan').value = '';
         document.getElementById('filterDospenKe').value = '';
+        document.getElementById('filterStatusBimbingan').value = '';
         filterBimbingan();
     });
 
     document.getElementById('resetFilterWali').addEventListener('click', function() {
         document.getElementById('searchWali').value = '';
         document.getElementById('filterAngkatanWali').value = '';
+        document.getElementById('filterStatusWali').value = '';
         filterWali();
     });
 
@@ -793,8 +821,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('searchBimbingan').value = '';
         document.getElementById('filterAngkatanBimbingan').value = '';
         document.getElementById('filterDospenKe').value = '';
+        document.getElementById('filterStatusBimbingan').value = '';
         document.getElementById('searchWali').value = '';
         document.getElementById('filterAngkatanWali').value = '';
+        document.getElementById('filterStatusWali').value = '';
 
         // Fetch data
         fetch(`/admin/dosen/${dosenId}/detail`)
@@ -1186,6 +1216,7 @@ function renderBimbinganTableEnhanced(data) {
         data.forEach((mahasiswa, index) => {
             const topikTA = mahasiswa.topik_ta || '';
             const truncatedTopik = topikTA.length > 50 ? topikTA.substring(0, 47) + '...' : topikTA;
+            const statusBadge = getStatusBadge(mahasiswa.seminar_status);
 
             const row = `
                 <tr class="bg-white border-b hover:bg-gray-50">
@@ -1194,6 +1225,7 @@ function renderBimbinganTableEnhanced(data) {
                     <td class="px-3 py-2">${mahasiswa.npm}</td>
                     <td class="px-3 py-2">${mahasiswa.angkatan}</td>
                     <td class="px-3 py-2">Dospem ${mahasiswa.dosen_ke}</td>
+                    <td class="px-3 py-2">${statusBadge}</td>
                     <td class="px-3 py-2">${mahasiswa.bidang}</td>
                     <td class="px-3 py-2 relative">
                         <div class="topik-ta-container max-w-xs">
@@ -1281,6 +1313,172 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ...rest of existing code...
 });
+
+// Add this function to get status badge HTML
+function getStatusBadge(status) {
+    const statusConfig = {
+        'Bimbingan': { class: 'bg-gray-100 text-gray-800', icon: '📚' },
+        'Sempro': { class: 'bg-blue-100 text-blue-800', icon: '📝' },
+        'Semhas': { class: 'bg-orange-100 text-orange-800', icon: '📊' },
+        'Sidang': { class: 'bg-green-100 text-green-800', icon: '🎓' }
+    };
+
+    const config = statusConfig[status] || statusConfig['Bimbingan'];
+    return `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.class}">
+                ${config.icon} ${status}
+            </span>`;
+}
+
+// Update the filterBimbingan function
+function filterBimbingan() {
+    const searchTerm = document.getElementById('searchBimbingan').value.toLowerCase();
+    const selectedAngkatan = document.getElementById('filterAngkatanBimbingan').value;
+    const selectedDospen = document.getElementById('filterDospenKe').value;
+    const selectedStatus = document.getElementById('filterStatusBimbingan').value;
+
+    const filteredData = originalBimbinganData.filter(mahasiswa => {
+        const matchesSearch = mahasiswa.nama.toLowerCase().includes(searchTerm) ||
+                            mahasiswa.npm.toLowerCase().includes(searchTerm) ||
+                            (mahasiswa.topik_ta && mahasiswa.topik_ta.toLowerCase().includes(searchTerm));
+        const matchesAngkatan = !selectedAngkatan || mahasiswa.angkatan === selectedAngkatan;
+        const matchesDospen = !selectedDospen || mahasiswa.dosen_ke.toString() === selectedDospen;
+        const matchesStatus = !selectedStatus || mahasiswa.seminar_status === selectedStatus;
+
+        return matchesSearch && matchesAngkatan && matchesDospen && matchesStatus;
+    });
+
+    renderBimbinganTable(filteredData);
+    document.getElementById('bimbinganResultCount').textContent = filteredData.length;
+
+    // Show/hide no results message
+    const noResultsDiv = document.getElementById('noResultsBimbingan');
+    if (filteredData.length === 0 && originalBimbinganData.length > 0) {
+        noResultsDiv.classList.remove('hidden');
+    } else {
+        noResultsDiv.classList.add('hidden');
+    }
+}
+
+// Update the filterWali function
+function filterWali() {
+    const searchTerm = document.getElementById('searchWali').value.toLowerCase();
+    const selectedAngkatan = document.getElementById('filterAngkatanWali').value;
+    const selectedStatus = document.getElementById('filterStatusWali').value;
+
+    const filteredData = originalWaliData.filter(mahasiswa => {
+        const matchesSearch = mahasiswa.nama.toLowerCase().includes(searchTerm) ||
+                            mahasiswa.npm.toLowerCase().includes(searchTerm);
+        const matchesAngkatan = !selectedAngkatan || mahasiswa.angkatan === selectedAngkatan;
+        const matchesStatus = !selectedStatus || mahasiswa.seminar_status === selectedStatus;
+
+        return matchesSearch && matchesAngkatan && matchesStatus;
+    });
+
+    renderWaliTable(filteredData);
+    document.getElementById('waliResultCount').textContent = filteredData.length;
+
+    // Show/hide no results message
+    const noResultsDiv = document.getElementById('noResultsWali');
+    if (filteredData.length === 0 && originalWaliData.length > 0) {
+        noResultsDiv.classList.remove('hidden');
+    } else {
+        noResultsDiv.classList.add('hidden');
+    }
+}
+
+// Update the renderBimbinganTableEnhanced function
+function renderBimbinganTableEnhanced(data) {
+    const tableBimbinganBody = document.getElementById('tableBimbinganBody');
+    tableBimbinganBody.innerHTML = '';
+
+    if (data.length > 0) {
+        data.forEach((mahasiswa, index) => {
+            const topikTA = mahasiswa.topik_ta || '';
+            const truncatedTopik = topikTA.length > 50 ? topikTA.substring(0, 47) + '...' : topikTA;
+            const statusBadge = getStatusBadge(mahasiswa.seminar_status);
+
+            const row = `
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-3 py-2">${index + 1}</td>
+                    <td class="px-3 py-2">${mahasiswa.nama}</td>
+                    <td class="px-3 py-2">${mahasiswa.npm}</td>
+                    <td class="px-3 py-2">${mahasiswa.angkatan}</td>
+                    <td class="px-3 py-2">Dospem ${mahasiswa.dosen_ke}</td>
+                    <td class="px-3 py-2">${statusBadge}</td>
+                    <td class="px-3 py-2">${mahasiswa.bidang}</td>
+                    <td class="px-3 py-2 relative">
+                        <div class="topik-ta-container max-w-xs">
+                            <span class="topik-ta-text cursor-help"
+                                  data-full-text="${topikTA.replace(/"/g, '&quot;')}"
+                                  title="${topikTA.replace(/"/g, '&quot;')}">${truncatedTopik}</span>
+                            ${topikTA.length > 50 ? `
+                                <div class="inline-flex ml-1">
+                                    <button class="text-blue-500 hover:text-blue-700 text-xs expand-btn mr-1" onclick="toggleFullText(this)" title="Lihat detail">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="text-green-500 hover:text-green-700 text-xs copy-btn" onclick="copyToClipboard('${topikTA.replace(/'/g, "\\'")}', this)" title="Salin ke clipboard">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `;
+            tableBimbinganBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+}
+
+// Update the renderWaliTable function
+function renderWaliTable(data) {
+    const tableWaliBody = document.getElementById('tableWaliBody');
+    tableWaliBody.innerHTML = '';
+
+    if (data.length > 0) {
+        data.forEach((mahasiswa, index) => {
+            const statusBadge = getStatusBadge(mahasiswa.seminar_status);
+
+            const row = `
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-3 py-2">${index + 1}</td>
+                    <td class="px-3 py-2">${mahasiswa.nama}</td>
+                    <td class="px-3 py-2">${mahasiswa.npm}</td>
+                    <td class="px-3 py-2">${mahasiswa.angkatan}</td>
+                    <td class="px-3 py-2">${statusBadge}</td>
+                </tr>
+            `;
+            tableWaliBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+}
+
+// Add event listeners for the new status filters
+document.getElementById('filterStatusBimbingan').addEventListener('change', filterBimbingan);
+document.getElementById('filterStatusWali').addEventListener('change', filterWali);
+
+// Update the reset filter functions
+document.getElementById('resetFilterBimbingan').addEventListener('click', function() {
+    document.getElementById('searchBimbingan').value = '';
+    document.getElementById('filterAngkatanBimbingan').value = '';
+    document.getElementById('filterDospenKe').value = '';
+    document.getElementById('filterStatusBimbingan').value = '';
+    filterBimbingan();
+});
+
+document.getElementById('resetFilterWali').addEventListener('click', function() {
+    document.getElementById('searchWali').value = '';
+    document.getElementById('filterAngkatanWali').value = '';
+    document.getElementById('filterStatusWali').value = '';
+    filterWali();
+});
+
+// Rest of your existing JavaScript code...
 </script>
 
 @endsection

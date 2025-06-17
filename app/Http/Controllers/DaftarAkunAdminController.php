@@ -12,6 +12,7 @@ class DaftarAkunAdminController extends Controller
     public function index()
     {
         // Ambil data mahasiswa dengan relasi dosen wali
+
         $mahasiswas = Mahasiswa::with('dosenWali')->get();
 
         // Ambil data dosen
@@ -43,15 +44,47 @@ class DaftarAkunAdminController extends Controller
                 ];
             });
 
-            // Get students under supervision (dosen wali)
+            // Get students under supervision (dosen wali) with their seminar status
             $mahasiswaWali = Mahasiswa::where('id_dosen_wali', $id)
-                ->select('nama', 'npm', 'angkatan')
+                ->with(['seminars' => function($query) {
+                    $query->whereIn('jenis', ['proposal', 'hasil', 'sidang'])
+                          ->whereIn('status', ['diterima', 'pending']);
+                }])
                 ->get()
                 ->map(function($mahasiswa) {
+                    // Determine seminar status for wali students
+                    $seminarStatus = 'Bimbingan'; // Default status
+
+                    if ($mahasiswa->seminars->isNotEmpty()) {
+                        $hasCompletedSidang = $mahasiswa->seminars->where('jenis', 'sidang')
+                            ->where('status', 'diterima')->first();
+                        $hasCompletedHasil = $mahasiswa->seminars->where('jenis', 'hasil')
+                            ->where('status', 'diterima')->first();
+                        $hasCompletedProposal = $mahasiswa->seminars->where('jenis', 'proposal')
+                            ->where('status', 'diterima')->first();
+
+                        $hasPendingSidang = $mahasiswa->seminars->where('jenis', 'sidang')
+                            ->where('status', 'pending')->first();
+                        $hasPendingHasil = $mahasiswa->seminars->where('jenis', 'hasil')
+                            ->where('status', 'pending')->first();
+                        $hasPendingProposal = $mahasiswa->seminars->where('jenis', 'proposal')
+                            ->where('status', 'pending')->first();
+
+                        // Determine status based on priority
+                        if ($hasCompletedSidang || $hasPendingSidang) {
+                            $seminarStatus = 'Sidang';
+                        } elseif ($hasCompletedHasil || $hasPendingHasil) {
+                            $seminarStatus = 'Semhas';
+                        } elseif ($hasCompletedProposal || $hasPendingProposal) {
+                            $seminarStatus = 'Sempro';
+                        }
+                    }
+
                     return [
                         'nama' => $mahasiswa->nama,
                         'npm' => $mahasiswa->npm,
-                        'angkatan' => $mahasiswa->angkatan
+                        'angkatan' => $mahasiswa->angkatan,
+                        'seminar_status' => $seminarStatus
                     ];
                 });
 
