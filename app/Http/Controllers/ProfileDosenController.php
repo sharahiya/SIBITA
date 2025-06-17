@@ -156,7 +156,7 @@ class ProfileDosenController extends Controller
                 $mahasiswaId = $pengajuan->id_mahasiswa;
 
                 // Check if student has completed sidang
-                $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
+                $completedSidang = PengajuanSeminar::where('id_mahasiswa', $mahasiswaId)
                     ->where('jenis', 'sidang')
                     ->where(function($query) {
                         $query->where('status', 'diterima')

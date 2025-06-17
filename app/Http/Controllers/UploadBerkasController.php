@@ -85,7 +85,7 @@ class UploadBerkasController extends Controller
 
         // Validate the request - now all files must be PDF
         $request->validate([
-            'berkas' => 'required|file|mimes:pdf|max:20480', // 20MB max for PDFs
+            'berkas' => 'required|file|mimes:pdf|max:102400', // 20MB max for PDFs
             'jenis' => 'required|string',
         ]);
 
