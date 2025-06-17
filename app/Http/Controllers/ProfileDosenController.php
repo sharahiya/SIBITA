@@ -11,13 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileDosenController extends Controller
 {
-    public function index()
+    /**
+     * Get list of students under supervision for a specific lecturer
+     * 
+     * @param int $dosenId - ID of the lecturer
+     * @param bool $excludeGraduated - Whether to exclude students who have completed their thesis defense
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getMahasiswaBimbingan($dosenId, $excludeGraduated = true)
     {
-        $user = Auth::guard('dosen')->user();
-        $dosen = Dosen::where('id_dosen', $user->id_dosen)->first();
-
-        // Ambil semua pengajuan yang diterima untuk dosen ini
-        $ajuanBimbingan = Pengajuan::where('id_dosen', $dosen->id_dosen)
+        // Get all approved guidance applications for this lecturer
+        $ajuanBimbingan = Pengajuan::where('id_dosen', $dosenId)
             ->where('status', 'diterima')
             ->with([
                 'mahasiswa',
@@ -26,40 +30,50 @@ class ProfileDosenController extends Controller
             ])
             ->get();
 
-        // Filter: hanya mahasiswa yang belum sidang (seminar sidang belum diterima & pengajuan_seminar sidang belum diterima dosen ini)
-        $ajuanBimbingan = $ajuanBimbingan->filter(function ($pengajuan) use ($dosen) {
-            $mahasiswa = $pengajuan->mahasiswa;
+        if ($excludeGraduated) {
+            // Filter: only students who haven't defended their thesis yet
+            $ajuanBimbingan = $ajuanBimbingan->filter(function ($pengajuan) use ($dosenId) {
+                $mahasiswa = $pengajuan->mahasiswa;
 
-            // Jika tidak ada seminar sama sekali, tampilkan
-            if ($mahasiswa->seminars->isEmpty()) {
-                return true;
-            }
-
-            // Cek apakah ada seminar sidang yang statusnya diterima
-            $hasSidangDiterima = $mahasiswa->seminars->contains(function ($seminar) {
-                return $seminar->jenis === 'sidang' && $seminar->status === 'diterima';
-            });
-
-            // Cek apakah ada pengajuan_seminar sidang yang sudah diterima oleh dosen ini
-            $hasSidangApprovedByDosen = $mahasiswa->seminars->contains(function ($seminar) use ($dosen) {
-                if ($seminar->jenis === 'sidang' && $seminar->pengajuanSeminar) {
-                    return $seminar->pengajuanSeminar->contains(function ($pengajuanSeminar) use ($dosen) {
-                        return $pengajuanSeminar->id_dosen == $dosen->id_dosen &&
-                            $pengajuanSeminar->status == 'diterima';
-                    });
+                // If no seminars at all, include the student
+                if ($mahasiswa->seminars->isEmpty()) {
+                    return true;
                 }
-                return false;
+
+                // Check if there's a thesis defense seminar that's been accepted
+                $hasSidangDiterima = $mahasiswa->seminars->contains(function ($seminar) {
+                    return $seminar->jenis === 'sidang' && $seminar->status === 'diterima';
+                });
+
+                // Check if there's a thesis defense seminar application already accepted by this lecturer
+                $hasSidangApprovedByDosen = $mahasiswa->seminars->contains(function ($seminar) use ($dosenId) {
+                    if ($seminar->jenis === 'sidang' && $seminar->pengajuanSeminar) {
+                        return $seminar->pengajuanSeminar->contains(function ($pengajuanSeminar) use ($dosenId) {
+                            return $pengajuanSeminar->id_dosen == $dosenId &&
+                                $pengajuanSeminar->status == 'diterima';
+                        });
+                    }
+                    return false;
+                });
+
+                // Include only if not defended yet and no thesis defense application approved by this lecturer
+                return !$hasSidangDiterima && !$hasSidangApprovedByDosen;
             });
+        }
 
-            // Tampilkan hanya jika belum sidang dan belum ada pengajuan_seminar sidang yang diterima dosen ini
-            return !$hasSidangDiterima && !$hasSidangApprovedByDosen;
-        });
-            // dd($ajuanBimbingan);
+        return $ajuanBimbingan;
+    }
 
-        $jumlahMahasiswa = $ajuanBimbingan->count();
-
-        // Set seminar status untuk setiap mahasiswa
-        $ajuanBimbingan->each(function ($pengajuan) use ($dosen) {
+    /**
+     * Set seminar status for each student based on their progress
+     * 
+     * @param \Illuminate\Database\Eloquent\Collection $ajuanBimbingan
+     * @param int $dosenId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function setSeminarStatus($ajuanBimbingan, $dosenId)
+    {
+        $ajuanBimbingan->each(function ($pengajuan) use ($dosenId) {
             $mahasiswa = $pengajuan->mahasiswa;
             $seminars = $mahasiswa->seminars;
 
@@ -67,7 +81,7 @@ class ProfileDosenController extends Controller
             $pengajuan->mahasiswa->seminar_status = 'Bimbingan';
 
             if ($seminars->isNotEmpty()) {
-                // Cari pengajuan seminar yang diterima oleh dosen ini
+                // Find seminar applications approved by this lecturer
                 $approvedProposal = false;
                 $approvedHasil = false;
                 $approvedSidang = false;
@@ -76,8 +90,8 @@ class ProfileDosenController extends Controller
                 $completedSidang = false;
 
                 foreach ($seminars as $seminar) {
-                    // Cek pengajuan yang diterima dosen
-                    $pengajuanDiterima = $seminar->pengajuanSeminar->where('id_dosen', $dosen->id_dosen)
+                    // Check applications approved by lecturer
+                    $pengajuanDiterima = $seminar->pengajuanSeminar->where('id_dosen', $dosenId)
                         ->where('status', 'diterima')->first();
 
                     if ($pengajuanDiterima) {
@@ -90,7 +104,7 @@ class ProfileDosenController extends Controller
                         }
                     }
 
-                    // Cek seminar yang sudah selesai
+                    // Check completed seminars
                     if ($seminar->status === 'diterima') {
                         if ($seminar->jenis === 'proposal') {
                             $completedProposal = true;
@@ -102,7 +116,7 @@ class ProfileDosenController extends Controller
                     }
                 }
 
-                // Tentukan status berdasarkan prioritas
+                // Determine status based on priority
                 if ($completedSidang || $approvedSidang) {
                     $pengajuan->mahasiswa->seminar_status = 'Sidang';
                 } elseif ($completedHasil) {
@@ -117,6 +131,42 @@ class ProfileDosenController extends Controller
             }
         });
 
+        return $ajuanBimbingan;
+    }
+
+    /**
+     * Get supervised students with their seminar status (main function)
+     * 
+     * @param int $dosenId
+     * @param bool $excludeGraduated
+     * @return array
+     */
+    public static function getDaftarMahasiswaBimbingan($dosenId, $excludeGraduated = true)
+    {
+        // Get list of supervised students
+        $ajuanBimbingan = self::getMahasiswaBimbingan($dosenId, $excludeGraduated);
+        
+        // Set seminar status for each student
+        $ajuanBimbingan = self::setSeminarStatus($ajuanBimbingan, $dosenId);
+        
+        // Count total students
+        $jumlahMahasiswa = $ajuanBimbingan->count();
+
+        return [
+            'ajuanBimbingan' => $ajuanBimbingan,
+            'jumlahMahasiswa' => $jumlahMahasiswa
+        ];
+    }
+
+    public function index()
+    {
+        $user = Auth::guard('dosen')->user();
+        $dosen = Dosen::where('id_dosen', $user->id_dosen)->first();
+
+        // Use the reusable function
+        $result = self::getDaftarMahasiswaBimbingan($dosen->id_dosen);
+        $ajuanBimbingan = $result['ajuanBimbingan'];
+        $jumlahMahasiswa = $result['jumlahMahasiswa'];
 
         return view('profileDosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }
@@ -153,7 +203,7 @@ class ProfileDosenController extends Controller
 
         $pengajuan->delete();
 
-        // Buat Notifikasi untuk mahasiswa
+        // Create notification for student
         $idDosen = Auth::guard('dosen')->user()->id_dosen;
         Notifikasi::create([
             'id_user' => $pengajuan->id_mahasiswa,
@@ -164,7 +214,7 @@ class ProfileDosenController extends Controller
             'status_baca' => 'belum',
         ]);
 
-        // update bimbingan
+        // Update bimbingan
         $mahasiswa = Mahasiswa::find($pengajuan->id_mahasiswa);
 
         $bimbingan = $mahasiswa->bimbingan;

@@ -32,8 +32,6 @@ class PengajuanController extends Controller
                         ->pluck('id_dosen')
                         ->toArray();
 
-
-
         return view('pengajuan', compact('pengajuan1', 'pengajuan2', 'dosenAktif'));
     }
 
@@ -56,6 +54,20 @@ class PengajuanController extends Controller
         return view('pengajuan.create', compact('pengajuanAktif', 'pengajuanDitolak'));
     }
 
+    // Add this method to get lecturer data with proper guidance count
+    public function getDosenData()
+    {
+        $dosens = Dosen::all();
+
+        foreach($dosens as $dosen) {
+            // Use the reusable function to get active guidance count (excluding graduated students)
+            $result = ProfileDosenController::getDaftarMahasiswaBimbingan($dosen->id_dosen, true);
+            $dosen->jumlah_bimbingan_aktif = $result['jumlahMahasiswa'];
+        }
+
+        return response()->json($dosens);
+    }
+
     public function store(Request $request)
     {
         $mahasiswaId = Auth::guard('mahasiswa')->user()->id_mahasiswa;
@@ -69,8 +81,6 @@ class PengajuanController extends Controller
         ]);
 
         // Handle Dosen Pembimbing 1
-
-        // dd($request->dosenPembimbing);
         $dosen1 = Dosen::where('nama', $request->dosenPembimbing)->first();
         if (!$dosen1) {
             return back()->withErrors(['dosenPembimbing' => 'Dosen pembimbing 1 tidak ditemukan.'])->withInput();
@@ -229,8 +239,6 @@ class PengajuanController extends Controller
         }
 
         $pengajuan->status = $request->status;
-        // Jika kamu ingin menyimpan alasan penolakan:
-        // $pengajuan->alasan_penolakan = $request->alasan;
         $pengajuan->save();
 
         // Simpan notifikasi
@@ -245,5 +253,4 @@ class PengajuanController extends Controller
 
         return response()->json(['message' => 'Status pengajuan berhasil diperbarui.']);
     }
-
 }

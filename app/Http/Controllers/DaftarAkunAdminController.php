@@ -25,25 +25,23 @@ class DaftarAkunAdminController extends Controller
         try {
             $dosen = Dosen::findOrFail($id);
 
-            // Get supervised students from approved pengajuan
-            $mahasiswaBimbingan = Pengajuan::where('id_dosen', $id)
-                ->where('status', 'diterima')
-                ->with(['mahasiswa' => function($query) {
-                    $query->select('id_mahasiswa', 'nama', 'npm', 'angkatan');
-                }])
-                ->get()
-                ->unique('id_mahasiswa')
-                ->map(function($pengajuan) {
-                    return [
-                        'nama' => $pengajuan->mahasiswa->nama,
-                        'npm' => $pengajuan->mahasiswa->npm,
-                        'angkatan' => $pengajuan->mahasiswa->angkatan,
-                        'dosen_ke' => $pengajuan->dosen_ke,
-                        'topik_ta' => $pengajuan->topik_ta,
-                        'bidang' => $pengajuan->bidang,
-                        'tanggal_pengajuan' => $pengajuan->created_at
-                    ];
-                });
+            // Use the reusable function to get supervised students (excluding graduated ones)
+            $result = ProfileDosenController::getDaftarMahasiswaBimbingan($id, true);
+            $ajuanBimbingan = $result['ajuanBimbingan'];
+
+            // Transform the data for response
+            $mahasiswaBimbingan = $ajuanBimbingan->map(function($pengajuan) {
+                return [
+                    'nama' => $pengajuan->mahasiswa->nama,
+                    'npm' => $pengajuan->mahasiswa->npm,
+                    'angkatan' => $pengajuan->mahasiswa->angkatan,
+                    'dosen_ke' => $pengajuan->dosen_ke,
+                    'topik_ta' => $pengajuan->topik_ta,
+                    'bidang' => $pengajuan->bidang,
+                    'tanggal_pengajuan' => $pengajuan->created_at,
+                    'seminar_status' => $pengajuan->mahasiswa->seminar_status ?? 'Bimbingan'
+                ];
+            });
 
             // Get students under supervision (dosen wali)
             $mahasiswaWali = Mahasiswa::where('id_dosen_wali', $id)
@@ -65,7 +63,7 @@ class DaftarAkunAdminController extends Controller
                         'nip' => $dosen->nip,
                         'bidang' => $dosen->bidang,
                         'kuota_bimbingan' => $dosen->kuota_bimbingan ?? 0,
-                        'jumlah_bimbingan_aktif' => $dosen->jumlahMahasiswaBimbingan(),
+                        'jumlah_bimbingan_aktif' => $result['jumlahMahasiswa'], // Use the count from reusable function
                         'jumlah_mahasiswa_wali' => $dosen->jumlahMahasiswaPerwalian(),
                         'jumlah_penguji' => $dosen->jumlahMenjadiPenguji()
                     ],

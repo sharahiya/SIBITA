@@ -21,7 +21,7 @@
         <div>
             <p class="text-xs uppercase text-gray-500 mb-1">Informasi Tugas Akhir</p>
             <label class="block font-medium mb-1">Judul Tugas Akhir</label>
-            <input type="text" name="judul" class="w-full p-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" value="{{ old('judul', $pengajuan1->topik_ta ?? $pengajuan2->topik_ta ?? '') }}" required>
+            <input type="text" name="judul" class="w-full p-2 border rounded-md text-sm foc us:outline-none focus:ring-2 focus:ring-blue-400" value="{{ old('judul', $pengajuan1->topik_ta ?? $pengajuan2->topik_ta ?? '') }}" required>
 
             <label class="block font-medium mt-4 mb-1">Deskripsi Project</label>
             <textarea name="deskripsi" class="w-full p-2 border rounded-md text-sm h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400" required>{{ old('deskripsi', $pengajuan1->deskripsi_ta ?? $pengajuan2->deskripsi_ta ?? '') }}</textarea>
