@@ -35,15 +35,19 @@ class DashboardDosenController extends Controller
                 })
                 ->where('status', 'diterima')
                 ->exists();
-
+                
             return !$completedSidang;
         });
-
+        
         $bimbinganCount = $bimbingan->count();
 
         // Get unique mahasiswa IDs from current guidance
         $mahasiswaIds = $bimbinganRaw->pluck('id_mahasiswa')->unique();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 3df60c8ff9d9212443546d9821b2fda20c1f1fab
         // dd($bimbingan);
         // Initialize counters
         $selesaiSempro = 0;

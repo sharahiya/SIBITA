@@ -75,7 +75,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-auto">
 
     <!-- Background Pattern -->
     <div class="absolute inset-0 pattern-bg"></div>
@@ -128,7 +128,7 @@
         </div>
 
         <!-- Right Side - Form Section -->
-        <div class="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center p-6 lg:p-12">
+        <div class="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center p-6 lg:p-12 overflow-auto">
             <div class="w-full max-w-md">
 
                 <!-- Mobile Logo (visible on small screens) -->
