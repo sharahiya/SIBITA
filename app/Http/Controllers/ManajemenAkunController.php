@@ -193,7 +193,8 @@ class ManajemenAkunController extends Controller
                             'kuota_bimbingan' => 10, // Default kuota
                             'password' => Hash::make($nip), // Default password = NIP
                             'id_jurusan' => $jurusanData->id,
-                            'id_fakultas' => $jurusanData->fakultas->id,
+                            'jabatan' => $jabatan, // Dihapus karena tidak ada di fillable
+                            'id_fakultas' => $jurusanData->fakultas->id,x
                             // email dan jabatan tidak disimpan karena tidak ada di fillable
                         ]
                     );
