@@ -138,12 +138,12 @@
                     </svg>
                 </div>
             </div>
-            
+
             <div class="text-center mb-6">
                 <h2 class="text-xl font-semibold text-gray-800 mb-2">Berhasil!</h2>
                 <p id="successMessage" class="text-gray-600">Password berhasil diubah! Halaman akan dimuat ulang dalam beberapa detik.</p>
             </div>
-            
+
             <div class="flex justify-center">
                 <button onclick="closeSuccessModal()" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                     OK
@@ -162,12 +162,12 @@
                     </svg>
                 </div>
             </div>
-            
+
             <div class="text-center mb-6">
                 <h2 class="text-xl font-semibold text-gray-800 mb-2">Terjadi Kesalahan</h2>
                 <p id="errorMessage" class="text-gray-600"></p>
             </div>
-            
+
             <div class="flex justify-center">
                 <button onclick="closeErrorModal()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">
                     OK
@@ -186,13 +186,13 @@
         }
 
         @keyframes slideIn {
-            from { 
-                opacity: 0; 
-                transform: scale(0.8) translateY(-20px); 
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
             }
-            to { 
-                opacity: 1; 
-                transform: scale(1) translateY(0); 
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
         }
 
@@ -206,7 +206,7 @@
         function showModal(modalId) {
             const modal = document.getElementById(modalId);
             const modalContent = modal.querySelector('div > div');
-            
+
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modalContent.classList.remove('scale-95');
@@ -217,10 +217,10 @@
         function hideModal(modalId) {
             const modal = document.getElementById(modalId);
             const modalContent = modal.querySelector('div > div');
-            
+
             modalContent.classList.add('scale-95');
             modalContent.classList.remove('scale-100');
-            
+
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 200);
@@ -229,7 +229,7 @@
         function showSuccessModal(message) {
             document.getElementById('successMessage').textContent = message;
             showModal('successModal');
-            
+
             // Auto reload after 3 seconds
             setTimeout(() => {
                 window.location.reload();
@@ -309,7 +309,7 @@
             // Close modals when clicking outside (except for mandatory password change)
             document.addEventListener('click', function(e) {
                 const modals = ['successModal', 'errorModal'];
-                
+
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     if (e.target === modal) {
