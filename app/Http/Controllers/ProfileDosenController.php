@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
+use App\Models\Seminar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,7 @@ class ProfileDosenController extends Controller
 {
     /**
      * Get list of students under supervision for a specific lecturer
-     * 
+     *
      * @param int $dosenId - ID of the lecturer
      * @param bool $excludeGraduated - Whether to exclude students who have completed their thesis defense
      * @return \Illuminate\Database\Eloquent\Collection
@@ -66,7 +67,7 @@ class ProfileDosenController extends Controller
 
     /**
      * Set seminar status for each student based on their progress
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Collection $ajuanBimbingan
      * @param int $dosenId
      * @return \Illuminate\Database\Eloquent\Collection
@@ -136,26 +137,97 @@ class ProfileDosenController extends Controller
 
     /**
      * Get supervised students with their seminar status (main function)
-     * 
+     *
      * @param int $dosenId
      * @param bool $excludeGraduated
      * @return array
      */
-    public static function getDaftarMahasiswaBimbingan($dosenId, $excludeGraduated = true)
+    public static function getDaftarMahasiswaBimbingan($dosenId, $excludeGraduated = false)
     {
-        // Get list of supervised students
-        $ajuanBimbingan = self::getMahasiswaBimbingan($dosenId, $excludeGraduated);
-        
-        // Set seminar status for each student
-        $ajuanBimbingan = self::setSeminarStatus($ajuanBimbingan, $dosenId);
-        
-        // Count total students
-        $jumlahMahasiswa = $ajuanBimbingan->count();
+        // Get all pengajuan that are accepted for this dosen
+        $ajuanBimbingan = Pengajuan::where('id_dosen', $dosenId)
+            ->where('status', 'diterima')
+            ->with(['mahasiswa'])
+            ->get();
+
+        if ($excludeGraduated) {
+            // Filter out students who have completed sidang
+            $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) {
+                $mahasiswaId = $pengajuan->id_mahasiswa;
+
+                // Check if student has completed sidang
+                $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
+                    ->where('jenis', 'sidang')
+                    ->where(function($query) {
+                        $query->where('status', 'diterima')
+                              ->orWhere('lulus', 1);
+                    })
+                    ->exists();
+
+                return !$completedSidang;
+            });
+        }
 
         return [
             'ajuanBimbingan' => $ajuanBimbingan,
-            'jumlahMahasiswa' => $jumlahMahasiswa
+            'jumlahMahasiswa' => $ajuanBimbingan->count()
         ];
+    }
+
+    public static function getGuidanceBreakdown($dosenId)
+    {
+        // Get all accepted pengajuan for this dosen
+        $pengajuanIds = Pengajuan::where('id_dosen', $dosenId)
+            ->where('status', 'diterima')
+            ->pluck('id_mahasiswa')
+            ->unique();
+
+        $breakdown = [
+            'bimbingan' => 0,
+            'sempro' => 0,
+            'semhas' => 0,
+            'sidang' => 0
+        ];
+
+        foreach ($pengajuanIds as $mahasiswaId) {
+            $mahasiswa = Mahasiswa::find($mahasiswaId);
+
+            if ($mahasiswa) {
+                // Check if student has completed sidang (graduated)
+                $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
+                    ->where('jenis', 'sidang')
+                    ->where(function($query) {
+                        $query->where('status', 'diterima')
+                              ->orWhere('lulus', 1);
+                    })
+                    ->exists();
+
+                // Skip graduated students
+                if ($completedSidang) {
+                    continue;
+                }
+
+                // Get seminar status using the accessor
+                $status = $mahasiswa->seminar_status;
+
+                switch ($status) {
+                    case 'Bimbingan':
+                        $breakdown['bimbingan']++;
+                        break;
+                    case 'Sempro':
+                        $breakdown['sempro']++;
+                        break;
+                    case 'Semhas':
+                        $breakdown['semhas']++;
+                        break;
+                    case 'Sidang':
+                        $breakdown['sidang']++;
+                        break;
+                }
+            }
+        }
+
+        return $breakdown;
     }
 
     public function index()

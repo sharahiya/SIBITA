@@ -14,7 +14,7 @@
     </div>
 
         <div class="text-center mb-8">
-            <h1 class="text-2xl font-semibold text-gray-800">Detail Dosen Pembimbing 1</h1>
+            <h1 class="text-2xl font-semibold text-gray-800">Detail Dosen Pembimbing</h1>
         </div>
 
         <h2 class="text-lg font-semibold text-gray-900 mb-2">
@@ -90,7 +90,7 @@
                             <a href="#" onclick="openModal('{{ $ajuan->deskripsi_ta }}')"
                                class="text-blue-600 hover:underline">Lihat</a>
                         </td>
-                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id ? 'Dospem 1' : 'Dospem 2' }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id_dosen ? 'Dospem 1' : 'Dospem 2' }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->seminar_status ?? '-' }}</td>
                     </tr>
                     @endforeach
