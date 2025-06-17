@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\PengajuanSeminar;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,8 +39,9 @@ class DashboardDosenController extends Controller
 
         $pengajuanIds = $mahasiswaBimbingan->pluck('id_pengajuan');
 
-        $seminars = Seminar::with(['mahasiswa'])
+        $seminars = PengajuanSeminar::with(['mahasiswa'])
             ->whereIn('id_mahasiswa', $mahasiswaIds)
+            ->where('id_dosen', $dosenId)
             ->where('status', 'selesai')
             ->get();
 

@@ -22,7 +22,7 @@
     </script>
 </head>
 <body class="flex flex-col min-h-screen font-poppins">
-@include('components/navbaradmin')
+{{-- @include('components/navbaradmin') --}}
 <main class="flex-grow pb-10 pt-20 bg-slate-100">
  @yield('content')
 </main>
