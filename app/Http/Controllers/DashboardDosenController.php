@@ -20,35 +20,35 @@ class DashboardDosenController extends Controller
         $mustChangePassword = $dosen->isUsingDefaultPassword();
 
         // Mahasiswa bimbingan dari pengajuan yang diterima
-        $bimbingan = Pengajuan::where('id_dosen', $dosenId)
+        $bimbinganRaw = Pengajuan::where('id_dosen', $dosenId)
             ->where('status', 'diterima')
             ->with(['mahasiswa'])
             ->get();
 
         // Hapus yang sudah sidang (completed thesis defense)
-        $bimbingan = $bimbingan->filter(function ($pengajuan) use ($dosenId) {
+        $bimbingan = $bimbinganRaw->filter(function ($pengajuan) use ($dosenId) {
             // Check if student has completed sidang for this specific dosen
             $completedSidang = PengajuanSeminar::where('id_mahasiswa', $pengajuan->id_mahasiswa)
-                ->where('id_dosen', $dosenId)
-                ->whereHas('seminar', function($query) {
+            ->where('id_dosen', $dosenId)
+            ->whereHas('seminar', function($query) {
                     $query->where('jenis', 'sidang');
                 })
                 ->where('status', 'diterima')
                 ->exists();
-
+                
             return !$completedSidang;
         });
-
+        
         $bimbinganCount = $bimbingan->count();
 
         // Get unique mahasiswa IDs from current guidance
-        $mahasiswaIds = $bimbingan->pluck('id_mahasiswa')->unique();
-
+        $mahasiswaIds = $bimbinganRaw->pluck('id_mahasiswa')->unique();
+        
+        // dd($bimbingan);
         // Initialize counters
         $selesaiSempro = 0;
         $selesaiSemhas = 0;
         $selesaiSidang = 0;
-
         // Get latest seminar status for each student supervised by this dosen
         foreach ($mahasiswaIds as $mahasiswaId) {
             $latestSeminarStatus = $this->getLatestSeminarStatusForStudent($mahasiswaId, $dosenId);

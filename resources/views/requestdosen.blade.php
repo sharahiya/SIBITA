@@ -93,7 +93,7 @@
             <th class="px-4 py-2 border border-gray-300 fixed-cell">Nama</th>
             <th class="px-4 py-2 border border-gray-300 fixed-cell">NPM</th>
             <th class="px-4 py-2 border border-gray-300 fixed-cell">Bidang</th>
-            <th class="px-4 py-2 border border-gray-300 word-wrap">Judul Tugas Akhir</th>
+            <th class="px-4 py-2 border border-gray-300 word-wrap">Judul TA</th>
             <th class="px-4 py-2 border border-gray-300 fixed-cell">Deskripsi/Lampiran</th>
             <th class="px-4 py-2 border border-gray-300 fixed-cell">Jenis Ajuan</th>
             <th class="px-4 py-2 border border-gray-300 fixed-cell">Role</th>
