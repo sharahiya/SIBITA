@@ -12,7 +12,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        inter: ["Inter", "sans-serif"],
+                        inter: ["poppins", "sans-serif"],
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
