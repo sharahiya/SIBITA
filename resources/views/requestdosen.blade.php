@@ -86,75 +86,87 @@
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table-container">
-      <table class="w-full text-xs text-left text-gray-500 border border-gray-300">
-        <thead class="text-[10px] text-white uppercase bg-blue-900">
-          <tr>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">No</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Nama</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">NPM</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Bidang</th>
-            <th class="px-4 py-2 border border-gray-300 word-wrap">Judul Tugas Akhir</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Deskripsi/Lampiran</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Jenis Ajuan</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Role</th>
-            <th class="px-4 py-2 border border-gray-300 fixed-cell">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($pengajuans as $index => $item)
-          <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
-            <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $index + 1 }}</td>
-            <td class='px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $item->mahasiswa->nama }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->mahasiswa->npm }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ $item->bidang ?? '-' }}</td>
-            <td class='px-4 py-2 border border-gray-300 word-wrap'>{{ $item->topik_ta }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>
-              @if (!empty($item->lampiran))
-                @if (strtolower(pathinfo($item->lampiran, PATHINFO_EXTENSION)) === 'pdf')
-                  <div class="flex flex-col gap-1">
-                    <button type="button" class='text-blue-600 hover:underline text-xs'
-                      onclick='openModal("{{ asset('storage/' . $item->lampiran) }}", "pdf")'>
-                      📄 Lihat PDF
-                    </button>
-                    {{-- <button type="button" class='text-green-600 hover:underline text-xs'
-                      onclick='openPdfInNewTab("{{ asset('storage/' . $item->lampiran) }}")'>
-                      🔗 Buka di Tab Baru
-                    </button> --}}
-                  </div>
-                @else
-                  <button type="button" class='text-blue-600 hover:underline text-xs'
-                    onclick='openModal("{{ asset('storage/' . $item->lampiran) }}", "image")'>
-                    🖼️ Lihat Lampiran
-                  </button>
-                @endif
-              @endif
+    <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left text-gray-500 border border-gray-300 min-w-[800px]">
+            <thead class="text-[10px] text-white uppercase bg-blue-900">
+                <tr>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell">No</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell">Nama</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden sm:table-cell">NPM</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden md:table-cell">Bidang</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 word-wrap">Judul TA</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell">Deskripsi/Lampiran</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell">Jenis Ajuan</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell">Role</th>
+                    <th class="px-2 sm:px-4 py-2 border border-gray-300 fixed-cell">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($pengajuans as $index => $item)
+                <tr class='bg-white even:bg-gray-50 border-b hover:bg-blue-50'>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>{{ $index + 1 }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 font-medium text-gray-900 fixed-cell'>
+                        <div class="font-medium">{{ $item->mahasiswa->nama }}</div>
+                        <div class="text-gray-500 text-[10px] sm:hidden">{{ $item->mahasiswa->npm }}</div>
+                    </td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden sm:table-cell'>{{ $item->mahasiswa->npm }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden md:table-cell'>{{ $item->bidang ?? '-' }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 word-wrap'>
+                        <div class="max-w-[150px] sm:max-w-[200px]">{{ $item->topik_ta }}</div>
+                        <div class="text-gray-500 text-[10px] md:hidden mt-1">
+                            @if($item->bidang)
+                                <span>{{ $item->bidang }}</span>
+                            @endif
+                        </div>
+                    </td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell'>
+                        @if (!empty($item->lampiran))
+                            @if (strtolower(pathinfo($item->lampiran, PATHINFO_EXTENSION)) === 'pdf')
+                                <div class="flex flex-col gap-1">
+                                    <button type="button" class='text-blue-600 hover:underline text-[10px] sm:text-xs'
+                                        onclick='openModal("{{ asset('storage/' . $item->lampiran) }}", "pdf")'>
+                                        📄 PDF
+                                    </button>
+                                </div>
+                            @else
+                                <button type="button" class='text-blue-600 hover:underline text-[10px] sm:text-xs'
+                                    onclick='openModal("{{ asset('storage/' . $item->lampiran) }}", "image")'>
+                                    🖼️ Lampiran
+                                </button>
+                            @endif
+                        @endif
 
-              @if (!empty($item->deskripsi_ta))
-                <button type="button" class='text-purple-600 hover:underline text-xs block mt-1'
-                  onclick='openModal({!! json_encode($item->deskripsi_ta) !!}, "text")'>
-                  📝 Lihat Deskripsi
-                </button>
-              @endif
+                        @if (!empty($item->deskripsi_ta))
+                            <button type="button" class='text-purple-600 hover:underline text-[10px] sm:text-xs block mt-1'
+                                onclick='openModal({!! json_encode($item->deskripsi_ta) !!}, "text")'>
+                                📝 Deskripsi
+                            </button>
+                        @endif
 
-              @if (empty($item->lampiran) && empty($item->deskripsi_ta))
-                <span class="text-gray-400">-</span>
-              @endif
-            </td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>{{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }}</td>
-            <td class='px-4 py-2 border border-gray-300 fixed-cell'>Dospem {{ $item->role ?? '1' }}</td>
-            <td class='px-4 py-2 border border-gray-300 flex gap-2 justify-center fixed-cell'>
-              <button onclick="showConfirmModal('accept', {{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 text-xs">
-                Terima
-              </button>
-
-              <button onclick="rejectRequest({{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs">
-                Tolak
-              </button>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+                        @if (empty($item->lampiran) && empty($item->deskripsi_ta))
+                            <span class="text-gray-400">-</span>
+                        @endif
+                    </td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell'>{{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell'>Dospem {{ $item->role ?? '1' }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell'>
+                        <div class="flex flex-col lg:flex-row gap-1 lg:gap-2 justify-center">
+                            <div class="lg:hidden text-[10px] text-gray-500 mb-1">
+                                {{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }} | Dospem {{ $item->role ?? '1' }}
+                            </div>
+                            <button onclick="showConfirmModal('accept', {{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-green-500 text-white px-2 sm:px-3 py-1 rounded hover:bg-green-600 text-[10px] sm:text-xs">
+                                ✓
+                            </button>
+                            <button onclick="rejectRequest({{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-red-500 text-white px-2 sm:px-3 py-1 rounded hover:bg-red-600 text-[10px] sm:text-xs">
+                                ✗
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     </div>
   </div>
 </div>
