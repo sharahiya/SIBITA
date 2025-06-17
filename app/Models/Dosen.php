@@ -12,7 +12,7 @@ class Dosen extends Authenticatable
 
     protected $table = 'dosens';
     protected $primaryKey = 'id_dosen';
-    protected $fillable = ['nip', 'nama', 'bidang', 'kuota_bimbingan', 'password', 'link_wa_group', 'id_jurusan', 'id_fakultas'];
+    protected $fillable = ['nip', 'nama', 'bidang', 'kuota_bimbingan', 'password', 'link_wa_group', 'id_jurusan', 'id_fakultas', 'jabatan'];
 
     public function mahasiswaWali()
     {
@@ -75,6 +75,33 @@ class Dosen extends Authenticatable
         }
 
         return $jumlahMahasiswa;
+    }
+
+    public function jumlahMahasiswaBimbinganAktif()
+    {
+        // Get all pengajuan that are accepted for this dosen
+        $ajuanBimbingan = $this->pengajuan()
+            ->where('status', 'diterima')
+            ->with(['mahasiswa'])
+            ->get();
+
+        // Filter out students who have completed sidang
+        $ajuanBimbingan = $ajuanBimbingan->filter(function($pengajuan) {
+            $mahasiswaId = $pengajuan->id_mahasiswa;
+
+            // Check if student has completed sidang
+            $completedSidang = Seminar::where('id_mahasiswa', $mahasiswaId)
+                ->where('jenis', 'sidang')
+                ->where(function($query) {
+                    $query->where('status', 'diterima')
+                          ->orWhere('lulus', 1);
+                })
+                ->exists();
+
+            return !$completedSidang;
+        });
+
+        return $ajuanBimbingan->count();
     }
 
     public function jumlahMahasiswaPerwalian()

@@ -116,7 +116,7 @@
                                     <div
                                         class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 "
                                         >
-                                        {{ $dosen->jumlahMahasiswaBimbingan() }} / {{ $dosen->kuota_bimbingan ?? 0 }}
+                                        {{ $dosen->jumlahMahasiswaBimbinganAktif() }} / {{ $dosen->kuota_bimbingan ?? 0 }}
                                     </div>
                                     <button
                                         class="ml-2 text-blue-500 hover:text-blue-600 p-1 transition-colors duration-200 edit-kuota-btn"

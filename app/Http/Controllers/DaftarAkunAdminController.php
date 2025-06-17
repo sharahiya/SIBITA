@@ -50,7 +50,8 @@ class DaftarAkunAdminController extends Controller
                     'topik_ta' => $pengajuan->topik_ta,
                     'bidang' => $pengajuan->bidang,
                     'tanggal_pengajuan' => $pengajuan->created_at,
-                    'seminar_status' => $seminarStatus
+                    'seminar_status' => $seminarStatus,
+                    'status' => $seminarStatus
                 ];
             });
 

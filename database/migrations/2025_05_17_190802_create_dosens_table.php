@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nip', 18)->unique();
             $table->string('nama');
             $table->string('bidang');
+            $table->string('jabatan')->nullable();
             $table->integer('kuota_bimbingan')->default(0);
             $table->string('password');
             $table->string('link_wa_group')->nullable();
