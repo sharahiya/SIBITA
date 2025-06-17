@@ -165,6 +165,62 @@
     </div>
 </div>
 
+<!-- Custom Alert Modal -->
+<div id="alertModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95" id="alertModalContent">
+        <!-- Modal Header -->
+        <div class="flex items-center mb-4" id="alertModalHeader">
+            <!-- Icon will be inserted here -->
+            <h3 class="text-lg font-semibold text-gray-800 ml-3" id="alertModalTitle">Peringatan</h3>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="mb-6">
+            <p class="text-gray-600 text-sm" id="alertModalMessage">Pesan akan ditampilkan di sini</p>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="flex justify-end space-x-3">
+            <button id="alertModalCancelBtn" class="hidden px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                Batal
+            </button>
+            <button id="alertModalOkBtn" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Modal -->
+<div id="confirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95" id="confirmModalContent">
+        <!-- Modal Header -->
+        <div class="flex items-center mb-4">
+            <div class="bg-yellow-100 rounded-full p-2 mr-3">
+                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800">Konfirmasi</h3>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="mb-6">
+            <p class="text-gray-600 text-sm" id="confirmModalMessage">Apakah Anda yakin?</p>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="flex justify-end space-x-3">
+            <button id="confirmModalCancelBtn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                Batal
+            </button>
+            <button id="confirmModalOkBtn" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
+                Ya, Lanjutkan
+            </button>
+        </div>
+    </div>
+</div>
+
 <script>
     let mahasiswaData = [];
     let dosenData = [];
@@ -176,6 +232,196 @@
     const tabDosenBtn = document.getElementById('tab-dosen-btn');
     const tabMahasiswa = document.getElementById('tab-mahasiswa');
     const tabDosen = document.getElementById('tab-dosen');
+
+    // Custom Alert Modal Functions
+    function showAlert(message, type = 'info', title = null) {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('alertModal');
+            const modalContent = document.getElementById('alertModalContent');
+            const modalHeader = document.getElementById('alertModalHeader');
+            const modalTitle = document.getElementById('alertModalTitle');
+            const modalMessage = document.getElementById('alertModalMessage');
+            const okBtn = document.getElementById('alertModalOkBtn');
+            const cancelBtn = document.getElementById('alertModalCancelBtn');
+
+            // Set title
+            modalTitle.textContent = title || getDefaultTitle(type);
+
+            // Set message
+            modalMessage.textContent = message;
+
+            // Set icon and colors based on type
+            const iconHTML = getIconHTML(type);
+            const existingIcon = modalHeader.querySelector('div');
+            if (existingIcon) {
+                existingIcon.remove();
+            }
+            modalHeader.insertAdjacentHTML('afterbegin', iconHTML);
+
+            // Set button colors
+            okBtn.className = `px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ${getButtonClass(type)}`;
+
+            // Hide cancel button for alerts
+            cancelBtn.classList.add('hidden');
+
+            // Show modal with animation
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            // Handle OK button
+            const handleOk = () => {
+                closeModal(modal, modalContent);
+                resolve(true);
+                okBtn.removeEventListener('click', handleOk);
+                document.removeEventListener('keydown', handleEscape);
+            };
+
+            // Handle Escape key
+            const handleEscape = (e) => {
+                if (e.key === 'Escape') {
+                    handleOk();
+                }
+            };
+
+            okBtn.addEventListener('click', handleOk);
+            document.addEventListener('keydown', handleEscape);
+
+            // Close when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    handleOk();
+                }
+            });
+        });
+    }
+
+    function showConfirm(message, title = 'Konfirmasi') {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('confirmModal');
+            const modalContent = document.getElementById('confirmModalContent');
+            const modalMessage = document.getElementById('confirmModalMessage');
+            const okBtn = document.getElementById('confirmModalOkBtn');
+            const cancelBtn = document.getElementById('confirmModalCancelBtn');
+
+            // Set message
+            modalMessage.textContent = message;
+
+            // Show modal with animation
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            // Handle OK button
+            const handleOk = () => {
+                closeModal(modal, modalContent);
+                resolve(true);
+                cleanup();
+            };
+
+            // Handle Cancel button
+            const handleCancel = () => {
+                closeModal(modal, modalContent);
+                resolve(false);
+                cleanup();
+            };
+
+            // Handle Escape key
+            const handleEscape = (e) => {
+                if (e.key === 'Escape') {
+                    handleCancel();
+                }
+            };
+
+            const cleanup = () => {
+                okBtn.removeEventListener('click', handleOk);
+                cancelBtn.removeEventListener('click', handleCancel);
+                document.removeEventListener('keydown', handleEscape);
+            };
+
+            okBtn.addEventListener('click', handleOk);
+            cancelBtn.addEventListener('click', handleCancel);
+            document.addEventListener('keydown', handleEscape);
+
+            // Close when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    handleCancel();
+                }
+            });
+        });
+    }
+
+    function closeModal(modal, modalContent) {
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    function getDefaultTitle(type) {
+        switch (type) {
+            case 'success': return 'Berhasil';
+            case 'error': return 'Error';
+            case 'warning': return 'Peringatan';
+            default: return 'Informasi';
+        }
+    }
+
+    function getIconHTML(type) {
+        switch (type) {
+            case 'success':
+                return `
+                    <div class="bg-green-100 rounded-full p-2">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                `;
+            case 'error':
+                return `
+                    <div class="bg-red-100 rounded-full p-2">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                `;
+            case 'warning':
+                return `
+                    <div class="bg-yellow-100 rounded-full p-2">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                `;
+            default:
+                return `
+                    <div class="bg-blue-100 rounded-full p-2">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                `;
+        }
+    }
+
+    function getButtonClass(type) {
+        switch (type) {
+            case 'success':
+                return 'bg-green-600 hover:bg-green-700 focus:ring-green-500';
+            case 'error':
+                return 'bg-red-600 hover:bg-red-700 focus:ring-red-500';
+            case 'warning':
+                return 'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500';
+            default:
+                return 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500';
+        }
+    }
 
     // Tab switch
     tabMahasiswaBtn.addEventListener('click', () => {
@@ -242,6 +488,15 @@
             errors.push('Nama, NPM, dan Email wajib diisi');
         }
 
+        if (npm) {
+            if (npm.length !== 13) {
+                errors.push('NPM harus 13 karakter');
+            }
+            if (!/^\d+$/.test(npm)) {
+                errors.push('NPM harus berupa angka');
+            }
+        }
+
         // Check if mahasiswa already exists in database
         const existingMhs = existingMahasiswa.find(m => m.npm === npm);
         if (existingMhs) {
@@ -305,6 +560,16 @@
             errors.push('Nama dan NIP wajib diisi');
         }
 
+        // Validate NIP format (must be exactly 17 characters and numeric)
+        if (nip) {
+            if (nip.length !== 18) {
+                errors.push('NIP harus 18 karakter');
+            }
+            if (!/^\d+$/.test(nip)) {
+                errors.push('NIP harus berupa angka');
+            }
+        }
+
         // Check if dosen already exists in database
         const existingDsn = existingDosen.find(d => d.nip === nip);
         if (existingDsn) {
@@ -359,7 +624,11 @@
                 const isValidHeader = expectedHeader.every((h, i) => h === header[i]);
 
                 if (!isValidHeader) {
-                    alert("Format header CSV Mahasiswa tidak sesuai. Harus: " + expectedHeader.join(', '));
+                    showAlert(
+                        "Format header CSV Mahasiswa tidak sesuai. Harus: " + expectedHeader.join(', '),
+                        'error',
+                        'Format Header Salah'
+                    );
                     e.target.value = '';
                     return;
                 }
@@ -386,7 +655,7 @@
                 const validData = mahasiswaData.filter(m => !m.hasError);
                 document.getElementById('saveMahasiswa').disabled = validData.length === 0;
             } catch (error) {
-                alert('Error membaca file: ' + error.message);
+                showAlert('Error membaca file: ' + error.message, 'error');
             }
         };
         reader.readAsText(file);
@@ -471,7 +740,11 @@
                 const isValidHeader = expectedHeader.every((h, i) => h === header[i]);
 
                 if (!isValidHeader) {
-                    alert("Format header CSV Dosen tidak sesuai. Harus: " + expectedHeader.join(', '));
+                    showAlert(
+                        "Format header CSV Dosen tidak sesuai. Harus: " + expectedHeader.join(', '),
+                        'error',
+                        'Format Header Salah'
+                    );
                     e.target.value = '';
                     return;
                 }
@@ -486,7 +759,7 @@
                     const jurusan = existingJurusan.find(j =>
                         j.nama_jurusan.toLowerCase().includes(jurusanName.toLowerCase())
                     );
-                
+
                     const fakultasName = jurusan && jurusan.fakultas ? jurusan.fakultas.nama_fakultas : '';
 
                     return {
@@ -508,7 +781,7 @@
                 const validData = dosenData.filter(d => !d.hasError);
                 document.getElementById('saveDosenBtn').disabled = validData.length === 0;
             } catch (error) {
-                alert('Error membaca file: ' + error.message);
+                showAlert('Error membaca file: ' + error.message, 'error');
             }
         };
         reader.readAsText(file);
@@ -572,9 +845,12 @@
     document.getElementById('searchDosen').addEventListener('keyup', renderDosenTable);
 
     // Save Mahasiswa
-    document.getElementById('saveMahasiswa').addEventListener('click', function () {
+    document.getElementById('saveMahasiswa').addEventListener('click', async function () {
         const file = document.getElementById('csvMahasiswa').files[0];
-        if (!file) return alert("Pilih file terlebih dahulu.");
+        if (!file) {
+            showAlert("Pilih file terlebih dahulu.", 'warning');
+            return;
+        }
 
         const loadingEl = document.getElementById('loadingMahasiswa');
         const saveBtn = this;
@@ -585,15 +861,17 @@
         const formData = new FormData();
         formData.append('csv', file);
 
-        fetch("{{ route('admin.upload.mahasiswa') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
+        try {
+            const response = await fetch("{{ route('admin.upload.mahasiswa') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
             loadingEl.classList.add('hidden');
             saveBtn.disabled = false;
 
@@ -606,19 +884,21 @@
             } else {
                 showStatus('statusMahasiswa', data.message, 'error');
             }
-        })
-        .catch(err => {
+        } catch (error) {
             loadingEl.classList.add('hidden');
             saveBtn.disabled = false;
             showStatus('statusMahasiswa', 'Terjadi kesalahan saat upload', 'error');
-            console.error(err);
-        });
+            console.error(error);
+        }
     });
 
     // Save Dosen
-    document.getElementById('saveDosenBtn').addEventListener('click', function () {
+    document.getElementById('saveDosenBtn').addEventListener('click', async function () {
         const file = document.getElementById('csvDosen').files[0];
-        if (!file) return alert("Pilih file terlebih dahulu.");
+        if (!file) {
+            showAlert("Pilih file terlebih dahulu.", 'warning');
+            return;
+        }
 
         const loadingEl = document.getElementById('loadingDosen');
         const saveBtn = this;
@@ -629,15 +909,17 @@
         const formData = new FormData();
         formData.append('csv', file);
 
-        fetch("{{ route('admin.upload.dosen') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
+        try {
+            const response = await fetch("{{ route('admin.upload.dosen') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
             loadingEl.classList.add('hidden');
             saveBtn.disabled = false;
 
@@ -650,13 +932,12 @@
             } else {
                 showStatus('statusDosen', data.message, 'error');
             }
-        })
-        .catch(err => {
+        } catch (error) {
             loadingEl.classList.add('hidden');
             saveBtn.disabled = false;
             showStatus('statusDosen', 'Terjadi kesalahan saat upload', 'error');
-            console.error(err);
-        });
+            console.error(error);
+        }
     });
 
     // Load existing data on page load

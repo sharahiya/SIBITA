@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" class="auto">
     <!--
-Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
+Error: Call to a member function format() on null in file D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php on line 44
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#0 [internal function]: App\Http\Controllers\DaftarAkunAdminController-&gt;App\Http\Controllers\{closure}(Object(App\Models\Pengajuan), 0)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Arr.php(609): array_map(Object(Closure), Array, Array)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Collection.php(795): Illuminate\Support\Arr::map(Array, Object(Closure))
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Collection.php(375): Illuminate\Support\Collection-&gt;map(Object(Closure))
+#4 D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php(36): Illuminate\Database\Eloquent\Collection-&gt;map(Object(Closure))
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\DaftarAkunAdminController-&gt;getDosenDetail(&#039;1&#039;)
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\DaftarAkunAdminController), &#039;getDosenDetail&#039;)
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\app\Http\Middleware\AdminMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\AdminMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
 #32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#51 {main}
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#52 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#54 {main}
 -->
     <head>
         <!-- Hide dumps asap -->
@@ -67,7 +70,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="robots" content="noindex, nofollow">
-        <title>Target class [SeminarController] does not exist.</title>
+        <title>Call to a member function format() on null</title>
         <script>
             // Livewire modals remove CSS classes on the `html` element so we re-add
             // the theme class again using JavaScript.
@@ -3001,265 +3004,321 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     "language": "PHP",
                     "framework_version": "11.35.1",
                     "language_version": "8.2.12",
-                    "exception_class": "Illuminate\\Contracts\\Container\\BindingResolutionException",
-                    "seen_at": 1748661881,
-                    "message": "Target class [SeminarController] does not exist.",
+                    "exception_class": "Error",
+                    "seen_at": 1750069929,
+                    "message": "Call to a member function format() on null",
                     "glows": [],
                     "solutions": [],
                     "documentation_links": [],
                     "stacktrace": [{
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 946,
-                        "method": "build",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php",
+                        "line_number": 44,
+                        "method": "App\\Http\\Controllers\\{closure}",
+                        "class": "App\\Http\\Controllers\\DaftarAkunAdminController",
                         "code_snippet": {
-                            "931": "        \/\/ hand back the results of the functions, which allows functions to be",
-                            "932": "        \/\/ used as resolvers for more fine-tuned resolution of these objects.",
-                            "933": "        if ($concrete instanceof Closure) {",
-                            "934": "            $this-\u003EbuildStack[] = spl_object_hash($concrete);",
-                            "935": "",
-                            "936": "            try {",
-                            "937": "                return $concrete($this, $this-\u003EgetLastParameterOverride());",
-                            "938": "            } finally {",
-                            "939": "                array_pop($this-\u003EbuildStack);",
-                            "940": "            }",
-                            "941": "        }",
-                            "942": "",
-                            "943": "        try {",
-                            "944": "            $reflector = new ReflectionClass($concrete);",
-                            "945": "        } catch (ReflectionException $e) {",
-                            "946": "            throw new BindingResolutionException(\u0022Target class [$concrete] does not exist.\u0022, 0, $e);",
-                            "947": "        }",
-                            "948": "",
-                            "949": "        \/\/ If the type is not instantiable, the developer is attempting to resolve",
-                            "950": "        \/\/ an abstract type such as an Interface or Abstract Class and there is",
-                            "951": "        \/\/ no binding registered for the abstractions so we need to bail out.",
-                            "952": "        if (! $reflector-\u003EisInstantiable()) {",
-                            "953": "            return $this-\u003EnotInstantiable($concrete);",
-                            "954": "        }",
-                            "955": "",
-                            "956": "        $this-\u003EbuildStack[] = $concrete;",
-                            "957": "",
-                            "958": "        $constructor = $reflector-\u003EgetConstructor();",
-                            "959": "",
-                            "960": "        \/\/ If there are no constructors, that means there are no dependencies then"
+                            "29": "            $mahasiswaBimbingan = Pengajuan::where(\u0027id_dosen\u0027, $id)",
+                            "30": "                -\u003Ewhere(\u0027status\u0027, \u0027diterima\u0027)",
+                            "31": "                -\u003Ewith([\u0027mahasiswa\u0027 =\u003E function($query) {",
+                            "32": "                    $query-\u003Eselect(\u0027id_mahasiswa\u0027, \u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027);",
+                            "33": "                }])",
+                            "34": "                -\u003Eget()",
+                            "35": "                -\u003Eunique(\u0027id_mahasiswa\u0027)",
+                            "36": "                -\u003Emap(function($pengajuan) {",
+                            "37": "                    return [",
+                            "38": "                        \u0027nama\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enama,",
+                            "39": "                        \u0027npm\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enpm,",
+                            "40": "                        \u0027angkatan\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Eangkatan,",
+                            "41": "                        \u0027dosen_ke\u0027 =\u003E $pengajuan-\u003Edosen_ke,",
+                            "42": "                        \u0027topik_ta\u0027 =\u003E $pengajuan-\u003Etopik_ta,",
+                            "43": "                        \u0027bidang\u0027 =\u003E $pengajuan-\u003Ebidang,",
+                            "44": "                        \u0027tanggal_pengajuan\u0027 =\u003E $pengajuan-\u003Ecreated_at-\u003Eformat(\u0027d\/m\/Y\u0027)",
+                            "45": "                    ];",
+                            "46": "                });",
+                            "47": "",
+                            "48": "            \/\/ Get students under supervision (dosen wali)",
+                            "49": "            $mahasiswaWali = Mahasiswa::where(\u0027id_dosen_wali\u0027, $id)",
+                            "50": "                -\u003Eselect(\u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027)",
+                            "51": "                -\u003Eget()",
+                            "52": "                -\u003Emap(function($mahasiswa) {",
+                            "53": "                    return [",
+                            "54": "                        \u0027nama\u0027 =\u003E $mahasiswa-\u003Enama,",
+                            "55": "                        \u0027npm\u0027 =\u003E $mahasiswa-\u003Enpm,",
+                            "56": "                        \u0027angkatan\u0027 =\u003E $mahasiswa-\u003Eangkatan",
+                            "57": "                    ];",
+                            "58": "                });"
                         },
                         "arguments": [],
-                        "application_frame": false
+                        "application_frame": true
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 819,
-                        "method": "resolve",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "unknown",
+                        "line_number": 0,
+                        "method": "array_map",
+                        "class": null,
                         "code_snippet": {
-                            "804": "        \/\/ so the developer can keep using the same objects instance every time.",
-                            "805": "        if (isset($this-\u003Einstances[$abstract]) \u0026\u0026 ! $needsContextualBuild) {",
-                            "806": "            return $this-\u003Einstances[$abstract];",
-                            "807": "        }",
-                            "808": "",
-                            "809": "        $this-\u003Ewith[] = $parameters;",
-                            "810": "",
-                            "811": "        if (is_null($concrete)) {",
-                            "812": "            $concrete = $this-\u003EgetConcrete($abstract);",
-                            "813": "        }",
-                            "814": "",
-                            "815": "        \/\/ We\u0027re ready to instantiate an instance of the concrete type registered for",
-                            "816": "        \/\/ the binding. This will instantiate the types, as well as resolve any of",
-                            "817": "        \/\/ its \u0022nested\u0022 dependencies recursively until all have gotten resolved.",
-                            "818": "        $object = $this-\u003EisBuildable($concrete, $abstract)",
-                            "819": "            ? $this-\u003Ebuild($concrete)",
-                            "820": "            : $this-\u003Emake($concrete);",
-                            "821": "",
-                            "822": "        \/\/ If we defined any extenders for this type, we\u0027ll need to spin through them",
-                            "823": "        \/\/ and apply them to the object being built. This allows for the extension",
-                            "824": "        \/\/ of services, such as changing configuration or decorating the object.",
-                            "825": "        foreach ($this-\u003EgetExtenders($abstract) as $extender) {",
-                            "826": "            $object = $extender($object, $this);",
-                            "827": "        }",
-                            "828": "",
-                            "829": "        \/\/ If the requested type is registered as a singleton we\u0027ll want to cache off",
-                            "830": "        \/\/ the instances in \u0022memory\u0022 so we can return it later without creating an",
-                            "831": "        \/\/ entirely new instance of an object on each subsequent request for it.",
-                            "832": "        if ($this-\u003EisShared($abstract) \u0026\u0026 ! $needsContextualBuild) {",
-                            "833": "            $this-\u003Einstances[$abstract] = $object;"
+                            "1": "File not found for code snippet"
                         },
                         "arguments": [{
-                            "name": "concrete",
-                            "value": "SeminarController",
-                            "original_type": "string",
+                            "name": "arg0",
+                            "value": "id_pengajuan:1",
+                            "original_type": "App\\Models\\Pengajuan",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "arg1",
+                            "value": 0,
+                            "original_type": "int",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": true
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Arr.php",
+                        "line_number": 609,
+                        "method": "map",
+                        "class": "Illuminate\\Support\\Arr",
+                        "code_snippet": {
+                            "594": "        return [$value, $key];",
+                            "595": "    }",
+                            "596": "",
+                            "597": "    \/**",
+                            "598": "     * Run a map over each of the items in the array.",
+                            "599": "     *",
+                            "600": "     * @param  array  $array",
+                            "601": "     * @param  callable  $callback",
+                            "602": "     * @return array",
+                            "603": "     *\/",
+                            "604": "    public static function map(array $array, callable $callback)",
+                            "605": "    {",
+                            "606": "        $keys = array_keys($array);",
+                            "607": "",
+                            "608": "        try {",
+                            "609": "            $items = array_map($callback, $array, $keys);",
+                            "610": "        } catch (ArgumentCountError) {",
+                            "611": "            $items = array_map($callback, $array);",
+                            "612": "        }",
+                            "613": "",
+                            "614": "        return array_combine($keys, $items);",
+                            "615": "    }",
+                            "616": "",
+                            "617": "    \/**",
+                            "618": "     * Run an associative map over each of the items.",
+                            "619": "     *",
+                            "620": "     * The callback should return an associative array with a single key\/value pair.",
+                            "621": "     *",
+                            "622": "     * @template TKey",
+                            "623": "     * @template TValue"
+                        },
+                        "arguments": [{
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "array",
+                            "value": ["object (App\\Models\\Pengajuan)"],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "arrays",
+                            "value": [[0]],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": true,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Collection.php",
+                        "line_number": 795,
+                        "method": "map",
+                        "class": "Illuminate\\Support\\Collection",
+                        "code_snippet": {
+                            "780": "    public function pluck($value, $key = null)",
+                            "781": "    {",
+                            "782": "        return new static(Arr::pluck($this-\u003Eitems, $value, $key));",
+                            "783": "    }",
+                            "784": "",
+                            "785": "    \/**",
+                            "786": "     * Run a map over each of the items.",
+                            "787": "     *",
+                            "788": "     * @template TMapValue",
+                            "789": "     *",
+                            "790": "     * @param  callable(TValue, TKey): TMapValue  $callback",
+                            "791": "     * @return static\u003CTKey, TMapValue\u003E",
+                            "792": "     *\/",
+                            "793": "    public function map(callable $callback)",
+                            "794": "    {",
+                            "795": "        return new static(Arr::map($this-\u003Eitems, $callback));",
+                            "796": "    }",
+                            "797": "",
+                            "798": "    \/**",
+                            "799": "     * Run a dictionary map over the items.",
+                            "800": "     *",
+                            "801": "     * The callback should return an associative array with a single key\/value pair.",
+                            "802": "     *",
+                            "803": "     * @template TMapToDictionaryKey of array-key",
+                            "804": "     * @template TMapToDictionaryValue",
+                            "805": "     *",
+                            "806": "     * @param  callable(TValue, TKey): array\u003CTMapToDictionaryKey, TMapToDictionaryValue\u003E  $callback",
+                            "807": "     * @return static\u003CTMapToDictionaryKey, array\u003Cint, TMapToDictionaryValue\u003E\u003E",
+                            "808": "     *\/",
+                            "809": "    public function mapToDictionary(callable $callback)"
+                        },
+                        "arguments": [{
+                            "name": "array",
+                            "value": ["object (App\\Models\\Pengajuan)"],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
-                        "line_number": 1048,
-                        "method": "resolve",
-                        "class": "Illuminate\\Foundation\\Application",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php",
+                        "line_number": 375,
+                        "method": "map",
+                        "class": "Illuminate\\Database\\Eloquent\\Collection",
                         "code_snippet": {
-                            "1033": "    \/**",
-                            "1034": "     * Resolve the given type from the container.",
-                            "1035": "     *",
-                            "1036": "     * @param  string  $abstract",
-                            "1037": "     * @param  array  $parameters",
-                            "1038": "     * @param  bool  $raiseEvents",
-                            "1039": "     * @return mixed",
-                            "1040": "     *",
-                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
-                            "1043": "     *\/",
-                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)",
-                            "1045": "    {",
-                            "1046": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
-                            "1047": "",
-                            "1048": "        return parent::resolve($abstract, $parameters, $raiseEvents);",
-                            "1049": "    }",
-                            "1050": "",
-                            "1051": "    \/**",
-                            "1052": "     * Load the deferred provider if the given type is a deferred service and the instance has not been loaded.",
-                            "1053": "     *",
-                            "1054": "     * @param  string  $abstract",
-                            "1055": "     * @return void",
-                            "1056": "     *\/",
-                            "1057": "    protected function loadDeferredProviderIfNeeded($abstract)",
-                            "1058": "    {",
-                            "1059": "        if ($this-\u003EisDeferredService($abstract) \u0026\u0026 ! isset($this-\u003Einstances[$abstract])) {",
-                            "1060": "            $this-\u003EloadDeferredProvider($abstract);",
-                            "1061": "        }",
-                            "1062": "    }"
+                            "360": "        }",
+                            "361": "",
+                            "362": "        return new static(array_values($dictionary));",
+                            "363": "    }",
+                            "364": "",
+                            "365": "    \/**",
+                            "366": "     * Run a map over each of the items.",
+                            "367": "     *",
+                            "368": "     * @template TMapValue",
+                            "369": "     *",
+                            "370": "     * @param  callable(TModel, TKey): TMapValue  $callback",
+                            "371": "     * @return \\Illuminate\\Support\\Collection\u003CTKey, TMapValue\u003E|static\u003CTKey, TMapValue\u003E",
+                            "372": "     *\/",
+                            "373": "    public function map(callable $callback)",
+                            "374": "    {",
+                            "375": "        $result = parent::map($callback);",
+                            "376": "",
+                            "377": "        return $result-\u003Econtains(fn ($item) =\u003E ! $item instanceof Model) ? $result-\u003EtoBase() : $result;",
+                            "378": "    }",
+                            "379": "",
+                            "380": "    \/**",
+                            "381": "     * Run an associative map over each of the items.",
+                            "382": "     *",
+                            "383": "     * The callback should return an associative array with a single key \/ value pair.",
+                            "384": "     *",
+                            "385": "     * @template TMapWithKeysKey of array-key",
+                            "386": "     * @template TMapWithKeysValue",
+                            "387": "     *",
+                            "388": "     * @param  callable(TModel, TKey): array\u003CTMapWithKeysKey, TMapWithKeysValue\u003E  $callback",
+                            "389": "     * @return \\Illuminate\\Support\\Collection\u003CTMapWithKeysKey, TMapWithKeysValue\u003E|static\u003CTMapWithKeysKey, TMapWithKeysValue\u003E"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "raiseEvents",
-                            "value": true,
-                            "original_type": "bool",
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 755,
-                        "method": "make",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php",
+                        "line_number": 36,
+                        "method": "getDosenDetail",
+                        "class": "App\\Http\\Controllers\\DaftarAkunAdminController",
                         "code_snippet": {
-                            "740": "    {",
-                            "741": "        return $this-\u003Emake($abstract, $parameters);",
-                            "742": "    }",
-                            "743": "",
-                            "744": "    \/**",
-                            "745": "     * Resolve the given type from the container.",
-                            "746": "     *",
-                            "747": "     * @param  string  $abstract",
-                            "748": "     * @param  array  $parameters",
-                            "749": "     * @return mixed",
-                            "750": "     *",
-                            "751": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "752": "     *\/",
-                            "753": "    public function make($abstract, array $parameters = [])",
-                            "754": "    {",
-                            "755": "        return $this-\u003Eresolve($abstract, $parameters);",
-                            "756": "    }",
-                            "757": "",
-                            "758": "    \/**",
-                            "759": "     * {@inheritdoc}",
-                            "760": "     *",
-                            "761": "     * @return mixed",
-                            "762": "     *\/",
-                            "763": "    public function get(string $id)",
-                            "764": "    {",
-                            "765": "        try {",
-                            "766": "            return $this-\u003Eresolve($id);",
-                            "767": "        } catch (Exception $e) {",
-                            "768": "            if ($this-\u003Ehas($id) || $e instanceof CircularDependencyException) {",
-                            "769": "                throw $e;"
+                            "21": "    }",
+                            "22": "",
+                            "23": "    public function getDosenDetail($id)",
+                            "24": "    {",
+                            "25": "        try {",
+                            "26": "            $dosen = Dosen::findOrFail($id);",
+                            "27": "",
+                            "28": "            \/\/ Get supervised students from approved pengajuan",
+                            "29": "            $mahasiswaBimbingan = Pengajuan::where(\u0027id_dosen\u0027, $id)",
+                            "30": "                -\u003Ewhere(\u0027status\u0027, \u0027diterima\u0027)",
+                            "31": "                -\u003Ewith([\u0027mahasiswa\u0027 =\u003E function($query) {",
+                            "32": "                    $query-\u003Eselect(\u0027id_mahasiswa\u0027, \u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027);",
+                            "33": "                }])",
+                            "34": "                -\u003Eget()",
+                            "35": "                -\u003Eunique(\u0027id_mahasiswa\u0027)",
+                            "36": "                -\u003Emap(function($pengajuan) {",
+                            "37": "                    return [",
+                            "38": "                        \u0027nama\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enama,",
+                            "39": "                        \u0027npm\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enpm,",
+                            "40": "                        \u0027angkatan\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Eangkatan,",
+                            "41": "                        \u0027dosen_ke\u0027 =\u003E $pengajuan-\u003Edosen_ke,",
+                            "42": "                        \u0027topik_ta\u0027 =\u003E $pengajuan-\u003Etopik_ta,",
+                            "43": "                        \u0027bidang\u0027 =\u003E $pengajuan-\u003Ebidang,",
+                            "44": "                        \u0027tanggal_pengajuan\u0027 =\u003E $pengajuan-\u003Ecreated_at-\u003Eformat(\u0027d\/m\/Y\u0027)",
+                            "45": "                    ];",
+                            "46": "                });",
+                            "47": "",
+                            "48": "            \/\/ Get students under supervision (dosen wali)",
+                            "49": "            $mahasiswaWali = Mahasiswa::where(\u0027id_dosen_wali\u0027, $id)",
+                            "50": "                -\u003Eselect(\u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027)"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "raiseEvents",
-                            "value": true,
-                            "original_type": "bool",
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
-                        "application_frame": false
+                        "application_frame": true
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
-                        "line_number": 1030,
-                        "method": "make",
-                        "class": "Illuminate\\Foundation\\Application",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+                        "line_number": 47,
+                        "method": "dispatch",
+                        "class": "Illuminate\\Routing\\ControllerDispatcher",
                         "code_snippet": {
-                            "1015": "    }",
-                            "1016": "",
-                            "1017": "    \/**",
-                            "1018": "     * Resolve the given type from the container.",
-                            "1019": "     *",
-                            "1020": "     * @param  string  $abstract",
-                            "1021": "     * @param  array  $parameters",
-                            "1022": "     * @return mixed",
-                            "1023": "     *",
-                            "1024": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1025": "     *\/",
-                            "1026": "    public function make($abstract, array $parameters = [])",
-                            "1027": "    {",
-                            "1028": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
-                            "1029": "",
-                            "1030": "        return parent::make($abstract, $parameters);",
-                            "1031": "    }",
-                            "1032": "",
-                            "1033": "    \/**",
-                            "1034": "     * Resolve the given type from the container.",
-                            "1035": "     *",
-                            "1036": "     * @param  string  $abstract",
-                            "1037": "     * @param  array  $parameters",
-                            "1038": "     * @param  bool  $raiseEvents",
-                            "1039": "     * @return mixed",
-                            "1040": "     *",
-                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
-                            "1043": "     *\/",
-                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)"
+                            "32": "     * Dispatch a request to a given controller and method.",
+                            "33": "     *",
+                            "34": "     * @param  \\Illuminate\\Routing\\Route  $route",
+                            "35": "     * @param  mixed  $controller",
+                            "36": "     * @param  string  $method",
+                            "37": "     * @return mixed",
+                            "38": "     *\/",
+                            "39": "    public function dispatch(Route $route, $controller, $method)",
+                            "40": "    {",
+                            "41": "        $parameters = $this-\u003EresolveParameters($route, $controller, $method);",
+                            "42": "",
+                            "43": "        if (method_exists($controller, \u0027callAction\u0027)) {",
+                            "44": "            return $controller-\u003EcallAction($method, $parameters);",
+                            "45": "        }",
+                            "46": "",
+                            "47": "        return $controller-\u003E{$method}(...array_values($parameters));",
+                            "48": "    }",
+                            "49": "",
+                            "50": "    \/**",
+                            "51": "     * Resolve the parameters for the controller.",
+                            "52": "     *",
+                            "53": "     * @param  \\Illuminate\\Routing\\Route  $route",
+                            "54": "     * @param  mixed  $controller",
+                            "55": "     * @param  string  $method",
+                            "56": "     * @return array",
+                            "57": "     *\/",
+                            "58": "    protected function resolveParameters(Route $route, $controller, $method)",
+                            "59": "    {",
+                            "60": "        return $this-\u003EresolveClassMethodDependencies(",
+                            "61": "            $route-\u003EparametersWithoutNulls(), $controller, $method"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
+                            "name": "id",
+                            "value": "1",
                             "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -3267,63 +3326,11 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 285,
-                        "method": "getController",
-                        "class": "Illuminate\\Routing\\Route",
-                        "code_snippet": {
-                            "270": "",
-                            "271": "    \/**",
-                            "272": "     * Get the controller instance for the route.",
-                            "273": "     *",
-                            "274": "     * @return mixed",
-                            "275": "     *\/",
-                            "276": "    public function getController()",
-                            "277": "    {",
-                            "278": "        if (! $this-\u003EisControllerAction()) {",
-                            "279": "            return null;",
-                            "280": "        }",
-                            "281": "",
-                            "282": "        if (! $this-\u003Econtroller) {",
-                            "283": "            $class = $this-\u003EgetControllerClass();",
-                            "284": "",
-                            "285": "            $this-\u003Econtroller = $this-\u003Econtainer-\u003Emake(ltrim($class, \u0027\\\\\u0027));",
-                            "286": "        }",
-                            "287": "",
-                            "288": "        return $this-\u003Econtroller;",
-                            "289": "    }",
-                            "290": "",
-                            "291": "    \/**",
-                            "292": "     * Get the controller class used for the route.",
-                            "293": "     *",
-                            "294": "     * @return string|null",
-                            "295": "     *\/",
-                            "296": "    public function getControllerClass()",
-                            "297": "    {",
-                            "298": "        return $this-\u003EisControllerAction() ? $this-\u003EparseControllerCallback()[0] : null;",
-                            "299": "    }"
-                        },
-                        "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 267,
+                        "line_number": 266,
                         "method": "runController",
                         "class": "Illuminate\\Routing\\Route",
                         "code_snippet": {
+                            "251": "     *\/",
                             "252": "    protected function isSerializedClosure()",
                             "253": "    {",
                             "254": "        return RouteAction::containsSerializedClosure($this-\u003Eaction);",
@@ -3352,10 +3359,30 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                             "277": "    {",
                             "278": "        if (! $this-\u003EisControllerAction()) {",
                             "279": "            return null;",
-                            "280": "        }",
-                            "281": ""
+                            "280": "        }"
                         },
-                        "arguments": [],
+                        "arguments": [{
+                            "name": "route",
+                            "value": "object",
+                            "original_type": "Illuminate\\Routing\\Route",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "controller",
+                            "value": "object",
+                            "original_type": "App\\Http\\Controllers\\DaftarAkunAdminController",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "method",
+                            "value": "getDosenDetail",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
@@ -3474,8 +3501,103 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Middleware\\AdminMiddleware.php",
+                        "line_number": 20,
+                        "method": "handle",
+                        "class": "App\\Http\\Middleware\\AdminMiddleware",
+                        "code_snippet": {
+                            "1": "\u003C?php",
+                            "2": "",
+                            "3": "namespace App\\Http\\Middleware;",
+                            "4": "",
+                            "5": "use Closure;",
+                            "6": "use Illuminate\\Http\\Request;",
+                            "7": "use Illuminate\\Support\\Facades\\Auth;",
+                            "8": "use Symfony\\Component\\HttpFoundation\\Response;",
+                            "9": "",
+                            "10": "class AdminMiddleware",
+                            "11": "{",
+                            "12": "    \/**",
+                            "13": "     * Handle an incoming request.",
+                            "14": "     *",
+                            "15": "     * @param  \\Closure(\\Illuminate\\Http\\Request): (\\Symfony\\Component\\HttpFoundation\\Response)  $next",
+                            "16": "     *\/",
+                            "17": "    public function handle(Request $request, Closure $next): Response",
+                            "18": "    {",
+                            "19": "        if (Auth::guard(\u0027admin\u0027)-\u003Echeck()) {",
+                            "20": "            return $next($request);",
+                            "21": "        }",
+                            "22": "",
+                            "23": "        return redirect(\u0027\/login\u0027)-\u003EwithErrors([\u0027Akses ditolak\u0027]);",
+                            "24": "    }",
+                            "25": "}",
+                            "26": ""
+                        },
+                        "arguments": [{
+                            "name": "arg0",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
+                            "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": true
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+                        "line_number": 183,
+                        "method": "Illuminate\\Pipeline\\{closure}",
+                        "class": "Illuminate\\Pipeline\\Pipeline",
+                        "code_snippet": {
+                            "168": "",
+                            "169": "                        \/\/ If the pipe is a string we will parse the string and resolve the class out",
+                            "170": "                        \/\/ of the dependency injection container. We can then build a callable and",
+                            "171": "                        \/\/ execute the pipe function giving in the parameters that are required.",
+                            "172": "                        $pipe = $this-\u003EgetContainer()-\u003Emake($name);",
+                            "173": "",
+                            "174": "                        $parameters = array_merge([$passable, $stack], $parameters);",
+                            "175": "                    } else {",
+                            "176": "                        \/\/ If the pipe is already an object we\u0027ll just make a callable and pass it to",
+                            "177": "                        \/\/ the pipe as-is. There is no need to do any extra parsing and formatting",
+                            "178": "                        \/\/ since the object we\u0027re given was already a fully instantiated object.",
+                            "179": "                        $parameters = [$passable, $stack];",
+                            "180": "                    }",
+                            "181": "",
+                            "182": "                    $carry = method_exists($pipe, $this-\u003Emethod)",
+                            "183": "                                    ? $pipe-\u003E{$this-\u003Emethod}(...$parameters)",
+                            "184": "                                    : $pipe(...$parameters);",
+                            "185": "",
+                            "186": "                    return $this-\u003EhandleCarry($carry);",
+                            "187": "                } catch (Throwable $e) {",
+                            "188": "                    return $this-\u003EhandleException($passable, $e);",
+                            "189": "                }",
+                            "190": "            };",
+                            "191": "        };",
+                            "192": "    }",
+                            "193": "",
+                            "194": "    \/**",
+                            "195": "     * Parse full pipe string to get name and parameters.",
+                            "196": "     *",
+                            "197": "     * @param  string  $pipe"
+                        },
+                        "arguments": [{
+                            "name": "request",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
+                            "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "next",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -3520,7 +3642,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3566,14 +3688,14 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
                             "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:159-190",
                             "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3619,7 +3741,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3665,7 +3787,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3718,7 +3840,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3764,7 +3886,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3817,7 +3939,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3863,7 +3985,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3923,7 +4045,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -3976,7 +4098,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4022,7 +4144,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4075,7 +4197,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4121,7 +4243,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4174,7 +4296,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4273,7 +4395,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                             "truncated": false
                         }, {
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4319,7 +4441,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4372,7 +4494,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4418,7 +4540,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4464,7 +4586,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4510,7 +4632,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4556,7 +4678,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4609,7 +4731,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4662,7 +4784,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4708,7 +4830,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4761,7 +4883,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4814,7 +4936,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4860,7 +4982,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4913,7 +5035,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -4959,7 +5081,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5012,7 +5134,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5058,7 +5180,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5111,7 +5233,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5157,7 +5279,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5210,7 +5332,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5256,7 +5378,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5309,7 +5431,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5401,7 +5523,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5447,7 +5569,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5481,7 +5603,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -5524,60 +5646,54 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     }],
                     "context": {
                         "request": {
-                            "url": "http:\/\/localhost:8000\/seminar\/update-status",
+                            "url": "http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "ip": null,
-                            "method": "POST",
+                            "method": "GET",
                             "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36"
                         },
                         "request_data": {
                             "queryString": [],
-                            "body": {
-                                "id": 1,
-                                "status": "diterima",
-                                "alasan": ""
-                            },
+                            "body": [],
                             "files": []
                         },
                         "headers": {
                             "host": "localhost:8000",
                             "connection": "keep-alive",
-                            "content-length": "40",
                             "sec-ch-ua-platform": "\u0022Windows\u0022",
-                            "x-csrf-token": "\u003CCENSORED\u003E",
                             "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
                             "sec-ch-ua": "\u0022Google Chrome\u0022;v=\u0022137\u0022, \u0022Chromium\u0022;v=\u0022137\u0022, \u0022Not\/A)Brand\u0022;v=\u002224\u0022",
-                            "content-type": "application\/json",
                             "sec-ch-ua-mobile": "?0",
                             "accept": "*\/*",
-                            "origin": "http:\/\/localhost:8000",
                             "sec-fetch-site": "same-origin",
                             "sec-fetch-mode": "cors",
                             "sec-fetch-dest": "empty",
-                            "referer": "http:\/\/localhost:8000\/requestdosen",
+                            "referer": "http:\/\/localhost:8000\/daftarakunadmin",
                             "accept-encoding": "gzip, deflate, br, zstd",
-                            "accept-language": "id-ID,id;q=0.9",
+                            "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
                             "cookie": "\u003CCENSORED\u003E"
                         },
                         "cookies": {
-                            "XSRF-TOKEN": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
-                            "laravel_session": "q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"
+                            "XSRF-TOKEN": "BW7QPfjFm9qA9uxWobmUsc9qFlmNM8E0ZbCHGtuM",
+                            "laravel_session": "BcCiNjapVwVnN75tXyvTmSmtsm77SYs9s5YL0Bhk"
                         },
                         "session": {
-                            "_token": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
+                            "_token": "BW7QPfjFm9qA9uxWobmUsc9qFlmNM8E0ZbCHGtuM",
                             "_flash": {
                                 "old": [],
                                 "new": []
                             },
                             "_previous": {
-                                "url": "http:\/\/localhost:8000\/requestdosen"
+                                "url": "http:\/\/localhost:8000\/daftarakunadmin"
                             },
-                            "login_dosen_59ba36addc2b2f9401580f014c7f58ea4e30989d": 2
+                            "login_admin_59ba36addc2b2f9401580f014c7f58ea4e30989d": 1
                         },
                         "route": {
-                            "route": "seminar.updateStatus",
-                            "routeParameters": [],
-                            "controllerAction": "SeminarController@updateStatus",
-                            "middleware": ["web"]
+                            "route": "admin.dosen.detail",
+                            "routeParameters": {
+                                "id": "1"
+                            },
+                            "controllerAction": "App\\Http\\Controllers\\DaftarAkunAdminController@getDosenDetail",
+                            "middleware": ["web", "admin"]
                         },
                         "env": {
                             "php_version": "8.2.12",
@@ -5591,10 +5707,34 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         "logs": [],
                         "queries": [{
                             "sql": "select * from `sessions` where `id` = ? limit 1",
-                            "time": 11.39,
+                            "time": 2.91,
                             "connection_name": "mysql",
-                            "bindings": ["q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"],
-                            "microtime": 1748661881.243109
+                            "bindings": ["BcCiNjapVwVnN75tXyvTmSmtsm77SYs9s5YL0Bhk"],
+                            "microtime": 1750069929.188708
+                        }, {
+                            "sql": "select * from `admins` where `id_admin` = ? limit 1",
+                            "time": 0.53,
+                            "connection_name": "mysql",
+                            "bindings": [1],
+                            "microtime": 1750069929.204058
+                        }, {
+                            "sql": "select * from `dosens` where `dosens`.`id_dosen` = ? limit 1",
+                            "time": 0.65,
+                            "connection_name": "mysql",
+                            "bindings": ["1"],
+                            "microtime": 1750069929.20817
+                        }, {
+                            "sql": "select * from `pengajuans` where `id_dosen` = ? and `status` = ?",
+                            "time": 0.63,
+                            "connection_name": "mysql",
+                            "bindings": ["1", "diterima"],
+                            "microtime": 1750069929.209887
+                        }, {
+                            "sql": "select `id_mahasiswa`, `nama`, `npm`, `angkatan` from `mahasiswas` where `mahasiswas`.`id_mahasiswa` in (1)",
+                            "time": 0.69,
+                            "connection_name": "mysql",
+                            "bindings": [],
+                            "microtime": 1750069929.213843
                         }]
                     },
                     "stage": "local",
@@ -5602,7 +5742,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     "open_frame_index": null,
                     "application_path": "D:\\Projects\\SIBITA",
                     "application_version": null,
-                    "tracking_uuid": "c4fa7ddd-b4f2-4c85-8ff9-3103d8bc48c4",
+                    "tracking_uuid": "86db0a17-fffb-49e2-8b64-d832387ae317",
                     "handled": null,
                     "overridden_grouping": null
                 },
@@ -5611,265 +5751,321 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     "language": "PHP",
                     "framework_version": "11.35.1",
                     "language_version": "8.2.12",
-                    "exception_class": "Illuminate\\Contracts\\Container\\BindingResolutionException",
-                    "seen_at": 1748661881,
-                    "message": "Target class [SeminarController] does not exist.",
+                    "exception_class": "Error",
+                    "seen_at": 1750069929,
+                    "message": "Call to a member function format() on null",
                     "glows": [],
                     "solutions": [],
                     "documentation_links": [],
                     "stacktrace": [{
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 946,
-                        "method": "build",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php",
+                        "line_number": 44,
+                        "method": "App\\Http\\Controllers\\{closure}",
+                        "class": "App\\Http\\Controllers\\DaftarAkunAdminController",
                         "code_snippet": {
-                            "931": "        \/\/ hand back the results of the functions, which allows functions to be",
-                            "932": "        \/\/ used as resolvers for more fine-tuned resolution of these objects.",
-                            "933": "        if ($concrete instanceof Closure) {",
-                            "934": "            $this-\u003EbuildStack[] = spl_object_hash($concrete);",
-                            "935": "",
-                            "936": "            try {",
-                            "937": "                return $concrete($this, $this-\u003EgetLastParameterOverride());",
-                            "938": "            } finally {",
-                            "939": "                array_pop($this-\u003EbuildStack);",
-                            "940": "            }",
-                            "941": "        }",
-                            "942": "",
-                            "943": "        try {",
-                            "944": "            $reflector = new ReflectionClass($concrete);",
-                            "945": "        } catch (ReflectionException $e) {",
-                            "946": "            throw new BindingResolutionException(\u0022Target class [$concrete] does not exist.\u0022, 0, $e);",
-                            "947": "        }",
-                            "948": "",
-                            "949": "        \/\/ If the type is not instantiable, the developer is attempting to resolve",
-                            "950": "        \/\/ an abstract type such as an Interface or Abstract Class and there is",
-                            "951": "        \/\/ no binding registered for the abstractions so we need to bail out.",
-                            "952": "        if (! $reflector-\u003EisInstantiable()) {",
-                            "953": "            return $this-\u003EnotInstantiable($concrete);",
-                            "954": "        }",
-                            "955": "",
-                            "956": "        $this-\u003EbuildStack[] = $concrete;",
-                            "957": "",
-                            "958": "        $constructor = $reflector-\u003EgetConstructor();",
-                            "959": "",
-                            "960": "        \/\/ If there are no constructors, that means there are no dependencies then"
+                            "29": "            $mahasiswaBimbingan = Pengajuan::where(\u0027id_dosen\u0027, $id)",
+                            "30": "                -\u003Ewhere(\u0027status\u0027, \u0027diterima\u0027)",
+                            "31": "                -\u003Ewith([\u0027mahasiswa\u0027 =\u003E function($query) {",
+                            "32": "                    $query-\u003Eselect(\u0027id_mahasiswa\u0027, \u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027);",
+                            "33": "                }])",
+                            "34": "                -\u003Eget()",
+                            "35": "                -\u003Eunique(\u0027id_mahasiswa\u0027)",
+                            "36": "                -\u003Emap(function($pengajuan) {",
+                            "37": "                    return [",
+                            "38": "                        \u0027nama\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enama,",
+                            "39": "                        \u0027npm\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enpm,",
+                            "40": "                        \u0027angkatan\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Eangkatan,",
+                            "41": "                        \u0027dosen_ke\u0027 =\u003E $pengajuan-\u003Edosen_ke,",
+                            "42": "                        \u0027topik_ta\u0027 =\u003E $pengajuan-\u003Etopik_ta,",
+                            "43": "                        \u0027bidang\u0027 =\u003E $pengajuan-\u003Ebidang,",
+                            "44": "                        \u0027tanggal_pengajuan\u0027 =\u003E $pengajuan-\u003Ecreated_at-\u003Eformat(\u0027d\/m\/Y\u0027)",
+                            "45": "                    ];",
+                            "46": "                });",
+                            "47": "",
+                            "48": "            \/\/ Get students under supervision (dosen wali)",
+                            "49": "            $mahasiswaWali = Mahasiswa::where(\u0027id_dosen_wali\u0027, $id)",
+                            "50": "                -\u003Eselect(\u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027)",
+                            "51": "                -\u003Eget()",
+                            "52": "                -\u003Emap(function($mahasiswa) {",
+                            "53": "                    return [",
+                            "54": "                        \u0027nama\u0027 =\u003E $mahasiswa-\u003Enama,",
+                            "55": "                        \u0027npm\u0027 =\u003E $mahasiswa-\u003Enpm,",
+                            "56": "                        \u0027angkatan\u0027 =\u003E $mahasiswa-\u003Eangkatan",
+                            "57": "                    ];",
+                            "58": "                });"
                         },
                         "arguments": [],
-                        "application_frame": false
+                        "application_frame": true
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 819,
-                        "method": "resolve",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "unknown",
+                        "line_number": 0,
+                        "method": "array_map",
+                        "class": null,
                         "code_snippet": {
-                            "804": "        \/\/ so the developer can keep using the same objects instance every time.",
-                            "805": "        if (isset($this-\u003Einstances[$abstract]) \u0026\u0026 ! $needsContextualBuild) {",
-                            "806": "            return $this-\u003Einstances[$abstract];",
-                            "807": "        }",
-                            "808": "",
-                            "809": "        $this-\u003Ewith[] = $parameters;",
-                            "810": "",
-                            "811": "        if (is_null($concrete)) {",
-                            "812": "            $concrete = $this-\u003EgetConcrete($abstract);",
-                            "813": "        }",
-                            "814": "",
-                            "815": "        \/\/ We\u0027re ready to instantiate an instance of the concrete type registered for",
-                            "816": "        \/\/ the binding. This will instantiate the types, as well as resolve any of",
-                            "817": "        \/\/ its \u0022nested\u0022 dependencies recursively until all have gotten resolved.",
-                            "818": "        $object = $this-\u003EisBuildable($concrete, $abstract)",
-                            "819": "            ? $this-\u003Ebuild($concrete)",
-                            "820": "            : $this-\u003Emake($concrete);",
-                            "821": "",
-                            "822": "        \/\/ If we defined any extenders for this type, we\u0027ll need to spin through them",
-                            "823": "        \/\/ and apply them to the object being built. This allows for the extension",
-                            "824": "        \/\/ of services, such as changing configuration or decorating the object.",
-                            "825": "        foreach ($this-\u003EgetExtenders($abstract) as $extender) {",
-                            "826": "            $object = $extender($object, $this);",
-                            "827": "        }",
-                            "828": "",
-                            "829": "        \/\/ If the requested type is registered as a singleton we\u0027ll want to cache off",
-                            "830": "        \/\/ the instances in \u0022memory\u0022 so we can return it later without creating an",
-                            "831": "        \/\/ entirely new instance of an object on each subsequent request for it.",
-                            "832": "        if ($this-\u003EisShared($abstract) \u0026\u0026 ! $needsContextualBuild) {",
-                            "833": "            $this-\u003Einstances[$abstract] = $object;"
+                            "1": "File not found for code snippet"
                         },
                         "arguments": [{
-                            "name": "concrete",
-                            "value": "SeminarController",
-                            "original_type": "string",
+                            "name": "arg0",
+                            "value": "id_pengajuan:1",
+                            "original_type": "App\\Models\\Pengajuan",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "arg1",
+                            "value": 0,
+                            "original_type": "int",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": true
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Arr.php",
+                        "line_number": 609,
+                        "method": "map",
+                        "class": "Illuminate\\Support\\Arr",
+                        "code_snippet": {
+                            "594": "        return [$value, $key];",
+                            "595": "    }",
+                            "596": "",
+                            "597": "    \/**",
+                            "598": "     * Run a map over each of the items in the array.",
+                            "599": "     *",
+                            "600": "     * @param  array  $array",
+                            "601": "     * @param  callable  $callback",
+                            "602": "     * @return array",
+                            "603": "     *\/",
+                            "604": "    public static function map(array $array, callable $callback)",
+                            "605": "    {",
+                            "606": "        $keys = array_keys($array);",
+                            "607": "",
+                            "608": "        try {",
+                            "609": "            $items = array_map($callback, $array, $keys);",
+                            "610": "        } catch (ArgumentCountError) {",
+                            "611": "            $items = array_map($callback, $array);",
+                            "612": "        }",
+                            "613": "",
+                            "614": "        return array_combine($keys, $items);",
+                            "615": "    }",
+                            "616": "",
+                            "617": "    \/**",
+                            "618": "     * Run an associative map over each of the items.",
+                            "619": "     *",
+                            "620": "     * The callback should return an associative array with a single key\/value pair.",
+                            "621": "     *",
+                            "622": "     * @template TKey",
+                            "623": "     * @template TValue"
+                        },
+                        "arguments": [{
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "array",
+                            "value": ["object (App\\Models\\Pengajuan)"],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "arrays",
+                            "value": [[0]],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": true,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Collection.php",
+                        "line_number": 795,
+                        "method": "map",
+                        "class": "Illuminate\\Support\\Collection",
+                        "code_snippet": {
+                            "780": "    public function pluck($value, $key = null)",
+                            "781": "    {",
+                            "782": "        return new static(Arr::pluck($this-\u003Eitems, $value, $key));",
+                            "783": "    }",
+                            "784": "",
+                            "785": "    \/**",
+                            "786": "     * Run a map over each of the items.",
+                            "787": "     *",
+                            "788": "     * @template TMapValue",
+                            "789": "     *",
+                            "790": "     * @param  callable(TValue, TKey): TMapValue  $callback",
+                            "791": "     * @return static\u003CTKey, TMapValue\u003E",
+                            "792": "     *\/",
+                            "793": "    public function map(callable $callback)",
+                            "794": "    {",
+                            "795": "        return new static(Arr::map($this-\u003Eitems, $callback));",
+                            "796": "    }",
+                            "797": "",
+                            "798": "    \/**",
+                            "799": "     * Run a dictionary map over the items.",
+                            "800": "     *",
+                            "801": "     * The callback should return an associative array with a single key\/value pair.",
+                            "802": "     *",
+                            "803": "     * @template TMapToDictionaryKey of array-key",
+                            "804": "     * @template TMapToDictionaryValue",
+                            "805": "     *",
+                            "806": "     * @param  callable(TValue, TKey): array\u003CTMapToDictionaryKey, TMapToDictionaryValue\u003E  $callback",
+                            "807": "     * @return static\u003CTMapToDictionaryKey, array\u003Cint, TMapToDictionaryValue\u003E\u003E",
+                            "808": "     *\/",
+                            "809": "    public function mapToDictionary(callable $callback)"
+                        },
+                        "arguments": [{
+                            "name": "array",
+                            "value": ["object (App\\Models\\Pengajuan)"],
+                            "original_type": "array",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
-                        "line_number": 1048,
-                        "method": "resolve",
-                        "class": "Illuminate\\Foundation\\Application",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php",
+                        "line_number": 375,
+                        "method": "map",
+                        "class": "Illuminate\\Database\\Eloquent\\Collection",
                         "code_snippet": {
-                            "1033": "    \/**",
-                            "1034": "     * Resolve the given type from the container.",
-                            "1035": "     *",
-                            "1036": "     * @param  string  $abstract",
-                            "1037": "     * @param  array  $parameters",
-                            "1038": "     * @param  bool  $raiseEvents",
-                            "1039": "     * @return mixed",
-                            "1040": "     *",
-                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
-                            "1043": "     *\/",
-                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)",
-                            "1045": "    {",
-                            "1046": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
-                            "1047": "",
-                            "1048": "        return parent::resolve($abstract, $parameters, $raiseEvents);",
-                            "1049": "    }",
-                            "1050": "",
-                            "1051": "    \/**",
-                            "1052": "     * Load the deferred provider if the given type is a deferred service and the instance has not been loaded.",
-                            "1053": "     *",
-                            "1054": "     * @param  string  $abstract",
-                            "1055": "     * @return void",
-                            "1056": "     *\/",
-                            "1057": "    protected function loadDeferredProviderIfNeeded($abstract)",
-                            "1058": "    {",
-                            "1059": "        if ($this-\u003EisDeferredService($abstract) \u0026\u0026 ! isset($this-\u003Einstances[$abstract])) {",
-                            "1060": "            $this-\u003EloadDeferredProvider($abstract);",
-                            "1061": "        }",
-                            "1062": "    }"
+                            "360": "        }",
+                            "361": "",
+                            "362": "        return new static(array_values($dictionary));",
+                            "363": "    }",
+                            "364": "",
+                            "365": "    \/**",
+                            "366": "     * Run a map over each of the items.",
+                            "367": "     *",
+                            "368": "     * @template TMapValue",
+                            "369": "     *",
+                            "370": "     * @param  callable(TModel, TKey): TMapValue  $callback",
+                            "371": "     * @return \\Illuminate\\Support\\Collection\u003CTKey, TMapValue\u003E|static\u003CTKey, TMapValue\u003E",
+                            "372": "     *\/",
+                            "373": "    public function map(callable $callback)",
+                            "374": "    {",
+                            "375": "        $result = parent::map($callback);",
+                            "376": "",
+                            "377": "        return $result-\u003Econtains(fn ($item) =\u003E ! $item instanceof Model) ? $result-\u003EtoBase() : $result;",
+                            "378": "    }",
+                            "379": "",
+                            "380": "    \/**",
+                            "381": "     * Run an associative map over each of the items.",
+                            "382": "     *",
+                            "383": "     * The callback should return an associative array with a single key \/ value pair.",
+                            "384": "     *",
+                            "385": "     * @template TMapWithKeysKey of array-key",
+                            "386": "     * @template TMapWithKeysValue",
+                            "387": "     *",
+                            "388": "     * @param  callable(TModel, TKey): array\u003CTMapWithKeysKey, TMapWithKeysValue\u003E  $callback",
+                            "389": "     * @return \\Illuminate\\Support\\Collection\u003CTMapWithKeysKey, TMapWithKeysValue\u003E|static\u003CTMapWithKeysKey, TMapWithKeysValue\u003E"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "raiseEvents",
-                            "value": true,
-                            "original_type": "bool",
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
                         "application_frame": false
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                        "line_number": 755,
-                        "method": "make",
-                        "class": "Illuminate\\Container\\Container",
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php",
+                        "line_number": 36,
+                        "method": "getDosenDetail",
+                        "class": "App\\Http\\Controllers\\DaftarAkunAdminController",
                         "code_snippet": {
-                            "740": "    {",
-                            "741": "        return $this-\u003Emake($abstract, $parameters);",
-                            "742": "    }",
-                            "743": "",
-                            "744": "    \/**",
-                            "745": "     * Resolve the given type from the container.",
-                            "746": "     *",
-                            "747": "     * @param  string  $abstract",
-                            "748": "     * @param  array  $parameters",
-                            "749": "     * @return mixed",
-                            "750": "     *",
-                            "751": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "752": "     *\/",
-                            "753": "    public function make($abstract, array $parameters = [])",
-                            "754": "    {",
-                            "755": "        return $this-\u003Eresolve($abstract, $parameters);",
-                            "756": "    }",
-                            "757": "",
-                            "758": "    \/**",
-                            "759": "     * {@inheritdoc}",
-                            "760": "     *",
-                            "761": "     * @return mixed",
-                            "762": "     *\/",
-                            "763": "    public function get(string $id)",
-                            "764": "    {",
-                            "765": "        try {",
-                            "766": "            return $this-\u003Eresolve($id);",
-                            "767": "        } catch (Exception $e) {",
-                            "768": "            if ($this-\u003Ehas($id) || $e instanceof CircularDependencyException) {",
-                            "769": "                throw $e;"
+                            "21": "    }",
+                            "22": "",
+                            "23": "    public function getDosenDetail($id)",
+                            "24": "    {",
+                            "25": "        try {",
+                            "26": "            $dosen = Dosen::findOrFail($id);",
+                            "27": "",
+                            "28": "            \/\/ Get supervised students from approved pengajuan",
+                            "29": "            $mahasiswaBimbingan = Pengajuan::where(\u0027id_dosen\u0027, $id)",
+                            "30": "                -\u003Ewhere(\u0027status\u0027, \u0027diterima\u0027)",
+                            "31": "                -\u003Ewith([\u0027mahasiswa\u0027 =\u003E function($query) {",
+                            "32": "                    $query-\u003Eselect(\u0027id_mahasiswa\u0027, \u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027);",
+                            "33": "                }])",
+                            "34": "                -\u003Eget()",
+                            "35": "                -\u003Eunique(\u0027id_mahasiswa\u0027)",
+                            "36": "                -\u003Emap(function($pengajuan) {",
+                            "37": "                    return [",
+                            "38": "                        \u0027nama\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enama,",
+                            "39": "                        \u0027npm\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Enpm,",
+                            "40": "                        \u0027angkatan\u0027 =\u003E $pengajuan-\u003Emahasiswa-\u003Eangkatan,",
+                            "41": "                        \u0027dosen_ke\u0027 =\u003E $pengajuan-\u003Edosen_ke,",
+                            "42": "                        \u0027topik_ta\u0027 =\u003E $pengajuan-\u003Etopik_ta,",
+                            "43": "                        \u0027bidang\u0027 =\u003E $pengajuan-\u003Ebidang,",
+                            "44": "                        \u0027tanggal_pengajuan\u0027 =\u003E $pengajuan-\u003Ecreated_at-\u003Eformat(\u0027d\/m\/Y\u0027)",
+                            "45": "                    ];",
+                            "46": "                });",
+                            "47": "",
+                            "48": "            \/\/ Get students under supervision (dosen wali)",
+                            "49": "            $mahasiswaWali = Mahasiswa::where(\u0027id_dosen_wali\u0027, $id)",
+                            "50": "                -\u003Eselect(\u0027nama\u0027, \u0027npm\u0027, \u0027angkatan\u0027)"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "raiseEvents",
-                            "value": true,
-                            "original_type": "bool",
+                            "name": "callback",
+                            "value": "D:\\Projects\\SIBITA\\app\\Http\\Controllers\\DaftarAkunAdminController.php:36-46",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }],
-                        "application_frame": false
+                        "application_frame": true
                     }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
-                        "line_number": 1030,
-                        "method": "make",
-                        "class": "Illuminate\\Foundation\\Application",
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+                        "line_number": 47,
+                        "method": "dispatch",
+                        "class": "Illuminate\\Routing\\ControllerDispatcher",
                         "code_snippet": {
-                            "1015": "    }",
-                            "1016": "",
-                            "1017": "    \/**",
-                            "1018": "     * Resolve the given type from the container.",
-                            "1019": "     *",
-                            "1020": "     * @param  string  $abstract",
-                            "1021": "     * @param  array  $parameters",
-                            "1022": "     * @return mixed",
-                            "1023": "     *",
-                            "1024": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1025": "     *\/",
-                            "1026": "    public function make($abstract, array $parameters = [])",
-                            "1027": "    {",
-                            "1028": "        $this-\u003EloadDeferredProviderIfNeeded($abstract = $this-\u003EgetAlias($abstract));",
-                            "1029": "",
-                            "1030": "        return parent::make($abstract, $parameters);",
-                            "1031": "    }",
-                            "1032": "",
-                            "1033": "    \/**",
-                            "1034": "     * Resolve the given type from the container.",
-                            "1035": "     *",
-                            "1036": "     * @param  string  $abstract",
-                            "1037": "     * @param  array  $parameters",
-                            "1038": "     * @param  bool  $raiseEvents",
-                            "1039": "     * @return mixed",
-                            "1040": "     *",
-                            "1041": "     * @throws \\Illuminate\\Contracts\\Container\\BindingResolutionException",
-                            "1042": "     * @throws \\Illuminate\\Contracts\\Container\\CircularDependencyException",
-                            "1043": "     *\/",
-                            "1044": "    protected function resolve($abstract, $parameters = [], $raiseEvents = true)"
+                            "32": "     * Dispatch a request to a given controller and method.",
+                            "33": "     *",
+                            "34": "     * @param  \\Illuminate\\Routing\\Route  $route",
+                            "35": "     * @param  mixed  $controller",
+                            "36": "     * @param  string  $method",
+                            "37": "     * @return mixed",
+                            "38": "     *\/",
+                            "39": "    public function dispatch(Route $route, $controller, $method)",
+                            "40": "    {",
+                            "41": "        $parameters = $this-\u003EresolveParameters($route, $controller, $method);",
+                            "42": "",
+                            "43": "        if (method_exists($controller, \u0027callAction\u0027)) {",
+                            "44": "            return $controller-\u003EcallAction($method, $parameters);",
+                            "45": "        }",
+                            "46": "",
+                            "47": "        return $controller-\u003E{$method}(...array_values($parameters));",
+                            "48": "    }",
+                            "49": "",
+                            "50": "    \/**",
+                            "51": "     * Resolve the parameters for the controller.",
+                            "52": "     *",
+                            "53": "     * @param  \\Illuminate\\Routing\\Route  $route",
+                            "54": "     * @param  mixed  $controller",
+                            "55": "     * @param  string  $method",
+                            "56": "     * @return array",
+                            "57": "     *\/",
+                            "58": "    protected function resolveParameters(Route $route, $controller, $method)",
+                            "59": "    {",
+                            "60": "        return $this-\u003EresolveClassMethodDependencies(",
+                            "61": "            $route-\u003EparametersWithoutNulls(), $controller, $method"
                         },
                         "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
+                            "name": "id",
+                            "value": "1",
                             "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -5877,63 +6073,11 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 285,
-                        "method": "getController",
-                        "class": "Illuminate\\Routing\\Route",
-                        "code_snippet": {
-                            "270": "",
-                            "271": "    \/**",
-                            "272": "     * Get the controller instance for the route.",
-                            "273": "     *",
-                            "274": "     * @return mixed",
-                            "275": "     *\/",
-                            "276": "    public function getController()",
-                            "277": "    {",
-                            "278": "        if (! $this-\u003EisControllerAction()) {",
-                            "279": "            return null;",
-                            "280": "        }",
-                            "281": "",
-                            "282": "        if (! $this-\u003Econtroller) {",
-                            "283": "            $class = $this-\u003EgetControllerClass();",
-                            "284": "",
-                            "285": "            $this-\u003Econtroller = $this-\u003Econtainer-\u003Emake(ltrim($class, \u0027\\\\\u0027));",
-                            "286": "        }",
-                            "287": "",
-                            "288": "        return $this-\u003Econtroller;",
-                            "289": "    }",
-                            "290": "",
-                            "291": "    \/**",
-                            "292": "     * Get the controller class used for the route.",
-                            "293": "     *",
-                            "294": "     * @return string|null",
-                            "295": "     *\/",
-                            "296": "    public function getControllerClass()",
-                            "297": "    {",
-                            "298": "        return $this-\u003EisControllerAction() ? $this-\u003EparseControllerCallback()[0] : null;",
-                            "299": "    }"
-                        },
-                        "arguments": [{
-                            "name": "abstract",
-                            "value": "SeminarController",
-                            "original_type": "string",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }, {
-                            "name": "parameters",
-                            "value": [],
-                            "original_type": "array",
-                            "passed_by_reference": false,
-                            "is_variadic": false,
-                            "truncated": false
-                        }],
-                        "application_frame": false
-                    }, {
-                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                        "line_number": 267,
+                        "line_number": 266,
                         "method": "runController",
                         "class": "Illuminate\\Routing\\Route",
                         "code_snippet": {
+                            "251": "     *\/",
                             "252": "    protected function isSerializedClosure()",
                             "253": "    {",
                             "254": "        return RouteAction::containsSerializedClosure($this-\u003Eaction);",
@@ -5962,10 +6106,30 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                             "277": "    {",
                             "278": "        if (! $this-\u003EisControllerAction()) {",
                             "279": "            return null;",
-                            "280": "        }",
-                            "281": ""
+                            "280": "        }"
                         },
-                        "arguments": [],
+                        "arguments": [{
+                            "name": "route",
+                            "value": "object",
+                            "original_type": "Illuminate\\Routing\\Route",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "controller",
+                            "value": "object",
+                            "original_type": "App\\Http\\Controllers\\DaftarAkunAdminController",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "method",
+                            "value": "getDosenDetail",
+                            "original_type": "string",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
                         "application_frame": false
                     }, {
                         "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
@@ -6084,8 +6248,103 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": false
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\app\\Http\\Middleware\\AdminMiddleware.php",
+                        "line_number": 20,
+                        "method": "handle",
+                        "class": "App\\Http\\Middleware\\AdminMiddleware",
+                        "code_snippet": {
+                            "1": "\u003C?php",
+                            "2": "",
+                            "3": "namespace App\\Http\\Middleware;",
+                            "4": "",
+                            "5": "use Closure;",
+                            "6": "use Illuminate\\Http\\Request;",
+                            "7": "use Illuminate\\Support\\Facades\\Auth;",
+                            "8": "use Symfony\\Component\\HttpFoundation\\Response;",
+                            "9": "",
+                            "10": "class AdminMiddleware",
+                            "11": "{",
+                            "12": "    \/**",
+                            "13": "     * Handle an incoming request.",
+                            "14": "     *",
+                            "15": "     * @param  \\Closure(\\Illuminate\\Http\\Request): (\\Symfony\\Component\\HttpFoundation\\Response)  $next",
+                            "16": "     *\/",
+                            "17": "    public function handle(Request $request, Closure $next): Response",
+                            "18": "    {",
+                            "19": "        if (Auth::guard(\u0027admin\u0027)-\u003Echeck()) {",
+                            "20": "            return $next($request);",
+                            "21": "        }",
+                            "22": "",
+                            "23": "        return redirect(\u0027\/login\u0027)-\u003EwithErrors([\u0027Akses ditolak\u0027]);",
+                            "24": "    }",
+                            "25": "}",
+                            "26": ""
+                        },
+                        "arguments": [{
+                            "name": "arg0",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
+                            "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }],
+                        "application_frame": true
+                    }, {
+                        "file": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+                        "line_number": 183,
+                        "method": "Illuminate\\Pipeline\\{closure}",
+                        "class": "Illuminate\\Pipeline\\Pipeline",
+                        "code_snippet": {
+                            "168": "",
+                            "169": "                        \/\/ If the pipe is a string we will parse the string and resolve the class out",
+                            "170": "                        \/\/ of the dependency injection container. We can then build a callable and",
+                            "171": "                        \/\/ execute the pipe function giving in the parameters that are required.",
+                            "172": "                        $pipe = $this-\u003EgetContainer()-\u003Emake($name);",
+                            "173": "",
+                            "174": "                        $parameters = array_merge([$passable, $stack], $parameters);",
+                            "175": "                    } else {",
+                            "176": "                        \/\/ If the pipe is already an object we\u0027ll just make a callable and pass it to",
+                            "177": "                        \/\/ the pipe as-is. There is no need to do any extra parsing and formatting",
+                            "178": "                        \/\/ since the object we\u0027re given was already a fully instantiated object.",
+                            "179": "                        $parameters = [$passable, $stack];",
+                            "180": "                    }",
+                            "181": "",
+                            "182": "                    $carry = method_exists($pipe, $this-\u003Emethod)",
+                            "183": "                                    ? $pipe-\u003E{$this-\u003Emethod}(...$parameters)",
+                            "184": "                                    : $pipe(...$parameters);",
+                            "185": "",
+                            "186": "                    return $this-\u003EhandleCarry($carry);",
+                            "187": "                } catch (Throwable $e) {",
+                            "188": "                    return $this-\u003EhandleException($passable, $e);",
+                            "189": "                }",
+                            "190": "            };",
+                            "191": "        };",
+                            "192": "    }",
+                            "193": "",
+                            "194": "    \/**",
+                            "195": "     * Parse full pipe string to get name and parameters.",
+                            "196": "     *",
+                            "197": "     * @param  string  $pipe"
+                        },
+                        "arguments": [{
+                            "name": "request",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
+                            "original_type": "Illuminate\\Http\\Request",
+                            "passed_by_reference": false,
+                            "is_variadic": false,
+                            "truncated": false
+                        }, {
+                            "name": "next",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
+                            "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
@@ -6130,7 +6389,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6176,14 +6435,14 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
                             "truncated": false
                         }, {
                             "name": "next",
-                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:142-148",
+                            "value": "D:\\Projects\\SIBITA\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php:159-190",
                             "original_type": "Closure",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6229,7 +6488,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6275,7 +6534,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6328,7 +6587,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6374,7 +6633,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6427,7 +6686,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6473,7 +6732,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6533,7 +6792,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6586,7 +6845,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6632,7 +6891,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6685,7 +6944,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6731,7 +6990,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6784,7 +7043,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6883,7 +7142,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                             "truncated": false
                         }, {
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6929,7 +7188,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -6982,7 +7241,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7028,7 +7287,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7074,7 +7333,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7120,7 +7379,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7166,7 +7425,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7219,7 +7478,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7272,7 +7531,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7318,7 +7577,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7371,7 +7630,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7424,7 +7683,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7470,7 +7729,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7523,7 +7782,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7569,7 +7828,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7622,7 +7881,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7668,7 +7927,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7721,7 +7980,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7767,7 +8026,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7820,7 +8079,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7866,7 +8125,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -7919,7 +8178,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "arg0",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8011,7 +8270,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8057,7 +8316,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8091,7 +8350,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         },
                         "arguments": [{
                             "name": "request",
-                            "value": "POST http:\/\/localhost:8000\/seminar\/update-status",
+                            "value": "GET http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "original_type": "Illuminate\\Http\\Request",
                             "passed_by_reference": false,
                             "is_variadic": false,
@@ -8134,60 +8393,54 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     }],
                     "context": {
                         "request": {
-                            "url": "http:\/\/localhost:8000\/seminar\/update-status",
+                            "url": "http:\/\/localhost:8000\/admin\/dosen\/1\/detail",
                             "ip": null,
-                            "method": "POST",
+                            "method": "GET",
                             "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36"
                         },
                         "request_data": {
                             "queryString": [],
-                            "body": {
-                                "id": 1,
-                                "status": "diterima",
-                                "alasan": ""
-                            },
+                            "body": [],
                             "files": []
                         },
                         "headers": {
                             "host": "localhost:8000",
                             "connection": "keep-alive",
-                            "content-length": "40",
                             "sec-ch-ua-platform": "\u0022Windows\u0022",
-                            "x-csrf-token": "\u003CCENSORED\u003E",
                             "user-agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
                             "sec-ch-ua": "\u0022Google Chrome\u0022;v=\u0022137\u0022, \u0022Chromium\u0022;v=\u0022137\u0022, \u0022Not\/A)Brand\u0022;v=\u002224\u0022",
-                            "content-type": "application\/json",
                             "sec-ch-ua-mobile": "?0",
                             "accept": "*\/*",
-                            "origin": "http:\/\/localhost:8000",
                             "sec-fetch-site": "same-origin",
                             "sec-fetch-mode": "cors",
                             "sec-fetch-dest": "empty",
-                            "referer": "http:\/\/localhost:8000\/requestdosen",
+                            "referer": "http:\/\/localhost:8000\/daftarakunadmin",
                             "accept-encoding": "gzip, deflate, br, zstd",
-                            "accept-language": "id-ID,id;q=0.9",
+                            "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
                             "cookie": "\u003CCENSORED\u003E"
                         },
                         "cookies": {
-                            "XSRF-TOKEN": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
-                            "laravel_session": "q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"
+                            "XSRF-TOKEN": "BW7QPfjFm9qA9uxWobmUsc9qFlmNM8E0ZbCHGtuM",
+                            "laravel_session": "BcCiNjapVwVnN75tXyvTmSmtsm77SYs9s5YL0Bhk"
                         },
                         "session": {
-                            "_token": "rQI9OPKMzD2rjnsJo3BMm4EC6PVSHbn7oXh20VHf",
+                            "_token": "BW7QPfjFm9qA9uxWobmUsc9qFlmNM8E0ZbCHGtuM",
                             "_flash": {
                                 "old": [],
                                 "new": []
                             },
                             "_previous": {
-                                "url": "http:\/\/localhost:8000\/requestdosen"
+                                "url": "http:\/\/localhost:8000\/daftarakunadmin"
                             },
-                            "login_dosen_59ba36addc2b2f9401580f014c7f58ea4e30989d": 2
+                            "login_admin_59ba36addc2b2f9401580f014c7f58ea4e30989d": 1
                         },
                         "route": {
-                            "route": "seminar.updateStatus",
-                            "routeParameters": [],
-                            "controllerAction": "SeminarController@updateStatus",
-                            "middleware": ["web"]
+                            "route": "admin.dosen.detail",
+                            "routeParameters": {
+                                "id": "1"
+                            },
+                            "controllerAction": "App\\Http\\Controllers\\DaftarAkunAdminController@getDosenDetail",
+                            "middleware": ["web", "admin"]
                         },
                         "env": {
                             "php_version": "8.2.12",
@@ -8201,10 +8454,34 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                         "logs": [],
                         "queries": [{
                             "sql": "select * from `sessions` where `id` = ? limit 1",
-                            "time": 11.39,
+                            "time": 2.91,
                             "connection_name": "mysql",
-                            "bindings": ["q1KO9U5XTVWweDr2uBbDxt0KTkhcznhv4xk1QLHC"],
-                            "microtime": 1748661881.243109
+                            "bindings": ["BcCiNjapVwVnN75tXyvTmSmtsm77SYs9s5YL0Bhk"],
+                            "microtime": 1750069929.188708
+                        }, {
+                            "sql": "select * from `admins` where `id_admin` = ? limit 1",
+                            "time": 0.53,
+                            "connection_name": "mysql",
+                            "bindings": [1],
+                            "microtime": 1750069929.204058
+                        }, {
+                            "sql": "select * from `dosens` where `dosens`.`id_dosen` = ? limit 1",
+                            "time": 0.65,
+                            "connection_name": "mysql",
+                            "bindings": ["1"],
+                            "microtime": 1750069929.20817
+                        }, {
+                            "sql": "select * from `pengajuans` where `id_dosen` = ? and `status` = ?",
+                            "time": 0.63,
+                            "connection_name": "mysql",
+                            "bindings": ["1", "diterima"],
+                            "microtime": 1750069929.209887
+                        }, {
+                            "sql": "select `id_mahasiswa`, `nama`, `npm`, `angkatan` from `mahasiswas` where `mahasiswas`.`id_mahasiswa` in (1)",
+                            "time": 0.69,
+                            "connection_name": "mysql",
+                            "bindings": [],
+                            "microtime": 1750069929.213843
                         }]
                     },
                     "stage": "local",
@@ -8212,7 +8489,7 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
                     "open_frame_index": null,
                     "application_path": "D:\\Projects\\SIBITA",
                     "application_version": null,
-                    "tracking_uuid": "c4fa7ddd-b4f2-4c85-8ff9-3103d8bc48c4",
+                    "tracking_uuid": "86db0a17-fffb-49e2-8b64-d832387ae317",
                     "handled": null,
                     "overridden_grouping": null
                 },
@@ -8308,60 +8585,63 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
         </script>
         <!-- The noscript representation is for HTTP client like Postman that have JS disabled. -->
         <noscript>
-            <pre>Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
+            <pre>Error: Call to a member function format() on null in file D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php on line 44
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#0 [internal function]: App\Http\Controllers\DaftarAkunAdminController-&gt;App\Http\Controllers\{closure}(Object(App\Models\Pengajuan), 0)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Arr.php(609): array_map(Object(Closure), Array, Array)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Collection.php(795): Illuminate\Support\Arr::map(Array, Object(Closure))
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Collection.php(375): Illuminate\Support\Collection-&gt;map(Object(Closure))
+#4 D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php(36): Illuminate\Database\Eloquent\Collection-&gt;map(Object(Closure))
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\DaftarAkunAdminController-&gt;getDosenDetail(&#039;1 &#039;)
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\DaftarAkunAdminController), &#039;getDosenDetail &#039;)
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\app\Http\Middleware\AdminMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\AdminMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
 #32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#51 {main}
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#52 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#54 {main}
 </pre>
         </noscript>
         <div id="app"></div>
@@ -46505,60 +46785,63 @@ Illuminate\Contracts\Container\BindingResolutionException: Target class [Seminar
             window.ignite(window.data);
         </script>
         <!--
-Illuminate\Contracts\Container\BindingResolutionException: Target class [SeminarController] does not exist. in file D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php on line 946
+Error: Call to a member function format() on null in file D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php on line 44
 
-#0 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(819): Illuminate\Container\Container-&gt;build(&#039;SeminarControll...&#039;)
-#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1048): Illuminate\Container\Container-&gt;resolve(&#039;SeminarControll...&#039;, Array, true)
-#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Container\Container.php(755): Illuminate\Foundation\Application-&gt;resolve(&#039;SeminarControll...&#039;, Array)
-#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1030): Illuminate\Container\Container-&gt;make(&#039;SeminarControll...&#039;, Array)
-#4 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(285): Illuminate\Foundation\Application-&gt;make(&#039;SeminarControll...&#039;)
-#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(267): Illuminate\Routing\Route-&gt;getController()
-#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
-#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
-#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
-#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#10 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
-#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
-#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
-#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
-#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
-#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
-#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#0 [internal function]: App\Http\Controllers\DaftarAkunAdminController-&gt;App\Http\Controllers\{closure}(Object(App\Models\Pengajuan), 0)
+#1 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Arr.php(609): array_map(Object(Closure), Array, Array)
+#2 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Collections\Collection.php(795): Illuminate\Support\Arr::map(Array, Object(Closure))
+#3 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Collection.php(375): Illuminate\Support\Collection-&gt;map(Object(Closure))
+#4 D:\Projects\SIBITA\app\Http\Controllers\DaftarAkunAdminController.php(36): Illuminate\Database\Eloquent\Collection-&gt;map(Object(Closure))
+#5 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\DaftarAkunAdminController-&gt;getDosenDetail(&#039;1&#039;)
+#6 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\DaftarAkunAdminController), &#039;getDosenDetail&#039;)
+#7 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route-&gt;runController()
+#8 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route-&gt;run()
+#9 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Routing\Router-&gt;Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#10 D:\Projects\SIBITA\app\Http\Middleware\AdminMiddleware.php(20): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): App\Http\Middleware\AdminMiddleware-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Routing\Middleware\SubstituteBindings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\View\Middleware\ShareErrorsFromSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession-&gt;handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#20 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Session\Middleware\StartSession-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Cookie\Middleware\EncryptCookies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#27 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#28 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#29 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#30 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#31 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(144): Illuminate\Foundation\Http\Kernel-&gt;Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
 #32 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
-#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
-#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
-#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
-#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
-#49 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
-#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
-#51 {main}
+#33 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\TrimStrings-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\ValidatePostSize-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\HandleCors-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Http\Middleware\TrustProxies-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(183): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks-&gt;handle(Object(Illuminate\Http\Request), Object(Closure))
+#48 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(119): Illuminate\Pipeline\Pipeline-&gt;Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#49 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#50 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#51 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1190): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#52 D:\Projects\SIBITA\public\index.php(17): Illuminate\Foundation\Application-&gt;handleRequest(Object(Illuminate\Http\Request))
+#53 D:\Projects\SIBITA\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php(23): require_once(&#039;D:\\Projects\\SIB...&#039;)
+#54 {main}
 -->
     </body>
 </html>

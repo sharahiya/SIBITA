@@ -26,11 +26,16 @@ class DashboardController extends Controller
         $pengajuan2 = $pengajuan->where('dosen_ke', 2)->first();
         $dospem1 = $pengajuan1?->dosenPembimbing1 ?? null;
         $dospem2 = $pengajuan2?->dosenPembimbing2 ?? null;
+
+        // Ambil semua penguji (termasuk penguji 3 yang opsional)
         $penguji1 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
             ->where('urutan', 1)
             ->first() ?? null;
         $penguji2 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
             ->where('urutan', 2)
+            ->first() ?? null;
+        $penguji3 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->where('urutan', 3)
             ->first() ?? null;
 
         $seminars = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->get();
@@ -67,7 +72,7 @@ class DashboardController extends Controller
 
         if(isset($penguji1)){
             $status[] = [
-                'tanggal' => optional($penguji1->created_at)->format('d F y'),
+                'tanggal' => optional($penguji1->created_at)->format('d F Y'),
                 'judul' => 'Penetapan Penguji 1',
                 'deskripsi' => 'Penguji 1 telah ditetapkan oleh koordinator TA'
             ];
@@ -75,9 +80,18 @@ class DashboardController extends Controller
 
         if(isset($penguji2)){
             $status[] = [
-                'tanggal' => optional($penguji2->created_at)->format('d F y'),
+                'tanggal' => optional($penguji2->created_at)->format('d F Y'),
                 'judul' => 'Penetapan Penguji 2',
                 'deskripsi' => 'Penguji 2 telah ditetapkan oleh koordinator TA'
+            ];
+        }
+
+        // Tambahkan status untuk penguji 3 jika ada
+        if(isset($penguji3)){
+            $status[] = [
+                'tanggal' => optional($penguji3->created_at)->format('d F Y'),
+                'judul' => 'Penetapan Penguji 3',
+                'deskripsi' => 'Penguji 3 (opsional) telah ditetapkan oleh koordinator TA'
             ];
         }
 
@@ -102,6 +116,7 @@ class DashboardController extends Controller
             'dospem2' => $dospem2,
             'penguji1' => $penguji1,
             'penguji2' => $penguji2,
+            'penguji3' => $penguji3, // Tambahkan penguji3 ke view
             'status' => $status,
             'mustChangePassword' => $mustChangePassword
         ]);

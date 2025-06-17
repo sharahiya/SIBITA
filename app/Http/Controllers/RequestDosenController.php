@@ -101,6 +101,9 @@ class RequestDosenController extends Controller
         $pembimbing->save();
     } else {
         $pengajuan->status = 'ditolak';
+        // Uncomment and fix this line if PengajuanSeminar has alasan_ditolak field
+        // $pengajuan->alasan_ditolak = $request->alasan;
+        $pengajuan->catatan = $request->alasan; // Use catatan field instead
         $pengajuan->save();
 
         // Simpan notifikasi penolakan
@@ -200,6 +203,12 @@ private function updatePengajuanBimbingan($request)
 
     // Update pengajuan status
     $pengajuan->status = $request->status;
+
+    // Add rejection reason if rejected
+    if ($request->status === 'ditolak' && $request->alasan) {
+        $pengajuan->alasan_ditolak = $request->alasan;
+    }
+
     $pengajuan->save();
 
     // If accepted, update or create pembimbing record

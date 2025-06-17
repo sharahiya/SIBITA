@@ -19,6 +19,7 @@ class Pengajuan extends Model
         'deskripsi_ta',
         'bidang',
         'status',
+        'alasan_ditolak',
         'tanggal_pengajuan'
     ];
 

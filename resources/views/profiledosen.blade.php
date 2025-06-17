@@ -25,17 +25,14 @@
                 <div class="flex items-center space-x-2 mt-1">
                     <input type="number" id="kuotaBimbingan" value="{{ $dosen->kuota_bimbingan }}" min="1"
                         class="border border-gray-300 text-gray-700 text-xs rounded-lg p-2 w-24 focus:ring-blue-500 focus:border-blue-500" disabled>
-                    <button id="editKuotaButton" class="px-3 py-2 bg-blue-800 text-white text-xs rounded-lg hover:bg-blue-600 transition">
-                        Edit
-                    </button>
                 </div>
             </div>
 
             <!-- Tombol Simpan untuk Kuota -->
             <div class="mt-4" id="saveButtonContainer" style="display: none;">
-                <button id="saveKuotaButton" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-700 text-xs">
+                {{-- <button id="saveKuotaButton" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-700 text-xs">
                     Simpan Kuota
-                </button>
+                </button> --}}
             </div>
 
             <!-- Input Link WhatsApp -->
@@ -83,7 +80,7 @@
                         <!-- Baris Mahasiswa -->
                         @php
                             $no = 1;
-                        @endphp 
+                        @endphp
                         @foreach($ajuanBimbingan as $index => $ajuan)
                         <tr class="bg-white even:bg-gray-50 border-b hover:bg-blue-50">
                             <td class="px-4 py-2 border border-gray-300 font-medium text-gray-900">{{ $no++ }}</td>
@@ -97,10 +94,13 @@
                             <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id ? 'Dospem 1' : 'Dospem 2' }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->seminar_status ?? '-' }}</td>
                             <td class="px-4 py-2 border border-gray-300">
+                                @if($ajuan->mahasiswa->seminar_status == "Bimbingan")
                                 <button class="text-red-600 hover:underline" onclick="confirmRemove(this)" data-id="{{ $ajuan->id_pengajuan }}">
                                     Remove
                                 </button>
-                            </td>
+                                @else
+                                                                <span class="text-[10px] text-gray-500 italic">Sudah seminar</span>
+                                                                @endif    </td>
                         </tr>
                         @endforeach
                     </tbody>

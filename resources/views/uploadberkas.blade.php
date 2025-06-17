@@ -79,8 +79,8 @@
     <form action="#" method="POST" enctype="multipart/form-data" class="space-y-10">
 
       @foreach ([
-        'sempro' => 'Seminar Proposal (JPG/PNG)',
-        'semhas' => 'Seminar Hasil (JPG/PNG)',
+        'sempro' => 'Seminar Proposal (PDF)',
+        'semhas' => 'Seminar Hasil (PDF)',
         'sidang' => 'Sidang (PDF)'
       ] as $jenis => $label)
 
@@ -105,28 +105,87 @@
       <section x-data="{ modal: false }" class="border rounded-lg p-6 bg-gray-50">
         <h3 class="font-semibold text-blue-700 text-sm mb-2">{{ $label }}</h3>
 
+        {{-- Add notes below each title --}}
+        @if(!$data || !$data->lampiran)
+            @if($jenis === 'sempro' || $jenis === 'semhas')
+                <div class="mb-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+                    <div class="flex items-start">
+                        <svg class="w-4 h-4 text-blue-600 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div class="text-sm text-blue-800">
+                            <p class="font-medium">📋 Catatan Penting:</p>
+                            <p class="mt-1">
+                                @if($jenis === 'sempro')
+                                    Harap upload hasil catatan notulensi seminar proposal dalam bentuk PDF
+                                @elseif($jenis === 'semhas')
+                                    Harap upload hasil catatan notulensi seminar hasil dalam bentuk PDF
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @elseif($jenis === 'sidang')
+                <div class="mb-4 p-3 bg-green-50 border-l-4 border-green-400 rounded">
+                    <div class="flex items-start">
+                        <svg class="w-4 h-4 text-green-600 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div class="text-sm text-green-800">
+                            <p class="font-medium">🎓 Catatan Sidang:</p>
+                            <p class="mt-1">Upload dokumen laporan skripsi dalam bentuk PDF</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endif
+
         @if ($data && $data->lampiran)
         <div class="mb-2">
           ✅ <span class="text-gray-700">Sudah diunggah:</span>
           <button type="button" @click="modal = true" class="text-blue-600 underline hover:text-blue-800">
-            Lihat Berkas
+            Lihat Berkas PDF
           </button>
         </div>
 
         <!-- Modal -->
-<div x-show="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-4 max-w-3xl w-full h-[90vh] overflow-auto">
-      @if ($jenis === 'sidang')
-        <iframe src="{{ asset('storage/' . $data->lampiran) }}" type="application/pdf" class="w-full h-[80vh] rounded border"
-          frameborder="0"></iframe>
-      @else
-        <img src="{{ asset('storage/' . $data->lampiran) }}" alt="Lampiran {{ ucfirst($jenis) }}"
-          class="max-w-full max-h-[80vh] rounded mx-auto">
-      @endif
-      <button @click="modal = false"
-        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Tutup</button>
-    </div>
-  </div>
+        <div x-show="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div class="bg-white rounded-lg p-4 max-w-5xl w-full h-[90vh] overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-semibold text-gray-800">📄 {{ $label }}</h3>
+              <button @click="modal = false" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- PDF Viewer -->
+            <iframe
+              src="{{ asset('storage/' . $data->lampiran) }}"
+              type="application/pdf"
+              class="w-full h-[75vh] rounded border"
+              frameborder="0">
+              <p>Browser Anda tidak mendukung tampilan PDF.
+                <a href="{{ asset('storage/' . $data->lampiran) }}" target="_blank" class="text-blue-600 underline">
+                  Klik di sini untuk membuka PDF
+                </a>
+              </p>
+            </iframe>
+
+            <div class="mt-4 flex gap-2">
+              <button @click="modal = false"
+                class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 flex-1">
+                Tutup
+              </button>
+              <a href="{{ asset('storage/' . $data->lampiran) }}"
+                 target="_blank"
+                 class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-center flex-1">
+                Buka di Tab Baru
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- Status -->
         <p class="mt-3">
@@ -146,7 +205,7 @@
               <form action="{{ route('upload.berkas') }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap items-center gap-2 mt-4">
                 @csrf
                 <input type="hidden" name="jenis" value="{{ $jenis }}">
-                <input type="file" name="berkas" accept=".jpg,.jpeg,.png,.pdf"
+                <input type="file" name="berkas" accept=".pdf"
                   class="file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
                 <button type="submit"
                   class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">Ajukan Ulang</button>
@@ -159,7 +218,6 @@
         </p>
 
         <!-- Status Section -->
-        {{-- @if ($data && $data->lampiran) --}}
         <!-- Status Approvals -->
         <div class="mt-4 space-y-3 bg-gray-50 p-4 rounded-lg">
             <h4 class="font-medium text-gray-700">Status Persetujuan:</h4>
@@ -232,7 +290,6 @@
                 @endif
             </div>
         </div>
-    {{-- @endif --}}
 
         @else
         <!-- Upload Baru -->
@@ -253,7 +310,7 @@
 
           <input type="file"
             name="berkas"
-            accept="{{ $jenis === 'sidang' ? '.pdf' : '.jpg,.jpeg,.png' }}"
+            accept=".pdf"
             class="file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm
               {{ $canUpload
                 ? 'file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
@@ -267,7 +324,7 @@
                 ? 'hover:bg-blue-600'
                 : 'opacity-50 cursor-not-allowed' }}"
             {{ !$canUpload ? 'disabled' : '' }}>
-            Upload
+            Upload PDF
           </button>
         </form>
 

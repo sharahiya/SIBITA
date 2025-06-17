@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
         protected $table = 'seminars';
         protected $primaryKey = 'id_seminar';
-        protected $fillable = ['id_mahasiswa', 'tanggal_seminar', 'status', 'lampiran', 'jenis'];
+        protected $fillable = ['id_mahasiswa', 'tanggal_seminar', 'status', 'lampiran', 'jenis', 'nilai'];
         protected $casts = [
             'tanggal_seminar' => 'date'
         ];

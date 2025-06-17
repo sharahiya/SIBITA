@@ -29,7 +29,7 @@ use App\Http\Controllers\ResetPassController;
 use App\Http\Controllers\NotifikasiAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SeminarController;use App\Http\Controllers\DaftarAkunAdminController;
-
+use App\Http\Controllers\PenetapanPengujiController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -99,6 +99,18 @@ Route::middleware('admin')->group(function () {
     Route::post('/penetapan-penguji/{mahasiswa}', [PengujiAdminController::class, 'store'])->name('penetapan-penguji.store');
     Route::delete('/penguji-reset/{mahasiswa}', [PengujiAdminController::class, 'reset'])->name('penguji.reset');
 
+    Route::post('/admin/update-kuota', [DaftarAkunAdminController::class, 'updateKuota'])->name('admin.update-kuota');
+    // Route::post('/admin/seminar/{mahasiswaId}/grades', [PengujiAdminController::class, 'updateSeminarGrades'])->name('seminar.grades.update');
+    Route::post('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
+    Route::get('/admin/dosen/{id}/detail', [DaftarAkunAdminController::class, 'getDosenDetail'])->name('admin.dosen.detail');
+    Route::delete('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'hapusNilai'])->name('hapus.nilai');
+
+    Route::post('/penetapan-penguji/tambah-penguji3/{mahasiswa}', [PenetapanPengujiController::class, 'tambahPenguji3'])->name('penetapan-penguji.tambah-penguji3');
+    Route::delete('/penetapan-penguji/{mahasiswa}/hapus-penguji3', [PenetapanPengujiController::class, 'hapusPenguji3'])->name('penetapan-penguji.hapus-penguji3');
+    Route::put('/penetapan-penguji/{mahasiswa}/update-penguji3', [PenetapanPengujiController::class, 'updatePenguji3'])->name('penetapan-penguji.update-penguji3');
+    Route::get('/penetapan-penguji/{mahasiswa}/available-lecturers', [PenetapanPengujiController::class, 'getAvailableLecturers'])->name('penetapan-penguji.available-lecturers');
+
+    // Route::post('/admin/upload-nilai/{mahasiswaId}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
 
 });
 

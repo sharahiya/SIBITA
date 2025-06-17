@@ -95,7 +95,54 @@
                     @endif
                 </div>
             </div>
+
+            <!-- Penguji 3 (Opsional) - Tampilkan jika ada -->
+            @if ($penguji3)
+            <div class="bg-gray-50 p-3 rounded-md flex items-center gap-2 {{ $penguji1 && $penguji2 ? 'col-span-2' : '' }}">
+                <i class="text-gray-600 fas fa-user-check"></i>
+                <div>
+                    <h3 class="text-sm text-gray-700">
+                        Penguji 3
+                        <span class="text-gray-500 text-xs">(Opsional)</span>
+                    </h3>
+                    <p class="text-xs text-green-600 font-medium">{{ $penguji3->dosen->nama }}</p>
+                </div>
+            </div>
+            @endif
         </div>
+
+        <!-- Indikator status penguji -->
+        @if ($penguji1 && $penguji2)
+            <div class="mt-3 p-2 bg-green-50 border border-green-200 rounded-md">
+                <div class="flex items-center gap-2">
+                    <i class="text-green-600 fas fa-check-circle text-sm"></i>
+                    <p class="text-xs text-green-700">
+                        Tim penguji lengkap
+                        @if ($penguji3)
+                            (termasuk penguji 3 opsional)
+                        @endif
+                    </p>
+                </div>
+            </div>
+        @elseif ($penguji1 || $penguji2)
+            <div class="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
+                <div class="flex items-center gap-2">
+                    <i class="text-yellow-600 fas fa-clock text-sm"></i>
+                    <p class="text-xs text-yellow-700">
+                        Tim penguji belum lengkap - Menunggu penetapan koordinator TA
+                    </p>
+                </div>
+            </div>
+        @else
+            <div class="mt-3 p-2 bg-gray-50 border border-gray-200 rounded-md">
+                <div class="flex items-center gap-2">
+                    <i class="text-gray-500 fas fa-info-circle text-sm"></i>
+                    <p class="text-xs text-gray-600">
+                        Tim penguji belum ditetapkan
+                    </p>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -182,6 +229,40 @@
 </div>
 @endif
 
+<!-- Modal Success Password Changed -->
+<div id="successPasswordModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95">
+        <div class="flex items-center justify-center mb-4">
+            <div class="bg-green-100 rounded-full p-3">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Password Berhasil Diubah!</h2>
+            <p class="text-gray-600 text-sm">Password Anda telah berhasil diperbarui. Halaman akan dimuat ulang dalam beberapa detik.</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-4">
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-1000 ease-linear" style="width: 0%"></div>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-2">
+                <span id="countdown">3</span> detik
+            </p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button id="reloadNowBtn" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                Muat Ulang Sekarang
+            </button>
+        </div>
+    </div>
+</div>
+
 <style>
     @keyframes fade-in {
         from { opacity: 0; transform: translateY(-10px); }
@@ -193,12 +274,21 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
+    @keyframes modal-appear {
+        from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
     .animate-fade-in {
         animation: fade-in 1s ease-out;
     }
 
     .animate-slide-in {
         animation: slide-in 1s ease-out;
+    }
+
+    .animate-modal-appear {
+        animation: modal-appear 0.3s ease-out;
     }
 
     .delay-100 { animation-delay: 0.2s; }
@@ -212,6 +302,16 @@
         const form = document.getElementById('changePasswordForm');
         const errorDiv = document.getElementById('errorMessages');
         const loading = document.getElementById('loading');
+        const changePasswordModal = document.getElementById('changePasswordModal');
+        const successPasswordModal = document.getElementById('successPasswordModal');
+
+        // Success modal elements
+        const progressBar = document.getElementById('progressBar');
+        const countdown = document.getElementById('countdown');
+        const reloadNowBtn = document.getElementById('reloadNowBtn');
+
+        let countdownInterval;
+        let progressInterval;
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -235,9 +335,11 @@
                 loading.classList.add('hidden');
 
                 if (data.success) {
-                    // Success - reload page
-                    alert('Password berhasil diubah! Halaman akan dimuat ulang.');
-                    window.location.reload();
+                    // Hide change password modal
+                    changePasswordModal.classList.add('hidden');
+
+                    // Show success modal with animation
+                    showSuccessModal();
                 } else {
                     // Show errors
                     showErrors(data.message || 'Terjadi kesalahan');
@@ -250,6 +352,45 @@
             });
         });
 
+        function showSuccessModal() {
+            successPasswordModal.classList.remove('hidden');
+            const modalContent = successPasswordModal.querySelector('.bg-white');
+            modalContent.classList.add('animate-modal-appear');
+
+            // Start countdown and progress bar
+            let timeLeft = 3;
+            let progressWidth = 0;
+
+            // Update countdown every second
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdown.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    clearInterval(progressInterval);
+                    window.location.reload();
+                }
+            }, 1000);
+
+            // Update progress bar smoothly
+            progressInterval = setInterval(() => {
+                progressWidth += 100 / 30; // 30 steps over 3 seconds
+                if (progressWidth >= 100) {
+                    progressWidth = 100;
+                    clearInterval(progressInterval);
+                }
+                progressBar.style.width = progressWidth + '%';
+            }, 100);
+
+            // Reload now button
+            reloadNowBtn.addEventListener('click', function() {
+                clearInterval(countdownInterval);
+                clearInterval(progressInterval);
+                window.location.reload();
+            });
+        }
+
         function showErrors(message) {
             const errorList = errorDiv.querySelector('ul');
             errorList.innerHTML = `<li>${message}</li>`;
@@ -258,8 +399,23 @@
 
         // Prevent closing modal by clicking outside or ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            if (e.key === 'Escape' && !successPasswordModal.classList.contains('hidden')) {
+                // Allow ESC to reload immediately if success modal is shown
+                clearInterval(countdownInterval);
+                clearInterval(progressInterval);
+                window.location.reload();
+            } else if (e.key === 'Escape') {
                 e.preventDefault();
+            }
+        });
+
+        // Prevent closing success modal by clicking outside
+        successPasswordModal.addEventListener('click', function(e) {
+            if (e.target === successPasswordModal) {
+                // Click outside closes and reloads immediately
+                clearInterval(countdownInterval);
+                clearInterval(progressInterval);
+                window.location.reload();
             }
         });
         @endif

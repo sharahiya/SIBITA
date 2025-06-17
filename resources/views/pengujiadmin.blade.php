@@ -10,8 +10,8 @@
 @endif
 
     <div class="bg-white p-6 shadow-md rounded-lg w-full mx-auto">
-        <h1 class="text-base font-semibold text-gray-800">Tentukan Penguji dan Ruangan Seminar</h1>
-        <p class="text-sm text-gray-600">Tentukan penguji 1, penguji 2, untuk mahasiswa</p>
+        <h1 class="text-base font-semibold text-gray-800">Tentukan Penguji dan Upload Nilai</h1>
+        <p class="text-sm text-gray-600">Tentukan penguji 1, penguji 2, dan penguji 3 (opsional) untuk mahasiswa</p>
     </div>
 
     <!-- Form Penetapan Penguji dan Ruangan -->
@@ -21,6 +21,8 @@
             @csrf
             <input type="hidden" name="penguji_1" id="hiddenPenguji1">
             <input type="hidden" name="penguji_2" id="hiddenPenguji2">
+            <input type="hidden" name="penguji_3" id="hiddenPenguji3">
+
             <!-- Informasi Mahasiswa -->
             <div class="col-span-1 md:col-span-3">
             <p class="text-sm font-semibold text-gray-800">Nama Mahasiswa:</p>
@@ -53,7 +55,7 @@
 
           <!-- Pilihan Penguji 1 -->
 <div class="col-span-1 md:col-span-3">
-    <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 1</h3>
+    <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 1 <span class="text-red-500">*</span></h3>
     <div class="relative">
         <input id="searchPenguji1"
        type="text"
@@ -76,7 +78,7 @@
                 </thead>
                 <tbody id="penguji1Table">
                     @foreach ($dosenList as $dosen)
-                    <tr class="p-2 cursor-pointer" onclick="selectPenguji('searchPenguji1', '{{ $dosen->nama }}')">
+                    <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji1', '{{ $dosen->nama }}')">
                         <td class="px-4 py-2">{{ $dosen->nama }}</td>
                         <td class="px-4 py-2">{{ $dosen->nip }}</td>
                         <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
@@ -94,7 +96,7 @@
 
 <!-- Pilihan Penguji 2 -->
 <div class="col-span-1 md:col-span-3">
-    <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 2</h3>
+    <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">Pilih Penguji 2 <span class="text-red-500">*</span></h3>
     <div class="relative">
         <input id="searchPenguji2"
        type="text"
@@ -117,7 +119,7 @@
                 </thead>
                 <tbody id="penguji2Table">
                     @foreach ($dosenList as $dosen)
-                    <tr class="p-2 cursor-pointer" onclick="selectPenguji('searchPenguji2', '{{ $dosen->nama }}')">
+                    <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji2', '{{ $dosen->nama }}')">
                         <td class="px-4 py-2">{{ $dosen->nama }}</td>
                         <td class="px-4 py-2">{{ $dosen->nip }}</td>
                         <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
@@ -133,18 +135,293 @@
     </div>
 </div>
 
-@if(!$penguji1 && !$penguji2)
-<!-- Button -->
-<button class="col-span-1 md:col-span-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white p-2 text-xs rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-300">Tetapkan Penguji</button>
+<!-- Pilihan Penguji 3 (Opsional) -->
+<div class="col-span-1 md:col-span-3" id="penguji3Section" style="{{ $penguji3 || (!$penguji1 && !$penguji2) ? 'display: block;' : 'display: none;' }}">
+    <h3 class="text-sm font-semibold text-gray-800 mb-2 mt-4">
+        Pilih Penguji 3
+        <span class="text-gray-500 text-xs">(Opsional)</span>
+        @if(!$penguji3 && ($penguji1 || $penguji2))
+        <button type="button" onclick="removePenguji3()" class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+            Hapus
+        </button>
+        @endif
+    </h3>
+    <div class="relative">
+        <input id="searchPenguji3"
+       type="text"
+       placeholder="Cari Penguji 3..."
+       class="w-full p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500 mb-2"
+       value="{{ $penguji3 ? $penguji3->dosen->nama : '' }}"
+       {{ $penguji3 ? 'disabled' : '' }}>
+       @if (!$penguji3)
+        <div id="penguji3List" class="overflow-y-auto max-h-48 bg-white border rounded-lg shadow-lg z-10">
+            <table class="w-full text-xs text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2">Nama Dosen</th>
+                        <th class="px-4 py-2">NIP</th>
+                        <th class="px-4 py-2">Jabatan</th>
+                        <th class="px-4 py-2">Jumlah Perwalian</th>
+                        <th class="px-4 py-2">Jumlah Bimbingan</th>
+                        <th class="px-4 py-2">Jumlah Penguji</th>
+                    </tr>
+                </thead>
+                <tbody id="penguji3Table">
+                    @foreach ($dosenList as $dosen)
+                    <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji3', '{{ $dosen->nama }}')">
+                        <td class="px-4 py-2">{{ $dosen->nama }}</td>
+                        <td class="px-4 py-2">{{ $dosen->nip }}</td>
+                        <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
+                        <td class="px-4 py-2">{{ $dosen->jumlahMahasiswaPerwalian() ?? 0 }}</td>
+                        <td class="px-4 py-2">{{ $dosen->jumlahMahasiswaBimbingan() ?? 0 }}</td>
+                        <td class="px-4 py-2">{{ $dosen->jumlahMenjadiPenguji() ?? 0 }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
+    </div>
+
+    <!-- Save Button for Penguji 3 - Only show if penguji 1 and 2 are already selected -->
+    @if(($penguji1 && $penguji2) && !$penguji3)
+    <div id="savePenguji3Container" class="mt-3" style="display: none;">
+        <form method="POST" action="{{ route('penetapan-penguji.tambah-penguji3', $mahasiswa->id_mahasiswa) }}" id="formPenguji3">
+            @csrf
+            <input type="hidden" name="id_mahasiswa" value="{{ $mahasiswa->id_mahasiswa }}">
+            <input type="hidden" name="penguji_3" id="hiddenPenguji3Save">
+            <div class="flex items-center space-x-2">
+                <button type="submit" id="savePenguji3Btn" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 text-xs rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    💾 Simpan Penguji 3
+                </button>
+                <button type="button" onclick="cancelPenguji3()" class="bg-gray-500 text-white px-4 py-2 text-xs rounded-lg hover:bg-gray-600 transition-colors">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+    @endif
+</div>
+
+<!-- Tombol Tambah Penguji 3 - Only show if penguji 1 and 2 are selected but penguji 3 is not -->
+@if(($penguji1 && $penguji2) && !$penguji3)
+<div class="col-span-1 md:col-span-3" id="addPenguji3Button">
+    <button type="button" onclick="showPenguji3()" class="bg-green-500 text-white px-4 py-2 text-xs rounded-lg hover:bg-green-600 transition-colors">
+        + Tambah Penguji 3 (Opsional)
+    </button>
+</div>
+@endif
+
+@if(!$penguji1 && !$penguji2 && !$penguji3)
+<!-- Button Submit -->
+<button type="submit" class="col-span-1 md:col-span-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white p-2 text-xs rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-300">Tetapkan Penguji</button>
 @endif
 </form>
-@if($penguji1 && $penguji2)
-<form method="POST" action="{{ route('penguji.reset', $mahasiswa->id_mahasiswa) }}">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="col-span-1 md:col-span-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-2 text-xs rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-300 mt-3">Ganti Penguji</button>
-</form>
+
+@if($penguji1 || $penguji2 || $penguji3)
+<div class="mt-4 p-4 bg-gray-50 rounded-lg">
+    <h4 class="text-sm font-semibold text-gray-800 mb-3">Penguji yang Sudah Ditetapkan:</h4>
+    <div class="space-y-2">
+        @if($penguji1)
+        <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-700">Penguji 1: {{ $penguji1->dosen->nama }}</span>
+        </div>
+        @endif
+        @if($penguji2)
+        <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-700">Penguji 2: {{ $penguji2->dosen->nama }}</span>
+        </div>
+        @endif
+        @if($penguji3)
+        <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-700">Penguji 3: {{ $penguji3->dosen->nama }} <span class="text-gray-500">(Opsional)</span></span>
+        </div>
+        @endif
+    </div>
+
+    <form method="POST" action="{{ route('penguji.reset', $mahasiswa->id_mahasiswa) }}" class="mt-3">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-2 text-xs rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-300">Ganti Penguji</button>
+    </form>
+</div>
 @endif
+    </div>
+
+    <!-- Upload Nilai Section - Tampil hanya jika ada penguji -->
+    @if($penguji1 || $penguji2 || $penguji3)
+    <div class="bg-white p-6 shadow-md rounded-lg mt-4 mx-auto">
+        <h2 class="text-sm font-semibold text-gray-800 mb-4 border-b pb-2">📊 Upload Nilai Seminar & Sidang</h2>
+
+        <!-- Status Nilai yang Sudah Ada -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <!-- Seminar Proposal -->
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-sm font-medium text-gray-800">Seminar Proposal</h3>
+                    @if($seminarProposal && $seminarProposal->nilai)
+                        <div class="flex space-x-1">
+                            <button onclick="editNilai('proposal', {{ $seminarProposal->nilai }}, '{{ $seminarProposal->status }}')"
+                                    class="text-xs bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="hapusNilai('proposal', {{ $seminarProposal->id_seminar }})"
+                                    class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                                🗑️ Hapus
+                            </button>
+                        </div>
+                    @endif
+                </div>
+                @if($seminarProposal && $seminarProposal->nilai)
+                    <div class="text-xs text-green-700">
+                        <span class="font-medium">Nilai: {{ $seminarProposal->nilai }}</span><br>
+                        <span class="px-2 py-1 rounded text-white text-xs {{ $seminarProposal->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
+                            {{ $seminarProposal->status === 'diterima' ? 'Lulus' : 'Tidak Lulus' }}
+                        </span>
+                    </div>
+                @else
+                    <span class="text-xs text-gray-500">Belum ada nilai</span>
+                @endif
+            </div>
+
+            <!-- Seminar Hasil -->
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 {{ $seminarProposal && $seminarProposal->status === 'diterima' ? 'border-orange-400' : 'border-gray-300' }}">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-sm font-medium text-gray-800">Seminar Hasil</h3>
+                    @if($seminarHasil && $seminarHasil->nilai)
+                        <div class="flex space-x-1">
+                            <button onclick="editNilai('hasil', {{ $seminarHasil->nilai }}, '{{ $seminarHasil->status }}')"
+                                    class="text-xs bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="hapusNilai('hasil', {{ $seminarHasil->id_seminar }})"
+                                    class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                                🗑️ Hapus
+                            </button>
+                        </div>
+                    @endif
+                </div>
+                @if($seminarHasil && $seminarHasil->nilai)
+                    <div class="text-xs text-green-700">
+                        <span class="font-medium">Nilai: {{ $seminarHasil->nilai }}</span><br>
+                        <span class="px-2 py-1 rounded text-white text-xs {{ $seminarHasil->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
+                            {{ $seminarHasil->status === 'diterima' ? 'Lulus' : 'Tidak Lulus' }}
+                        </span>
+                    </div>
+                @elseif(!$seminarProposal || $seminarProposal->status !== 'diterima')
+                    <div class="text-xs text-red-500">
+                        <span>⚠️ Memerlukan Seminar Proposal lulus</span>
+                    </div>
+                @else
+                    <span class="text-xs text-gray-500">Belum ada nilai</span>
+                @endif
+            </div>
+
+            <!-- Sidang -->
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 {{ $seminarHasil && $seminarHasil->status === 'diterima' ? 'border-green-400' : 'border-gray-300' }}">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-sm font-medium text-gray-800">Sidang</h3>
+                    @if($seminarSidang && $seminarSidang->nilai)
+                        <div class="flex space-x-1">
+                            <button onclick="editNilai('sidang', {{ $seminarSidang->nilai }}, '{{ $seminarSidang->status }}')"
+                                    class="text-xs bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+                                ✏️ Edit
+                            </button>
+                            <button onclick="hapusNilai('sidang', {{ $seminarSidang->id_seminar }})"
+                                    class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                                🗑️ Hapus
+                            </button>
+                        </div>
+                    @endif
+                </div>
+                @if($seminarSidang && $seminarSidang->nilai)
+                    <div class="text-xs text-green-700">
+                        <span class="font-medium">Nilai: {{ $seminarSidang->nilai }}</span><br>
+                        <span class="px-2 py-1 rounded text-white text-xs {{ $seminarSidang->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
+                            {{ $seminarSidang->status === 'diterima' ? 'Lulus' : 'Tidak Lulus' }}
+                        </span>
+                    </div>
+                @elseif(!$seminarHasil || $seminarHasil->status !== 'diterima')
+                    <div class="text-xs text-red-500">
+                        <span>⚠️ Memerlukan Seminar Hasil lulus</span>
+                    </div>
+                @else
+                    <span class="text-xs text-gray-500">Belum ada nilai</span>
+                @endif
+            </div>
+        </div>
+
+        <!-- Form Upload/Edit Nilai -->
+        <form method="POST" action="{{ route('upload.nilai', $mahasiswa->id_mahasiswa) }}" id="formNilai" class="space-y-4">
+            @csrf
+            <input type="hidden" name="_method" value="POST" id="methodField">
+            <input type="hidden" name="seminar_id" id="seminarId">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Jenis Seminar/Sidang</label>
+                    <select name="jenis_seminar" id="jenisSeminar" class="w-full p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="proposal">Seminar Proposal</option>
+                        <option value="hasil" {{ !$seminarProposal || $seminarProposal->status !== 'diterima' ? 'disabled' : '' }}>
+                            Seminar Hasil
+                            @if(!$seminarProposal || $seminarProposal->status !== 'diterima')
+                                (Memerlukan Sempro Lulus)
+                            @endif
+                        </option>
+                        <option value="sidang" {{ !$seminarHasil || $seminarHasil->status !== 'diterima' ? 'disabled' : '' }}>
+                            Sidang
+                            @if(!$seminarHasil || $seminarHasil->status !== 'diterima')
+                                (Memerlukan Semhas Lulus)
+                            @endif
+                        </option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nilai</label>
+                    <input type="number" name="nilai" id="inputNilai" min="0" max="100" step="0.1"
+                           placeholder="0-100"
+                           class="w-full p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Status</label>
+                    <select name="status" id="inputStatus" class="w-full p-2 text-xs border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Pilih Status</option>
+                        <option value="lulus">Lulus</option>
+                        <option value="tidak_lulus">Tidak Lulus</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-2">
+                <button type="button" onclick="resetForm()" id="btnCancel" class="bg-gray-500 text-white px-6 py-2 text-xs rounded-lg hover:bg-gray-600 transition-colors" style="display: none;">
+                    Batal
+                </button>
+                <button type="submit" id="btnSubmit" class="bg-blue-600 text-white px-6 py-2 text-xs rounded-lg hover:bg-blue-700 transition-colors">
+                    Upload Nilai
+                </button>
+            </div>
+        </form>
+    </div>
+    @endif
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div id="modalHapusNilai" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-50">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Hapus Nilai</h3>
+            <p class="text-sm text-gray-600 mb-6">Apakah Anda yakin ingin menghapus nilai <span id="jenisNilaiHapus"></span>? Tindakan ini tidak dapat dibatalkan.</p>
+
+            <div class="flex justify-end space-x-2">
+                <button type="button" onclick="closeModalHapus()" class="bg-gray-300 text-gray-700 px-4 py-2 text-sm rounded-lg hover:bg-gray-400">
+                    Batal
+                </button>
+                <button type="button" onclick="confirmHapusNilai()" class="bg-red-600 text-white px-4 py-2 text-sm rounded-lg hover:bg-red-700">
+                    Hapus
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Edit Judul TA -->
@@ -159,56 +436,395 @@
         </div>
     </div>
 
+    <!-- Custom Alert Modal -->
+    <div id="alertModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300 scale-95" id="alertModalContent">
+            <!-- Modal Header -->
+            <div class="flex items-center mb-4" id="alertModalHeader">
+                <!-- Icon will be inserted here -->
+                <h3 class="text-lg font-semibold text-gray-800 ml-3" id="alertModalTitle">Peringatan</h3>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="mb-6">
+                <p class="text-gray-600 text-sm" id="alertModalMessage">Pesan akan ditampilkan di sini</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-end">
+                <button id="alertModalOkBtn" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Script untuk memilih dosen penguji -->
 <script>
+// Custom Alert Modal Functions
+function showAlert(message, type = 'warning', title = null) {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('alertModal');
+        const modalContent = document.getElementById('alertModalContent');
+        const modalHeader = document.getElementById('alertModalHeader');
+        const modalTitle = document.getElementById('alertModalTitle');
+        const modalMessage = document.getElementById('alertModalMessage');
+        const okBtn = document.getElementById('alertModalOkBtn');
+
+        // Clear any existing event listeners
+        // const newOkBtn = okBtn.cloneNode(true);
+        // okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+
+        // Set title
+        modalTitle.textContent = title || getDefaultTitle(type);
+
+        // Set message
+        modalMessage.textContent = message;
+
+        // Set icon and colors based on type
+        const iconHTML = getIconHTML(type);
+        const existingIcon = modalHeader.querySelector('div');
+        if (existingIcon) {
+            existingIcon.remove();
+        }
+        modalHeader.insertAdjacentHTML('afterbegin', iconHTML);
+
+        // Set button colors
+        // newOkBtn.className = `px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ${getButtonClass(type)}`;
+
+        // Show modal with animation
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }, 10);
+
+        // Handle OK button
+        const handleOk = () => {
+            closeModal(modal, modalContent);
+            resolve(true);
+            okBtn.removeEventListener('click', handleOk);
+            document.removeEventListener('keydown', handleEscape);
+        };
+
+        // Handle Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                handleOk();
+            }
+        };
+
+        okBtn.addEventListener('click', handleOk);
+        document.addEventListener('keydown', handleEscape);
+
+        // Close when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                handleOk();
+            }
+        });
+    });
+}
+
+function closeModal(modal, modalContent) {
+    modalContent.classList.remove('scale-100');
+    modalContent.classList.add('scale-95');
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+function getDefaultTitle(type) {
+    switch (type) {
+        case 'success': return 'Berhasil';
+        case 'error': return 'Error';
+        case 'warning': return 'Peringatan';
+        default: return 'Informasi';
+    }
+}
+
+function getIconHTML(type) {
+    switch (type) {
+        case 'success':
+            return `
+                <div class="bg-green-100 rounded-full p-2">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            `;
+        case 'error':
+            return `
+                <div class="bg-red-100 rounded-full p-2">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+            `;
+        case 'warning':
+            return `
+                <div class="bg-yellow-100 rounded-full p-2">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                </div>
+            `;
+        default:
+            return `
+                <div class="bg-blue-100 rounded-full p-2">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+            `;
+    }
+}
+
+function getButtonClass(type) {
+    switch (type) {
+        case 'success':
+            return 'bg-green-600 hover:bg-green-700 focus:ring-green-500';
+        case 'error':
+            return 'bg-red-600 hover:bg-red-700 focus:ring-red-500';
+        case 'warning':
+            return 'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500';
+        default:
+            return 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500';
+    }
+}
+
 function selectPenguji(inputId, dosenName) {
     const input = document.getElementById(inputId);
-    const otherInputId = inputId === 'searchPenguji1' ? 'searchPenguji2' : 'searchPenguji1';
-    const otherInput = document.getElementById(otherInputId);
+    const otherInputs = ['searchPenguji1', 'searchPenguji2', 'searchPenguji3'].filter(id => id !== inputId);
 
     // Jangan lakukan apapun jika input disabled
     if (input.disabled) return;
 
     // Cek apakah dosen sudah dipilih di input lainnya
-    if (otherInput.value === dosenName) {
-        alert('Dosen ini sudah dipilih sebagai penguji lain');
-        return;
+    for (let otherInputId of otherInputs) {
+        const otherInput = document.getElementById(otherInputId);
+        if (otherInput && otherInput.value === dosenName) {
+            showAlert('Dosen ini sudah dipilih sebagai penguji lain', 'warning', 'Penguji Duplikat');
+            return;
+        }
     }
 
     input.value = dosenName;
 
+    // Update hidden input
     if (inputId === 'searchPenguji1') {
         document.getElementById('hiddenPenguji1').value = dosenName;
-        // Update tampilan tabel penguji 2
-        updatePengujiTable('penguji2Table', dosenName);
     } else if (inputId === 'searchPenguji2') {
         document.getElementById('hiddenPenguji2').value = dosenName;
-        // Update tampilan tabel penguji 1
-        updatePengujiTable('penguji1Table', dosenName);
+    } else if (inputId === 'searchPenguji3') {
+        document.getElementById('hiddenPenguji3').value = dosenName;
+        // Also update the save form hidden input
+        const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+        if (hiddenPenguji3Save) {
+            hiddenPenguji3Save.value = dosenName;
+        }
+        // Enable save button and show save container
+        enablePenguji3Save();
+    }
+
+    // Refresh all tables to hide selected lecturers
+    refreshAllTables();
+
+    // Add visual feedback without modal
+    showSimpleNotification(`${dosenName} berhasil dipilih sebagai penguji`, 'success');
+}
+
+function enablePenguji3Save() {
+    const saveContainer = document.getElementById('savePenguji3Container');
+    const saveBtn = document.getElementById('savePenguji3Btn');
+
+    if (saveContainer && saveBtn) {
+        saveContainer.style.display = 'block';
+        saveBtn.disabled = false;
+        saveBtn.classList.remove('opacity-50', 'cursor-not-allowed');
     }
 }
-function updatePengujiTable(tableId, selectedDosen) {
+
+function showPenguji3() {
+    document.getElementById('penguji3Section').style.display = 'block';
+    document.getElementById('addPenguji3Button').style.display = 'none';
+
+    // Refresh tables to ensure proper exclusions
+    refreshAllTables();
+
+    // Simple notification instead of modal
+    showSimpleNotification('Penguji 3 telah ditambahkan (opsional)', 'success');
+}
+
+function removePenguji3() {
+    document.getElementById('penguji3Section').style.display = 'none';
+    document.getElementById('addPenguji3Button').style.display = 'block';
+    document.getElementById('searchPenguji3').value = '';
+    document.getElementById('hiddenPenguji3').value = '';
+
+    // Hide save container and reset
+    const saveContainer = document.getElementById('savePenguji3Container');
+    const saveBtn = document.getElementById('savePenguji3Btn');
+    const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+
+    if (saveContainer) saveContainer.style.display = 'none';
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    if (hiddenPenguji3Save) hiddenPenguji3Save.value = '';
+
+    // Refresh tables after removing penguji 3
+    refreshAllTables();
+
+    // Simple notification instead of modal
+    showSimpleNotification('Penguji 3 telah dihapus', 'success');
+}
+
+function cancelPenguji3() {
+    // Reset penguji 3 selection
+    document.getElementById('searchPenguji3').value = '';
+    document.getElementById('hiddenPenguji3').value = '';
+
+    // Hide save container
+    const saveContainer = document.getElementById('savePenguji3Container');
+    const saveBtn = document.getElementById('savePenguji3Btn');
+    const hiddenPenguji3Save = document.getElementById('hiddenPenguji3Save');
+
+    if (saveContainer) saveContainer.style.display = 'none';
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    if (hiddenPenguji3Save) hiddenPenguji3Save.value = '';
+
+    // Refresh tables
+    refreshAllTables();
+
+    showSimpleNotification('Pemilihan penguji 3 dibatalkan', 'warning');
+}
+
+// Handle form submission for penguji 3
+document.getElementById('formPenguji3')?.addEventListener('submit', function(e) {
+    const penguji3Name = document.getElementById('hiddenPenguji3Save').value;
+
+    console.log('Form submission - Penguji 3 name:', penguji3Name); // Debug log
+
+    if (!penguji3Name) {
+        e.preventDefault();
+        showAlert('Silakan pilih penguji 3 terlebih dahulu', 'warning', 'Penguji Belum Dipilih');
+        return;
+    }
+
+    // Show loading state
+    const saveBtn = document.getElementById('savePenguji3Btn');
+    if (saveBtn) {
+        saveBtn.innerHTML = '⏳ Menyimpan...';
+        saveBtn.disabled = true;
+    }
+
+    // Debug: Log form data before submission
+    const formData = new FormData(this);
+    console.log('Form data being submitted:');
+    for (let [key, value] of formData.entries()) {
+        console.log(key + ': ' + value);
+    }
+});
+
+// New function to refresh all tables based on current selections
+function refreshAllTables() {
+    const selectedPenguji = [
+        document.getElementById('searchPenguji1').value,
+        document.getElementById('searchPenguji2').value,
+        document.getElementById('searchPenguji3').value
+    ].filter(value => value.trim() !== '');
+
+    // Update Penguji 1 table
+    updateTableExclusions('penguji1Table', selectedPenguji, document.getElementById('searchPenguji1').value);
+
+    // Update Penguji 2 table
+    updateTableExclusions('penguji2Table', selectedPenguji, document.getElementById('searchPenguji2').value);
+
+    // Update Penguji 3 table
+    updateTableExclusions('penguji3Table', selectedPenguji, document.getElementById('searchPenguji3').value);
+}
+
+// New function to update table with exclusions
+function updateTableExclusions(tableId, selectedPenguji, currentValue) {
     const rows = document.querySelectorAll(`#${tableId} tr`);
     rows.forEach(row => {
         const namaDosen = row.querySelector('td')?.textContent;
-        if (namaDosen === selectedDosen) {
+        if (namaDosen && selectedPenguji.includes(namaDosen) && namaDosen !== currentValue) {
             row.style.display = 'none';
         } else {
-            row.style.display = '';
+            // Only show if it matches current search keyword
+            const searchInput = document.getElementById(tableId.replace('Table', '').replace('penguji', 'searchPenguji'));
+            const keyword = searchInput ? searchInput.value.toLowerCase() : '';
+
+            if (keyword === '' || row.innerText.toLowerCase().includes(keyword)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         }
     });
 }
-</script>
 
-    <!-- Script Pencarian untuk Penguji -->
-    <script>
-    document.getElementById('searchPenguji1').addEventListener('input', function() {
+// Simple notification function without modal
+function showSimpleNotification(message, type = 'success') {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.simple-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    const notification = document.createElement('div');
+    notification.className = `simple-notification fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm font-medium text-white transform transition-all duration-300 translate-x-full ${getNotificationClass(type)}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    // Slide in
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 10);
+
+    // Slide out and remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+function getNotificationClass(type) {
+    switch (type) {
+        case 'success':
+            return 'bg-green-600';
+        case 'error':
+            return 'bg-red-600';
+        case 'warning':
+            return 'bg-yellow-600';
+        default:
+            return 'bg-blue-600';
+    }
+}
+
+// Script Pencarian untuk Penguji - Updated to handle exclusions
+document.getElementById('searchPenguji1').addEventListener('input', function() {
     const keyword = this.value.toLowerCase();
-    const otherValue = document.getElementById('searchPenguji2').value;
+    const otherValues = [
+        document.getElementById('searchPenguji2').value,
+        document.getElementById('searchPenguji3').value
+    ];
     const items = document.querySelectorAll('#penguji1Table tr');
     items.forEach(item => {
         const namaDosen = item.querySelector('td')?.textContent;
-        if (namaDosen === otherValue) {
+        if (otherValues.includes(namaDosen)) {
             item.style.display = 'none';
         } else {
             item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
@@ -218,11 +834,14 @@ function updatePengujiTable(tableId, selectedDosen) {
 
 document.getElementById('searchPenguji2').addEventListener('input', function() {
     const keyword = this.value.toLowerCase();
-    const otherValue = document.getElementById('searchPenguji1').value;
+    const otherValues = [
+        document.getElementById('searchPenguji1').value,
+        document.getElementById('searchPenguji3').value
+    ];
     const items = document.querySelectorAll('#penguji2Table tr');
     items.forEach(item => {
         const namaDosen = item.querySelector('td')?.textContent;
-        if (namaDosen === otherValue) {
+        if (otherValues.includes(namaDosen)) {
             item.style.display = 'none';
         } else {
             item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
@@ -230,20 +849,60 @@ document.getElementById('searchPenguji2').addEventListener('input', function() {
     });
 });
 
+document.getElementById('searchPenguji3').addEventListener('input', function() {
+    const keyword = this.value.toLowerCase();
+    const otherValues = [
+        document.getElementById('searchPenguji1').value,
+        document.getElementById('searchPenguji2').value
+    ];
+    const items = document.querySelectorAll('#penguji3Table tr');
+    items.forEach(item => {
+        const namaDosen = item.querySelector('td')?.textContent;
+        if (otherValues.includes(namaDosen) && namaDosen) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = item.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+        }
+    });
+});
 
-        // Modal open & close
-        function openModal() {
+// Modal open & close
+function openModal() {
     document.getElementById('editModal').classList.remove('hidden');
 }
+
 function closeModal() {
     document.getElementById('editModal').classList.add('hidden');
 }
+
 function saveJudulTA() {
     const newJudul = document.getElementById('editJudulTA').value;
     document.getElementById('judulTAField').value = newJudul;
     closeModal();
+    showSimpleNotification('Judul TA berhasil diperbarui', 'success');
 }
 
-    </script>
+// Tab functionality
+function showTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
 
+    // Remove active class from all tabs
+    document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+        tab.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+        tab.classList.add('text-gray-600', 'hover:text-gray-800');
+    });
+
+    // Show selected tab content
+    document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+    // Add active class to selected tab
+    const activeTab = document.getElementById(`tab-${tabName}`);
+    activeTab.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+    activeTab.classList.remove('text-gray-600', 'hover:text-gray-800');
+}
+
+</script>
 @endsection

@@ -163,7 +163,7 @@
             .then(res => res.json())
             .then(data => {
                 container.innerHTML = '';
-                data.forEach(dosen => buatBarisDosen(dosen, container, 'dosenPembimbing', 'dosenAktif'));
+                data.forEach(dosen => buatBarisDosen(dosen, container, 'dosenPembimbing'));
                 div.classList.remove("hidden");
             });
     }
@@ -196,7 +196,7 @@
             .then(res => res.json())
             .then(data => {
                 container.innerHTML = '';
-                data.forEach(dosen => buatBarisDosen(dosen, container, 'dosenPembimbing2', 'dosenAktif'));
+                data.forEach(dosen => buatBarisDosen(dosen, container, 'dosenPembimbing2'));
                 dosen2Table.classList.remove("hidden");
                 instruksi.classList.add("hidden");
             })
@@ -206,33 +206,55 @@
             });
     }
 
-    function buatBarisDosen(dosen, container, nameInput, dosenAktifKey) {
-        const isDisabled = dosen.jumlahMahasiswaBimbingan >= dosen.kuota_bimbingan || dosen[dosenAktifKey];
+    function buatBarisDosen(dosen, container, nameInput) {
+        // Hanya disable jika kuota sudah penuh
+        const isDisabled = dosen.jumlah_pengajuan >= dosen.kuota_bimbingan;
 
         const tr = document.createElement("tr");
 
+        // Tambahkan styling untuk row yang disabled
+        if (isDisabled) {
+            tr.classList.add("opacity-50", "bg-gray-50");
+        }
+
         const tdCheckbox = document.createElement("td");
+        tdCheckbox.classList.add("text-center", "border", "px-2", "py-1");
+
         const input = document.createElement("input");
         input.type = "radio";
         input.name = nameInput;
         input.value = dosen.nama;
         input.classList.add("ml-2");
-        if (isDisabled) input.disabled = true;
-        tdCheckbox.classList.add("text-center");
+
+        if (isDisabled) {
+            input.disabled = true;
+            input.title = "Kuota bimbingan sudah penuh";
+        }
+
         tdCheckbox.appendChild(input);
 
         const tdNama = document.createElement("td");
+        tdNama.classList.add("border", "px-2", "py-1");
         tdNama.textContent = dosen.nama;
 
         const tdNip = document.createElement("td");
+        tdNip.classList.add("border", "px-2", "py-1");
         tdNip.textContent = dosen.nip;
 
         const tdJabatan = document.createElement("td");
+        tdJabatan.classList.add("border", "px-2", "py-1");
         tdJabatan.textContent = dosen.jabatan;
 
         const tdKuota = document.createElement("td");
+        tdKuota.classList.add("border", "px-2", "py-1");
         tdKuota.textContent = `${dosen.jumlah_pengajuan}/${dosen.kuota_bimbingan}`;
-        if (isDisabled) tdKuota.classList.add("text-gray-500");
+
+        if (isDisabled) {
+            tdKuota.classList.add("text-red-600", "font-semibold");
+            tdKuota.title = "Kuota penuh";
+        } else {
+            tdKuota.classList.add("text-green-600");
+        }
 
         tr.appendChild(tdCheckbox);
         tr.appendChild(tdNama);
@@ -263,7 +285,7 @@
             .then(res => res.json())
             .then(data => {
                 container.innerHTML = '';
-                data.forEach(dosen => buatBarisDosen(dosen, container, "dosenPembimbing2", 'dosenAktif'));
+                data.forEach(dosen => buatBarisDosen(dosen, container, "dosenPembimbing2"));
             })
             .catch(err => {
                 console.error("Gagal mencari dosen:", err);

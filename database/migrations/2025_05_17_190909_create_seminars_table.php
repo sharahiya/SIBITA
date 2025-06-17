@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('lampiran');
             $table->string('jenis');
+            $table->decimal('nilai', 5, 2)->nullable()->default(null); // Nullable for seminars without grades
             $table->timestamps();
 
             $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas')->onDelete('cascade');
