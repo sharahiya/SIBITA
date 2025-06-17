@@ -112,7 +112,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/penetapan-penguji/{mahasiswa}/available-lecturers', [PenetapanPengujiController::class, 'getAvailableLecturers'])->name('penetapan-penguji.available-lecturers');
 
     Route::match(['POST', 'PUT'], '/admin/upload-nilai/{mahasiswa}', [PengujiAdminController::class, 'uploadNilai'])->name('upload.nilai');
-    Route::delete('/admin/upload-nilai/{mahasiswa}', [PengujiAdminController::class, 'hapusNilai'])->name('hapus.nilai');
+    Route::delete('/admin/hapus-nilai/{mahasiswa}', [PengujiAdminController::class, 'hapusNilai'])->name('hapus.nilai');
 
 });
 

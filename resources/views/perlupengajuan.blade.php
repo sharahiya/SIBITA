@@ -1,7 +1,7 @@
 @extends('layouts.layoutmhs')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+<div class="min-h-screen  flex items-center justify-center px-4">
     <div class="max-w-4xl w-full">
         <!-- Main Card -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">

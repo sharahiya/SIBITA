@@ -269,7 +269,7 @@
                     </div>
                     @if($seminarProposal && $seminarProposal->nilai)
                         <div class="flex flex-col gap-1">
-                            <button onclick="editNilai('proposal', {{ $seminarProposal->nilai }}, '{{ $seminarProposal->status }}')"
+                            <button onclick="editNilai('proposal', {{ $seminarProposal->nilai }}, {{ $seminarProposal->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
                                 ✏️ Edit
                             </button>
@@ -288,8 +288,8 @@
                             <span class="text-lg font-bold text-blue-800">{{ $seminarProposal->nilai }}</span>
                         </div>
                         <div class="flex justify-center">
-                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarProposal->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarProposal->lulus === '1' ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarProposal->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
+                                {{ $seminarProposal->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -312,7 +312,7 @@
                     </div>
                     @if($seminarHasil && $seminarHasil->nilai)
                         <div class="flex flex-col gap-1">
-                            <button onclick="editNilai('hasil', {{ $seminarHasil->nilai }}, '{{ $seminarHasil->status }}')"
+                            <button onclick="editNilai('hasil', {{ $seminarHasil->nilai }}, {{ $seminarHasil->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
                                 ✏️ Edit
                             </button>
@@ -331,8 +331,8 @@
                             <span class="text-lg font-bold text-orange-800">{{ $seminarHasil->nilai }}</span>
                         </div>
                         <div class="flex justify-center">
-                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarHasil->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarHasil->lulus === '1' ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarHasil->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
+                                {{ $seminarHasil->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -362,7 +362,7 @@
                     </div>
                     @if($seminarSidang && $seminarSidang->nilai)
                         <div class="flex flex-col gap-1">
-                            <button onclick="editNilai('sidang', {{ $seminarSidang->nilai }}, '{{ $seminarSidang->status }}')"
+                            <button onclick="editNilai('sidang', {{ $seminarSidang->nilai }}, {{ $seminarSidang->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
                                 ✏️ Edit
                             </button>
@@ -381,8 +381,8 @@
                             <span class="text-lg font-bold text-green-800">{{ $seminarSidang->nilai }}</span>
                         </div>
                         <div class="flex justify-center">
-                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarSidang->status === 'diterima' ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarSidang->lulus === '1' ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                            <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarSidang->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
+                                {{ $seminarSidang->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -412,6 +412,7 @@
                 @csrf
                 <input type="hidden" name="_method" value="POST" id="methodField">
                 <input type="hidden" name="seminar_id" id="seminarId">
+                <input type="hidden" name="jenis_seminar" id="hiddenJenisSeminar">
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -419,15 +420,15 @@
                         <select name="jenis_seminar" id="jenisSeminar" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
                             <option value="">Pilih Jenis</option>
                             <option value="proposal">📝 Seminar Proposal</option>
-                            <option value="hasil" {{ !$seminarProposal || $seminarProposal->status !== 'diterima' ? 'disabled' : '' }}>
+                            <option value="hasil" {{ !$seminarProposal || $seminarProposal->lulus != 1 ? 'disabled' : '' }}>
                                 📊 Seminar Hasil
-                                @if(!$seminarProposal || $seminarProposal->lulus !== '1')
+                                @if(!$seminarProposal || $seminarProposal->lulus != 1)
                                     (Memerlukan Sempro Lulus)
                                 @endif
                             </option>
-                            <option value="sidang" {{ !$seminarHasil || $seminarHasil->status !== 'diterima' ? 'disabled' : '' }}>
+                            <option value="sidang" {{ !$seminarHasil || $seminarHasil->lulus != 1 ? 'disabled' : '' }}>
                                 🎓 Sidang
-                                @if(!$seminarHasil || $seminarHasil->lulus !== '1')
+                                @if(!$seminarHasil || $seminarHasil->lulus != 1)
                                     (Memerlukan Semhas Lulus)
                                 @endif
                             </option>
@@ -494,12 +495,25 @@
 // Variables for managing delete operation
 let currentDeleteData = null;
 
-// Function to edit nilai
-function editNilai(jenis, nilai, status) {
+// Helper function to get jenis text - ADD THIS FUNCTION
+function getJenisText(jenis) {
+    switch(jenis) {
+        case 'proposal': return 'Seminar Proposal';
+        case 'hasil': return 'Seminar Hasil';
+        case 'sidang': return 'Sidang';
+        default: return jenis;
+    }
+}
+
+// Function to edit nilai - Updated to properly set hidden field
+function editNilai(jenis, nilai, lulus) {
     // Fill form with existing data
     document.getElementById('jenisSeminar').value = jenis;
     document.getElementById('inputNilai').value = nilai;
-    document.getElementById('inputStatus').value = status === '1' ? 'lulus' : 'tidak_lulus';
+    document.getElementById('inputStatus').value = lulus == 1 ? 'lulus' : 'tidak_lulus';
+
+    // Set the hidden field for jenis_seminar (important for PUT requests)
+    document.getElementById('hiddenJenisSeminar').value = jenis;
 
     // Change form to edit mode
     document.getElementById('methodField').value = 'PUT';
@@ -528,7 +542,7 @@ function closeModalHapus() {
     currentDeleteData = null;
 }
 
-// Function to confirm delete
+// Function to confirm delete - Fixed route
 function confirmHapusNilai() {
     if (!currentDeleteData) return;
 
@@ -537,8 +551,8 @@ function confirmHapusNilai() {
     // Show loading
     showSimpleNotification('Menghapus nilai...', 'info');
 
-    // Send delete request
-    fetch(`{{ route('upload.nilai', $mahasiswa->id_mahasiswa) }}`, {
+    // Send delete request - Fixed route
+    fetch(`{{ route('hapus.nilai', $mahasiswa->id_mahasiswa) }}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -569,7 +583,7 @@ function confirmHapusNilai() {
     });
 }
 
-// Function to reset form to upload mode
+// Function to reset form to upload mode - Updated to clear hidden field
 function resetForm() {
     document.getElementById('formNilai').reset();
     document.getElementById('methodField').value = 'POST';
@@ -577,33 +591,32 @@ function resetForm() {
     document.getElementById('btnCancel').style.display = 'none';
     document.getElementById('jenisSeminar').disabled = false;
     document.getElementById('seminarId').value = '';
+    document.getElementById('hiddenJenisSeminar').value = ''; // Clear hidden field
 
     showSimpleNotification('Form direset ke mode upload', 'info');
 }
 
-// Function to get readable jenis text
-function getJenisText(jenis) {
-    switch(jenis) {
-        case 'proposal': return 'Seminar Proposal';
-        case 'hasil': return 'Seminar Hasil';
-        case 'sidang': return 'Sidang';
-        default: return jenis;
-    }
-}
+// Add event listener to sync the visible select with hidden input
+document.getElementById('jenisSeminar').addEventListener('change', function() {
+    document.getElementById('hiddenJenisSeminar').value = this.value;
+});
 
 // Handle form submission with enhanced validation
 document.getElementById('formNilai').addEventListener('submit', function(e) {
     const jenis = document.getElementById('jenisSeminar').value;
     const method = document.getElementById('methodField').value;
 
+    // Sync the hidden field in case it's out of sync
+    document.getElementById('hiddenJenisSeminar').value = jenis;
+
     // Additional validation for prerequisites
-    if (jenis === 'hasil' && (!{{ $seminarProposal ? 'true' : 'false' }} || '{{ $seminarProposal->status ?? '' }}' !== 'diterima')) {
+    if (jenis === 'hasil' && (!{{ $seminarProposal ? 'true' : 'false' }} || {{ $seminarProposal->lulus ?? 0 }} != 1)) {
         e.preventDefault();
         showAlert('Seminar Proposal harus lulus terlebih dahulu sebelum dapat mengupload nilai Seminar Hasil', 'warning', 'Prasyarat Tidak Terpenuhi');
         return;
     }
 
-    if (jenis === 'sidang' && (!{{ $seminarHasil ? 'true' : 'false' }} || '{{ $seminarHasil->status ?? '' }}' !== 'diterima')) {
+    if (jenis === 'sidang' && (!{{ $seminarHasil ? 'true' : 'false' }} || {{ $seminarHasil->lulus ?? 0 }} != 1)) {
         e.preventDefault();
         showAlert('Seminar Hasil harus lulus terlebih dahulu sebelum dapat mengupload nilai Sidang', 'warning', 'Prasyarat Tidak Terpenuhi');
         return;
@@ -615,7 +628,13 @@ document.getElementById('formNilai').addEventListener('submit', function(e) {
     btnSubmit.innerHTML = method === 'PUT' ? '🔄 Updating...' : '💾 Uploading...';
     btnSubmit.disabled = true;
 
-    // Enable form submission for server-side handling
+    // Debug: Log form data before submission
+    console.log('Form data being submitted:', {
+        method: method,
+        jenis_seminar: jenis,
+        nilai: document.getElementById('inputNilai').value,
+        status: document.getElementById('inputStatus').value
+    });
 });
 
 // Enhanced notification function with more types
@@ -666,7 +685,28 @@ function getNotificationClass(type) {
 // Custom Alert Modal Functions
 function showAlert(message, type = 'warning', title = null) {
     return new Promise((resolve) => {
-        const modal = document.getElementById('alertModal');
+        // Create modal if it doesn't exist
+        let modal = document.getElementById('alertModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'alertModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50';
+            modal.innerHTML = `
+                <div id="alertModalContent" class="bg-white p-6 rounded-xl w-96 shadow-2xl transform scale-95 transition-transform duration-300">
+                    <div id="alertModalHeader" class="text-center mb-4">
+                        <h3 id="alertModalTitle" class="text-lg font-semibold text-gray-800 mb-2"></h3>
+                        <p id="alertModalMessage" class="text-sm text-gray-600"></p>
+                    </div>
+                    <div class="flex justify-center">
+                        <button id="alertModalOkBtn" class="bg-blue-500 text-white px-6 py-2 text-sm rounded-lg hover:bg-blue-600 transition-colors">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
         const modalContent = document.getElementById('alertModalContent');
         const modalHeader = document.getElementById('alertModalHeader');
         const modalTitle = document.getElementById('alertModalTitle');

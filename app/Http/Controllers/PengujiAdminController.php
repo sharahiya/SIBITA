@@ -157,11 +157,11 @@ class PengujiAdminController extends Controller
             'status.in' => 'Status tidak valid',
         ]);
 
-        // Check prerequisites before allowing upload/update
+        // Check prerequisites before allowing upload/update - Fix to use 'lulus' field
         if ($request->jenis_seminar === 'hasil') {
             $semproposal = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'proposal')
-                ->where('status', 'diterima')
+                ->where('lulus', 1) // Changed from 'status' => 'diterima'
                 ->first();
 
             if (!$semproposal) {
@@ -172,7 +172,7 @@ class PengujiAdminController extends Controller
         if ($request->jenis_seminar === 'sidang') {
             $semhas = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'hasil')
-                ->where('status', 'diterima')
+                ->where('lulus', 1) // Changed from 'status' => 'diterima'
                 ->first();
 
             if (!$semhas) {
@@ -189,7 +189,7 @@ class PengujiAdminController extends Controller
         $seminarData = [
             'nilai' => $request->nilai,
             'lulus' => $request->status === 'lulus' ? 1 : 0,
-            // 'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak',
+            'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak', // Uncommented this line
         ];
 
         if ($existingSeminar) {
@@ -203,7 +203,6 @@ class PengujiAdminController extends Controller
                 'jenis' => $request->jenis_seminar,
                 'lampiran' => null, // Will be filled when student uploads file
                 'tanggal_seminar' => null, // Will be filled when student uploads file
-                'lulus' => $request->status === 'lulus' ? 1 : 0,
             ]);
 
             Seminar::create($seminarData);
@@ -238,11 +237,11 @@ class PengujiAdminController extends Controller
             ], 404);
         }
 
-        // Check if this seminar is a prerequisite for other seminars
+        // Check if this seminar is a prerequisite for other seminars - Fix to use 'lulus' field
         if ($request->jenis_seminar === 'proposal') {
             $semhas = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'hasil')
-                ->where('status', 'diterima')
+                ->where('lulus', 1) // Changed from 'status' => 'diterima'
                 ->first();
 
             if ($semhas) {
@@ -256,7 +255,7 @@ class PengujiAdminController extends Controller
         if ($request->jenis_seminar === 'hasil') {
             $sidang = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'sidang')
-                ->where('status', 'diterima')
+                ->where('lulus', 1) // Changed from 'status' => 'diterima'
                 ->first();
 
             if ($sidang) {
@@ -280,6 +279,7 @@ class PengujiAdminController extends Controller
         } else {
             $seminar->update([
                 'nilai' => null,
+                'lulus' => 0, // Reset lulus to 0
                 'status' => 'pending', // Reset to pending when grade is removed
             ]);
         }
