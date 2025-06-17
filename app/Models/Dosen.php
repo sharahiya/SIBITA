@@ -12,11 +12,11 @@ class Dosen extends Authenticatable
 
     protected $table = 'dosens';
     protected $primaryKey = 'id_dosen';
-    protected $fillable = ['nip', 'nama', 'bidang', 'kuota_bimbingan', 'password', 'link_wa_group', 'id_jurusan', 'id_fakultas', 'jabatan'];
+    protected $fillable = ['nip', 'nama', 'bidang', 'jabatan', 'kuota_bimbingan', 'password', 'link_wa_group', 'id_jurusan', 'id_fakultas'];
 
     public function mahasiswaWali()
     {
-        return $this->hasMany(Mahasiswa::class, 'id_dosen_wali');
+        return $this->hasMany(Mahasiswa::class, 'id_dosen_wali'); 
     }
 
     public function pengajuan()

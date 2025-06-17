@@ -20,6 +20,7 @@ class DosenSeeder extends Seeder
                 'nip' => '197202061997021001',
                 'nama' => 'Nazaruddin',
                 'bidang' => 'Rekayasa Perangkat Lunak',
+                'jabatan' => 'Lektor Kepala',
                 'kuota_bimbingan' => 5,
                 'password' => Hash::make('dosen1'),
                 'id_jurusan' => $jurusanId, // Assuming this is the ID for 'Teknik Informatika'
@@ -30,6 +31,7 @@ class DosenSeeder extends Seeder
                 'nip' => '198806032019031011',
                 'nama' => 'Alim Misbullah',
                 'bidang' => 'Data Mining',
+                'jabatan' => 'Kaprodi',
                 'kuota_bimbingan' => 3,
                 'id_jurusan' => $jurusanId, // Assuming this is the ID for 'Teknik Informatika'
                 'id_fakultas' => $fakultasId, // Assuming this is the ID for 'Fakultas Teknik'
@@ -38,8 +40,9 @@ class DosenSeeder extends Seeder
             ],
             [
                 'nip' => '198806242022031006',
-                'nama' => 'Husaini,',
+                'nama' => 'Husaini',
                 'bidang' => 'Jaringan',
+                'jabatan' => 'Asisten Ahli',
                 'id_jurusan' => 1, // Assuming this is the ID for 'Teknik Informatika'
                 'id_fakultas' => 1, // Assuming this is the ID for 'Fakultas Teknik'
                 'kuota_bimbingan' => 4,
@@ -47,9 +50,10 @@ class DosenSeeder extends Seeder
                 'link_wa_group' => 'https://chat.whatsapp.com/group3'
             ],
             [
-                'nip' => '198806242022031006',
+                'nip' => '198806242022031010',
                 'nama' => 'Sri Azizah Nazhifah',
                 'bidang' => 'GIS',
+                'jabatan' => 'Tutor',
                 'id_jurusan' => 1, // Assuming this is the ID for 'Teknik Informatika'
                 'id_fakultas' => 1, // Assuming this is the ID for 'Fakultas Teknik'
                 'kuota_bimbingan' => 6,
