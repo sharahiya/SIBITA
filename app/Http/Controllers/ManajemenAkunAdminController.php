@@ -178,7 +178,7 @@ class ManajemenAkunAdminController extends Controller
                         'bidang' => $bidang,
                         'kuota_bimbingan' => 10, // Default kuota
                         'password' => Hash::make($nip), // Default password = NIP
-                        // 'jabatan' => $jabatan, // Dihapus karena tidak ada di fillable
+                        'jabatan' => $jabatan, // Dihapus karena tidak ada di fillable
                         // 'email' => $email, // Dihapus karena tidak ada di fillable
                     ]);
 
