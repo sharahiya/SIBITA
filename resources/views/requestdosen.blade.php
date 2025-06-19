@@ -148,11 +148,11 @@
                         @endif
                     </td>
                     <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell'>{{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }}</td>
-                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell'>Dospem {{ $item->role ?? '1' }}</td>
+                    <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell hidden lg:table-cell'>Dospem {{ $item->dosen_ke ?? '1' }}</td>
                     <td class='px-2 sm:px-4 py-2 border border-gray-300 fixed-cell'>
                         <div class="flex flex-col lg:flex-row gap-1 lg:gap-2 justify-center">
                             <div class="lg:hidden text-[10px] text-gray-500 mb-1">
-                                {{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }} | Dospem {{ $item->role ?? '1' }}
+                                {{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }} | Dospem {{ $item->dosen_ke ?? '1' }}
                             </div>
                             <button onclick="showConfirmModal('accept', {{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-green-500 text-white px-2 sm:px-3 py-1 rounded hover:bg-green-600 text-[10px] sm:text-xs">
                                 Terima

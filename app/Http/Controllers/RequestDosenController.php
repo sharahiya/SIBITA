@@ -63,6 +63,8 @@ class RequestDosenController extends Controller
         }
         }
 
+        // dd($pengajuans[0]->dosen_ke);
+
 
         // Urutkan pengajuans berdasarkan waktu
         $pengajuans = $pengajuans->sortByDesc(function ($item) {

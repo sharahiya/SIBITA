@@ -90,7 +90,7 @@
                         <td class="px-4 py-2 border border-gray-300">
                             <a href="#" class="text-blue-600 hover:underline" onclick="openModal('{{ $ajuan->deskripsi_ta }}')">Lihat</a>
                         </td>
-                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->id_dosen_1 == $dosen->id ? 'Dospem 1' : 'Dospem 2' }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->dosen_ke == '1' ? 'Dospem 1' : 'Dospem 2' }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->seminar_status ?? '-' }}</td>
                         <td class="px-4 py-2 border border-gray-300">
                             @if($ajuan->mahasiswa->seminar_status == "Bimbingan")

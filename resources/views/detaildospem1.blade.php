@@ -79,9 +79,12 @@
                     </tr>
                 </thead>
                 <tbody id="tableMahasiswa">
+                    @php
+                        $no = 1;
+                    @endphp
                     @foreach($ajuanBimbingan as $index => $ajuan)
                     <tr class="bg-white even:bg-gray-50 border-b hover:bg-blue-50">
-                        <td class="px-4 py-2 border border-gray-300">{{ $index+1 }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ $no++ }}</td>
                         <td class="px-4 py-2 border border-gray-300 font-medium">{{ $ajuan->mahasiswa->nama }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->npm }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ $ajuan->bidang }}</td>
@@ -90,7 +93,7 @@
                             <a href="#" onclick="openModal('{{ $ajuan->deskripsi_ta }}')"
                                class="text-blue-600 hover:underline">Lihat</a>
                         </td>
-                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->dosenPembimbing1->id_dosen == $dosen->id_dosen ? 'Dospem 1' : 'Dospem 2' }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ $ajuan->dosen_ke == "1" ? 'Dospem 1' : 'Dospem 2' }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ $ajuan->mahasiswa->seminar_status ?? '-' }}</td>
                     </tr>
                     @endforeach
