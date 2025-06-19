@@ -52,6 +52,6 @@ class DaftarDosenController extends Controller
         $ajuanBimbingan = $result['ajuanBimbingan'];
         $jumlahMahasiswa = $result['jumlahMahasiswa'];
 
-        return view('detailDospem1', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
+        return view('detaildospem1', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }
 }
