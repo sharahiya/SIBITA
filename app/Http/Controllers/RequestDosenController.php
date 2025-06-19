@@ -69,7 +69,7 @@ class RequestDosenController extends Controller
             return $item->created_at;
         })->values();
 
-        return view('requestDosen', compact('pengajuans'));
+        return view('requestdosen', compact('pengajuans'));
     }
 
     public function konfirmasi(Request $request, $id)

@@ -381,7 +381,7 @@ class ProfileDosenController extends Controller
         $jumlahMahasiswa = $result['jumlahMahasiswa'];
 
 
-        return view('profileDosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
+        return view('profiledosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
     }
 
     public function updateKuota(Request $request)
