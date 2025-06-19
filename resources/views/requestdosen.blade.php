@@ -155,10 +155,10 @@
                                 {{ ucfirst($item->tipe_pengajuan ?? 'Bimbingan') }} | Dospem {{ $item->role ?? '1' }}
                             </div>
                             <button onclick="showConfirmModal('accept', {{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-green-500 text-white px-2 sm:px-3 py-1 rounded hover:bg-green-600 text-[10px] sm:text-xs">
-                                ✓
+                                Terima
                             </button>
                             <button onclick="rejectRequest({{ $item->tipe_pengajuan === 'bimbingan' ? $item->id_pengajuan : $item->id_seminar }}, '{{ $item->tipe_pengajuan }}')" class="bg-red-500 text-white px-2 sm:px-3 py-1 rounded hover:bg-red-600 text-[10px] sm:text-xs">
-                                ✗
+                                Tolak
                             </button>
                         </div>
                     </td>

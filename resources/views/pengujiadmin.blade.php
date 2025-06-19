@@ -275,7 +275,7 @@
     <!-- Upload Nilai Section - Fixed Layout -->
     @if($penguji1 || $penguji2 || $penguji3)
     <div class="bg-white p-6 shadow-md rounded-lg mt-4 mx-auto">
-        <h2 class="text-lg font-semibold text-gray-800 mb-6 border-b pb-3">📊 Upload Nilai Seminar & Sidang</h2>
+        <h2 class="text-lg font-semibold text-gray-800 mb-6 border-b pb-3">Upload Nilai Seminar & Sidang</h2>
 
         <!-- Status Nilai yang Sudah Ada -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -283,18 +283,18 @@
             <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-xl border border-blue-200 shadow-sm">
                 <div class="flex justify-between items-start mb-3">
                     <div>
-                        <h3 class="text-sm font-semibold text-blue-800 mb-1">📝 Seminar Proposal</h3>
+                        <h3 class="text-sm font-semibold text-blue-800 mb-1">Seminar Proposal</h3>
                         <div class="w-8 h-1 bg-blue-400 rounded"></div>
                     </div>
                     @if($seminarProposal && $seminarProposal->nilai)
                         <div class="flex flex-col gap-1">
                             <button onclick="editNilai('proposal', {{ $seminarProposal->nilai }}, {{ $seminarProposal->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
-                                ✏️ Edit
+                                Edit
                             </button>
                             <button onclick="hapusNilai('proposal', {{ $seminarProposal->id_seminar }})"
                                     class="text-xs bg-red-500 text-white px-3 py-1.5 rounded-full hover:bg-red-600 transition-colors">
-                                🗑️ Hapus
+                                Hapus
                             </button>
                         </div>
                     @endif
@@ -308,7 +308,7 @@
                         </div>
                         <div class="flex justify-center">
                             <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarProposal->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarProposal->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                                {{ $seminarProposal->lulus == 1 ? 'Lulus' : 'Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -323,21 +323,21 @@
             </div>
 
             <!-- Seminar Hasil -->
-            <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-xl border border-orange-200 shadow-sm {{ $seminarProposal && $seminarProposal->status === 'diterima' ? '' : 'opacity-60' }}">
+            <div class="bg-gradient-to-br from-orange-100 to-orange-200 p-5 rounded-xl border border-orange-300 shadow-sm {{ $seminarProposal && $seminarProposal->status === 'diterima' ? '' : 'opacity-100' }}">
                 <div class="flex justify-between items-start mb-3">
                     <div>
-                        <h3 class="text-sm font-semibold text-orange-800 mb-1">📊 Seminar Hasil</h3>
+                        <h3 class="text-sm font-semibold text-orange-800 mb-1">Seminar Hasil</h3>
                         <div class="w-8 h-1 bg-orange-400 rounded"></div>
                     </div>
                     @if($seminarHasil && $seminarHasil->nilai)
                         <div class="flex flex-col gap-1">
                             <button onclick="editNilai('hasil', {{ $seminarHasil->nilai }}, {{ $seminarHasil->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
-                                ✏️ Edit
+                                Edit
                             </button>
                             <button onclick="hapusNilai('hasil', {{ $seminarHasil->id_seminar }})"
                                     class="text-xs bg-red-500 text-white px-3 py-1.5 rounded-full hover:bg-red-600 transition-colors">
-                                🗑️ Hapus
+                                Hapus
                             </button>
                         </div>
                     @endif
@@ -351,7 +351,7 @@
                         </div>
                         <div class="flex justify-center">
                             <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarHasil->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarHasil->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                                {{ $seminarHasil->lulus == 1 ? 'Lulus' : 'Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -373,21 +373,21 @@
             </div>
 
             <!-- Sidang -->
-            <div class="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl border border-green-200 shadow-sm {{ $seminarHasil && $seminarHasil->status === 'diterima' ? '' : 'opacity-60' }}">
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl border border-green-200 shadow-sm {{ $seminarHasil && $seminarHasil->status === 'diterima' ? '' : 'opacity-100' }}">
                 <div class="flex justify-between items-start mb-3">
                     <div>
-                        <h3 class="text-sm font-semibold text-green-800 mb-1">🎓 Sidang</h3>
+                        <h3 class="text-sm font-semibold text-green-800 mb-1">Sidang</h3>
                         <div class="w-8 h-1 bg-green-400 rounded"></div>
                     </div>
                     @if($seminarSidang && $seminarSidang->nilai)
                         <div class="flex flex-col gap-1">
                             <button onclick="editNilai('sidang', {{ $seminarSidang->nilai }}, {{ $seminarSidang->lulus }})"
                                     class="text-xs bg-yellow-500 text-white px-3 py-1.5 rounded-full hover:bg-yellow-600 transition-colors">
-                                ✏️ Edit
+                                Edit
                             </button>
                             <button onclick="hapusNilai('sidang', {{ $seminarSidang->id_seminar }})"
                                     class="text-xs bg-red-500 text-white px-3 py-1.5 rounded-full hover:bg-red-600 transition-colors">
-                                🗑️ Hapus
+                                Hapus
                             </button>
                         </div>
                     @endif
@@ -401,7 +401,7 @@
                         </div>
                         <div class="flex justify-center">
                             <span class="px-3 py-1 rounded-full text-xs font-medium text-white {{ $seminarSidang->lulus == 1 ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $seminarSidang->lulus == 1 ? '✅ Lulus' : '❌ Tidak Lulus' }}
+                                {{ $seminarSidang->lulus == 1 ? 'Lulus' : 'Tidak Lulus' }}
                             </span>
                         </div>
                     </div>
@@ -425,7 +425,7 @@
 
         <!-- Form Upload/Edit Nilai -->
         <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h3 class="text-base font-semibold text-gray-800 mb-4">📝 Form Input Nilai</h3>
+            <h3 class="text-base font-semibold text-gray-800 mb-4">Form Input Nilai</h3>
 
             <form method="POST" action="{{ route('upload.nilai', $mahasiswa->id_mahasiswa) }}" id="formNilai" class="space-y-4">
                 @csrf
@@ -438,15 +438,15 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Seminar/Sidang</label>
                         <select name="jenis_seminar" id="jenisSeminar" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
                             <option value="">Pilih Jenis</option>
-                            <option value="proposal">📝 Seminar Proposal</option>
+                            <option value="proposal">Seminar Proposal</option>
                             <option value="hasil" {{ !$seminarProposal || $seminarProposal->lulus != 1 ? 'disabled' : '' }}>
-                                📊 Seminar Hasil
+                                Seminar Hasil
                                 @if(!$seminarProposal || $seminarProposal->lulus != 1)
                                     (Memerlukan Sempro Lulus)
                                 @endif
                             </option>
                             <option value="sidang" {{ !$seminarHasil || $seminarHasil->lulus != 1 ? 'disabled' : '' }}>
-                                🎓 Sidang
+                                Sidang
                                 @if(!$seminarHasil || $seminarHasil->lulus != 1)
                                     (Memerlukan Semhas Lulus)
                                 @endif
@@ -465,18 +465,18 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
                         <select name="status" id="inputStatus" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
                             <option value="">Pilih Status</option>
-                            <option value="lulus">✅ Lulus</option>
-                            <option value="tidak_lulus">❌ Tidak Lulus</option>
+                            <option value="lulus">Lulus</option>
+                            <option value="tidak_lulus">Tidak Lulus</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-4">
                     <button type="button" onclick="resetForm()" id="btnCancel" class="bg-gray-500 text-white px-6 py-3 text-sm rounded-lg hover:bg-gray-600 transition-colors" style="display: none;">
-                        🔄 Batal
+                        Batal
                     </button>
                     <button type="submit" id="btnSubmit" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 text-sm rounded-lg hover:from-blue-600 hover:to-blue-700 transition-colors shadow-sm">
-                        💾 Upload Nilai
+                        Upload Nilai
                     </button>
                 </div>
             </form>
@@ -503,7 +503,7 @@
                     Batal
                 </button>
                 <button type="button" onclick="confirmHapusNilai()" class="bg-red-600 text-white px-4 py-2 text-sm rounded-lg hover:bg-red-700 transition-colors">
-                    🗑️ Hapus
+                    Hapus
                 </button>
             </div>
         </div>
@@ -644,7 +644,7 @@ document.getElementById('formNilai').addEventListener('submit', function(e) {
     // Show loading state
     const btnSubmit = document.getElementById('btnSubmit');
     const originalText = btnSubmit.innerHTML;
-    btnSubmit.innerHTML = method === 'PUT' ? '🔄 Updating...' : '💾 Uploading...';
+    btnSubmit.innerHTML = method === 'PUT' ? 'Updating...' : 'Uploading...';
     btnSubmit.disabled = true;
 });
 
