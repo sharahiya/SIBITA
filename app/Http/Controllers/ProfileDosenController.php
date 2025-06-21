@@ -375,13 +375,33 @@ class ProfileDosenController extends Controller
         $user = Auth::guard('dosen')->user();
         $dosen = Dosen::where('id_dosen', $user->id_dosen)->first();
 
-        // Use the reusable function
+        // Get mahasiswa bimbingan
         $result = self::getDaftarMahasiswaBimbingan($dosen->id_dosen, true);
         $ajuanBimbingan = $result['ajuanBimbingan'];
         $jumlahMahasiswa = $result['jumlahMahasiswa'];
 
+        // Get mahasiswa wali
+        $mahasiswaWali = $dosen->mahasiswaWali()
+            ->with(['pengajuan' => function($query) {
+                $query->where('status', 'diterima');
+            }])
+            ->get();
 
-        return view('profiledosen', compact('dosen', 'ajuanBimbingan', 'jumlahMahasiswa'));
+        // Add seminar status for mahasiswa wali
+        $mahasiswaWali->each(function($mahasiswa) {
+            // Get the latest seminar status
+            $mahasiswa->seminar_status = $mahasiswa->getSeminarStatusAttribute();
+        });
+
+        $jumlahMahasiswaWali = $mahasiswaWali->count();
+
+        return view('profiledosen', compact(
+            'dosen',
+            'ajuanBimbingan',
+            'jumlahMahasiswa',
+            'mahasiswaWali',
+            'jumlahMahasiswaWali'
+        ));
     }
 
     public function updateKuota(Request $request)

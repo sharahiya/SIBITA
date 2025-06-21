@@ -253,6 +253,9 @@
                 <button class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800" id="tabWali">
                     Mahasiswa Wali
                 </button>
+                <button class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800" id="tabPenguji">
+                    Menjadi Penguji
+                </button>
             </div>
 
             <!-- Tab Content: Mahasiswa Bimbingan -->
@@ -372,6 +375,77 @@
                     <!-- No results message for wali -->
                     <div id="noResultsWali" class="hidden text-center py-8 text-gray-500">
                         <p>Tidak ada mahasiswa wali yang sesuai dengan filter</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Menjadi Penguji -->
+            <div id="contentPenguji" class="tab-content hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-800">Daftar Mahasiswa yang Diuji</h3>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-gray-600">Menampilkan:</span>
+                        <span class="text-xs font-medium text-purple-600" id="pengujiResultCount">0</span>
+                        <span class="text-xs text-gray-600">mahasiswa</span>
+                    </div>
+                </div>
+
+                <!-- Filter for Mahasiswa Penguji -->
+                <div class="flex flex-col md:flex-row gap-3 mb-4">
+                    <input type="text" id="searchPenguji" placeholder="Cari mahasiswa..." class="p-2 text-xs border rounded-lg flex-1">
+
+                    <select id="filterAngkatanPenguji" class="p-2 text-xs border rounded-lg">
+                        <option value="">Semua Angkatan</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+
+                    <select id="filterRolePenguji" class="p-2 text-xs border rounded-lg">
+                        <option value="">Semua Role</option>
+                        <option value="1">Penguji 1</option>
+                        <option value="2">Penguji 2</option>
+                        <option value="3">Penguji 3</option>
+                    </select>
+
+                    <select id="filterStatusPenguji" class="p-2 text-xs border rounded-lg">
+                        <option value="">Semua Status</option>
+                        <option value="Bimbingan">Bimbingan</option>
+                        <option value="Sempro">Sempro</option>
+                        <option value="Semhas">Semhas</option>
+                        <option value="Sidang">Sidang</option>
+                    </select>
+
+                    <button id="resetFilterPenguji" class="bg-gray-500 text-white px-3 py-2 text-xs rounded-lg hover:bg-gray-600 transition-colors">
+                        Reset Filter
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left text-gray-500">
+                        <thead class="text-gray-700 uppercase bg-gray-100"> 
+                            <tr>
+                                <th class="px-3 py-2 border">No</th>
+                                <th class="px-3 py-2 border">Nama Mahasiswa</th>
+                                <th class="px-3 py-2 border">NPM</th>
+                                <th class="px-3 py-2 border">Angkatan</th>
+                                <th class="px-3 py-2 border">Role Penguji</th>
+                                <th class="px-3 py-2 border">Status Seminar</th>
+                                <th class="px-3 py-2 border">Topik TA</th>
+                                <th class="px-3 py-2 border">Dosen Pembimbing</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablePengujiBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <!-- No results message for penguji -->
+                    <div id="noResultsPenguji" class="hidden text-center py-8 text-gray-500">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            <p>Tidak ada mahasiswa yang sesuai dengan filter</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -500,7 +574,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Populate modal filter options
-    function populateModalFilterOptions(bimbinganData, waliData) {
+    function populateModalFilterOptions(bimbinganData, waliData, pengujiData) {
+        console.log('Populating filter options for penguji:', pengujiData); // Debug log
+
         // Populate Angkatan filter for Bimbingan
         const angkatanBimbinganSet = new Set();
         bimbinganData.forEach(mahasiswa => {
@@ -536,6 +612,28 @@ document.addEventListener('DOMContentLoaded', function() {
             option.textContent = angkatan;
             filterAngkatanWali.appendChild(option);
         });
+
+        // Populate Angkatan filter for Penguji
+        const angkatanPengujiSet = new Set();
+        if (pengujiData && pengujiData.length > 0) {
+            pengujiData.forEach(mahasiswa => {
+                if (mahasiswa.angkatan) {
+                    angkatanPengujiSet.add(mahasiswa.angkatan);
+                }
+            });
+        }
+
+        const filterAngkatanPenguji = document.getElementById('filterAngkatanPenguji');
+        if (filterAngkatanPenguji) {
+            filterAngkatanPenguji.innerHTML = '<option value="">Semua Angkatan</option>';
+            const sortedAngkatanPenguji = Array.from(angkatanPengujiSet).sort();
+            sortedAngkatanPenguji.forEach(angkatan => {
+                const option = document.createElement('option');
+                option.value = angkatan;
+                option.textContent = angkatan;
+                filterAngkatanPenguji.appendChild(option);
+            });
+        }
     }
 
     // Call the function to populate options
@@ -786,18 +884,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabBimbingan = document.getElementById('tabBimbingan');
     const tabWali = document.getElementById('tabWali');
+    const tabPenguji = document.getElementById('tabPenguji');
     const contentBimbingan = document.getElementById('contentBimbingan');
     const contentWali = document.getElementById('contentWali');
+    const contentPenguji = document.getElementById('contentPenguji');
 
     function showTab(tabName) {
         // Reset all tabs
-        [tabBimbingan, tabWali].forEach(tab => {
+        [tabBimbingan, tabWali, tabPenguji].forEach(tab => {
             tab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
             tab.classList.add('text-gray-600', 'hover:text-gray-800');
         });
 
         // Hide all content
-        [contentBimbingan, contentWali].forEach(content => {
+        [contentBimbingan, contentWali, contentPenguji].forEach(content => {
             content.classList.add('hidden');
         });
 
@@ -810,11 +910,16 @@ document.addEventListener('DOMContentLoaded', function() {
             tabWali.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
             tabWali.classList.remove('text-gray-600', 'hover:text-gray-800');
             contentWali.classList.remove('hidden');
+        } else if (tabName === 'penguji') {
+            tabPenguji.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            tabPenguji.classList.remove('text-gray-600', 'hover:text-gray-800');
+            contentPenguji.classList.remove('hidden');
         }
     }
 
     tabBimbingan.addEventListener('click', () => showTab('bimbingan'));
     tabWali.addEventListener('click', () => showTab('wali'));
+    tabPenguji.addEventListener('click', () => showTab('penguji'));
 
     // Open detail modal
     viewDetailBtns.forEach(btn => {
@@ -863,10 +968,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // Update populateDosenDetail function untuk include debugging
     function populateDosenDetail(data) {
+        console.log('Data received:', data); // Debug log
+        console.log('Mahasiswa penguji:', data.mahasiswa_penguji); // Debug log
+
         // Store original data for filtering
         originalBimbinganData = data.mahasiswa_bimbingan;
         originalWaliData = data.mahasiswa_wali;
+        originalPengujiData = data.mahasiswa_penguji || [];
 
         // Populate dosen info
         document.getElementById('detailNamaDosen').textContent = data.dosen.nama;
@@ -883,45 +993,263 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('jumlahPenguji').textContent = data.dosen.jumlah_penguji;
 
         // Populate filter options in modal
-        populateModalFilterOptions(data.mahasiswa_bimbingan, data.mahasiswa_wali);
+        populateModalFilterOptions(data.mahasiswa_bimbingan, data.mahasiswa_wali, data.mahasiswa_penguji || []);
 
         // Render initial tables
         renderBimbinganTable(data.mahasiswa_bimbingan);
         renderWaliTable(data.mahasiswa_wali);
+        renderPengujiTable(data.mahasiswa_penguji || []);
 
         // Update result counters
         document.getElementById('bimbinganResultCount').textContent = data.mahasiswa_bimbingan.length;
         document.getElementById('waliResultCount').textContent = data.mahasiswa_wali.length;
+        document.getElementById('pengujiResultCount').textContent = (data.mahasiswa_penguji || []).length;
 
-        // Show/hide empty state messages
-        const noResultsBimbingan = document.getElementById('noResultsBimbingan');
-        const noResultsWali = document.getElementById('noResultsWali');
+        // Handle empty states
+        handleEmptyStates(data);
 
+        // Reset filters when modal opens
+        resetAllFilters();
+    }
+
+    // Function to handle empty states
+    function handleEmptyStates(data) {
+        // Handle empty bimbingan
         if (data.mahasiswa_bimbingan.length === 0) {
             const tableBimbinganBody = document.getElementById('tableBimbinganBody');
             tableBimbinganBody.innerHTML = `
                 <tr>
                     <td colspan="8" class="px-3 py-8 text-center text-gray-500">
-                        Belum ada mahasiswa bimbingan
+                        <div class="flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                            <p>Belum ada mahasiswa bimbingan</p>
+                        </div>
                     </td>
                 </tr>
             `;
         }
 
+        // Handle empty wali
         if (data.mahasiswa_wali.length === 0) {
             const tableWaliBody = document.getElementById('tableWaliBody');
             tableWaliBody.innerHTML = `
                 <tr>
                     <td colspan="5" class="px-3 py-8 text-center text-gray-500">
-                        Belum ada mahasiswa wali
+                        <div class="flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <p>Belum ada mahasiswa wali</p>
+                        </div>
                     </td>
                 </tr>
             `;
         }
 
-        noResultsBimbingan.classList.add('hidden');
-        noResultsWali.classList.add('hidden');
+        // Handle empty penguji
+        if ((data.mahasiswa_penguji || []).length === 0) {
+            const tablePengujiBody = document.getElementById('tablePengujiBody');
+            tablePengujiBody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="px-3 py-8 text-center text-gray-500">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            <p>Belum ada mahasiswa yang diuji (atau semua sudah sidang)</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
     }
+
+    // Enhanced renderPengujiTable function
+    function renderPengujiTable(data) {
+        console.log('Rendering penguji table with data:', data); // Debug log
+
+        const tablePengujiBody = document.getElementById('tablePengujiBody');
+
+        if (!tablePengujiBody) {
+            console.error('Table body element not found!');
+            return;
+        }
+
+        tablePengujiBody.innerHTML = '';
+
+        if (data && data.length > 0) {
+            data.forEach((mahasiswa, index) => {
+                const topikTA = mahasiswa.topik_ta || 'Belum ada topik';
+                const truncatedTopik = topikTA.length > 50 ? topikTA.substring(0, 47) + '...' : topikTA;
+                const statusBadge = getStatusBadge(mahasiswa.seminar_status);
+                const roleBadge = getPengujiRoleBadge(mahasiswa.urutan_penguji);
+
+                // Format pembimbing
+                let pembimbingText = 'Belum ada';
+                if (mahasiswa.pembimbing && mahasiswa.pembimbing.length > 0) {
+                    pembimbingText = mahasiswa.pembimbing.map(p =>
+                        `${p.nama} (Dospem ${p.dosen_ke})`
+                    ).join(', ');
+                }
+
+                const row = `
+                    <tr class="bg-white border-b hover:bg-purple-50">
+                        <td class="px-3 py-2">${index + 1}</td>
+                        <td class="px-3 py-2 font-medium">${mahasiswa.nama}</td>
+                        <td class="px-3 py-2">${mahasiswa.npm}</td>
+                        <td class="px-3 py-2">${mahasiswa.angkatan}</td>
+                        <td class="px-3 py-2">${roleBadge}</td>
+                        <td class="px-3 py-2">${statusBadge}</td>
+                        <td class="px-3 py-2 relative">
+                            ${topikTA !== 'Belum ada topik' ? `
+                                <div class="topik-ta-container">
+                                    <span class="topik-ta-text cursor-help"
+                                          data-full-text="${topikTA.replace(/"/g, '&quot;')}"
+                                          title="${topikTA}">
+                                        ${truncatedTopik}
+                                    </span>
+                                    ${topikTA.length > 50 ? `
+                                        <button class="expand-btn text-blue-600 hover:text-blue-800 ml-1"
+                                                onclick="toggleFullText(this)"
+                                                title="Lihat selengkapnya">
+                                            ...
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            ` : '<span class="text-gray-400 italic">Belum ada topik</span>'}
+                        </td>
+                        <td class="px-3 py-2">
+                            <div class="text-xs max-w-40">
+                                ${pembimbingText}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tablePengujiBody.insertAdjacentHTML('beforeend', row);
+            });
+        } else {
+            console.log('No penguji data to render');
+        }
+    }
+
+    // Get penguji role badge function
+    function getPengujiRoleBadge(urutan) {
+        const roleConfig = {
+            1: { class: 'bg-blue-100 text-blue-800', icon: '' },
+            2: { class: 'bg-green-100 text-green-800', icon: '' },
+            3: { class: 'bg-purple-100 text-purple-800', icon: '' }
+        };
+
+        const config = roleConfig[urutan] || { class: 'bg-gray-100 text-gray-800', icon: '📋' };
+        return `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.class}">
+                    ${config.icon} Penguji ${urutan}
+                </span>`;
+    }
+
+    // Enhanced populateModalFilterOptions function
+    function populateModalFilterOptions(bimbinganData, waliData, pengujiData) {
+        console.log('Populating filter options for penguji:', pengujiData); // Debug log
+
+        // ... existing code for bimbingan and wali ...
+
+        // Populate Angkatan filter for Penguji
+        const angkatanPengujiSet = new Set();
+        if (pengujiData && pengujiData.length > 0) {
+            pengujiData.forEach(mahasiswa => {
+                if (mahasiswa.angkatan) {
+                    angkatanPengujiSet.add(mahasiswa.angkatan);
+                }
+            });
+        }
+
+        const filterAngkatanPenguji = document.getElementById('filterAngkatanPenguji');
+        if (filterAngkatanPenguji) {
+            filterAngkatanPenguji.innerHTML = '<option value="">Semua Angkatan</option>';
+            const sortedAngkatanPenguji = Array.from(angkatanPengujiSet).sort();
+            sortedAngkatanPenguji.forEach(angkatan => {
+                const option = document.createElement('option');
+                option.value = angkatan;
+                option.textContent = angkatan;
+                filterAngkatanPenguji.appendChild(option);
+            });
+        }
+    }
+
+    // Enhanced filterPenguji function
+    function filterPenguji() {
+        const searchTerm = document.getElementById('searchPenguji').value.toLowerCase();
+        const selectedAngkatan = document.getElementById('filterAngkatanPenguji').value;
+        const selectedRole = document.getElementById('filterRolePenguji').value;
+        const selectedStatus = document.getElementById('filterStatusPenguji').value;
+
+        const filteredData = originalPengujiData.filter(mahasiswa => {
+            const matchesSearch = mahasiswa.nama.toLowerCase().includes(searchTerm) ||
+                                mahasiswa.npm.toLowerCase().includes(searchTerm) ||
+                                (mahasiswa.topik_ta && mahasiswa.topik_ta.toLowerCase().includes(searchTerm));
+            const matchesAngkatan = !selectedAngkatan || mahasiswa.angkatan === selectedAngkatan;
+            const matchesRole = !selectedRole || mahasiswa.urutan_penguji.toString() === selectedRole;
+            const matchesStatus = !selectedStatus || mahasiswa.seminar_status === selectedStatus;
+
+            return matchesSearch && matchesAngkatan && matchesRole && matchesStatus;
+        });
+
+        renderPengujiTable(filteredData);
+        document.getElementById('pengujiResultCount').textContent = filteredData.length;
+
+        // Show/hide no results message
+        const noResultsDiv = document.getElementById('noResultsPenguji');
+        if (filteredData.length === 0 && originalPengujiData.length > 0) {
+            noResultsDiv.classList.remove('hidden');
+        } else {
+            noResultsDiv.classList.add('hidden');
+        }
+    }
+
+    // Function to reset all filters
+    function resetAllFilters() {
+        // Reset penguji filters
+        document.getElementById('searchPenguji').value = '';
+        document.getElementById('filterAngkatanPenguji').value = '';
+        document.getElementById('filterRolePenguji').value = '';
+        document.getElementById('filterStatusPenguji').value = '';
+
+        // Reset other filters
+        document.getElementById('searchBimbingan').value = '';
+        document.getElementById('filterAngkatanBimbingan').value = '';
+        document.getElementById('filterDospenKe').value = '';
+        document.getElementById('filterStatusBimbingan').value = '';
+
+        document.getElementById('searchWali').value = '';
+        document.getElementById('filterAngkatanWali').value = '';
+        document.getElementById('filterStatusWali').value = '';
+
+        // Hide no results messages initially
+        document.getElementById('noResultsPenguji').classList.add('hidden');
+        document.getElementById('noResultsBimbingan').classList.add('hidden');
+        document.getElementById('noResultsWali').classList.add('hidden');
+    }
+
+    // Add event listeners for penguji filters
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing code ...
+
+        // Add penguji filter event listeners
+        document.getElementById('searchPenguji').addEventListener('keyup', filterPenguji);
+        document.getElementById('filterAngkatanPenguji').addEventListener('change', filterPenguji);
+        document.getElementById('filterRolePenguji').addEventListener('change', filterPenguji);
+        document.getElementById('filterStatusPenguji').addEventListener('change', filterPenguji);
+
+        // Reset filter penguji
+        document.getElementById('resetFilterPenguji').addEventListener('click', function() {
+            document.getElementById('searchPenguji').value = '';
+            document.getElementById('filterAngkatanPenguji').value = '';
+            document.getElementById('filterRolePenguji').value = '';
+            document.getElementById('filterStatusPenguji').value = '';
+            filterPenguji();
+        });
+    });
 
     // Close detail modal
     closeDosenDetailModal.addEventListener('click', function() {
@@ -1335,10 +1663,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add this function to get status badge HTML
 function getStatusBadge(status) {
     const statusConfig = {
-        'Bimbingan': { class: 'bg-gray-100 text-gray-800', icon: '📚' },
-        'Sempro': { class: 'bg-blue-100 text-blue-800', icon: '📝' },
-        'Semhas': { class: 'bg-orange-100 text-orange-800', icon: '📊' },
-        'Sidang': { class: 'bg-green-100 text-green-800', icon: '🎓' }
+        'Bimbingan': { class: 'bg-gray-100 text-gray-800', icon: '' },
+        'Sempro': { class: 'bg-blue-100 text-blue-800', icon: '' },
+        'Semhas': { class: 'bg-orange-100 text-orange-800', icon: '' },
+        'Sidang': { class: 'bg-green-100 text-green-800', icon: '' }
     };
 
     const config = statusConfig[status] || statusConfig['Bimbingan'];

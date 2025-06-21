@@ -19,12 +19,22 @@ class PengujiAdminController extends Controller
         $dosenPembimbing1Id = $mahasiswa->dosenPembimbing1->id_dosen ?? null;
         $dosenPembimbing2Id = $mahasiswa->dosenPembimbing2->id_dosen ?? null;
 
+        // Ambil ID dosen wali
+        $dosenWaliId = $mahasiswa->id_dosen_wali;
+
         // Ambil dosen yang bukan pembimbing
         $dosenList = Dosen::whereHas('jurusan', function ($query) {
             $query->where('nama_jurusan', 'informatika');
         })
         ->whereNotIn('id_dosen', array_filter([$dosenPembimbing1Id, $dosenPembimbing2Id]))
-        ->get();
+        ->get()
+        ->map(function($dosen) use ($dosenWaliId) {
+            // Tambahkan flag is_wali
+            $dosen->is_wali = ($dosen->id_dosen == $dosenWaliId);
+            return $dosen;
+        })
+        ->sortByDesc('is_wali') // Urutkan berdasarkan is_wali (true di atas)
+        ->values(); // Reset index array
 
         $pengajuan = $mahasiswa->pengajuan()->first();
         $penguji1 = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)->where('urutan', 1)->first();
@@ -145,7 +155,6 @@ class PengujiAdminController extends Controller
         $request->validate([
             'jenis_seminar' => 'required|in:proposal,hasil,sidang',
             'nilai' => 'required|numeric|min:0|max:100',
-            'status' => 'required|in:lulus,tidak_lulus',
         ], [
             'jenis_seminar.required' => 'Jenis seminar harus dipilih',
             'jenis_seminar.in' => 'Jenis seminar tidak valid',
@@ -153,15 +162,13 @@ class PengujiAdminController extends Controller
             'nilai.numeric' => 'Nilai harus berupa angka',
             'nilai.min' => 'Nilai minimal 0',
             'nilai.max' => 'Nilai maksimal 100',
-            'status.required' => 'Status harus dipilih',
-            'status.in' => 'Status tidak valid',
         ]);
 
-        // Check prerequisites before allowing upload/update - Fix to use 'lulus' field
+        // Check prerequisites before allowing upload/update
         if ($request->jenis_seminar === 'hasil') {
             $semproposal = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'proposal')
-                ->where('lulus', 1) // Changed from 'status' => 'diterima'
+                ->where('lulus', 1)
                 ->first();
 
             if (!$semproposal) {
@@ -172,7 +179,7 @@ class PengujiAdminController extends Controller
         if ($request->jenis_seminar === 'sidang') {
             $semhas = Seminar::where('id_mahasiswa', $mahasiswaId)
                 ->where('jenis', 'hasil')
-                ->where('lulus', 1) // Changed from 'status' => 'diterima'
+                ->where('lulus', 1)
                 ->first();
 
             if (!$semhas) {
@@ -185,11 +192,15 @@ class PengujiAdminController extends Controller
             ->where('jenis', $request->jenis_seminar)
             ->first();
 
+        // Auto-determine lulus status based on nilai (>= 57 = lulus, < 57 = tidak lulus)
+        $lulus = $request->nilai >= 57 ? 1 : 0;
+        $status = $lulus ? 'diterima' : 'ditolak';
+
         // Prepare data for create or update
         $seminarData = [
             'nilai' => $request->nilai,
-            'lulus' => $request->status === 'lulus' ? 1 : 0,
-            // 'status' => $request->status === 'lulus' ? 'diterima' : 'ditolak', // Uncommented this line
+            'lulus' => $lulus,
+            'status' => $status,
         ];
 
         if ($existingSeminar) {
@@ -197,12 +208,12 @@ class PengujiAdminController extends Controller
             $existingSeminar->update($seminarData);
             $action = 'diperbarui';
         } else {
-            // Create new seminar record with grade only (no file yet)
+            // Create new seminar record with grade only
             $seminarData = array_merge($seminarData, [
                 'id_mahasiswa' => $mahasiswaId,
                 'jenis' => $request->jenis_seminar,
-                'lampiran' => null, // Will be filled when student uploads file
-                'tanggal_seminar' => null, // Will be filled when student uploads file
+                'lampiran' => null,
+                'tanggal_seminar' => null,
             ]);
 
             Seminar::create($seminarData);
@@ -215,7 +226,9 @@ class PengujiAdminController extends Controller
             'sidang' => 'Sidang'
         };
 
-        return redirect()->back()->with('success', "Nilai {$jenisText} berhasil {$action}.");
+        $statusText = $lulus ? 'LULUS' : 'TIDAK LULUS';
+
+        return redirect()->back()->with('success', "Nilai {$jenisText} berhasil {$action}. Status: {$statusText} (Nilai: {$request->nilai})");
     }
 
     public function hapusNilai(Request $request, $mahasiswaId)

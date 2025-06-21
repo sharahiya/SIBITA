@@ -90,8 +90,18 @@
                             </thead>
                             <tbody id="penguji1Table">
                                 @foreach ($dosenList as $dosen)
-                                <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji1', '{{ $dosen->nama }}')">
-                                    <td class="px-4 py-2">{{ $dosen->nama }}</td>
+                                <tr class="p-2 cursor-pointer hover:bg-gray-50 {{ $dosen->is_wali ? 'bg-blue-50 border-l-4 border-blue-400' : '' }}"
+                                    onclick="selectPenguji('searchPenguji1', '{{ $dosen->nama }}')">
+                                    <td class="px-4 py-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span>{{ $dosen->nama }}</span>
+                                            @if($dosen->is_wali)
+                                                <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                                    Dosen Wali
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </td>
                                     <td class="px-4 py-2">{{ $dosen->nip }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jumlahMahasiswaPerwalian() ?? 0 }}</td>
@@ -138,8 +148,18 @@
                             </thead>
                             <tbody id="penguji2Table">
                                 @foreach ($dosenList as $dosen)
-                                <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji2', '{{ $dosen->nama }}')">
-                                    <td class="px-4 py-2">{{ $dosen->nama }}</td>
+                                <tr class="p-2 cursor-pointer hover:bg-gray-50 {{ $dosen->is_wali ? 'bg-blue-50 border-l-4 border-blue-400' : '' }}"
+                                    onclick="selectPenguji('searchPenguji2', '{{ $dosen->nama }}')">
+                                    <td class="px-4 py-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span>{{ $dosen->nama }}</span>
+                                            @if($dosen->is_wali)
+                                                <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                                    Dosen Wali
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </td>
                                     <td class="px-4 py-2">{{ $dosen->nip }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jumlahMahasiswaPerwalian() ?? 0 }}</td>
@@ -192,8 +212,18 @@
                             </thead>
                             <tbody id="penguji3Table">
                                 @foreach ($dosenList as $dosen)
-                                <tr class="p-2 cursor-pointer hover:bg-gray-50" onclick="selectPenguji('searchPenguji3', '{{ $dosen->nama }}')">
-                                    <td class="px-4 py-2">{{ $dosen->nama }}</td>
+                                <tr class="p-2 cursor-pointer hover:bg-gray-50 {{ $dosen->is_wali ? 'bg-blue-50 border-l-4 border-blue-400' : '' }}"
+                                    onclick="selectPenguji('searchPenguji3', '{{ $dosen->nama }}')">
+                                    <td class="px-4 py-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span>{{ $dosen->nama }}</span>
+                                            @if($dosen->is_wali)
+                                                <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                                    Dosen Wali
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </td>
                                     <td class="px-4 py-2">{{ $dosen->nip }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jabatan }}</td>
                                     <td class="px-4 py-2">{{ $dosen->jumlahMahasiswaPerwalian() ?? 0 }}</td>
@@ -427,13 +457,33 @@
         <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
             <h3 class="text-base font-semibold text-gray-800 mb-4">Form Input Nilai</h3>
 
+            <!-- Info Box tentang Sistem Penilaian -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-sm font-medium text-blue-800">Sistem Penilaian Otomatis</h4>
+                        <div class="mt-1 text-sm text-blue-700">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Nilai ≥ 57:</strong> <span class="text-green-600 font-semibold">LULUS</span></li>
+                                <li><strong>Nilai < 57:</strong> <span class="text-red-600 font-semibold">TIDAK LULUS</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <form method="POST" action="{{ route('upload.nilai', $mahasiswa->id_mahasiswa) }}" id="formNilai" class="space-y-4">
                 @csrf
                 <input type="hidden" name="_method" value="POST" id="methodField">
                 <input type="hidden" name="seminar_id" id="seminarId">
                 <input type="hidden" name="jenis_seminar" id="hiddenJenisSeminar">
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Seminar/Sidang</label>
                         <select name="jenis_seminar" id="jenisSeminar" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
@@ -455,19 +505,15 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nilai</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nilai (0-100)</label>
                         <input type="number" name="nilai" id="inputNilai" min="0" max="100" step="0.1"
                                placeholder="Masukkan nilai 0-100"
                                class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
 
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-                        <select name="status" id="inputStatus" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                            <option value="">Pilih Status</option>
-                            <option value="lulus">Lulus</option>
-                            <option value="tidak_lulus">Tidak Lulus</option>
-                        </select>
+                        <!-- Live Status Preview -->
+                        <div id="statusPreview" class="mt-2 text-sm font-medium hidden">
+                            Status: <span id="statusText"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -524,14 +570,13 @@ function getJenisText(jenis) {
     }
 }
 
-// Function to edit nilai
+// Function to edit nilai (remove status parameter)
 function editNilai(jenis, nilai, lulus) {
     // Fill form with existing data
     document.getElementById('jenisSeminar').value = jenis;
     document.getElementById('inputNilai').value = nilai;
-    document.getElementById('inputStatus').value = lulus == 1 ? 'lulus' : 'tidak_lulus';
 
-    // Set the hidden field for jenis_seminar (important for PUT requests)
+    // Set the hidden field for jenis_seminar
     document.getElementById('hiddenJenisSeminar').value = jenis;
 
     // Change form to edit mode
@@ -542,10 +587,36 @@ function editNilai(jenis, nilai, lulus) {
     // Disable jenis selection when editing
     document.getElementById('jenisSeminar').disabled = true;
 
+    // Show current status
+    updateStatusPreview(nilai);
+
     // Scroll to form
     document.getElementById('formNilai').scrollIntoView({ behavior: 'smooth' });
 
     showSimpleNotification(`Mode edit untuk ${getJenisText(jenis)}`, 'info');
+}
+
+// Live status preview when typing nilai
+document.getElementById('inputNilai').addEventListener('input', function() {
+    const nilai = parseFloat(this.value);
+    updateStatusPreview(nilai);
+});
+
+function updateStatusPreview(nilai) {
+    const statusPreview = document.getElementById('statusPreview');
+    const statusText = document.getElementById('statusText');
+
+    if (nilai >= 0 && nilai <= 100) {
+        statusPreview.classList.remove('hidden');
+
+        if (nilai >= 57) {
+            statusText.innerHTML = '<span class="text-green-600">LULUS</span>';
+        } else {
+            statusText.innerHTML = '<span class="text-red-600">TIDAK LULUS</span>';
+        }
+    } else {
+        statusPreview.classList.add('hidden');
+    }
 }
 
 // Function to show delete confirmation
@@ -611,6 +682,7 @@ function resetForm() {
     document.getElementById('jenisSeminar').disabled = false;
     document.getElementById('seminarId').value = '';
     document.getElementById('hiddenJenisSeminar').value = '';
+    document.getElementById('statusPreview').classList.add('hidden');
 
     showSimpleNotification('Form direset ke mode upload', 'info');
 }
@@ -620,15 +692,23 @@ document.getElementById('jenisSeminar').addEventListener('change', function() {
     document.getElementById('hiddenJenisSeminar').value = this.value;
 });
 
-// Handle form submission with enhanced validation
+// Enhanced form validation
 document.getElementById('formNilai').addEventListener('submit', function(e) {
     const jenis = document.getElementById('jenisSeminar').value;
+    const nilai = parseFloat(document.getElementById('inputNilai').value);
     const method = document.getElementById('methodField').value;
 
-    // Sync the hidden field in case it's out of sync
+    // Sync the hidden field
     document.getElementById('hiddenJenisSeminar').value = jenis;
 
-    // Additional validation for prerequisites
+    // Nilai validation
+    if (isNaN(nilai) || nilai < 0 || nilai > 100) {
+        e.preventDefault();
+        showAlert('Nilai harus berupa angka antara 0-100', 'error', 'Nilai Tidak Valid');
+        return;
+    }
+
+    // Prerequisites validation
     if (jenis === 'hasil' && (!{{ $seminarProposal ? 'true' : 'false' }} || {{ $seminarProposal->lulus ?? 0 }} != 1)) {
         e.preventDefault();
         showAlert('Seminar Proposal harus lulus terlebih dahulu sebelum dapat mengupload nilai Seminar Hasil', 'warning', 'Prasyarat Tidak Terpenuhi');
@@ -641,10 +721,12 @@ document.getElementById('formNilai').addEventListener('submit', function(e) {
         return;
     }
 
-    // Show loading state
+    // Show loading state with status preview
     const btnSubmit = document.getElementById('btnSubmit');
     const originalText = btnSubmit.innerHTML;
-    btnSubmit.innerHTML = method === 'PUT' ? 'Updating...' : 'Uploading...';
+    const statusText = nilai >= 57 ? 'LULUS' : 'TIDAK LULUS';
+
+    btnSubmit.innerHTML = method === 'PUT' ? `Updating... (${statusText})` : `Uploading... (${statusText})`;
     btnSubmit.disabled = true;
 });
 
@@ -1071,6 +1153,21 @@ function saveJudulTA() {
     showSimpleNotification('Judul TA berhasil diperbarui', 'success');
 }
 
+// Enhanced success message untuk upload nilai
+@if(session('success') && str_contains(session('success'), 'Status:'))
+document.addEventListener('DOMContentLoaded', function() {
+    const message = `{{ session('success') }}`;
+
+    // Extract status from message
+    if (message.includes('LULUS')) {
+        showSimpleNotification(message, 'success');
+    } else if (message.includes('TIDAK LULUS')) {
+        showSimpleNotification(message, 'warning');
+    } else {
+        showSimpleNotification(message, 'success');
+    }
+});
+@endif
 </script>
 
 @endsection

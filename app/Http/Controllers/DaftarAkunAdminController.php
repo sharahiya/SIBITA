@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
+use App\Models\Penguji;
 use Illuminate\Http\Request;
 
 class DaftarAkunAdminController extends Controller
@@ -71,6 +72,75 @@ class DaftarAkunAdminController extends Controller
                     ];
                 });
 
+            // Get students where this dosen is examiner (penguji) - ONLY those who haven't completed sidang
+            $mahasiswaPenguji = Penguji::where('id_dosen', $id)
+                ->with([
+                    'mahasiswa' => function($query) {
+                        // Only get mahasiswa who haven't completed sidang (status != 'diterima' for sidang)
+                        $query->whereDoesntHave('seminars', function($seminarQuery) {
+                            $seminarQuery->where('jenis', 'sidang')
+                                       ->where('status', 'diterima');
+                        });
+                    },
+                    'mahasiswa.pengajuan' => function($query) {
+                        $query->where('status', 'diterima')->with('dosen');
+                    },
+                    'mahasiswa.seminars' => function($query) {
+                        $query->where('status', 'diterima')->orderBy('created_at', 'desc');
+                    }
+                ])
+                ->get()
+                ->filter(function($penguji) {
+                    // Additional filter to ensure mahasiswa exists (in case whereDoesntHave didn't work as expected)
+                    return $penguji->mahasiswa !== null;
+                })
+                ->map(function($penguji) {
+                    $mahasiswa = $penguji->mahasiswa;
+
+                    // Get the latest seminar status
+                    $latestSeminar = $mahasiswa->seminars->first();
+                    $seminarStatus = 'Bimbingan';
+
+                    if ($latestSeminar) {
+                        switch ($latestSeminar->jenis) {
+                            case 'proposal':
+                                $seminarStatus = 'Sempro';
+                                break;
+                            case 'hasil':
+                                $seminarStatus = 'Semhas';
+                                break;
+                            case 'sidang':
+                                $seminarStatus = 'Sidang';
+                                break;
+                            default:
+                                $seminarStatus = 'Bimbingan';
+                        }
+                    }
+
+                    // Get pembimbing info
+                    $pembimbing = $mahasiswa->pengajuan->where('status', 'diterima');
+                    $pembimbingList = [];
+                    foreach($pembimbing as $p) {
+                        $pembimbingList[] = [
+                            'nama' => $p->dosen->nama,
+                            'dosen_ke' => $p->dosen_ke
+                        ];
+                    }
+
+                    return [
+                        'nama' => $mahasiswa->nama,
+                        'npm' => $mahasiswa->npm,
+                        'angkatan' => $mahasiswa->angkatan,
+                        'urutan_penguji' => $penguji->urutan,
+                        'role_penguji' => $this->getPengujiRole($penguji->urutan),
+                        'seminar_status' => $seminarStatus,
+                        'status' => $seminarStatus,
+                        'pembimbing' => $pembimbingList,
+                        'topik_ta' => $pembimbing->first()->topik_ta ?? 'Belum ada topik',
+                        'created_at' => $penguji->created_at
+                    ];
+                });
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -79,19 +149,26 @@ class DaftarAkunAdminController extends Controller
                         'nip' => $dosen->nip,
                         'bidang' => $dosen->bidang,
                         'kuota_bimbingan' => $dosen->kuota_bimbingan ?? 0,
-                        'jumlah_bimbingan_aktif' => $result['jumlahMahasiswa'], // Use the count from reusable function
+                        'jumlah_bimbingan_aktif' => $result['jumlahMahasiswa'],
                         'jumlah_mahasiswa_wali' => $dosen->jumlahMahasiswaPerwalian(),
-                        'jumlah_penguji' => $dosen->jumlahMenjadiPenguji()
+                        'jumlah_penguji' => $mahasiswaPenguji->count(), // Use actual count from filtered data
+                        'jabatan' => $dosen->jabatan,
+                        'jurusan' => $dosen->jurusan ? $dosen->jurusan->nama_jurusan : 'Tidak diketahui',
+                        'fakultas' => $dosen->fakultas ? $dosen->fakultas->nama_fakultas : 'Tidak diketahui',
                     ],
                     'mahasiswa_bimbingan' => $mahasiswaBimbingan->values(),
-                    'mahasiswa_wali' => $mahasiswaWali->values()
+                    'mahasiswa_wali' => $mahasiswaWali->values(),
+                    'mahasiswa_penguji' => $mahasiswaPenguji->values()
                 ]
             ]);
 
         } catch (\Exception $e) {
+            \Log::error('Error in getDosenDetail: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data dosen'
+                'message' => 'Terjadi kesalahan saat mengambil data dosen: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -161,6 +238,20 @@ class DaftarAkunAdminController extends Controller
                 return 'Sidang';
             default:
                 return ucfirst($jenis);
+        }
+    }
+
+    private function getPengujiRole($urutan)
+    {
+        switch ($urutan) {
+            case 1:
+                return 'Penguji 1';
+            case 2:
+                return 'Penguji 2';
+            case 3:
+                return 'Penguji 3';
+            default:
+                return 'Penguji ' . $urutan;
         }
     }
 }
