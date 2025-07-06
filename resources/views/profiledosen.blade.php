@@ -320,43 +320,6 @@
     </div>
 </div>
 
-<!-- Modal Edit Kuota -->
-<div id="modalKuota" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="modalKuotaContent">
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center">
-                <div class="bg-green-100 rounded-full p-3 mr-3">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                </div>
-                <h2 class="text-xl font-semibold text-gray-800">Edit Kuota Bimbingan</h2>
-            </div>
-            <button onclick="closeModalKuota()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
-
-        <div class="mb-4">
-            <label for="editKuotaInput" class="block text-sm font-medium text-gray-700 mb-2">Kuota Bimbingan Baru:</label>
-            <input type="number" id="editKuotaInput"
-                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                   min="1" placeholder="Masukkan kuota baru">
-            <p class="text-xs text-gray-500 mt-1">Kuota minimal: 1 mahasiswa</p>
-        </div>
-
-        <div class="flex space-x-3">
-            <button onclick="saveKuotaEdit()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
-                Simpan
-            </button>
-            <button onclick="closeModalKuota()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
-                Batal
-            </button>
-        </div>
-    </div>
-</div>
 
 <!-- Modal Edit WhatsApp Link -->
 <div id="modalWhatsapp" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
@@ -605,6 +568,237 @@
 
     // Rest of the JavaScript functions remain the same...
     // (Modal functions, WhatsApp edit, etc.)
+    let pengajuanToRemoveId = null;
+
+    // Utility functions for modals
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const modalContent = modal.querySelector('div > div');
+
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100', 'animate-slideIn');
+        }, 10);
+    }
+
+    function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const modalContent = modal.querySelector('div > div');
+
+        modalContent.classList.add('scale-95');
+        modalContent.classList.remove('scale-100');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 200);
+    }
+
+    function showSuccessModal(message) {
+        document.getElementById('successMessage').textContent = message;
+        showModal('successModal');
+    }
+
+    function closeSuccessModal() {
+        hideModal('successModal');
+    }
+
+    function showErrorModal(message) {
+        document.getElementById('errorMessage').textContent = message;
+        showModal('errorModal');
+    }
+
+    function closeErrorModal() {
+        hideModal('errorModal');
+    }
+
+    function showLoadingModal() {
+        document.getElementById('loadingModal').classList.remove('hidden');
+    }
+
+    function hideLoadingModal() {
+        document.getElementById('loadingModal').classList.add('hidden');
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const tbody = document.getElementById('mahasiswaTableBody');
+        const rows = tbody.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const nama = row.getElementsByTagName('td')[1].textContent.toLowerCase();
+            const npm = row.getElementsByTagName('td')[2].textContent.toLowerCase();
+            const bidang = row.getElementsByTagName('td')[3].textContent.toLowerCase();
+            const topik = row.getElementsByTagName('td')[4].textContent.toLowerCase();
+
+            if (nama.includes(searchValue) ||
+                npm.includes(searchValue) ||
+                bidang.includes(searchValue) ||
+                topik.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+
+    // WhatsApp edit functionality
+    document.getElementById('editWhatsapp').addEventListener('click', function () {
+        document.getElementById('editWhatsappInput').value = document.getElementById('whatsappGroup').value;
+        showModal('modalWhatsapp');
+    });
+
+    function closeModalWhatsapp() {
+        hideModal('modalWhatsapp');
+    }
+
+    function saveWhatsappEdit() {
+        let newWhatsappLink = document.getElementById('editWhatsappInput').value;
+
+        if (!newWhatsappLink.trim()) {
+            showErrorModal('Link WhatsApp tidak boleh kosong!');
+            return;
+        }
+
+        showLoadingModal();
+
+        fetch("{{ route('dosen.updateWhatsapp') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({ link: newWhatsappLink })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingModal();
+            document.getElementById('whatsappGroup').value = newWhatsappLink;
+            closeModalWhatsapp();
+            showSuccessModal(data.message || 'Link WhatsApp berhasil diubah!');
+        })
+        .catch(error => {
+            hideLoadingModal();
+            console.error('Error:', error);
+            showErrorModal('Terjadi kesalahan saat menyimpan link WhatsApp.');
+        });
+    }
+
+    // Description modal
+    function openModal(deskripsi) {
+        document.getElementById('modalText').textContent = deskripsi;
+        showModal('modalDeskripsi');
+    }
+
+    function closeModal() {
+        hideModal('modalDeskripsi');
+    }
+
+    // Remove student functionality
+    function confirmRemove(button) {
+        pengajuanToRemoveId = button.getAttribute('data-id');
+        showModal('modalRemove');
+    }
+
+    function closeRemoveModal() {
+        hideModal('modalRemove');
+    }
+
+    function removeStudent() {
+        if (!pengajuanToRemoveId) return;
+
+        showLoadingModal();
+        closeRemoveModal();
+
+        fetch(`/bimbingan/remove/${pengajuanToRemoveId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Gagal menghapus');
+            return response.json();
+        })
+        .then(data => {
+            hideLoadingModal();
+            showSuccessModal(data.message || 'Mahasiswa berhasil dihapus dari daftar bimbingan.');
+
+            // Auto reload after 2 seconds
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        })
+        .catch(error => {
+            hideLoadingModal();
+            console.error(error);
+            showErrorModal('Terjadi kesalahan saat menghapus mahasiswa.');
+        });
+    }
+
+    // Kuota modal functionality (if needed)
+    function closeModalKuota() {
+        hideModal('modalKuota');
+    }
+
+    function saveKuotaEdit() {
+        let kuota = document.getElementById('editKuotaInput').value;
+
+        if (!kuota || kuota < 1) {
+            showErrorModal('Kuota harus berupa angka positif!');
+            return;
+        }
+
+        showLoadingModal();
+
+        fetch("{{ route('dosen.updateKuota') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({ kuota: kuota })
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoadingModal();
+            document.getElementById('kuotaBimbingan').value = kuota;
+            closeModalKuota();
+            showSuccessModal(data.message || 'Kuota bimbingan berhasil diubah!');
+        })
+        .catch(error => {
+            hideLoadingModal();
+            console.error('Error:', error);
+            showErrorModal('Terjadi kesalahan saat menyimpan kuota.');
+        });
+    }
+
+    // Close modals when clicking outside
+    document.addEventListener('click', function(e) {
+        const modals = ['modalDeskripsi', 'modalRemove', 'modalKuota', 'modalWhatsapp'];
+
+        modals.forEach(modalId => {
+            const modal = document.getElementById(modalId);
+            if (e.target === modal) {
+                hideModal(modalId);
+            }
+        });
+    });
+
+    // Close modals with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modals = ['modalDeskripsi', 'modalRemove', 'modalKuota', 'modalWhatsapp', 'successModal', 'errorModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (!modal.classList.contains('hidden')) {
+                    hideModal(modalId);
+                }
+            });
+        }
+    });
 </script>
 
 @endsection
