@@ -130,6 +130,7 @@ Route::get('/api/existing-data', [ManajemenAkunController::class, 'getExistingDa
 Route::post('/dosen/change-password', [DashboardDosenController::class, 'changePassword'])->name('dosen.change-password');
 
 Route::post('/mahasiswa/change-password', [DashboardController::class, 'changePassword'])->name('mahasiswa.change-password');
+Route::post('/admin/change-password', [DashboardAdminController::class, 'changePassword'])->name('admin.change-password');
 
 Route::get('/pengajuan-diperlukan', function () {
     return view('perlupengajuan');

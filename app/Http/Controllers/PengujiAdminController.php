@@ -7,6 +7,7 @@ use App\Models\Mahasiswa;
 use App\Models\Penguji;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PengujiAdminController extends Controller
 {
@@ -22,18 +23,63 @@ class PengujiAdminController extends Controller
         // Ambil ID dosen wali
         $dosenWaliId = $mahasiswa->id_dosen_wali;
 
+        // Ambil ID dosen yang sudah menjadi penguji untuk mahasiswa ini
+        $dosenPengujiIds = Penguji::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+            ->pluck('id_dosen')
+            ->toArray();
+
+        // Ambil dosen yang sudah pernah menguji seminar (dari semua mahasiswa)
+        $dosenSudahSeminarIds = DB::table('pengujis')
+            ->join('seminars', 'pengujis.id_mahasiswa', '=', 'seminars.id_mahasiswa')
+            ->where('seminars.status', 'diterima')
+            ->whereIn('seminars.jenis', ['proposal', 'hasil', 'sidang'])
+            ->distinct()
+            ->pluck('pengujis.id_dosen')
+            ->toArray();
+
         // Ambil dosen yang bukan pembimbing
         $dosenList = Dosen::whereHas('jurusan', function ($query) {
             $query->where('nama_jurusan', 'informatika');
         })
         ->whereNotIn('id_dosen', array_filter([$dosenPembimbing1Id, $dosenPembimbing2Id]))
         ->get()
-        ->map(function($dosen) use ($dosenWaliId) {
+        ->map(function($dosen) use ($dosenWaliId, $dosenPengujiIds, $dosenSudahSeminarIds) {
             // Tambahkan flag is_wali
             $dosen->is_wali = ($dosen->id_dosen == $dosenWaliId);
+
+            // Tambahkan flag is_current_penguji (sedang menjadi penguji mahasiswa ini)
+            $dosen->is_current_penguji = in_array($dosen->id_dosen, $dosenPengujiIds);
+
+            // Tambahkan flag sudah_seminar (pernah menguji seminar yang sudah selesai)
+            $dosen->sudah_seminar = in_array($dosen->id_dosen, $dosenSudahSeminarIds);
+
+            // Hitung berapa kali jadi penguji
+            $dosen->jumlah_penguji = Penguji::where('id_dosen', $dosen->id_dosen)->count();
+
+            // Hitung berapa kali menguji seminar yang sudah selesai
+            $dosen->jumlah_seminar_selesai = \DB::table('pengujis')
+                ->join('seminars', 'pengujis.id_mahasiswa', '=', 'seminars.id_mahasiswa')
+                ->where('pengujis.id_dosen', $dosen->id_dosen)
+                ->where('seminars.status', 'diterima')
+                ->whereIn('seminars.jenis', ['proposal', 'hasil', 'sidang'])
+                ->count();
+
             return $dosen;
         })
-        ->sortByDesc('is_wali') // Urutkan berdasarkan is_wali (true di atas)
+        ->sortBy([
+            // Prioritas 1: Yang sedang menjadi penguji mahasiswa ini (di atas)
+            ['is_current_penguji', 'desc'],
+            // Prioritas 2: Dosen wali (di atas)
+            ['is_wali', 'desc'],
+            // Prioritas 3: Yang belum pernah seminar (di atas)
+            ['sudah_seminar', 'asc'],
+            // Prioritas 4: Yang paling sedikit menguji seminar (di atas)
+            ['jumlah_seminar_selesai', 'asc'],
+            // Prioritas 5: Yang paling sedikit jadi penguji (di atas)
+            ['jumlah_penguji', 'asc'],
+            // Prioritas 6: Nama (A-Z)
+            ['nama', 'asc']
+        ])
         ->values(); // Reset index array
 
         $pengajuan = $mahasiswa->pengajuan()->first();
@@ -303,3 +349,6 @@ class PengujiAdminController extends Controller
         ]);
     }
 }
+
+
+

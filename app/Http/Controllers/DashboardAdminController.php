@@ -9,6 +9,8 @@ use App\Models\Pengajuan;
 use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardAdminController extends Controller
 {
@@ -40,7 +42,7 @@ class DashboardAdminController extends Controller
 
                 foreach ($mahasiswaWithSeminar as $mahasiswa) {
                     $latestSeminar = $mahasiswa->seminars->first();
-                    
+
                     if ($latestSeminar) {
                         switch ($latestSeminar->jenis) {
                             case 'proposal':
@@ -72,18 +74,18 @@ class DashboardAdminController extends Controller
             ->get()
             ->filter(function ($seminar) {
                 $mahasiswa = $seminar->mahasiswa;
-                
+
                 // Ambil seminar terakhir yang diterima untuk mahasiswa ini
                 $latestSeminar = Seminar::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
                     ->where('status', 'diterima')
                     ->orderBy('created_at', 'desc')
                     ->first();
-                
+
                 // Jika tidak ada seminar yang diterima sebelumnya, tampilkan
                 if (!$latestSeminar) {
                     return true;
                 }
-                
+
                 // Logika filter berdasarkan tahap terakhir
                 switch ($latestSeminar->jenis) {
                     case 'sidang':
@@ -104,7 +106,7 @@ class DashboardAdminController extends Controller
                 $pengajuanBimbingan = Pengajuan::where('id_mahasiswa', $s->id_mahasiswa)
                     ->where('status', 'diterima')
                     ->first();
-                
+
                 return [
                     'nama'    => $s->mahasiswa->nama ?? '-',
                     'npm'     => $s->mahasiswa->npm ?? '-',
@@ -175,6 +177,67 @@ class DashboardAdminController extends Controller
                 return 'Sidang';
             default:
                 return ucfirst($jenis);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'current_password' => 'required',
+                'new_password' => 'required|min:6|confirmed',
+            ], [
+                'current_password.required' => 'Password lama wajib diisi',
+                'new_password.required' => 'Password baru wajib diisi',
+                'new_password.min' => 'Password baru minimal 6 karakter',
+                'new_password.confirmed' => 'Konfirmasi password tidak cocok',
+            ]);
+
+            // Ambil admin yang sedang login
+            $admin = Auth::guard('admin')->user();
+
+            if (!$admin) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Admin tidak ditemukan'
+                ], 401);
+            }
+
+            // Verifikasi password lama
+            if (!Hash::check($request->current_password, $admin->password)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Password lama tidak sesuai'
+                ], 422);
+            }
+
+            // Cek apakah password baru sama dengan password lama
+            if (Hash::check($request->new_password, $admin->password)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Password baru tidak boleh sama dengan password lama'
+                ], 422);
+            }
+
+            // Update password
+            $admin->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+
+            // Log activity (optional)
+            return response()->json([
+                'success' => true,
+                'message' => 'Password berhasil diubah'
+            ]);
+
+        } catch (\Exception $e) {
+
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan sistem. Silakan coba lagi.'
+            ], 500);
         }
     }
 }
