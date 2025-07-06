@@ -293,6 +293,186 @@
 <!-- Modal lainnya tetap sama seperti sebelumnya -->
 <!-- ... (Modal Remove, Modal WhatsApp, dll.) ... -->
 
+<!-- Modal Konfirmasi Remove -->
+<div id="modalRemove" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="modalRemoveContent">
+        <div class="flex items-center justify-center mb-4">
+            <div class="bg-red-100 rounded-full p-3">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.924-.833-2.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Konfirmasi Penghapusan</h2>
+            <p class="text-gray-600">Apakah Anda yakin ingin menghapus mahasiswa ini dari daftar bimbingan? Tindakan ini tidak dapat dibatalkan.</p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button onclick="removeStudent()" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">
+                Ya, Hapus
+            </button>
+            <button onclick="closeRemoveModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
+                Batal
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Kuota -->
+<div id="modalKuota" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="modalKuotaContent">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <div class="bg-green-100 rounded-full p-3 mr-3">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800">Edit Kuota Bimbingan</h2>
+            </div>
+            <button onclick="closeModalKuota()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="mb-4">
+            <label for="editKuotaInput" class="block text-sm font-medium text-gray-700 mb-2">Kuota Bimbingan Baru:</label>
+            <input type="number" id="editKuotaInput"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                   min="1" placeholder="Masukkan kuota baru">
+            <p class="text-xs text-gray-500 mt-1">Kuota minimal: 1 mahasiswa</p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button onclick="saveKuotaEdit()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                Simpan
+            </button>
+            <button onclick="closeModalKuota()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
+                Batal
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit WhatsApp Link -->
+<div id="modalWhatsapp" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="modalWhatsappContent">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <div class="bg-green-100 rounded-full p-3 mr-3">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800">Edit Link WhatsApp</h2>
+            </div>
+            <button onclick="closeModalWhatsapp()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="mb-4">
+            <label for="editWhatsappInput" class="block text-sm font-medium text-gray-700 mb-2">Link WhatsApp Grup:</label>
+            <input type="text" id="editWhatsappInput"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                   placeholder="https://chat.whatsapp.com/xxxxx">
+            <p class="text-xs text-gray-500 mt-1">Masukkan link grup WhatsApp untuk mahasiswa bimbingan</p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button onclick="saveWhatsappEdit()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                Simpan
+            </button>
+            <button onclick="closeModalWhatsapp()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
+                Batal
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="successModalContent">
+        <div class="flex items-center justify-center mb-4">
+            <div class="bg-green-100 rounded-full p-3 animate-pulse">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Berhasil!</h2>
+            <p id="successMessage" class="text-gray-600"></p>
+        </div>
+
+        <div class="flex justify-center">
+            <button onclick="closeSuccessModal()" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div id="errorModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300" id="errorModalContent">
+        <div class="flex items-center justify-center mb-4">
+            <div class="bg-red-100 rounded-full p-3">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Terjadi Kesalahan</h2>
+            <p id="errorMessage" class="text-gray-600"></p>
+        </div>
+
+        <div class="flex justify-center">
+            <button onclick="closeErrorModal()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div id="loadingModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm mx-4">
+        <div class="flex items-center justify-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-3"></div>
+            <span class="text-gray-700 font-medium">Memproses...</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Animation classes */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .animate-slideIn {
+        animation: slideIn 0.3s ease-out;
+    }
+</style>
+
+
 <style>
     /* Tab Styles */
     .tab-button.active {
