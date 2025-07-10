@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
+use App\Observers\NotifikasiObserver;
 use App\Observers\PengajuanObserver;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Pengajuan::observe(PengajuanObserver::class);
+
+
+        Notifikasi::observe(NotifikasiObserver::class);
     }
 }
 

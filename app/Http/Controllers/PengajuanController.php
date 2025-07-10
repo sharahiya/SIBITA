@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Dosen;
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
-use App\Notifications\PengajuanBimbinganNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class PengajuanController extends Controller
 {
@@ -94,7 +92,7 @@ class PengajuanController extends Controller
                         ->first();
 
         if ($pengajuan1) {
-            if ($pengajuan1->status === 'ditolak') {
+            if ($pengajuan1->status === 'ditolak' || $pengajuan1->status === 'cancelled') {
                 // Update pengajuan 1 with new dosen or changes
                 $pengajuan1->update([
                     'id_dosen' => $dosen1->id_dosen,
@@ -104,15 +102,10 @@ class PengajuanController extends Controller
                     'status' => 'pending',
                     'tanggal_pengajuan' => now(),
                 ]);
-                // Simpan notifikasi untuk pengajuan baru
-                Notifikasi::create([
-                    'id_user' => $dosen1->id_dosen,
-                    'role' => 'dosen',
-                    'tipe_notifikasi' => 'Pengajuan Bimbingan',
-                    'pesan' => 'Pengajuan Dosen Pembimbing 1 baru dari mahasiswa: ' . Auth::guard('mahasiswa')->user()->nama . '.',
-                    'tanggal_kirim' => now(),
-                    'status_baca' => 'belum'
-                ]);
+
+                // Kirim notifikasi + email
+                $this->sendNotificationAndEmail($pengajuan1);
+
             } elseif ($pengajuan1->id_dosen === $dosen1->id_dosen) {
                 // Update only judul or deskripsi if they are changed
                 $pengajuan1->update([
@@ -135,20 +128,11 @@ class PengajuanController extends Controller
                 'tanggal_pengajuan' => now(),
             ]);
 
-            $this->sendNotification($newPengajuan1);
-
-            // Simpan notifikasi untuk pengajuan baru
-            Notifikasi::create([
-                'id_user' => $dosen1->id_dosen,
-                'role' => 'dosen',
-                'tipe_notifikasi' => 'Pengajuan Bimbingan',
-                'pesan' => 'Pengajuan Dosen Pembimbing 1 baru dari mahasiswa: ' . Auth::guard('mahasiswa')->user()->nama . '.',
-                'tanggal_kirim' => now(),
-                'status_baca' => 'belum'
-            ]);
+            // Kirim notifikasi + email
+            $this->sendNotificationAndEmail($newPengajuan1);
         }
 
-        // Handle Dosen Pembimbing 2
+        // Handle Dosen Pembimbing 2 (sama seperti di atas)
         if ($request->filled('dosenPembimbing2')) {
             $dosen2 = Dosen::where('nama', $request->dosenPembimbing2)->first();
             if (!$dosen2) {
@@ -160,8 +144,7 @@ class PengajuanController extends Controller
                             ->first();
 
             if ($pengajuan2) {
-                if ($pengajuan2->status === 'ditolak') {
-                    // Update pengajuan 2 with new dosen or changes
+                if ($pengajuan2->status === 'ditolak' || $pengajuan2->status === 'cancelled') {
                     $pengajuan2->update([
                         'id_dosen' => $dosen2->id_dosen,
                         'topik_ta' => $request->judul,
@@ -171,17 +154,9 @@ class PengajuanController extends Controller
                         'tanggal_pengajuan' => now(),
                     ]);
 
-                    // Simpan notifikasi untuk pengajuan baru
-                    Notifikasi::create([
-                        'id_user' => $dosen2->id_dosen,
-                        'role' => 'dosen',
-                        'tipe_notifikasi' => 'Pengajuan Bimbingan',
-                        'pesan' => 'Pengajuan Dosen Pembimbing 2 baru dari mahasiswa: ' . Auth::guard('mahasiswa')->user()->nama . '.',
-                        'tanggal_kirim' => now(),
-                        'status_baca' => 'belum'
-                    ]);
+                    $this->sendNotificationAndEmail($pengajuan2);
+
                 } elseif ($pengajuan2->id_dosen === $dosen2->id_dosen) {
-                    // Update only judul or deskripsi if they are changed
                     $pengajuan2->update([
                         'topik_ta' => $request->judul,
                         'deskripsi_ta' => $request->deskripsi,
@@ -190,7 +165,6 @@ class PengajuanController extends Controller
                     return back()->withErrors(['dosenPembimbing2' => 'Dosen pembimbing 2 sudah diajukan sebelumnya dan tidak dapat diubah.'])->withInput();
                 }
             } else {
-                // Create new pengajuan for dosen pembimbing 2
                 $newPengajuan2 = Pengajuan::create([
                     'id_mahasiswa' => $mahasiswaId,
                     'id_dosen' => $dosen2->id_dosen,
@@ -202,16 +176,7 @@ class PengajuanController extends Controller
                     'tanggal_pengajuan' => now(),
                 ]);
 
-                $this->sendNotification($newPengajuan2);
-
-                Notifikasi::create([
-                    'id_user' => $dosen2->id_dosen,
-                    'role' => 'dosen',
-                    'tipe_notifikasi' => 'Pengajuan Bimbingan',
-                    'pesan' => 'Pengajuan Dosen Pembimbing 2 baru dari mahasiswa: ' . Auth::guard('mahasiswa')->user()->nama . '.',
-                    'tanggal_kirim' => now(),
-                    'status_baca' => 'belum'
-                ]);
+                $this->sendNotificationAndEmail($newPengajuan2);
             }
         }
 
@@ -261,28 +226,26 @@ class PengajuanController extends Controller
         return response()->json(['message' => 'Status pengajuan berhasil diperbarui.']);
     }
 
-    private function sendNotification($pengajuan)
+    // Ganti method sendNotification dengan yang lebih sederhana
+    private function sendNotificationAndEmail($pengajuan)
     {
         try {
             $dosen = $pengajuan->dosen;
             $mahasiswa = Auth::guard('mahasiswa')->user();
 
-            // 1. Simpan notifikasi ke database (sistem lama)
-            Notifikasi::create([
+            // 1. Simpan notifikasi ke database
+            $notifikasi = Notifikasi::create([
                 'id_user' => $dosen->id_dosen,
                 'role' => 'dosen',
                 'tipe_notifikasi' => 'Pengajuan Bimbingan',
-                'pesan' => 'Pengajuan Dosen Pembimbing ' . $pengajuan->dosen_ke . ' baru dari mahasiswa: ' . $mahasiswa->nama . '.',
+                'pesan' => 'Pengajuan Dosen Pembimbing ' . $pengajuan->dosen_ke . ' baru dari mahasiswa: ' . $mahasiswa->nama . '. Topik: ' . $pengajuan->topik_ta,
                 'tanggal_kirim' => now(),
                 'status_baca' => 'belum'
             ]);
 
-            // 2. Kirim email ke Gmail dosen (jika ada email)
-            if ($dosen->email) {
-                $this->sendEmailToGmail($pengajuan, $dosen, $mahasiswa);
-            }
+            // 2. Email akan dikirim otomatis oleh NotifikasiObserver
 
-            Log::info('Notifikasi berhasil dikirim', [
+            Log::info('Notifikasi dan email berhasil dikirim', [
                 'pengajuan_id' => $pengajuan->id_pengajuan,
                 'dosen_id' => $dosen->id_dosen,
                 'dosen_email' => $dosen->email ?? 'No email',
@@ -295,98 +258,5 @@ class PengajuanController extends Controller
                 'error' => $e->getMessage()
             ]);
         }
-    }
-
-    // Method untuk kirim email sederhana ke Gmail
-    private function sendEmailToGmail($pengajuan, $dosen, $mahasiswa)
-    {
-        try {
-            Mail::send([], [], function ($message) use ($pengajuan, $dosen, $mahasiswa) {
-                $message->to($dosen->email, $dosen->nama)
-                    ->subject('Pengajuan Bimbingan Baru - SIBITA')
-                    ->html($this->buildEmailContent($pengajuan, $dosen, $mahasiswa));
-            });
-
-            Log::info('Email berhasil dikirim ke Gmail', [
-                'dosen_email' => $dosen->email,
-                'pengajuan_id' => $pengajuan->id_pengajuan
-            ]);
-
-        } catch (\Exception $e) {
-            Log::error('Gagal mengirim email: ' . $e->getMessage(), [
-                'dosen_email' => $dosen->email,
-                'pengajuan_id' => $pengajuan->id_pengajuan,
-                'error' => $e->getMessage()
-            ]);
-        }
-    }
-
-    // Method untuk buat konten email HTML sederhana
-    private function buildEmailContent($pengajuan, $dosen, $mahasiswa)
-    {
-        $tanggalPengajuan = \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d F Y, H:i');
-        $batasWaktu = \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->addDays(3)->format('d F Y, H:i');
-
-        return "
-        <html>
-        <head>
-            <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                .header { background-color: #007bff; color: white; padding: 20px; text-align: center; }
-                .content { padding: 20px; background-color: #f9f9f9; }
-                .info-box { background-color: white; padding: 15px; margin: 10px 0; border-left: 4px solid #007bff; }
-                .warning { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; }
-                .button { background-color: #007bff; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 15px 0; }
-            </style>
-        </head>
-        <body>
-            <div class='container'>
-                <div class='header'>
-                    <h1>SIBITA</h1>
-                    <p>Sistem Informasi Bimbingan Tugas Akhir</p>
-                </div>
-
-                <div class='content'>
-                    <h2>Pengajuan Bimbingan Baru</h2>
-                    <p>Yth. <strong>{$dosen->nama}</strong>,</p>
-                    <p>Anda telah menerima pengajuan bimbingan tugas akhir baru yang memerlukan persetujuan Anda.</p>
-
-                    <div class='warning'>
-                        <strong>⚠️ Perhatian:</strong> Pengajuan akan dibatalkan otomatis jika tidak ada respons dalam 3 hari.
-                    </div>
-
-                    <div class='info-box'>
-                        <h3>Detail Pengajuan:</h3>
-                        <p><strong>Nama Mahasiswa:</strong> {$mahasiswa->nama}</p>
-                        <p><strong>NPM:</strong> {$mahasiswa->npm}</p>
-                        <p><strong>Email:</strong> {$mahasiswa->email}</p>
-                        <p><strong>Posisi:</strong> Dosen Pembimbing {$pengajuan->dosen_ke}</p>
-                        <p><strong>Bidang:</strong> {$pengajuan->bidang}</p>
-                        <p><strong>Judul TA:</strong> {$pengajuan->topik_ta}</p>
-                        <p><strong>Deskripsi:</strong> {$pengajuan->deskripsi_ta}</p>
-                    </div>
-
-                    <div class='info-box'>
-                        <p><strong>📅 Tanggal Pengajuan:</strong> {$tanggalPengajuan} WIB</p>
-                        <p><strong>⏰ Batas Waktu Respons:</strong> {$batasWaktu} WIB</p>
-                    </div>
-
-                    <div style='text-align: center;'>
-                        <a href='" . url('/requestdosen') . "' class='button'>Lihat & Proses Pengajuan</a>
-                    </div>
-
-                    <p>Silakan login ke sistem SIBITA untuk memberikan persetujuan atau penolakan terhadap pengajuan ini.</p>
-                    <p>Terima kasih atas perhatian Anda.</p>
-                </div>
-
-                <div style='text-align: center; margin-top: 20px; color: #666; font-size: 12px;'>
-                    <p>Email ini dikirim secara otomatis oleh sistem SIBITA</p>
-                    <p>© " . date('Y') . " SIBITA - Sistem Informasi Bimbingan Tugas Akhir</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        ";
     }
 }

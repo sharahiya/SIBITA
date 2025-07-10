@@ -239,6 +239,7 @@ private function updatePengajuanBimbingan($request)
         'tanggal_kirim' => now(),
         'status_baca' => 'belum'
     ]);
+    // Email akan otomatis dikirim oleh NotifikasiObserver
 
     return response()->json([
         'message' => 'Status pengajuan berhasil diperbarui',

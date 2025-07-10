@@ -35,6 +35,7 @@ public function updateStatus(Request $request)
         'tanggal_kirim' => now(),
         'status_baca' => 'belum',
     ]);
+    // Email akan otomatis dikirim oleh NotifikasiObserver
 
     return response()->json(['message' => 'Status seminar berhasil diperbarui.']);
 }
