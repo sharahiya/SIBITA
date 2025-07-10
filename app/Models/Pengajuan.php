@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Pengajuan extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'pengajuans';
     protected $primaryKey = 'id_pengajuan';
@@ -16,6 +17,7 @@ class Pengajuan extends Model
         'id_dosen',
         'dosen_ke',
         'topik_ta',
+        'email',
         'deskripsi_ta',
         'bidang',
         'status',

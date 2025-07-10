@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 class Dosen extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'dosens';
     protected $primaryKey = 'id_dosen';
@@ -16,7 +17,7 @@ class Dosen extends Authenticatable
 
     public function mahasiswaWali()
     {
-        return $this->hasMany(Mahasiswa::class, 'id_dosen_wali'); 
+        return $this->hasMany(Mahasiswa::class, 'id_dosen_wali');
     }
 
     public function pengajuan()

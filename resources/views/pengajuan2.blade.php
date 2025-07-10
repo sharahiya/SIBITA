@@ -12,6 +12,8 @@
                     border-green-500 bg-green-50
                 @elseif ($pengajuan1->status === 'ditolak')
                     border-red-500 bg-red-50
+                @elseif ($pengajuan1->status === 'cancelled')
+                    border-orange-500 bg-orange-50
                 @else
                     border-yellow-500 bg-yellow-50
                 @endif
@@ -21,6 +23,8 @@
                         text-green-700
                     @elseif ($pengajuan1->status === 'ditolak')
                         text-red-700
+                    @elseif ($pengajuan1->status === 'cancelled')
+                        text-orange-700
                     @else
                         text-yellow-700
                     @endif
@@ -31,15 +35,43 @@
                         text-green-700
                     @elseif ($pengajuan1->status === 'ditolak')
                         text-red-700
+                    @elseif ($pengajuan1->status === 'cancelled')
+                        text-orange-700
                     @else
                         text-yellow-700
                     @endif
                 ">
-                    Pengajuan Anda <strong>{{ $pengajuan1->status }}</strong>
-                    @if ($pengajuan1->dosen)
-                        oleh <strong>{{ $pengajuan1->dosen->nama }}</strong>.
+                    @if ($pengajuan1->status === 'cancelled')
+                        Pengajuan Anda <strong>dibatalkan otomatis</strong>
+                        @if ($pengajuan1->dosen)
+                            dengan <strong>{{ $pengajuan1->dosen->nama }}</strong>.
+                        @endif
+                    @else
+                        Pengajuan Anda <strong>{{ $pengajuan1->status }}</strong>
+                        @if ($pengajuan1->dosen)
+                            oleh <strong>{{ $pengajuan1->dosen->nama }}</strong>.
+                        @endif
                     @endif
                 </p>
+
+                {{-- Show cancellation message --}}
+                @if ($pengajuan1->status === 'cancelled')
+                    <div class="mt-3 p-3 bg-orange-100 border-l-4 border-orange-400 rounded">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-sm text-orange-700 font-medium">Pengajuan Dibatalkan Otomatis</p>
+                        </div>
+                        <p class="text-sm text-orange-600">
+                            Pengajuan telah dibatalkan karena dosen belum memberikan respons dalam 3 hari sejak pengajuan diajukan
+                            ({{ \Carbon\Carbon::parse($pengajuan1->tanggal_pengajuan)->format('d M Y') }}).
+                        </p>
+                        @if (!empty($pengajuan1->keterangan))
+                            <p class="text-xs text-orange-500 mt-2 italic">{{ $pengajuan1->keterangan }}</p>
+                        @endif
+                    </div>
+                @endif
 
                 {{-- Show rejection reason for Pembimbing 1 --}}
                 @if ($pengajuan1->status === 'ditolak' && !empty($pengajuan1->alasan_ditolak))
@@ -49,13 +81,23 @@
                     </div>
                 @endif
 
-                {{-- Fixed: Check $pengajuan1 status instead of $pengajuan2 --}}
-                @if ($pengajuan1->status === 'ditolak')
+                {{-- Show resubmission option for rejected or cancelled --}}
+                @if ($pengajuan1->status === 'ditolak' || $pengajuan1->status === 'cancelled')
                     <div class="text-sm text-gray-700 mt-3">
-                        Silakan ajukan ulang untuk memilih Dosen Pembimbing 1 yang lain.
+                        @if ($pengajuan1->status === 'cancelled')
+                            Anda dapat mengajukan kembali kepada dosen yang sama atau memilih dosen pembimbing lain.
+                        @else
+                            Silakan ajukan ulang untuk memilih Dosen Pembimbing 1 yang lain.
+                        @endif
                     </div>
                     <div class="mt-4 text-center">
-                        <a href="{{ url('/pengajuan') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Ajukan Ulang</a>
+                        <a href="{{ url('/pengajuan') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                            @if ($pengajuan1->status === 'cancelled')
+                                Ajukan Kembali
+                            @else
+                                Ajukan Ulang
+                            @endif
+                        </a>
                     </div>
                 @endif
 
@@ -74,6 +116,8 @@
                     border-green-500 bg-green-50
                 @elseif ($pengajuan2->status === 'ditolak')
                     border-red-500 bg-red-50
+                @elseif ($pengajuan2->status === 'cancelled')
+                    border-orange-500 bg-orange-50
                 @else
                     border-yellow-500 bg-yellow-50
                 @endif
@@ -83,6 +127,8 @@
                         text-green-700
                     @elseif ($pengajuan2->status === 'ditolak')
                         text-red-700
+                    @elseif ($pengajuan2->status === 'cancelled')
+                        text-orange-700
                     @else
                         text-yellow-700
                     @endif
@@ -93,15 +139,43 @@
                         text-green-700
                     @elseif ($pengajuan2->status === 'ditolak')
                         text-red-700
+                    @elseif ($pengajuan2->status === 'cancelled')
+                        text-orange-700
                     @else
                         text-yellow-700
                     @endif
                 ">
-                    Pengajuan Anda <strong>{{ $pengajuan2->status }}</strong>
-                    @if ($pengajuan2->dosen)
-                        oleh <strong>{{ $pengajuan2->dosen->nama }}</strong>.
+                    @if ($pengajuan2->status === 'cancelled')
+                        Pengajuan Anda <strong>dibatalkan otomatis</strong>
+                        @if ($pengajuan2->dosen)
+                            dengan <strong>{{ $pengajuan2->dosen->nama }}</strong>.
+                        @endif
+                    @else
+                        Pengajuan Anda <strong>{{ $pengajuan2->status }}</strong>
+                        @if ($pengajuan2->dosen)
+                            oleh <strong>{{ $pengajuan2->dosen->nama }}</strong>.
+                        @endif
                     @endif
                 </p>
+
+                {{-- Show cancellation message --}}
+                @if ($pengajuan2->status === 'cancelled')
+                    <div class="mt-3 p-3 bg-orange-100 border-l-4 border-orange-400 rounded">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-sm text-orange-700 font-medium">Pengajuan Dibatalkan Otomatis</p>
+                        </div>
+                        <p class="text-sm text-orange-600">
+                            Pengajuan telah dibatalkan karena dosen belum memberikan respons dalam 3 hari sejak pengajuan diajukan
+                            ({{ \Carbon\Carbon::parse($pengajuan2->tanggal_pengajuan)->format('d M Y') }}).
+                        </p>
+                        @if (!empty($pengajuan2->keterangan))
+                            <p class="text-xs text-orange-500 mt-2 italic">{{ $pengajuan2->keterangan }}</p>
+                        @endif
+                    </div>
+                @endif
 
                 {{-- Show rejection reason for Pembimbing 2 --}}
                 @if ($pengajuan2->status === 'ditolak' && !empty($pengajuan2->alasan_ditolak))
@@ -111,12 +185,22 @@
                     </div>
                 @endif
 
-                @if ($pengajuan2->status === 'ditolak')
+                @if ($pengajuan2->status === 'ditolak' || $pengajuan2->status === 'cancelled')
                     <div class="text-sm text-gray-700 mt-3">
-                        Silakan ajukan ulang untuk memilih Dosen Pembimbing 2 yang lain.
+                        @if ($pengajuan2->status === 'cancelled')
+                            Anda dapat mengajukan kembali kepada dosen yang sama atau memilih dosen pembimbing lain.
+                        @else
+                            Silakan ajukan ulang untuk memilih Dosen Pembimbing 2 yang lain.
+                        @endif
                     </div>
                     <div class="mt-4 text-center">
-                        <a href="{{ url('/pengajuan') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Ajukan Ulang</a>
+                        <a href="{{ url('/pengajuan') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                            @if ($pengajuan2->status === 'cancelled')
+                                Ajukan Kembali
+                            @else
+                                Ajukan Ulang
+                            @endif
+                        </a>
                     </div>
                 @endif
 
@@ -141,6 +225,24 @@
                 <a href="{{ url('/pengajuan') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition font-medium">Ajukan Sekarang</a>
             </div>
         @elseif (($pengajuan1 && $pengajuan1->status === 'pending') || ($pengajuan2 && $pengajuan2->status === 'pending'))
+            @php
+                $pendingCount = 0;
+                $pendingDays = [];
+
+                if ($pengajuan1 && $pengajuan1->status === 'pending') {
+                    $pendingCount++;
+                    $pendingDays[] = \Carbon\Carbon::parse($pengajuan1->tanggal_pengajuan)->diffInDays(now()) + 1;
+                }
+
+                if ($pengajuan2 && $pengajuan2->status === 'pending') {
+                    $pendingCount++;
+                    $pendingDays[] = \Carbon\Carbon::parse($pengajuan2->tanggal_pengajuan)->diffInDays(now()) + 1;
+                }
+
+                $maxDays = max($pendingDays);
+                $daysLeft = 3 - $maxDays + 1;
+            @endphp
+
             <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
                 <div class="flex items-center">
                     <svg class="w-5 h-5 text-blue-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -148,7 +250,22 @@
                     </svg>
                     <p class="text-sm text-blue-700 font-medium">Status: Menunggu Persetujuan</p>
                 </div>
-                <p class="text-sm text-blue-600 mt-1">Pengajuan Anda sedang dalam proses review oleh dosen pembimbing.</p>
+                <p class="text-sm text-blue-600 mt-1">
+                    Pengajuan Anda sedang dalam proses review oleh dosen pembimbing.
+                </p>
+                @if ($daysLeft > 0)
+                    <div class="mt-2 p-2 bg-blue-100 rounded">
+                        <p class="text-xs text-blue-700">
+                            <strong>Sisa waktu:</strong> {{ $daysLeft }} hari lagi sebelum pengajuan dibatalkan otomatis.
+                        </p>
+                    </div>
+                @else
+                    <div class="mt-2 p-2 bg-orange-100 rounded">
+                        <p class="text-xs text-orange-700">
+                            <strong>Perhatian:</strong> Pengajuan akan segera dibatalkan otomatis karena sudah melewati batas waktu 3 hari.
+                        </p>
+                    </div>
+                @endif
             </div>
         @elseif (($pengajuan1 && $pengajuan1->status === 'diterima') && ($pengajuan2 && $pengajuan2->status === 'diterima'))
             <div class="mt-6 p-4 bg-green-50 border-l-4 border-green-400 rounded">
@@ -159,9 +276,19 @@
                     <p class="text-sm text-green-700 font-medium">Selamat! Semua Pengajuan Diterima</p>
                 </div>
                 <p class="text-sm text-green-600 mt-1">Kedua dosen pembimbing telah menyetujui pengajuan Anda. Anda dapat melanjutkan ke tahap bimbingan.</p>
-                {{-- <div class="mt-3">
-                    <a href="{{ url('/bimbingan') }}" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition text-sm">Mulai Bimbingan</a>
-                </div> --}}
+            </div>
+        @elseif (($pengajuan1 && $pengajuan1->status === 'cancelled') || ($pengajuan2 && $pengajuan2->status === 'cancelled'))
+            <div class="mt-6 p-4 bg-orange-50 border-l-4 border-orange-400 rounded">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <p class="text-sm text-orange-700 font-medium">Ada Pengajuan yang Dibatalkan</p>
+                </div>
+                <p class="text-sm text-orange-600 mt-1">
+                    Beberapa pengajuan telah dibatalkan otomatis karena tidak ada respons dari dosen dalam 3 hari.
+                    Silakan ajukan kembali untuk melanjutkan proses.
+                </p>
             </div>
         @endif
     </div>

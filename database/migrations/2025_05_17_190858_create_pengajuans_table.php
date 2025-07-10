@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('topik_ta');
             $table->text('deskripsi_ta');
             $table->text('bidang');
-            $table->enum('status', ['proses', 'diterima', 'ditolak', 'pending'])->default('proses');
-            //alasan_ditolak
+            $table->enum('status', ['proses', 'diterima', 'ditolak', 'pending', 'cancelled'])->default('pending');
             $table->text('alasan_ditolak')->nullable();
             $table->date('tanggal_pengajuan');
             $table->timestamps();

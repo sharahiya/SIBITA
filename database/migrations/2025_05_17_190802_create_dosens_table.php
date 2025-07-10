@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_dosen');
             $table->string('nip', 18)->unique();
             $table->string('nama');
+            $table->string('email')->default('monevhmif@gmail.com');
             $table->string('bidang');
             $table->string('jabatan')->nullable();
             $table->integer('kuota_bimbingan')->default(0);

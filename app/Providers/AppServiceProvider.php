@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Notifikasi;
 use App\Models\Pengajuan;
+use App\Observers\PengajuanObserver;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('unreadNotifCount', $unreadCount);
             }
         });
+
+        Pengajuan::observe(PengajuanObserver::class);
     }
 }
 
