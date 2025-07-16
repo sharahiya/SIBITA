@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Notifikasi;
 use App\Models\Pengajuan;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -58,14 +59,14 @@ class PengajuanObserver
 
     private function checkAndCancelExpiredPengajuan(Pengajuan $pengajuan): void
     {
-        if($pengajuan->status !== 'pending'){
+        if ($pengajuan->status !== 'pending' && $pengajuan->status !== 'cancelled') {
             return;
         }
 
-        $dayPassed = Carbon::parse($pengajuan->tanggal_pengajuan)->diffInDays((now()));
+        $dayPassed = Carbon::parse($pengajuan->tanggal_pengajuan)->diffInDays(now());
 
-        if($dayPassed >= 3) {
-            try{
+        if ($dayPassed >= 3) {
+            try {
                 $pengajuan->status = 'cancelled';
                 $pengajuan->save();
 
@@ -74,15 +75,41 @@ class PengajuanObserver
                     'tanggal_pengajuan' => $pengajuan->tanggal_pengajuan,
                     'days_passed' => $dayPassed
                 ]);
-            }catch(\Exception $e){
 
+                // Notifikasi ke dosen
+                Notifikasi::create([
+                    'id_user' => $pengajuan->id_dosen,
+                    'role' => 'dosen',
+                    'tipe_notifikasi' => 'Pembatalan Pengajuan Bimbingan',
+                    'pesan' => 'Pengajuan bimbingan mahasiswa atas nama ' . $pengajuan->mahasiswa->nama .
+                        ' dengan topik "' . $pengajuan->topik_ta . '" dibatalkan secara otomatis karena tidak ditindaklanjuti dalam 3 hari.',
+                    'tanggal_kirim' => now(),
+                    'status_baca' => 'belum'
+                ]);
+
+                Notifikasi::create([
+                    'id_user' => $pengajuan->id_mahasiswa,
+                    'role' => 'mahasiswa',
+                    'tipe_notifikasi' => 'Pembatalan Pengajuan Bimbingan',
+                    'pesan' => 'Pengajuan bimbingan Anda ke dosen pembimbing ke-' . $pengajuan->dosen_ke .
+                        ' telah dibatalkan secara otomatis karena tidak ada tanggapan dalam 3 hari.',
+                    'tanggal_kirim' => now(),
+                    'status_baca' => 'belum'
+                ]);
+
+                Log::info('Notifikasi dan email berhasil dikirim', [
+                    'pengajuan_id' => $pengajuan->id_pengajuan,
+                    'dosen_id' => $pengajuan->dosen->id_dosen,
+                    'dosen_email' => $pengajuan->dosen->email ?? 'No email',
+                    'mahasiswa_nama' => $pengajuan->mahasiswa->nama
+                ]);
+
+            } catch (\Exception $e) {
                 Log::error('Failed to auto-cancel pengajuan', [
                     'id_pengajuan' => $pengajuan->id_pengajuan,
                     'error' => $e->getMessage()
                 ]);
             }
         }
-
     }
-
 }

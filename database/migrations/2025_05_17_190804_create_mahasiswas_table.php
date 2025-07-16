@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id('id_mahasiswa');
             $table->string('npm')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->default('sharahiya@mhs.usk.ac.id');
             $table->string('nama');
             $table->string('password');
             $table->year('angkatan');
